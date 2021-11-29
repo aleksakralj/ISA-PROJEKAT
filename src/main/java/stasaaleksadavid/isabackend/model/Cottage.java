@@ -1,28 +1,52 @@
 package stasaaleksadavid.isabackend.model;
+import javax.persistence.*;
 import java.util.ArrayList;
 
+@Entity
+@Table(name = "Cottages")
 public class Cottage {
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = "")
     private String name;
+
+    @Column(name = "")
     private String addres;
+
+    @Column(name = "")
     private String description;
+
+    @Column(name = "")
     private double rating;
+
+    @Column(name = "")
     private int numberOfRooms;
-    private ArrayList<CottageRoom> cottageRoomsData = new ArrayList<CottageRoom>();
+
+
+   // private ArrayList<CottageRoom> cottageRoomsData = new ArrayList<CottageRoom>();
+
+    @Column(name = "")
     private String rulesOfConduct;
+
+    @Column(name = "")
     private String pricelist;
-    private ArrayList<String> additionalServices = new ArrayList<String>();
+
+
+    //private ArrayList<String> additionalServices = new ArrayList<String>();
 
     public Cottage() {}
 
-    public Cottage(String id, String name, String addres, String description, double rating, int numberOfRooms) {
-        this.id = id;
+    public Cottage(String name, String addres, String description, double rating, int numberOfRooms, String rulesOfConduct, String pricelist) {
         this.name = name;
         this.addres = addres;
         this.description = description;
         this.rating = rating;
         this.numberOfRooms = numberOfRooms;
+        this.rulesOfConduct = rulesOfConduct;
+        this.pricelist = pricelist;
     }
 
     public String getName() {
@@ -57,11 +81,11 @@ public class Cottage {
         this.rating = rating;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
@@ -73,11 +97,11 @@ public class Cottage {
         this.numberOfRooms = numberOfRooms;
     }
 
-    public ArrayList<CottageRoom> getCottageRoomsData() {
-        return cottageRoomsData;
-    }
+  //  public ArrayList<CottageRoom> getCottageRoomsData() {
+    //    return cottageRoomsData;
+   // }
 
-    public void setCottageRoomsData(ArrayList<CottageRoom> cottageRoomsData) {
-        this.cottageRoomsData = cottageRoomsData;
-    }
+   // public void setCottageRoomsData(ArrayList<CottageRoom> cottageRoomsData) {
+    //    this.cottageRoomsData = cottageRoomsData;
+   // }
 }
