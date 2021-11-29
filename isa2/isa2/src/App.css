@@ -1,0 +1,245 @@
+.App {
+  text-align: center;
+  background-color: black;
+}
+
+
+.App-link {
+  color: #61dafb;
+}
+
+
+.footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #003323;
+  text-align: center;
+  color: white;
+}
+.header{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  background-color:#003323;
+  text-align: center;
+  color: white;
+}
+.menu {
+  position: absolute;
+  left: 0;
+  top:50px;
+  width: 280px;
+  height: 90%;
+  background-color:#318f6e;
+  text-align: center;
+  color: white;
+}
+
+.menu button{
+  background-color:#318f6e;  
+  width: 100%;
+  height:40px;
+  display: block;
+  outline: none;
+  text-align: center;
+  float: left;
+  padding: 0px 12px;
+  border: none;
+  font-size: 25px;
+
+}
+
+.menu button:hover{
+  background-color:#003323;
+}
+.menu button:active{
+  background-color:#003323;
+}
+
+.menubtnLog{
+  background-color:#318f6e;  
+  position:absolute;
+  bottom: 6px;
+  width: 100%;
+  height:40px;
+  display: block;
+  outline: none;
+  text-align: center;
+  float: left;
+  padding: 0px 12px;
+  border: none;
+  font-size: 25px;
+
+}
+.logindiv{
+  border: 2px outset black;
+  background-color: white;
+  height: 250px;
+  width: 500px;
+  margin: 0;
+  position:relative;
+  left: 30%;
+  top:150px;
+  border-radius: 10px;
+}
+
+.incomediv{
+  border: 2px outset black;
+  background-color: white;
+  height: 300px;
+  width: 500px;
+  margin: 0;
+  position:relative;
+  left: 30%;
+  top:150px;
+  border-radius: 10px;
+}
+
+.center {
+  margin: 0;
+  position:relative;
+  left: 40%;
+  top:15px;
+  
+
+}
+.changepercentagebtn{
+  background-color:#318f6e;
+  width: 170px;
+  height:40px;
+  border: none;
+  display: inline-block;
+  position: absolute;
+  left:-8%;
+}
+.loginbtn{
+  background-color:#318f6e;
+  width: 100px;
+  height:40px;
+  border: none;
+  display: inline-block;
+  
+}
+.noProfile{
+  background-color:white;
+  width: 500px;
+  height:40px;
+  border: none;
+  display: inline-block;
+  position: relative;
+  left: 42%;
+  top:200px;
+}
+.registerbtn{
+  background-color:white;
+  width: 200px;
+  height:60px;  
+  border: none;
+  display: inline-block;
+  position: relative;
+  left: 31%;
+  top:350px;
+}
+.registerbtn:hover{
+  background-color:#318f6e;
+}
+
+.registeruserbtn{
+  background-color:white;
+  width: 140px;
+  height:40px;  
+  border: none;
+  display: inline-block;
+  position: relative;
+  left: 44%;
+  top:200px;
+}
+.registeruserbtn:hover{
+  background-color:#318f6e;
+}
+.usebtn{
+  background-color:white;
+  width: 140px;
+  height:40px;
+  border: none;
+  display: inline-block;
+  position: relative;
+  left: 44%;
+  top:200px;
+}
+.usebtn:hover{
+  background-color:#318f6e;
+}
+.registrationdiv{
+  border: 2px outset black;
+  background-color: white;
+  height: 730px;
+  width: 500px;
+  margin: 0;
+  position:relative;
+  left: 30%;
+  top:150px;
+  border-radius: 10px;
+  
+}.registrationwaitdiv{
+  border: 2px outset black;
+  background-color: white;
+  height: 500px;
+  width: 500px;
+  margin: 0;
+  position:relative;
+  left: 30%;
+  top:150px;
+  border-radius: 10px;
+}
+.proceedbtn{
+  background-color:white;
+  width: 400px;
+  height:40px;  
+  border: none;
+  display: inline-block;
+  position: relative;
+  left:10%;
+  top:30px;
+}
+.proceedbtn:hover{
+  background-color:#318f6e;
+}
+
+.servicemore1{
+  border: black;
+  height: 100px;
+  width: 200px;
+  margin: 0;
+  position:relative;
+  left: -4%;
+  top:-320px;
+  
+}
+.servicemore2{
+  border: black;
+  height: 100px;
+  width: 200px;
+  margin: 0;
+  position:relative;
+  left: 40%;
+  top:-420px;
+  
+}
+.servicebtn{
+  background-color:white;
+  width: 200px;
+  height:60px;  
+  border: none;
+  display: inline-block;
+  position: relative;
+  left: 31%;
+  top:350px;
+  text-align: left;
+}
+.servicebtn:hover{
+  background-color:#318f6e;
+}
