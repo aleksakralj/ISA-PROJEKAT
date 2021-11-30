@@ -1,11 +1,11 @@
 package stasaaleksadavid.isabackend.model;
 
-import jdk.jfr.Enabled;
+
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Enabled
+@Entity
 @Table(name = "ShipsBusyTerms")
 public class ShipBusyTerms {
 
