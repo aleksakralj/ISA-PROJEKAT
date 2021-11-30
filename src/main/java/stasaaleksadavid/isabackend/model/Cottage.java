@@ -28,6 +28,7 @@ public class Cottage {
     @Column(name = "")
     private String rulesOfConduct;
 
+    //TO DO
     @Column(name = "")
     private String pricelist;
 
