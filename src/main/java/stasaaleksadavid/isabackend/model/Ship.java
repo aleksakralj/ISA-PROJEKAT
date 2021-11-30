@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 public class Ship {
 
-    private String id;
+    private long id;
+    private long ownerId;
     private String name;
     private String type;
     private int lenght;                  //cm
@@ -24,8 +25,9 @@ public class Ship {
 
     public Ship() {}
 
-    public Ship(String id, String name, String type, int lenght, int numberOfEngines, int enginePower, int maxSpeed, int capacity, String addres, String description, double rating, ArrayList<LocalDate> freeTerms, ArrayList<String> pricelist, ArrayList<String> additionalServices, String rulesOfConduct, String termsOfReservation) {
+    public Ship(long id,long ownerId ,String name, String type, int lenght, int numberOfEngines, int enginePower, int maxSpeed, int capacity, String addres, String description, double rating, ArrayList<LocalDate> freeTerms, ArrayList<String> pricelist, ArrayList<String> additionalServices, String rulesOfConduct, String termsOfReservation) {
         this.id = id;
+        this.ownerId= ownerId;
         this.name = name;
         this.type = type;
         this.lenght = lenght;
@@ -99,11 +101,19 @@ public class Ship {
         this.additionalServices = additionalServices;
     }
 
-    public String getId() {
+    public long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
