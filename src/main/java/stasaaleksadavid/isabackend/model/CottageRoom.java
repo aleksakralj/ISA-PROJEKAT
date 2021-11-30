@@ -1,11 +1,25 @@
 package stasaaleksadavid.isabackend.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "CottageRooms")
 public class CottageRoom {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "")
     private String name;
+
+    @Column(name = "")
     private int numberOfBeds;
+
+    @Column(name ="")
     private boolean isFree;
+
+    @Column(name = "")
     private long cottageId;
 
     public  CottageRoom() {}
