@@ -8,36 +8,36 @@ public class Ship {
     private String id;
     private String name;
     private String type;
-    private int lenght;                  //cm
+    private int length;                  //cm
     private int numberOfEngines;
     private int enginePower;
     private int maxSpeed;
     private int capacity;                //num of people
-    private String addres;
+    private String address;
     private String description;
     private double rating;
     private ArrayList<LocalDate> freeTerms = new ArrayList<LocalDate>();
-    private ArrayList<String> pricelist = new ArrayList<>();
+    private ArrayList<String> priceList = new ArrayList<>();
     private ArrayList<String> additionalServices = new ArrayList<>();
     private String rulesOfConduct;
     private String termsOfReservation;
 
     public Ship() {}
 
-    public Ship(String id, String name, String type, int lenght, int numberOfEngines, int enginePower, int maxSpeed, int capacity, String addres, String description, double rating, ArrayList<LocalDate> freeTerms, ArrayList<String> pricelist, ArrayList<String> additionalServices, String rulesOfConduct, String termsOfReservation) {
+    public Ship(String id, String name, String type, int length, int numberOfEngines, int enginePower, int maxSpeed, int capacity, String address, String description, double rating, ArrayList<LocalDate> freeTerms, ArrayList<String> priceList, ArrayList<String> additionalServices, String rulesOfConduct, String termsOfReservation) {
         this.id = id;
         this.name = name;
         this.type = type;
-        this.lenght = lenght;
+        this.length = length;
         this.numberOfEngines = numberOfEngines;
         this.enginePower = enginePower;
         this.maxSpeed = maxSpeed;
         this.capacity = capacity;
-        this.addres = addres;
+        this.address = address;
         this.description = description;
         this.rating = rating;
         this.freeTerms = freeTerms;
-        this.pricelist = pricelist;
+        this.priceList = priceList;
         this.additionalServices = additionalServices;
         this.rulesOfConduct = rulesOfConduct;
         this.termsOfReservation = termsOfReservation;
@@ -51,12 +51,12 @@ public class Ship {
         this.name = name;
     }
 
-    public String getAddres() {
-        return addres;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddres(String addres) {
-        this.addres = addres;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getDescription() {
@@ -83,13 +83,7 @@ public class Ship {
         this.freeTerms = freeTerms;
     }
 
-    public ArrayList<String> getPricelist() {
-        return pricelist;
-    }
 
-    public void setPricelist(ArrayList<String> pricelist) {
-        this.pricelist = pricelist;
-    }
 
     public ArrayList<String> getAdditionalServices() {
         return additionalServices;
@@ -115,13 +109,7 @@ public class Ship {
         this.type = type;
     }
 
-    public int getLenght() {
-        return lenght;
-    }
 
-    public void setLenght(int lenght) {
-        this.lenght = lenght;
-    }
 
     public int getNumberOfEngines() {
         return numberOfEngines;
@@ -169,5 +157,21 @@ public class Ship {
 
     public void setTermsOfReservation(String termsOfReservation) {
         this.termsOfReservation = termsOfReservation;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public ArrayList<String> getPriceList() {
+        return priceList;
+    }
+
+    public void setPriceList(ArrayList<String> priceList) {
+        this.priceList = priceList;
     }
 }

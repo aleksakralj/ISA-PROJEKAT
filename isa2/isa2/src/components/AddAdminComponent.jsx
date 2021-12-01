@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AdminProfileService from '../services/AdminProfileService';
 
 class AddAdminComponent extends Component {
     constructor(props){
@@ -6,15 +7,15 @@ class AddAdminComponent extends Component {
         this.state={
             email: '',
             password: '',
-            firstname:'',
-            lastname:'',
+            firstName:'',
+            lastName:'',
             address: '',
             city:'',
             country:'',
-            phonenumber:''
+            phoneNumber:''
             
         }
-        //treba da bude popunjeno podacima ulogovanog admina
+      
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
         this.changePasswordHandler = this.changePasswordHandler.bind(this);
         this.changePassword2Handler = this.changePassword2Handler.bind(this);
@@ -28,16 +29,24 @@ class AddAdminComponent extends Component {
 
         this.changePhoneNumberHandler = this.changePhoneNumberHandler.bind(this);
         
-       this.add=this.regreq.bind(this);
+       this.addAdmin=this.addAdmin.bind(this);
        this.adminprofile = this.adminprofile.bind(this);
        this.logout= this.logout.bind(this); 
        this.income= this.income.bind(this);
        this.addadmin= this.addadmin.bind(this);
        this.regreq= this.regreq.bind(this);
     }
-    add(){
-        this.props.history.push('/addadmin');
+
+    addAdmin= (e) => {
+        e.preventDefault();
+        let admin = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber}
+        console.log('admin => ' + JSON.stringify(admin));
+
+        AdminProfileService.createAdmin(admin).then(res=> {
+            this.props.history.push('/addadmin')
+        });
     }
+
 
     //admin profile dugme ne radi nista jer smo vec na profilu, ako bude trebao da refreshuje zbog necega onda cemo ga uraditi
     //kako loguot vratiti na pocetnu tj localhost?
@@ -57,7 +66,9 @@ class AddAdminComponent extends Component {
         this.props.history.push('/'); //ne znam kako ga ga vratim samo na localhost
     }
     
-    
+    changeEmailHandler = (event) => {
+        this.setState({email: event.target.value});
+    }
     changePasswordHandler = (event) => {
         this.setState({password: event.target.value});
     }
@@ -108,9 +119,9 @@ class AddAdminComponent extends Component {
                                 <input name="password2" className="form-control" value={this.state.password2} onChange={this.changePassword2Handler}/>
 
                                 <label> First name: </label>
-                                <input name="firstname" className="form-control" value={this.state.firstname} onChange={this.changeFirstNameHandler}/>
+                                <input name="firstName" className="form-control" value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
                                 <label> Last name: </label>
-                                <input name="lastname" className="form-control" value={this.state.lastname} onChange={this.changeLastNameHandler}/>
+                                <input name="lastName" className="form-control" value={this.state.lastName} onChange={this.changeLastNameHandler}/>
                                 
                                 <label> Address: </label>
                                 <input name="address" className="form-control" value={this.state.address} onChange={this.changeAddressHandler}/>
@@ -120,10 +131,10 @@ class AddAdminComponent extends Component {
                                 <input name="country" className="form-control" value={this.state.country} onChange={this.changeCountryHandler}/> 
 
                                 <label> Phone number: </label>
-                                <input name="phonenumber" className="form-control" value={this.state.phonenumber} onChange={this.changePhoneNumberHandler}/>
+                                <input name="phoneNumber" className="form-control" value={this.state.phoneNumber} onChange={this.changePhoneNumberHandler}/>
 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.add}>Add</button></div>
+                                <div className="center"><button className="loginbtn" onClick={this.addAdmin}>Add</button></div>
 
                 </div>
             </div>

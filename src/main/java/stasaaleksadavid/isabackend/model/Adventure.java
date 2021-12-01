@@ -6,26 +6,26 @@ import java.util.ArrayList;
 public class Adventure {
 
     private String name;
-    private String addres;
+    private String address;
     private String description;
     private String instructorBiography;
     private int maxPeople;
     private ArrayList<LocalDate> freeTerms = new ArrayList<LocalDate>();
     private String rulesOfConduct;
     private ArrayList<String> additionalEquipment = new ArrayList<String>();
-    private String pricelist;
+    private String priceList;
     private String termsOfReservation;
 
-    public Adventure(String name, String addres, String description, String instructorBiography, int maxPeople, ArrayList<LocalDate> freeTerms, String rulesOfConduct, ArrayList<String> additionalEquipment, String pricelist, String termsOfReservation) {
+    public Adventure(String name, String address, String description, String instructorBiography, int maxPeople, ArrayList<LocalDate> freeTerms, String rulesOfConduct, ArrayList<String> additionalEquipment, String priceList, String termsOfReservation) {
         this.name = name;
-        this.addres = addres;
+        this.address = address;
         this.description = description;
         this.instructorBiography = instructorBiography;
         this.maxPeople = maxPeople;
         this.freeTerms = freeTerms;
         this.rulesOfConduct = rulesOfConduct;
         this.additionalEquipment = additionalEquipment;
-        this.pricelist = pricelist;
+        this.priceList = priceList;
         this.termsOfReservation = termsOfReservation;
     }
 
@@ -37,12 +37,12 @@ public class Adventure {
         this.name = name;
     }
 
-    public String getAddres() {
-        return addres;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddres(String addres) {
-        this.addres = addres;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getDescription() {
@@ -93,12 +93,12 @@ public class Adventure {
         this.additionalEquipment = additionalEquipment;
     }
 
-    public String getPricelist() {
-        return pricelist;
+    public String getPriceList() {
+        return priceList;
     }
 
-    public void setPricelist(String pricelist) {
-        this.pricelist = pricelist;
+    public void setPriceList(String priceList) {
+        this.priceList = priceList;
     }
 
     public String getTermsOfReservation() {
@@ -108,4 +108,5 @@ public class Adventure {
     public void setTermsOfReservation(String termsOfReservation) {
         this.termsOfReservation = termsOfReservation;
     }
+
 }

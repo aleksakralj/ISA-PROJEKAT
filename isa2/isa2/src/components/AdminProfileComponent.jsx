@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
+import AdminProfileService from '../services/AdminProfileService';
 
 class AdminProfileComponent extends Component {
     constructor(props){
         super(props)
         this.state={
-            email: '',
-            password: '',
-            firstname:'',
-            lastname:'',
-            adress: '',
-            city:'',
-            country:'',
-            phonenumber:''
+            admins: []
             
         }
         //treba da bude popunjeno podacima ulogovanog admina
@@ -85,6 +79,11 @@ class AdminProfileComponent extends Component {
 
     changePhoneNumberHandler = (event) => {
         this.setState({phonenumber: event.target.value});
+    }
+    componentDidMount(){
+        AdminProfileService.getAdmins().then((res) => {
+            this.setState({admins: res.data})
+        });
     }
     render() {
         return (

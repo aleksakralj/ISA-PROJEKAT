@@ -18,6 +18,7 @@ import ServiceFreeReservationsComponent from './components/ServiceFreeReservatio
 import ServiceRulesComponent from './components/ServiceRulesComponent';
 import ServiceEquipmentComponent from './components/ServiceEquipmentComponent';
 import ServicePriceComponent from './components/ServicePriceComponent';
+import AllAdminsComponent from './components/AllAdminsComponent';
 function App() {
   return (
     <div>
@@ -42,6 +43,7 @@ function App() {
               <Route path = "/servicerules" component={ServiceRulesComponent}></Route>
               <Route path = "/serviceequipment" component={ServiceEquipmentComponent}></Route>
               <Route path = "/serviceprice" component={ServicePriceComponent}></Route>
+              <Route path = "/alladmins" component={AllAdminsComponent}></Route>
                   
             </Switch>
           </div>
