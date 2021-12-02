@@ -19,6 +19,7 @@ import ServiceRulesComponent from './components/ServiceRulesComponent';
 import ServiceEquipmentComponent from './components/ServiceEquipmentComponent';
 import ServicePriceComponent from './components/ServicePriceComponent';
 import AllAdminsComponent from './components/AllAdminsComponent';
+import UpdateAdminComponent from './components/UpdateAdminComponent';
 function App() {
   return (
     <div>
@@ -44,6 +45,7 @@ function App() {
               <Route path = "/serviceequipment" component={ServiceEquipmentComponent}></Route>
               <Route path = "/serviceprice" component={ServicePriceComponent}></Route>
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
+              <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
                   
             </Switch>
           </div>

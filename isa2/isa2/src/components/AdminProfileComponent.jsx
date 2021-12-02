@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AdminProfileService from '../services/AdminProfileService';
+import AdminService from '../services/AdminService';
 
 class AdminProfileComponent extends Component {
     constructor(props){
@@ -81,7 +81,7 @@ class AdminProfileComponent extends Component {
         this.setState({phonenumber: event.target.value});
     }
     componentDidMount(){
-        AdminProfileService.getAdmins().then((res) => {
+        AdminService.getAdmins().then((res) => {
             this.setState({admins: res.data})
         });
     }
@@ -91,7 +91,6 @@ class AdminProfileComponent extends Component {
                 
                 <div className="menu">
                 <button onClick={this.adminprofile} > Profile</button>
-                <button onClick={this.addadmin}> Add admin </button>
                 <button onClick={this.regreq}> Registration requests</button>
                 <button onClick={this.income}> Income </button>
 
