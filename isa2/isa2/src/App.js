@@ -18,9 +18,20 @@ import ServiceFreeReservationsComponent from './components/ServiceFreeReservatio
 import ServiceRulesComponent from './components/ServiceRulesComponent';
 import ServiceEquipmentComponent from './components/ServiceEquipmentComponent';
 import ServicePriceComponent from './components/ServicePriceComponent';
+import HomePageCommponent from './components/HomePageCommponent';
+import background from './images/pexels-ron-lach-10412889.jpg';
+
+
+const backStyle = {
+  width: '100%',
+  height: '800px',
+  backgroundImage: `url(${background})`,
+  backgroundSize: 'cover'
+};
+
 function App() {
   return (
-    <div>
+    <div style={backStyle}>
       <HeaderComponent />
       
         <Router>
@@ -42,8 +53,8 @@ function App() {
               <Route path = "/servicerules" component={ServiceRulesComponent}></Route>
               <Route path = "/serviceequipment" component={ServiceEquipmentComponent}></Route>
               <Route path = "/serviceprice" component={ServicePriceComponent}></Route>
-                  
-            </Switch>
+              <Route path = "/homepage" component={HomePageCommponent} ></Route>
+              </Switch>
           </div>
             
         </Router>

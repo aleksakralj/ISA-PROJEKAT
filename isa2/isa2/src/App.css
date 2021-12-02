@@ -85,6 +85,17 @@
   top:150px;
   border-radius: 10px;
 }
+.textrectangle{
+  border: 2px outset black;
+  background-color: whitesmoke;
+  margin: 0;
+  position: absolute;
+  top: 100px;
+  right: 100px;
+  width: 500px;
+  height: 500px;
+  border-radius: 10px;
+}
 
 .incomediv{
   border: 2px outset black;
@@ -243,3 +254,4 @@
 .servicebtn:hover{
   background-color:#318f6e;
 }
+
