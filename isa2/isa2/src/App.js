@@ -62,7 +62,7 @@ function App() {
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
                   
-         
+              </Switch>
 
           </div>
             

@@ -17,7 +17,7 @@ public class Adventure {
 
 
     @Column(name = "")
-    private String addres;
+    private String address;
 
     @Column(name = "")
     private String description;
@@ -38,7 +38,7 @@ public class Adventure {
 
     public  Adventure() {}
 
-    public Adventure(String name, String addres, String description/*, String instructorBiography*/, int maxPeople, ArrayList<LocalDate> freeTerms, String rulesOfConduct, ArrayList<String> additionalEquipment/* String pricelist*/, String termsOfReservation) {
+    public Adventure(String name, String address, String description/*, String instructorBiography*/, int maxPeople, ArrayList<LocalDate> freeTerms, String rulesOfConduct, ArrayList<String> additionalEquipment/* String pricelist*/, String termsOfReservation) {
 
         this.name = name;
         this.address = address;
