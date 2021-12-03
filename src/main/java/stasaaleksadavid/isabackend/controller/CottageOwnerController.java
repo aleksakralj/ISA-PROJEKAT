@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.CottageOwner;
 import stasaaleksadavid.isabackend.repository.CottageOwnerRepository;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
 public class CottageOwnerController {

@@ -42,6 +42,36 @@ class RegistrationRequestComponent extends Component {
         this.props.history.push(`/viewrequests/${id}`);
     }
     
+    
+    acceptRequest= (e) => {
+        //e.preventDefault();
+        //let registrationRequests = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type: this.state.type}
+        let registrationRequests = this.state.registrationRequests;
+        console.log('registrationRequests => ' + JSON.stringify(registrationRequests));
+
+        //const{type} = props
+        switch(registrationRequests.type){
+            case 'fishing_instructor':
+                RegistrationRequestService.createRegistrationRequestFI(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});
+            break;
+
+            case 'ship_owner':
+                RegistrationRequestService.createRegistrationRequestSO(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});
+            break;
+
+            case 'cottage_owner':
+                RegistrationRequestService.createRegistrationRequestCO(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});
+            break;
+
+            case 'user':
+                RegistrationRequestService.createRegistrationRequestU(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});
+            break;
+            
+            default :
+            
+        }
+        
+    }
 
     componentDidMount(){
        RegistrationRequestService.getRegistrationRequests().then((res)=>{
@@ -71,10 +101,6 @@ class RegistrationRequestComponent extends Component {
                                 <th>Email</th>
                                 <th>First name</th>
                                 <th>Last name</th>
-                                <th>Address</th>
-                                <th>City</th>
-                                <th>Country</th>
-                                <th>Phone number</th>
                                 <th>Type</th>
                                 <th>Action</th>
                             </tr>
@@ -87,11 +113,9 @@ class RegistrationRequestComponent extends Component {
                                         <td>{registrationRequests.email}</td>
                                         <td>{registrationRequests.firstName} </td>
                                         <td>{registrationRequests.lastName} </td>
-                                        <td>{registrationRequests.address} </td>
-                                        <td>{registrationRequests.city} </td>
-                                        <td>{registrationRequests.country} </td>
-                                        <td>{registrationRequests.phoneNumber} </td>
+                                        
                                         <td>{registrationRequests.type} </td>
+                                        
                                         <td><button onClick={()=>this.denyRequest(registrationRequests.id)} className="loginbtn">Deny</button></td>
                                         <td><button onClick={()=>this.viewRequest(registrationRequests.id)} className="loginbtn">View details</button></td>
                                     </tr>

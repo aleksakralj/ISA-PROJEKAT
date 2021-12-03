@@ -46,29 +46,37 @@ class ViewRegistrationRequestComponent extends Component {
     logout(){
         this.props.history.push('/'); //ne znam kako ga ga vratim samo na localhost
     }
+    denyRequest(id){
+        RegistrationRequestService.deleteRegistrationRequest(id).then(res=>{
+                this.setState({registrationRequests: this.state.registrationRequests.filter(request=>request.id !==id)});
+                this.props.history.push("/registrationrequests"); // refresh ne radi nzm zasto
+        });
+    }
     acceptRequest= (e) => {
         e.preventDefault();
         let registrationRequests = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type: this.state.type}
         console.log('registrationRequests => ' + JSON.stringify(registrationRequests));
-        if(registrationRequests.type=="cottage_owner"){
-         RegistrationRequestService.createRegistrationRequestCO(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});   
-        } 
-        //const{type} = props 
+
+        //const{type} = props
         switch(registrationRequests.type){
             case 'fishing_instructor':
-                RegistrationRequestService.createRegistrationRequestFI(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});
+                RegistrationRequestService.createRegistrationRequestFI(registrationRequests).then((res)=>{this.props.history.push('/registrationrequests')});
+                this.denyRequest(this.props.match.params.id);
             break;
 
             case 'ship_owner':
-                RegistrationRequestService.createRegistrationRequestSO(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});
+                RegistrationRequestService.createRegistrationRequestSO(registrationRequests).then((res)=>{this.props.history.push('/registrationrequests')});
+                this.denyRequest(this.props.match.params.id);
             break;
 
             case 'cottage_owner':
-                RegistrationRequestService.createRegistrationRequestCO(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});
+                RegistrationRequestService.createRegistrationRequestCO(registrationRequests).then((res)=>{this.props.history.push('/registrationrequests')});
+                this.denyRequest(this.props.match.params.id);
             break;
 
             case 'user':
-                RegistrationRequestService.createRegistrationRequestU(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});
+                RegistrationRequestService.createRegistrationRequestU(registrationRequests).then((res)=>{this.props.history.push('/registrationrequests')});
+                this.denyRequest(this.props.match.params.id);
             break;
             
             default :
