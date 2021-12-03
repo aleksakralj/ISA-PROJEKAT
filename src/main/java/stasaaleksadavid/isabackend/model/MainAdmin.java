@@ -18,19 +18,19 @@ public class MainAdmin {
     @Column(name = "First_Name")
     private String firstName;
 
-    @Column(name = "Surname")
-    private String surname;
+    @Column(name = "Last_Name")
+    private String lastName;
 
     @Column(name = "Date_Of_Birth")
     private LocalDate dateOfBirth;
 
-    @Column(name = "E_Mail")
-    private String eMail;
+    @Column(name = "Email")
+    private String email;
 
     @Column(name = "Phone_Number")
     private String phoneNumber;
 
-    @Column(name = "Adress")
+    @Column(name = "Address")
     private String address;
 
     @Column(name = "City")
@@ -43,13 +43,13 @@ public class MainAdmin {
     public MainAdmin() {
     }
 
-    public MainAdmin(String password, String firstName, String surname, LocalDate dateOfBirth, String eMail, String phoneNumber, String address, String city, String country) {
+    public MainAdmin(String password, String firstName, String lastName, LocalDate dateOfBirth, String email, String phoneNumber, String address, String city, String country) {
         super();
         this.password = password;
         this.firstName = firstName;
-        this.surname = surname;
+        this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.eMail = eMail;
+        this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.city = city;
@@ -82,13 +82,7 @@ public class MainAdmin {
         this.firstName = name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
 
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
@@ -98,13 +92,7 @@ public class MainAdmin {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String geteMail() {
-        return eMail;
-    }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -136,5 +124,29 @@ public class MainAdmin {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
