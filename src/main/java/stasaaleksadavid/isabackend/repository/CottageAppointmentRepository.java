@@ -2,8 +2,8 @@ package stasaaleksadavid.isabackend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import stasaaleksadavid.isabackend.model.Cottage;
+import stasaaleksadavid.isabackend.model.CottageAppointment;
 
 @Repository
-public interface CottageRepository extends JpaRepository<Cottage, Long> {
+public interface CottageAppointmentRepository extends JpaRepository<CottageAppointment, Long> {
 }
