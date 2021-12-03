@@ -47,7 +47,7 @@ class IncomeComponent extends Component {
             <div>
                 <div className="menu">
                 <button onClick={this.adminprofile} > Profile</button>
-                <button onClick={this.addadmin}> Add admin </button>
+                
                 <button onClick={this.regreq}> Registration requests</button>
                 <button onClick={this.income}> Income </button>
 

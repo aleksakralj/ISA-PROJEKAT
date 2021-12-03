@@ -19,19 +19,19 @@ public class CottageOwner {
     @Column(name = "First_Name")
     private String firstName;
 
-    @Column(name = "Surname")
-    private String surname;
+    @Column(name = "Last_Name")
+    private String lastName;
 
     @Column(name = "Date_Of_Birth")
     private LocalDate dateOfBirth;
 
-    @Column(name = "E_Mail")
-    private String eMail;
+    @Column(name = "Email")
+    private String email;
 
     @Column(name = "Phone_Number")
     private String phoneNumber;
 
-    @Column(name = "Adress")
+    @Column(name = "Address")
     private String address;
 
     @Column(name = "City")
@@ -43,13 +43,13 @@ public class CottageOwner {
     public CottageOwner() {    }
 
 
-    public CottageOwner(String password, String firstName, String surname, LocalDate dateOfBirth, String eMail, String phoneNumber, String address, String city, String country) {
+    public CottageOwner(String password, String firstName, String lastName, LocalDate dateOfBirth, String email, String phoneNumber, String address, String city, String country) {
         super();
         this.password = password;
         this.firstName = firstName;
-        this.surname = surname;
+        this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.eMail = eMail;
+        this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.city = city;
@@ -80,12 +80,12 @@ public class CottageOwner {
         this.firstName = firstName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
     public void setSurname(String surname) {
-        this.surname = surname;
+        this.lastName = lastName;
     }
 
     public LocalDate getDateOfBirth() {
@@ -96,12 +96,16 @@ public class CottageOwner {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String geteMail() {
-        return eMail;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPhoneNumber() {

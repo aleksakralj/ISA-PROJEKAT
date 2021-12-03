@@ -16,6 +16,7 @@ public class Ship {
     @Column(name = "")
     private String name;
 
+
     @Column(name = "")
     private String addres;
 
@@ -24,6 +25,7 @@ public class Ship {
 
     @Column(name = "")
     private double rating;
+
 
     @Column(name = "")
     private String rulesOfConduct;
@@ -34,6 +36,7 @@ public class Ship {
     public Ship() {}
 
     public Ship(long id,long ownerId ,String name,/* String type, int lenght, int numberOfEngines, int enginePower, int maxSpeed, int capacity,*/ String addres, String description, double rating,/* ArrayList<LocalDate> freeTerms, ArrayList<String> pricelist, ArrayList<String> additionalServices, */String rulesOfConduct, String termsOfReservation) {
+
         this.id = id;
         this.ownerId= ownerId;
         this.name = name;
@@ -52,12 +55,12 @@ public class Ship {
         this.name = name;
     }
 
-    public String getAddres() {
-        return addres;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddres(String addres) {
-        this.addres = addres;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getDescription() {
@@ -76,8 +79,10 @@ public class Ship {
         this.rating = rating;
     }
 
+
     public long getOwnerId() {
         return ownerId;
+
     }
 
     public void setOwnerId(long ownerId) {
@@ -106,5 +111,21 @@ public class Ship {
 
     public void setTermsOfReservation(String termsOfReservation) {
         this.termsOfReservation = termsOfReservation;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public ArrayList<String> getPriceList() {
+        return priceList;
+    }
+
+    public void setPriceList(ArrayList<String> priceList) {
+        this.priceList = priceList;
     }
 }

@@ -10,7 +10,7 @@ class RegistrationRequestComponent extends Component {
         this.adminprofile = this.adminprofile.bind(this);
         this.logout= this.logout.bind(this); 
         this.income= this.income.bind(this);
-        this.addadmin= this.addadmin.bind(this);
+        
         this.regreq= this.regreq.bind(this);
     }
     componentDidMount(){
@@ -23,9 +23,7 @@ class RegistrationRequestComponent extends Component {
     adminprofile(){
         this.props.history.push('/adminprofile');
     }
-    addadmin(){
-        this.props.history.push('/addadmin');
-    }
+
     regreq(){
         this.props.history.push('/registrationrequests');
     }
@@ -43,7 +41,6 @@ class RegistrationRequestComponent extends Component {
         <div>
             <div className="menu">
                 <button onClick={this.adminprofile} > Profile</button>
-                <button onClick={this.addadmin}> Add admin </button>
                 <button onClick={this.regreq}> Registration requests</button>
                 <button onClick={this.income}> Income </button>
 
@@ -58,9 +55,13 @@ class RegistrationRequestComponent extends Component {
                     <table className = "table table-striped table-borderd">
                         <thead>
                             <tr>
-                                <th>Id </th>
-                                <th>E-mail</th>
-                                <th>Password</th>
+                                <th>Email</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>Country</th>
+                                <th>Phone number</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -68,9 +69,14 @@ class RegistrationRequestComponent extends Component {
                             {
                                 this.state.registrationRequests.map(
                                     registrationRequest =>
-                                    <tr key= {registrationRequest.Id}>
-                                        <td>{registrationRequest.Email}</td>
-                                        <td>{registrationRequest.Password} </td>
+                                    <tr key= {registrationRequest.id}>
+                                        <td>{registrationRequest.email}</td>
+                                        <td>{registrationRequest.firstName} </td>
+                                        <td>{registrationRequest.lastName} </td>
+                                        <td>{registrationRequest.address} </td>
+                                        <td>{registrationRequest.city} </td>
+                                        <td>{registrationRequest.country} </td>
+                                        <td>{registrationRequest.phoneNumber} </td>
                                     </tr>
                                 )
                             }

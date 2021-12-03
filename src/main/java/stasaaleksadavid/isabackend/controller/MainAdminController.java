@@ -20,4 +20,6 @@ public class MainAdminController {
     //get all
     @GetMapping("/mainadmins")
     public List<MainAdmin> getAllMainAdmins(){return mainAdminRepository.findAll();}
+
+
 }
