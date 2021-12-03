@@ -29,9 +29,7 @@ class AdminProfileComponent extends Component {
         this.addadmin= this.addadmin.bind(this);
         this.regreq= this.regreq.bind(this);
     }
-    update(){
-        this.props.history.push('/adminprofile');
-    }
+    
 
     //admin profile dugme ne radi nista jer smo vec na profilu, ako bude trebao da refreshuje zbog necega onda cemo ga uraditi
     //kako loguot vratiti na pocetnu tj localhost?

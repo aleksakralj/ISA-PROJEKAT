@@ -43,6 +43,7 @@ public class RegistrationRequest {
 
 
     public RegistrationRequest(String password, String firstName, String lastName, LocalDate dateOfBirth, String email, String phoneNumber, String address, String city, String country, String type) {
+        super();
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;

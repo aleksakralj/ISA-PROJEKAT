@@ -21,6 +21,7 @@ import ServicePriceComponent from './components/ServicePriceComponent';
 
 import AllAdminsComponent from './components/AllAdminsComponent';
 import UpdateAdminComponent from './components/UpdateAdminComponent';
+import ViewRegistrationRequestComponent from './components/ViewRegistrationRequestComponent';
 
 import HomePageCommponent from './components/HomePageCommponent';
 import background from './images/pexels-ron-lach-10412889.jpg';
@@ -61,6 +62,8 @@ function App() {
               <Route path = "/homepage" component={HomePageCommponent} ></Route>
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
+              <Route path = "/viewrequests/:id" component={ViewRegistrationRequestComponent}></Route>
+              
                   
               </Switch>
 
