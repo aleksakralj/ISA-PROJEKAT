@@ -1,31 +1,50 @@
 package stasaaleksadavid.isabackend.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+@Entity
+@Table(name = "")
 public class Adventure {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = "")
     private String name;
-    private String address;
+
+
+    @Column(name = "")
+    private String addres;
+
+    @Column(name = "")
     private String description;
-    private String instructorBiography;
+
+    @Column(name = "")
     private int maxPeople;
-    private ArrayList<LocalDate> freeTerms = new ArrayList<LocalDate>();
+
+
+    @Column(name = "")
     private String rulesOfConduct;
-    private ArrayList<String> additionalEquipment = new ArrayList<String>();
-    private String priceList;
+
+
+    @Column(name = "")
     private String termsOfReservation;
 
-    public Adventure(String name, String address, String description, String instructorBiography, int maxPeople, ArrayList<LocalDate> freeTerms, String rulesOfConduct, ArrayList<String> additionalEquipment, String priceList, String termsOfReservation) {
+    @Column(name = "")
+    private long instructorId;
+
+    public  Adventure() {}
+
+    public Adventure(String name, String addres, String description/*, String instructorBiography*/, int maxPeople, ArrayList<LocalDate> freeTerms, String rulesOfConduct, ArrayList<String> additionalEquipment/* String pricelist*/, String termsOfReservation) {
+
         this.name = name;
         this.address = address;
         this.description = description;
-        this.instructorBiography = instructorBiography;
         this.maxPeople = maxPeople;
-        this.freeTerms = freeTerms;
         this.rulesOfConduct = rulesOfConduct;
-        this.additionalEquipment = additionalEquipment;
-        this.priceList = priceList;
         this.termsOfReservation = termsOfReservation;
     }
 
@@ -53,28 +72,12 @@ public class Adventure {
         this.description = description;
     }
 
-    public String getInstructorBiography() {
-        return instructorBiography;
-    }
-
-    public void setInstructorBiography(String instructorBiography) {
-        this.instructorBiography = instructorBiography;
-    }
-
     public int getMaxPeople() {
         return maxPeople;
     }
 
     public void setMaxPeople(int maxPeople) {
         this.maxPeople = maxPeople;
-    }
-
-    public ArrayList<LocalDate> getFreeTerms() {
-        return freeTerms;
-    }
-
-    public void setFreeTerms(ArrayList<LocalDate> freeTerms) {
-        this.freeTerms = freeTerms;
     }
 
     public String getRulesOfConduct() {
@@ -85,21 +88,6 @@ public class Adventure {
         this.rulesOfConduct = rulesOfConduct;
     }
 
-    public ArrayList<String> getAdditionalEquipment() {
-        return additionalEquipment;
-    }
-
-    public void setAdditionalEquipment(ArrayList<String> additionalEquipment) {
-        this.additionalEquipment = additionalEquipment;
-    }
-
-    public String getPriceList() {
-        return priceList;
-    }
-
-    public void setPriceList(String priceList) {
-        this.priceList = priceList;
-    }
 
     public String getTermsOfReservation() {
         return termsOfReservation;

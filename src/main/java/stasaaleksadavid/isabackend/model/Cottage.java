@@ -25,17 +25,13 @@ public class Cottage {
     @Column(name = "")
     private int numberOfRooms;
 
-
-   // private ArrayList<CottageRoom> cottageRoomsData = new ArrayList<CottageRoom>();
-
     @Column(name = "")
     private String rulesOfConduct;
 
+    //TO DO
     @Column(name = "")
     private String priceList;
 
-
-    //private ArrayList<String> additionalServices = new ArrayList<String>();
 
     public Cottage() {}
 
@@ -97,11 +93,5 @@ public class Cottage {
         this.numberOfRooms = numberOfRooms;
     }
 
-  //  public ArrayList<CottageRoom> getCottageRoomsData() {
-    //    return cottageRoomsData;
-   // }
 
-   // public void setCottageRoomsData(ArrayList<CottageRoom> cottageRoomsData) {
-    //    this.cottageRoomsData = cottageRoomsData;
-   // }
 }

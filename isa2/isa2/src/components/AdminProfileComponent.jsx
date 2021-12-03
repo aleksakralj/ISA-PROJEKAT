@@ -127,7 +127,7 @@ class AdminProfileComponent extends Component {
                 </div>
             </div>
 
-        );
+        )   ;
     }
 }
 
