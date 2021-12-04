@@ -4,10 +4,17 @@ class CottageOwnerProfileComponent extends Component {
     constructor(props){
         super(props)
         this.state={
-            cottageOwners: []
+            email: '',
+            password: '',
+            firstName:'',
+            lastName:'',
+            address: '',
+            city:'',
+            country:'',
+            phoneNumber:'',
             
         }
-        //treba da bude popunjeno podacima ulogovanog admina
+        
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
         this.changePasswordHandler = this.changePasswordHandler.bind(this);
         this.changePassword2Handler = this.changePassword2Handler.bind(this);
@@ -61,9 +68,14 @@ class CottageOwnerProfileComponent extends Component {
         this.setState({phonenumber: event.target.value});
     }
     componentDidMount(){
-        CottageOwnerService.getCottageOwners().then((res) => {
+        CottageOwnerService.getCottageOwner().then((res) => {
             this.setState({cottageOwner: res.data})
         });
+
+    }
+
+    update(id){
+        this.props.history.push(`/updatecottageowner/${id}`);
     }
     render() {
         return (

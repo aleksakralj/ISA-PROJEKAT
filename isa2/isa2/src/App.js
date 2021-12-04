@@ -25,8 +25,10 @@ import ViewRegistrationRequestComponent from './components/ViewRegistrationReque
 
 import HomePageCommponent from './components/HomePageCommponent';
 import background from './images/pexels-ron-lach-10412889.jpg';
-import CottageOwnerProfileComponent from './components/CottageOwnerProfile';
-
+import CottageOwnerProfileComponent from './components/CottageOwnerProfileComponent';
+import CottageProfileComponent from './components/CottageProfileComponent';
+import RoomProfileComponent from './components/RoomProfileComponent';
+import AllRoomsComponent from './components/AllRoomsComponent';
 
 const backStyle = {
   width: '100%',
@@ -64,8 +66,10 @@ function App() {
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
               <Route path = "/viewrequests/:id" component={ViewRegistrationRequestComponent}></Route>
-              <Route path = "/cottageownerprofile" component={CottageOwnerProfileComponent}></Route>
-              
+              <Route path = "/cottageownerprofile/:id" component={CottageOwnerProfileComponent}></Route>
+              <Route path = "/cottageprofile/:id" component={CottageProfileComponent}></Route>
+              <Route path = "/roomprofile/:id" component={RoomProfileComponent}></Route>
+              <Route path = "/allrooms" component={AllRoomsComponent}></Route>
                   
               </Switch>
 
