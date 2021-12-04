@@ -25,6 +25,7 @@ import ViewRegistrationRequestComponent from './components/ViewRegistrationReque
 
 import HomePageCommponent from './components/HomePageCommponent';
 import background from './images/pexels-ron-lach-10412889.jpg';
+import CottageOwnerProfileComponent from './components/CottageOwnerProfile';
 
 
 const backStyle = {
@@ -63,6 +64,7 @@ function App() {
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
               <Route path = "/viewrequests/:id" component={ViewRegistrationRequestComponent}></Route>
+              <Route path = "/cottageownerprofile" component={CottageOwnerProfileComponent}></Route>
               
                   
               </Switch>
