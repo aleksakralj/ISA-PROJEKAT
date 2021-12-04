@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import AdminService from '../services/AdminService';
-
+import CottageOwnerService from '../services/CottageOwnerService';
 class CottageOwnerProfileComponent extends Component {
     constructor(props){
         super(props)
