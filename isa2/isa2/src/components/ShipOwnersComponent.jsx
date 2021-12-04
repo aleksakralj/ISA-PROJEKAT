@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
-import CottageOwnerService from '../services/CottageOwnerService';
-class CottageOwnersComponent extends Component {
+import ShipOwnerService from '../services/ShipOwnerService';
+class ShipOwnersComponent extends Component {
     constructor(props){
         super(props)
         this.state = {
-            cottageOwners:[]
+            shipOwners:[]
         }
          
     }
-    deleteCottageOwner(id){
-        CottageOwnerService.deleteCottageOwner(id).then(res=>{
-                this.setState({cottageOwners: this.state.cottageOwners.filter(cottageowner=>cottageowner.id !==id)});
-                this.props.history.push("/cottageowners"); // refresh ne radi nzm zasto
+    deleteShipOwner(id){
+        ShipOwnerService.deleteShipOwner(id).then(res=>{
+                this.setState({shipOwners: this.state.shipOwners.filter(shipowner=>shipowner.id !==id)});
+                this.props.history.push("/shipowners"); // refresh ne radi nzm zasto
         });
     }
+    
     componentDidMount(){
-        CottageOwnerService.getCottageOwners().then((res)=>{
-                 this.setState({cottageOwners: res.data});
+        ShipOwnerService.getShipOwners().then((res)=>{
+                 this.setState({shipOwners: res.data});
          });
      } 
     render() {
@@ -24,7 +25,7 @@ class CottageOwnersComponent extends Component {
             <div>
              
                 <br/><br/><br/><br/><br/><br/>
-                <h2 className="text-center">Cottage owners</h2>
+                <h2 className="text-center">Ship owners</h2>
 
                     <div className="row">
                         <table className = "table table-striped table-borderd">
@@ -43,20 +44,20 @@ class CottageOwnersComponent extends Component {
                             </thead>
                             <tbody>
                                 {
-                                    this.state.cottageOwners.map(
-                                        cottageOwners =>
-                                        <tr key= {cottageOwners.id}>
-                                            <td>{cottageOwners.email}</td>
-                                            <td>{cottageOwners.firstName} </td>
-                                            <td>{cottageOwners.lastName} </td>
-                                            <td>{cottageOwners.address} </td>
-                                            <td>{cottageOwners.city} </td>
-                                            <td>{cottageOwners.country} </td>
-                                            <td>{cottageOwners.phoneNumber} </td>
+                                    this.state.shipOwners.map(
+                                        shipOwners =>
+                                        <tr key= {shipOwners.id}>
+                                            <td>{shipOwners.email}</td>
+                                            <td>{shipOwners.firstName} </td>
+                                            <td>{shipOwners.lastName} </td>
+                                            <td>{shipOwners.address} </td>
+                                            <td>{shipOwners.city} </td>
+                                            <td>{shipOwners.country} </td>
+                                            <td>{shipOwners.phoneNumber} </td>
                                             
                                             
                                             
-                                            <td><button onClick={()=>this.deleteCottageOwner(cottageOwners.id)} className="loginbtn">Delete</button></td>
+                                            <td><button onClick={()=>this.deleteShipOwner(shipOwners.id)} className="loginbtn">Delete</button></td>
                                             
                                         </tr>
                                     )
@@ -70,4 +71,4 @@ class CottageOwnersComponent extends Component {
     }
 }
 
-export default CottageOwnersComponent;
+export default ShipOwnersComponent;

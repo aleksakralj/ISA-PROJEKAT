@@ -26,7 +26,9 @@ import ViewRegistrationRequestComponent from './components/ViewRegistrationReque
 import HomePageCommponent from './components/HomePageCommponent';
 import background from './images/pexels-ron-lach-10412889.jpg';
 import CottageOwnerProfileComponent from './components/CottageOwnerProfile';
-
+import CottageOwnersComponent from './components/CottageOwnersComponent';
+import ShipOwnersComponent from './components/ShipOwnersComponent';
+import FishingInstructorsComponent from './components/FishingInstructorsComponent';
 
 const backStyle = {
   width: '100%',
@@ -65,6 +67,9 @@ function App() {
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
               <Route path = "/viewrequests/:id" component={ViewRegistrationRequestComponent}></Route>
               <Route path = "/cottageownerprofile" component={CottageOwnerProfileComponent}></Route>
+              <Route path = "/cottageowners" component={CottageOwnersComponent}></Route>
+              <Route path = "/shipowners" component={ShipOwnersComponent}></Route>
+              <Route path = "/fishinginstructors" component={FishingInstructorsComponent}></Route>
               
                   
               </Switch>

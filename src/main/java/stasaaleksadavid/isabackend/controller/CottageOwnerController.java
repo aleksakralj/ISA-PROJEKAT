@@ -68,4 +68,12 @@ public class CottageOwnerController {
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
+
+    // find by email and password
+
+    @GetMapping("/cottageowners/login")
+    public ResponseEntity<CottageOwner> getCottageOwnerByEmailAndPassword(@RequestBody String email,@RequestBody String password){
+        CottageOwner cottageOwner = cottageOwnerRepository.findByEmailAndPassword(email,password);
+        return ResponseEntity.ok(cottageOwner);
+    }
 }

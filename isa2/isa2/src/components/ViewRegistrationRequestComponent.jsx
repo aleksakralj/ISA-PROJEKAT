@@ -15,7 +15,8 @@ class ViewRegistrationRequestComponent extends Component {
             city:'',
             country:'',
             phoneNumber:'',
-            type:''
+            type:'',
+            reason:''
             
             
         }
@@ -96,7 +97,8 @@ class ViewRegistrationRequestComponent extends Component {
                 city: request.city,
                 country: request.country,
                 phoneNumber: request.phoneNumber,
-                type:request.type
+                type:request.type,
+                reason:request.reason
 
             });
         });
@@ -118,16 +120,15 @@ class ViewRegistrationRequestComponent extends Component {
                                 <input name="email" className="form-control" value={this.state.email} />
                                 <label> Password: </label>
                                 <input name="password" className="form-control" value={this.state.password} />
-                                <label> Password again: </label>
-                                <input name="password2" className="form-control" value={this.state.password2} />
+                                
 
                                 <label> First name: </label>
                                 <input name="firstname" className="form-control" value={this.state.firstName} />
                                 <label> Last name: </label>
                                 <input name="lastname" className="form-control" value={this.state.lastName} />
                                 
-                                <label> Adress: </label>
-                                <input name="adress" className="form-control" value={this.state.address}/>
+                                <label> Address: </label>
+                                <input name="address" className="form-control" value={this.state.address}/>
                                 <label> City: </label>
                                 <input name="city" className="form-control" value={this.state.city} />   
                                 <label> Country: </label>
@@ -138,6 +139,10 @@ class ViewRegistrationRequestComponent extends Component {
 
                                 <label> Type: </label>
                                 <input name="type" className="form-control" value={this.state.type}/>
+
+                                <label> Reason: </label>
+                                <input name="reason" className="form-control" value={this.state.reason}/>
+
 
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={this.acceptRequest}>Accept</button></div>

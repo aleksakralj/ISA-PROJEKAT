@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import LoginService from '../services/LoginService';
 
 class LoginComponent extends Component {
     constructor(props){
         super(props)
         this.state={
-            email: '',
-            password: ''
+           email: '',
+           password: ''
+            
         }
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
         this.changePasswordHandler = this.changePasswordHandler.bind(this);
@@ -16,7 +18,10 @@ class LoginComponent extends Component {
     }
     login(){
         //ovde ce se raditi i proveravanje da li postoji i koji je on u bazi, rahimov video: 1:40
-        this.props.history.push('/adminprofile');
+        //NE RADI VAJ?
+        let cottageOwnerId =LoginService.getCottageOwner().Id;
+       
+        this.props.history.push(`/cotatgeownerprofile/${cottageOwnerId}`);
     }
 
     registeruser(){
@@ -35,6 +40,7 @@ class LoginComponent extends Component {
     changePasswordHandler = (event) => {
         this.setState({password: event.target.value});
     }
+    
     render() {
         return (
             <div><br/><br/><br/><br/>
