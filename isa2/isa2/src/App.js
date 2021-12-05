@@ -18,17 +18,19 @@ import ServiceFreeReservationsComponent from './components/ServiceFreeReservatio
 import ServiceRulesComponent from './components/ServiceRulesComponent';
 import ServiceEquipmentComponent from './components/ServiceEquipmentComponent';
 import ServicePriceComponent from './components/ServicePriceComponent';
-
 import AllAdminsComponent from './components/AllAdminsComponent';
 import UpdateAdminComponent from './components/UpdateAdminComponent';
 import ViewRegistrationRequestComponent from './components/ViewRegistrationRequestComponent';
-
 import HomePageCommponent from './components/HomePageCommponent';
 import background from './images/pexels-ron-lach-10412889.jpg';
-import CottageOwnerProfileComponent from './components/CottageOwnerProfile';
+import CottageOwnerProfileComponent from './components/CottageOwnerProfileComponent';
+import CottageProfileComponent from './components/CottageProfileComponent';
+import RoomProfileComponent from './components/RoomProfileComponent';
+import AllRoomsComponent from './components/AllRoomsComponent';
 import CottageOwnersComponent from './components/CottageOwnersComponent';
 import ShipOwnersComponent from './components/ShipOwnersComponent';
 import FishingInstructorsComponent from './components/FishingInstructorsComponent';
+
 
 const backStyle = {
   width: '100%',
@@ -66,11 +68,15 @@ function App() {
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
               <Route path = "/viewrequests/:id" component={ViewRegistrationRequestComponent}></Route>
-              <Route path = "/cottageownerprofile" component={CottageOwnerProfileComponent}></Route>
+              <Route path = "/cottageownerprofile/:id" component={CottageOwnerProfileComponent}></Route>
+              <Route path = "/cottageprofile/:id" component={CottageProfileComponent}></Route>
+              <Route path = "/roomprofile/:id" component={RoomProfileComponent}></Route>
+              <Route path = "/allrooms" component={AllRoomsComponent}></Route>
               <Route path = "/cottageowners" component={CottageOwnersComponent}></Route>
               <Route path = "/shipowners" component={ShipOwnersComponent}></Route>
               <Route path = "/fishinginstructors" component={FishingInstructorsComponent}></Route>
               
+
                   
               </Switch>
 

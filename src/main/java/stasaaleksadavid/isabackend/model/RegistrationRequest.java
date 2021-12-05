@@ -44,9 +44,9 @@ public class RegistrationRequest {
     @Column(name = "Reason")
     private String reason;
 
-    public RegistrationRequest(long id, String password, String firstName, String lastName, LocalDate dateOfBirth, String email, String phoneNumber, String address, String city, String country, String type, String reason) {
-        super();
 
+    public RegistrationRequest(String password, String firstName, String lastName, LocalDate dateOfBirth, String email, String phoneNumber, String address, String city, String country, String type) {
+        super();
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
