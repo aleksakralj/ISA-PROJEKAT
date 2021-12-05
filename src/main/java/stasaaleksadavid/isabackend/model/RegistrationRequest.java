@@ -41,7 +41,8 @@ public class RegistrationRequest {
     @Column(name = "Type")
     private String type;
 
-
+    @Column(name = "Reason")
+    private String reason;
 
 
     public RegistrationRequest(String password, String firstName, String lastName, LocalDate dateOfBirth, String email, String phoneNumber, String address, String city, String country, String type) {
@@ -56,6 +57,7 @@ public class RegistrationRequest {
         this.city = city;
         this.country = country;
         this.type = type;
+        this.reason = reason;
     }
 
     public RegistrationRequest() {
@@ -148,4 +150,13 @@ public class RegistrationRequest {
     public void setType(String type) {
         this.type = type;
     }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
 }

@@ -13,6 +13,9 @@ getRegistrationRequests(){
     return axios.get( REGISTRATIONREQUESTS_API_BASE_URL);
 }
 
+createRegistrationRequest(request){
+    return axios.post(REGISTRATIONREQUESTS_API_BASE_URL, request);
+}
 
 
 createRegistrationRequestFI(request){

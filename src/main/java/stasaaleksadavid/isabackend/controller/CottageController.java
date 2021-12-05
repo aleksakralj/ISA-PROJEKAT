@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.Cottage;
+import stasaaleksadavid.isabackend.model.CottageOwner;
 import stasaaleksadavid.isabackend.repository.CottageRepository;
 
 import java.util.HashMap;
@@ -37,10 +38,10 @@ public class CottageController {
 
     //get by owner id
 
-   // @GetMapping("/cottages/owner/{ownerid}")
-   // public List<Cottage> getCottageByOwnerId(@PathVariable Long ownerid){
-   //     return cottageRepository.findByOwnerId(ownerid);
-  //  }
+    @GetMapping("/cottages/owner/{ownerid}")
+  public List<CottageOwner> getCottageByOwnerId(@PathVariable Long ownerid){
+      return cottageRepository.findByOwnerId(ownerid);
+   }
 
     //update
     @PutMapping("/cottages/{id}")

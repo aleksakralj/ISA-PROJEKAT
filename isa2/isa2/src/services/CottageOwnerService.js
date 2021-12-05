@@ -2,9 +2,9 @@ import axios from 'axios';
 
 const COTTAGEOWNER_API_BASE_URL = "http://localhost:8080/api/v1/cottageowners";
 
-class CottageOwner{
+class CottageOwnerService{
 
-getCottageOwner(){
+getCottageOwners(){
     return axios.get( COTTAGEOWNER_API_BASE_URL);
 }
 createCottageOwner(cottageowner){
@@ -17,7 +17,7 @@ updateCottageOwner(cottageowner,cottageownerId){
     return axios.put(COTTAGEOWNER_API_BASE_URL + '/' + cottageownerId, cottageowner);
 }
 deleteCottageOwner(cottageownerId){
-    return axios.delete(COTTAGEOWNER_API_BASE_URL + '/' + cottageownerId);
+    return axios.delete(COTTAGEOWNER_API_BASE_URL+ '/' + cottageownerId);
 }
 }
-export default new CottageOwner();
+export default new CottageOwnerService();

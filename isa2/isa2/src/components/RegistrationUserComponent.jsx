@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import RegistrationRequestService from '../services/RegistrationRequestService';
 
 class RegistrationUserComponent extends Component {
     constructor(props){
@@ -6,12 +7,14 @@ class RegistrationUserComponent extends Component {
         this.state={
             email: '',
             password: '',
-            firstname:'',
-            lastname:'',
-            adress: '',
+            firstName:'',
+            lastName:'',
+            address: '',
             city:'',
             country:'',
-            phonenumber:''
+            phoneNumber:'',
+            type:'',
+            reason: ''
             
         }
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
@@ -21,17 +24,27 @@ class RegistrationUserComponent extends Component {
         this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
         this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
         
-        this.changeAdressHandler = this.changeAdressHandler.bind(this);
+        this.changeAddressHandler = this.changeAddressHandler.bind(this);
         this.changeCityHandler = this.changeCityHandler.bind(this);
         this.changeCountryHandler = this.changeCountryHandler.bind(this);
 
         this.changePhoneNumberHandler = this.changePhoneNumberHandler.bind(this);
+        this.changeTypeHandler=this.changeTypeHandler.bind(this);
+        this.changeReasonHandler=this.changeReasonHandler.bind(this);
         
         this.register=this.register.bind(this);
         
     }
-    register(){
-        this.props.history.push('/registrationwait');
+    register= (e) => {
+        e.preventDefault();
+        let user = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type:this.state.type, reason:this.state.reason}
+        console.log('user => ' + JSON.stringify(user));
+
+        RegistrationRequestService.createRegistrationRequest(user).then(res=> {
+            this.props.history.push('/registrationwait')
+        });
+
+        
     }
     changeEmailHandler = (event) => {
         this.setState({email: event.target.value});
@@ -44,14 +57,14 @@ class RegistrationUserComponent extends Component {
     }
 
     changeFirstNameHandler = (event) => {
-        this.setState({firstname: event.target.value});
+        this.setState({firstName: event.target.value});
     }
     changeLastNameHandler = (event) => {
-        this.setState({lastname: event.target.value});
+        this.setState({lastName: event.target.value});
     }
 
-    changeAdressHandler = (event) => {
-        this.setState({adress: event.target.value});
+    changeAddressHandler = (event) => {
+        this.setState({address: event.target.value});
     }
     changeCityHandler = (event) => {
         this.setState({city: event.target.value});
@@ -61,7 +74,13 @@ class RegistrationUserComponent extends Component {
     }
 
     changePhoneNumberHandler = (event) => {
-        this.setState({phonenumber: event.target.value});
+        this.setState({phoneNumber: event.target.value});
+    }
+    changeTypeHandler = (event) => {
+        this.setState({type: event.target.value});
+    }
+    changeReasonHandler = (event) => {
+        this.setState({reason: event.target.value});
     }
     
     render() {
@@ -73,29 +92,34 @@ class RegistrationUserComponent extends Component {
                         <h3 className="text-center"> REGISTRATION </h3>
                 
                         <form>
-                            <div className="form-group">
+                            <div className="form-group" style={{height:1000}}>
                                 <label> Email: </label>
-                                <input placeholder="Email" name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler}/>
+                                <input name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler}/>
                                 <label> Password: </label>
-                                <input placeholder="Password" name="password" className="form-control" value={this.state.password} onChange={this.changePasswordHandler}/>
+                                <input  name="password" className="form-control" value={this.state.password} onChange={this.changePasswordHandler}/>
                                 <label> Password again: </label>
-                                <input placeholder="Password" name="password2" className="form-control" value={this.state.password2} onChange={this.changePassword2Handler}/>
+                                <input  name="password2" className="form-control" value={this.state.password2} onChange={this.changePassword2Handler}/>
 
                                 <label> First name: </label>
-                                <input placeholder="FirstName" name="firstname" className="form-control" value={this.state.firstname} onChange={this.changeFirstNameHandler}/>
+                                <input  name="firstName" className="form-control" value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
                                 <label> Last name: </label>
-                                <input placeholder="LastName" name="lastname" className="form-control" value={this.state.lastname} onChange={this.changeLastNameHandler}/>
+                                <input  name="lastName" className="form-control" value={this.state.lastName} onChange={this.changeLastNameHandler}/>
                                 
-                                <label> Adress: </label>
-                                <input placeholder="Adress" name="adress" className="form-control" value={this.state.adress} onChange={this.changeAdressHandler}/>
+                                <label> Address: </label>
+                                <input  name="address" className="form-control" value={this.state.address} onChange={this.changeAddressHandler}/>
                                 <label> City: </label>
-                                <input placeholder="City" name="city" className="form-control" value={this.state.city} onChange={this.changeCityHandler}/>   
+                                <input  name="city" className="form-control" value={this.state.city} onChange={this.changeCityHandler}/>   
                                 <label> Country: </label>
-                                <input placeholder="Country" name="country" className="form-control" value={this.state.country} onChange={this.changeCountryHandler}/> 
+                                <input  name="country" className="form-control" value={this.state.country} onChange={this.changeCountryHandler}/> 
 
                                 <label> Phone number: </label>
-                                <input placeholder="PhoneNumber" name="phonenumber" className="form-control" value={this.state.phonenumber} onChange={this.changePhoneNumberHandler}/>
+                                <input  name="phoneNumber" className="form-control" value={this.state.phoneNumber} onChange={this.changePhoneNumberHandler}/>
 
+                                <label> Type: </label>
+                                <input name="type" className="form-control" value={this.state.type} onChange={this.changeTypeHandler}/>
+
+                                <label> Reason: </label>
+                                <input  name="reason" className="form-control" value={this.state.reason} onChange={this.changeReasonHandler}/>
                                 <div className="center"><button className="loginbtn" onClick={this.register}>Regiser</button></div>
                             </div>
                         </form>
