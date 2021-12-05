@@ -19,17 +19,18 @@ class RoomProfileComponent extends Component {
         this.logout= this.logout.bind(this); 
        
     }
-    update(){
+    
 
+    delete(id){
+        RoomService.deleteRoom(id);
     }
-    update= (e) => {
-        e.preventDefault();
+
+    update(id) {
+        
         let room = {number:this.state.number, numberOfBeds: this.state.numberOfBeds, description: this.state.description}
         console.log('room => ' + JSON.stringify(room));
 
-        RoomService.updateRoom( room,this.props.match.params.id).then(res => {
-            this.props.history.push('/allrooms');
-        });
+        RoomService.updateRoom( room,id);
     }
     logout(){
         this.props.history.push('/');
@@ -78,11 +79,9 @@ class RoomProfileComponent extends Component {
                                 
                                 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.update}>Update</button></div>
+                                <div className="center"><button className="loginbtn" onClick={() => this.update(this.props.match.params.id)}>Update</button></div>
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.Appointments}>Appointments</button></div>
-                                <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.delete}>Delete</button></div>
+                                <div className="center"><button className="loginbtn" onClick={() => this.delete(this.props.match.params.id)}>Delete</button></div>
                                 
                                 
 

@@ -23,7 +23,7 @@ class CottageOwnerProfileComponent extends Component {
         this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
         this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
         
-        this.changeAdressHandler = this.changeAdressHandler.bind(this);
+        this.changeAddressHandler = this.changeAddressHandler.bind(this);
         this.changeCityHandler = this.changeCityHandler.bind(this);
         this.changeCountryHandler = this.changeCountryHandler.bind(this);
 
@@ -55,7 +55,7 @@ class CottageOwnerProfileComponent extends Component {
         this.setState({lastname: event.target.value});
     }
 
-    changeAdressHandler = (event) => {
+    changeAddressHandler = (event) => {
         this.setState({adress: event.target.value});
     }
     changeCityHandler = (event) => {
@@ -68,16 +68,37 @@ class CottageOwnerProfileComponent extends Component {
     changePhoneNumberHandler = (event) => {
         this.setState({phonenumber: event.target.value});
     }
+
+    viewAllCottages(id){
+        this.props.history.push(`/allcottages/${id}`);
+
+    }
+    update= (e) => {
+        e.preventDefault();
+        let cottageOwner = {firstName: this.state.firstname, password: this.state.password, lastName: this.state.lastname, email: this.state.email,phoneNumber: this.state.phonenumber, address: this.state.address, city: this.state.city, country: this.state.country}
+        console.log('cottageOwner => ' + JSON.stringify(cottageOwner));
+
+        CottageOwnerService.updateCottageOwner( cottageOwner,this.props.match.params.id)
+    }
     componentDidMount(){
-        CottageOwnerService.getCottageOwnerById().then((res) => {
-            this.setState({cottageOwner: res.data})
+        CottageOwnerService.getCottageOwnerById(this.props.match.params.id).then((res) => {
+            let cottageOwner = res.data;
+            this.setState({
+                
+                firstname:cottageOwner.firstName,
+                password:cottageOwner.password,
+                lastname:cottageOwner.lastName,
+                email:cottageOwner.email,
+                phonenumber:cottageOwner.phoneNumber,
+                address:cottageOwner.address,
+                city:cottageOwner.city,
+                country:cottageOwner.country
+
+            });
         });
-
     }
 
-    update(id){
-        this.props.history.push(`/updatecottageowner/${id}`);
-    }
+    
     render() {
         return (
             <div>
@@ -85,6 +106,8 @@ class CottageOwnerProfileComponent extends Component {
                 
                 <div className="registrationdiv">
                     <br/><br/>
+                    <div className="center"><button className="loginbtn" onClick={() => this.viewAllCottages(this.props.match.params.id)}>My Cottages</button></div>
+
                                 <label> Email: </label>
                                 <input name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler}/>
                                 <label> Password: </label>
@@ -97,8 +120,8 @@ class CottageOwnerProfileComponent extends Component {
                                 <label> Last name: </label>
                                 <input name="lastname" className="form-control" value={this.state.lastname} onChange={this.changeLastNameHandler}/>
                                 
-                                <label> Adress: </label>
-                                <input name="adress" className="form-control" value={this.state.adress} onChange={this.changeAdressHandler}/>
+                                <label> Address: </label>
+                                <input name="address" className="form-control" value={this.state.address} onChange={this.changeAddressHandler}/>
                                 <label> City: </label>
                                 <input name="city" className="form-control" value={this.state.city} onChange={this.changeCityHandler}/>   
                                 <label> Country: </label>
@@ -109,7 +132,7 @@ class CottageOwnerProfileComponent extends Component {
 
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={this.update}>Update</button></div>
-
+                                
                 </div>
             </div>
 

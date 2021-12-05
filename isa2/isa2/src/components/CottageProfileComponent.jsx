@@ -57,9 +57,42 @@ class CottageProfileComponent extends Component {
     changeRulesHandler = (event) => {
         this.setState({rules: event.target.value});
     }
+
+    update(id){
+        
+        let cottage = {name: this.state.name, address: this.state.address, description: this.state.description, rating: this.state.rating, numberOfRooms: this.state.numberofrooms, rules: this.state.rules, ownerId: this.state.ownerId}
+        console.log('cottage => ' + JSON.stringify(cottage));
+
+        CottageService.updateCottage( cottage,id)
+    }
+
+    delete(id){
+        CottageService.deleteCottage(id)
+    }
     
+    appointments(id){
+        this.props.history.push(`/allappointments/${id}`);
+    }
+
+    viewRooms(id){
+        this.props.history.push(`/allrooms/${id}`);
+    }
+
+
     componentDidMount(){
-       
+        CottageService.getCottageById(this.props.match.params.id).then((res) => {
+            let cottage = res.data;
+            this.setState({
+                
+                name:cottage.name,
+                address:cottage.address,
+                description:cottage.description,
+                rating:cottage.rating,
+                numberofrooms:cottage.numberOfRooms,
+                rules:cottage.rules
+
+            });
+        });
     }
     render() {
         return (
@@ -84,10 +117,14 @@ class CottageProfileComponent extends Component {
                                 <input name="rules" className="form-control" value={this.state.rules} onChange={this.changeRulesHandler}/>
                                 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.update}>Update</button></div>
+                                <div className="center"><button className="loginbtn" onClick={() => this.update(this.props.match.params.id)}>Update</button></div>
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.update}>Rooms</button></div>
-                                
+                                <div className="center"><button className="loginbtn" onClick={() => this.viewRooms(this.props.match.params.id)}>View rooms</button></div>
+                                <br/>
+                                <div className="center"><button className="loginbtn" onClick={() => this.delete(this.props.match.params.id)}>Delete</button></div>
+                                <br/>
+                                <div className="center"><button className="loginbtn" onClick={() => this.appointments(this.props.match.params.id)}>Appointments</button></div>
+                               
 
                 </div>
             </div>
