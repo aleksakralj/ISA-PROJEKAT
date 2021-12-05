@@ -4,6 +4,7 @@ class CottageOwnerProfileComponent extends Component {
     constructor(props){
         super(props)
         this.state={
+            id:this.props.match.params.id,
             email: '',
             password: '',
             firstName:'',
@@ -68,7 +69,7 @@ class CottageOwnerProfileComponent extends Component {
         this.setState({phonenumber: event.target.value});
     }
     componentDidMount(){
-        CottageOwnerService.getCottageOwner().then((res) => {
+        CottageOwnerService.getCottageOwnerById().then((res) => {
             this.setState({cottageOwner: res.data})
         });
 
