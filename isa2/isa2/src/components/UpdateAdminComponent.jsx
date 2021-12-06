@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import AdminService from '../services/AdminService';
 
-class AddAdminComponent extends Component {
+
+class UpdateAdminComponent extends Component {
     constructor(props){
         super(props)
         this.state={
+            id:this.props.match.params.id,
             email: '',
             password: '',
             firstName:'',
@@ -13,7 +15,6 @@ class AddAdminComponent extends Component {
             city:'',
             country:'',
             phoneNumber:''
-            
             
         }
       
@@ -30,33 +31,46 @@ class AddAdminComponent extends Component {
 
         this.changePhoneNumberHandler = this.changePhoneNumberHandler.bind(this);
         
-       this.addAdmin=this.addAdmin.bind(this);
+       this.updateAdmin=this.updateAdmin.bind(this);
        this.adminprofile = this.adminprofile.bind(this);
        this.logout= this.logout.bind(this); 
        this.income= this.income.bind(this);
-       this.addadmin= this.addadmin.bind(this);
+       //this.addadmin= this.addadmin.bind(this);
        this.regreq= this.regreq.bind(this);
     }
+    componentDidMount(){
+        AdminService.getAdminById(this.props.match.params.id).then((res) => {
+            let admin = res.data;
+            this.setState({
+                email: admin.email,
+                password: admin.password,
+                firstName: admin.firstName,
+                lastName: admin.lastName, 
+                address: admin.address,
+                city: admin.city,
+                country: admin.country,
+                phoneNumber: admin.phoneNumber
 
-    addAdmin= (e) => {
+            });
+        });
+    }
+    updateAdmin= (e) => {
         e.preventDefault();
         let admin = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber}
         console.log('admin => ' + JSON.stringify(admin));
 
-        AdminService.createAdmin(admin).then(res=> {
-            this.props.history.push('/addadmin')
+        AdminService.updateAdmin( admin,this.props.match.params.id).then(res => {
+            this.props.history.push('/alladmins');
         });
     }
-
+    
 
     //admin profile dugme ne radi nista jer smo vec na profilu, ako bude trebao da refreshuje zbog necega onda cemo ga uraditi
     //kako loguot vratiti na pocetnu tj localhost?
     adminprofile(){
         this.props.history.push('/adminprofile');
     }
-    addadmin(){
-        this.props.history.push('/addadmin');
-    }
+   
     regreq(){
         this.props.history.push('/registrationrequests');
     }
@@ -103,7 +117,7 @@ class AddAdminComponent extends Component {
                 
                 <div className="menu">
                 <button onClick={this.adminprofile} > Profile</button>
-                
+                <button onClick={this.addadmin}> Add admin </button>
                 <button onClick={this.regreq}> Registration requests</button>
                 <button onClick={this.income}> Income </button>
 
@@ -111,7 +125,7 @@ class AddAdminComponent extends Component {
                 </div>
                 
                 <div className="registrationdiv">
-                    <br/><br/>
+                    <br/><br/><input name="id" value={this.props.match.params.id}></input>
                                 <label> Email: </label>
                                 <input name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler}/>
                                 <label> Password: </label>
@@ -135,7 +149,7 @@ class AddAdminComponent extends Component {
                                 <input name="phoneNumber" className="form-control" value={this.state.phoneNumber} onChange={this.changePhoneNumberHandler}/>
 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.addAdmin}>Add</button></div>
+                                <div className="center"><button className="loginbtn" onClick={this.updateAdmin}>Update</button></div>
 
                 </div>
             </div>
@@ -144,4 +158,4 @@ class AddAdminComponent extends Component {
     }
 }
 
-export default AddAdminComponent;
+export default UpdateAdminComponent;

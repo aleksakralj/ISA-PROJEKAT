@@ -14,7 +14,7 @@ public class Cottage {
     private String name;
 
     @Column(name = "")
-    private String addres;
+    private String address;
 
     @Column(name = "")
     private String description;
@@ -30,19 +30,19 @@ public class Cottage {
 
     //TO DO
     @Column(name = "")
-    private String pricelist;
+    private String priceList;
 
 
     public Cottage() {}
 
-    public Cottage(String name, String addres, String description, double rating, int numberOfRooms, String rulesOfConduct, String pricelist) {
+    public Cottage(String name, String address, String description, double rating, int numberOfRooms, String rulesOfConduct, String priceList) {
         this.name = name;
-        this.addres = addres;
+        this.address = address;
         this.description = description;
         this.rating = rating;
         this.numberOfRooms = numberOfRooms;
         this.rulesOfConduct = rulesOfConduct;
-        this.pricelist = pricelist;
+        this.priceList = priceList;
     }
 
     public String getName() {
@@ -53,12 +53,12 @@ public class Cottage {
         this.name = name;
     }
 
-    public String getAddres () {
-        return addres;
+    public String getAddress () {
+        return address;
     }
 
-    public void setAddres (String addres) {
-        this.addres = addres;
+    public void setAddress (String address) {
+        this.address = address;
     }
 
     public String getDescription(){

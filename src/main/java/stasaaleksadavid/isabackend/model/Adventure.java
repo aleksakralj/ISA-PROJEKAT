@@ -15,8 +15,9 @@ public class Adventure {
     @Column(name = "")
     private String name;
 
+
     @Column(name = "")
-    private String addres;
+    private String address;
 
     @Column(name = "")
     private String description;
@@ -28,6 +29,7 @@ public class Adventure {
     @Column(name = "")
     private String rulesOfConduct;
 
+
     @Column(name = "")
     private String termsOfReservation;
 
@@ -36,9 +38,10 @@ public class Adventure {
 
     public  Adventure() {}
 
-    public Adventure(String name, String addres, String description/*, String instructorBiography*/, int maxPeople, ArrayList<LocalDate> freeTerms, String rulesOfConduct, ArrayList<String> additionalEquipment/* String pricelist*/, String termsOfReservation) {
+    public Adventure(String name, String address, String description/*, String instructorBiography*/, int maxPeople, ArrayList<LocalDate> freeTerms, String rulesOfConduct, ArrayList<String> additionalEquipment/* String pricelist*/, String termsOfReservation) {
+
         this.name = name;
-        this.addres = addres;
+        this.address = address;
         this.description = description;
         this.maxPeople = maxPeople;
         this.rulesOfConduct = rulesOfConduct;
@@ -53,12 +56,12 @@ public class Adventure {
         this.name = name;
     }
 
-    public String getAddres() {
-        return addres;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddres(String addres) {
-        this.addres = addres;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getDescription() {
@@ -93,4 +96,5 @@ public class Adventure {
     public void setTermsOfReservation(String termsOfReservation) {
         this.termsOfReservation = termsOfReservation;
     }
+
 }

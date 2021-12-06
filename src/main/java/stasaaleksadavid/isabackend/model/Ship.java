@@ -16,8 +16,9 @@ public class Ship {
     @Column(name = "")
     private String name;
 
+
     @Column(name = "")
-    private String addres;
+    private String address;
 
     @Column(name = "")
     private String description;
@@ -25,19 +26,22 @@ public class Ship {
     @Column(name = "")
     private double rating;
 
+
     @Column(name = "")
     private String rulesOfConduct;
 
     @Column(name = "")
     private String termsOfReservation;
 
-    public Ship() {}
+    public Ship() {
+    }
 
-    public Ship(long id,long ownerId ,String name,/* String type, int lenght, int numberOfEngines, int enginePower, int maxSpeed, int capacity,*/ String addres, String description, double rating,/* ArrayList<LocalDate> freeTerms, ArrayList<String> pricelist, ArrayList<String> additionalServices, */String rulesOfConduct, String termsOfReservation) {
+    public Ship(long id, long ownerId, String name,/* String type, int lenght, int numberOfEngines, int enginePower, int maxSpeed, int capacity,*/ String address, String description, double rating,/* ArrayList<LocalDate> freeTerms, ArrayList<String> pricelist, ArrayList<String> additionalServices, */String rulesOfConduct, String termsOfReservation) {
+
         this.id = id;
-        this.ownerId= ownerId;
+        this.ownerId = ownerId;
         this.name = name;
-        this.addres = addres;
+        this.address = address;
         this.description = description;
         this.rating = rating;
         this.rulesOfConduct = rulesOfConduct;
@@ -52,12 +56,12 @@ public class Ship {
         this.name = name;
     }
 
-    public String getAddres() {
-        return addres;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddres(String addres) {
-        this.addres = addres;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getDescription() {
@@ -76,8 +80,10 @@ public class Ship {
         this.rating = rating;
     }
 
+
     public long getOwnerId() {
         return ownerId;
+
     }
 
     public void setOwnerId(long ownerId) {
@@ -108,3 +114,4 @@ public class Ship {
         this.termsOfReservation = termsOfReservation;
     }
 }
+

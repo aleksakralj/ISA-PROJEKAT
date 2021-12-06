@@ -1,10 +1,11 @@
 package stasaaleksadavid.isabackend.model;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "FishingInstructors")
-public class FishingInstructor {
+@Table(name = "RegistrationReguest")
+public class RegistrationRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,11 +38,11 @@ public class FishingInstructor {
     @Column(name = "Country")
     private String country;
 
-    public FishingInstructor() {}
+    @Column(name = "Type")
+    private String type;
 
 
-    public FishingInstructor(String password, String firstName, String lastName, LocalDate dateOfBirth, String email, String phoneNumber, String address, String city, String country) {
-        super();
+    public RegistrationRequest(String password, String firstName, String lastName, LocalDate dateOfBirth, String email, String phoneNumber, String address, String city, String country, String type) {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -51,6 +52,10 @@ public class FishingInstructor {
         this.address = address;
         this.city = city;
         this.country = country;
+        this.type = type;
+    }
+
+    public RegistrationRequest() {
     }
 
     public long getId() {
@@ -69,14 +74,6 @@ public class FishingInstructor {
         this.password = password;
     }
 
-    public String getName() {
-        return firstName;
-    }
-
-    public void setName(String name) {
-        this.firstName = name;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -93,14 +90,6 @@ public class FishingInstructor {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
@@ -109,7 +98,13 @@ public class FishingInstructor {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -141,5 +136,13 @@ public class FishingInstructor {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
