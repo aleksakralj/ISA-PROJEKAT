@@ -3,18 +3,16 @@
   background-color: black;
 }
 
-
 .App-link {
   color: #61dafb;
 }
 
-
 .footer{
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   height: 50px;
-  background-color: #003323;
+  background-color: transparent;
   text-align: center;
   color: white;
 }
@@ -22,7 +20,7 @@
   position: absolute;
   top: 0;
   width: 100%;
-  height: 50px;
+  height: 70px;
   background-color:#003323;
   text-align: center;
   color: white;
@@ -85,16 +83,17 @@
   top:150px;
   border-radius: 10px;
 }
-.textrectangle{
-  border: 2px outset black;
-  background-color: whitesmoke;
+
+.cardrectangle{
+  border: 2px outset black;  
   margin: 0;
-  position: absolute;
-  top: 100px;
-  right: 100px;
-  width: 500px;
-  height: 500px;
+  position: relative;
+  top: 170px;
+  right: -750px;
+  width: 170px;
+  height: 180px;
   border-radius: 10px;
+
 }
 
 .incomediv{
@@ -255,3 +254,39 @@
   background-color:#318f6e;
 }
 
+table {
+  border: 2px solid black;
+  width: 60%;
+  border-collapse: collapse;
+  background-color: white;
+  
+}
+
+thead,th {
+  text-align: center;
+  height: 50px;
+  border: 2px solid black;
+  background-color: rgb(143,165,174);
+}
+
+tr:hover {
+  background-color: lightblue;  
+}
+
+tr:nth-child(even) {
+  background-color: #c4c3c36c;
+}
+
+tr:nth-child(even):hover {
+  background-color: lightblue;
+}
+
+td {
+  text-align: center;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+.seeMoreButton {
+  align-content: center;
+}

@@ -1,6 +1,6 @@
 package stasaaleksadavid.isabackend.model;
 import javax.persistence.*;
-import java.util.ArrayList;
+
 
 @Entity
 @Table(name = "Cottages")
