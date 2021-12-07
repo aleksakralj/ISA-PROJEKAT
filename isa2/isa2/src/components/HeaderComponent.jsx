@@ -30,7 +30,7 @@ render() {
                         <Nav>
                             <Nav.Link style={navLinkStyle} href="#deets">Log in</Nav.Link>
                             <Nav.Link style={navLinkStyle} eventKey={2} href="#memes">
-                                Sign in
+                                Register account
                             </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
