@@ -13,9 +13,10 @@ class LoginComponent extends Component {
         this.register=this.register.bind(this);
         this.register=this.registeruser.bind(this);
         this.use=this.use.bind(this);
-    }
+    }    
     login(){
         //ovde ce se raditi i proveravanje da li postoji i koji je on u bazi, rahimov video: 1:40
+        //TO DO
         this.props.history.push('/adminprofile');
     }
 
@@ -62,7 +63,7 @@ class LoginComponent extends Component {
                     
                     <div style={{position: 'relative',top: '40px',left:'550px'}}>
                         <label> Don't have an account? </label> <br></br>
-                        <button style={{position: 'relative',left:'30px'}} className="loginbtn">Register</button>
+                        <button style={{position: 'relative',left:'30px'}} className="loginbtn" onClick={event =>  window.location.href='/registeruser'} > Register</button>
                     </div>
                     
                 
