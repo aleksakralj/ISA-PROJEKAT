@@ -56,7 +56,7 @@ const welcomingStyle = {
 
                 <div className="cardrectangle" >
                     <br></br>
-                    <img src="https://cdn-icons.flaticon.com/png/512/3395/premium/3395262.png?token=exp=1638562981~hmac=cc0d11cbe1769c12f75f1f7506d3fe33"  align="left" alt="" width="165" height="68"/> 
+                    <img src="https://cdn-icons.flaticon.com/png/512/2118/premium/2118218.png?token=exp=1638912260~hmac=e9d16d6f208f2fc57e70bf7d7cf9c4b5"  align="left" alt="" width="165" height="68"/> 
                     <h3 align="center"> <br></br> Adventures </h3>
                 </div>
                 

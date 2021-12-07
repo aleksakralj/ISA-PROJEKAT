@@ -45,7 +45,7 @@ function App() {
           <HeaderComponent/>
           <div className="container">
             <Switch> 
-              <Route path = "/" exact component={LoginComponent}></Route>
+              <Route path = "/" exact component={HomePageCommponent}></Route>
               <Route path = "/registrationrequests" component={RegistrationRequestComponent}></Route>
               <Route path = "/adminprofile" component={AdminProfileComponent}></Route>
               <Route path = "/register" component={RegistrationComponent}></Route>
@@ -61,12 +61,9 @@ function App() {
               <Route path = "/serviceequipment" component={ServiceEquipmentComponent}></Route>
               <Route path = "/serviceprice" component={ServicePriceComponent}></Route>
               <Route path = "/homepage" component={HomePageCommponent} ></Route>
-
+              <Route path = "/login" component={LoginComponent}></Route>
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
-                  
-             
-
               <Route path = "/clientprofile" component={ClientProfileComponent}></Route>
               <Route path = "/ships" component={ShipsComponent}></Route> 
               <Route path = "/adventures" component={AdventuresComponent}></Route>
@@ -74,8 +71,8 @@ function App() {
               <Route path = "/shipprofile" component={ShipProfileComponent}></Route>
               </Switch>
           </div>                      
-
         </Router>
+     
       <FooterComponent/>
     </div>
     

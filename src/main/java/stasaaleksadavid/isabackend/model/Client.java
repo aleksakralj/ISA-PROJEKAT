@@ -2,6 +2,7 @@ package stasaaleksadavid.isabackend.model;
 
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Clients")
@@ -17,6 +18,12 @@ public class Client {
     @Column(name = "")
     private String passwrod;
 
+    @Column(name= "")
+    private String firstName;
+
+    @Column(name="")
+    private String lastName;
+
     @Column(name = "")
     private String city;
 
@@ -29,12 +36,18 @@ public class Client {
     @Column(name="")
     private String phoneNumber;
 
+    @Column(name = "")
+    private LocalDateTime dateOfBirth;
+
     public Client() {}
 
-    public Client(String email, String passwrod, String city, String addres, String country, String phoneNumber) {
+    public Client(String email, String passwrod, LocalDateTime dateOfBirth, String firstName, String lastName,String city, String addres, String country, String phoneNumber) {
         super();
         this.email = email;
         this.passwrod = passwrod;
+        this.dateOfBirth = dateOfBirth;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.city = city;
         this.addres = addres;
         this.country = country;
@@ -95,5 +108,31 @@ public class Client {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public LocalDateTime getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+
+
     }
 }
