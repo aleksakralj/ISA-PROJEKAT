@@ -62,6 +62,8 @@ class RegistrationRequestComponent extends Component {
                                 <th>City</th>
                                 <th>Country</th>
                                 <th>Phone number</th>
+                                <th>Date of birth</th>
+                                <th>Role</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -77,6 +79,8 @@ class RegistrationRequestComponent extends Component {
                                         <td>{registrationRequest.city} </td>
                                         <td>{registrationRequest.country} </td>
                                         <td>{registrationRequest.phoneNumber} </td>
+                                        <td>{registrationRequest.dateOfBirth}</td>
+                                        <td>{registrationRequest.type}</td>
                                     </tr>
                                 )
                             }
