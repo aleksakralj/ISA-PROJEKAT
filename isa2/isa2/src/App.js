@@ -30,8 +30,12 @@ import AllRoomsComponent from './components/AllRoomsComponent';
 import CottageOwnersComponent from './components/CottageOwnersComponent';
 import ShipOwnersComponent from './components/ShipOwnersComponent';
 import FishingInstructorsComponent from './components/FishingInstructorsComponent';
-
-
+import ShipsComponent from './components/ShipsComponent';
+import CottagesComponent from './components/CottagesComponent';
+import AdventuresComponent from './components/AdventuresComponent';
+import AddAdventureComponent from './components/AddAdventureComponent';
+import ViewAdventureComponent from './components/ViewAdventureComponent';
+import FishingInstructorProfileComponent from './components/FishingInstructorProfileComponent';
 const backStyle = {
   width: '100%',
   height: '800px',
@@ -75,9 +79,12 @@ function App() {
               <Route path = "/cottageowners" component={CottageOwnersComponent}></Route>
               <Route path = "/shipowners" component={ShipOwnersComponent}></Route>
               <Route path = "/fishinginstructors" component={FishingInstructorsComponent}></Route>
-              
-
-                  
+              <Route path = "/ships" component={ShipsComponent}></Route>
+              <Route path = "/cottages" component={CottagesComponent}></Route>
+              <Route path = "/adventures" component={AdventuresComponent}></Route>  
+              <Route path = "/addadventure" component={AddAdventureComponent}></Route> 
+              <Route path = "/viewadventure/:id" component={ViewAdventureComponent}></Route>
+              <Route path = "/fishinginstructorprofile/:id" component={FishingInstructorProfileComponent}></Route>  
               </Switch>
 
           </div>

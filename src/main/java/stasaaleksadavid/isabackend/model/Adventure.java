@@ -5,47 +5,56 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Entity
-@Table(name = "")
+@Table(name = "Adventures")
 public class Adventure {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "")
+    @Column(name = "Name")
     private String name;
 
 
-    @Column(name = "")
+    @Column(name = "Address")
     private String address;
 
-    @Column(name = "")
+    @Column(name = "Description")
     private String description;
 
-    @Column(name = "")
+
+    @Column(name = "maxPeople")
     private int maxPeople;
 
 
-    @Column(name = "")
+    @Column(name = "RulesOfConduct")
     private String rulesOfConduct;
 
 
-    @Column(name = "")
+    @Column(name = "TermsOfReservation")
     private String termsOfReservation;
 
-    @Column(name = "")
+    @Column(name = "InstructorId")
     private long instructorId;
 
     public  Adventure() {}
 
-    public Adventure(String name, String address, String description/*, String instructorBiography*/, int maxPeople, ArrayList<LocalDate> freeTerms, String rulesOfConduct, ArrayList<String> additionalEquipment/* String pricelist*/, String termsOfReservation) {
-
+    public Adventure(String name, String address, String description, int maxPeople, String rulesOfConduct, String termsOfReservation, long instructorId) {
         this.name = name;
         this.address = address;
         this.description = description;
         this.maxPeople = maxPeople;
         this.rulesOfConduct = rulesOfConduct;
         this.termsOfReservation = termsOfReservation;
+        this.instructorId = instructorId;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -5,7 +5,14 @@ class AdminProfileComponent extends Component {
     constructor(props){
         super(props)
         this.state={
-            admins: []
+            email:'',
+            password:'',
+            firstName:'',
+            lastName:'',
+            address:'',
+            city:'',
+            country:'',
+            phoneNumber:''
             
         }
         //treba da bude popunjeno podacima ulogovanog admina
@@ -16,7 +23,7 @@ class AdminProfileComponent extends Component {
         this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
         this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
         
-        this.changeAdressHandler = this.changeAdressHandler.bind(this);
+        this.changeAddressHandler = this.changeAddressHandler.bind(this);
         this.changeCityHandler = this.changeCityHandler.bind(this);
         this.changeCountryHandler = this.changeCountryHandler.bind(this);
 
@@ -30,7 +37,13 @@ class AdminProfileComponent extends Component {
         this.regreq= this.regreq.bind(this);
     }
     
+    update(id) {
+        
+        let admin = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address: this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber}
+        console.log('admin => ' + JSON.stringify(admin));
 
+        AdminService.updateAdmin(admin,id) ;
+    }
     //admin profile dugme ne radi nista jer smo vec na profilu, ako bude trebao da refreshuje zbog necega onda cemo ga uraditi
     //kako loguot vratiti na pocetnu tj localhost?
     adminprofile(){
@@ -59,14 +72,14 @@ class AdminProfileComponent extends Component {
     }
 
     changeFirstNameHandler = (event) => {
-        this.setState({firstname: event.target.value});
+        this.setState({firstName: event.target.value});
     }
     changeLastNameHandler = (event) => {
-        this.setState({lastname: event.target.value});
+        this.setState({lastName: event.target.value});
     }
 
-    changeAdressHandler = (event) => {
-        this.setState({adress: event.target.value});
+    changeAddressHandler = (event) => {
+        this.setState({address: event.target.value});
     }
     changeCityHandler = (event) => {
         this.setState({city: event.target.value});
@@ -76,11 +89,22 @@ class AdminProfileComponent extends Component {
     }
 
     changePhoneNumberHandler = (event) => {
-        this.setState({phonenumber: event.target.value});
+        this.setState({phoneNumber: event.target.value});
     }
     componentDidMount(){
-        AdminService.getAdmins().then((res) => {
-            this.setState({admins: res.data})
+        AdminService.getAdminById(this.props.match.params.id).then((res) => {
+            let admin = res.data;
+            this.setState({
+                email:admin.email,
+                password:admin.password,
+                firstName:admin.firstName,
+                lastName:admin.lastName,
+                address: admin.address,
+                city:admin.city,
+                country:admin.country,
+                phoneNumber:admin.phoneNumber
+
+            });
         });
     }
     render() {
@@ -105,19 +129,19 @@ class AdminProfileComponent extends Component {
                                 <input name="password2" className="form-control" value={this.state.password2} onChange={this.changePassword2Handler}/>
 
                                 <label> First name: </label>
-                                <input name="firstname" className="form-control" value={this.state.firstname} onChange={this.changeFirstNameHandler}/>
+                                <input name="firstname" className="form-control" value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
                                 <label> Last name: </label>
-                                <input name="lastname" className="form-control" value={this.state.lastname} onChange={this.changeLastNameHandler}/>
+                                <input name="lastname" className="form-control" value={this.state.lastName} onChange={this.changeLastNameHandler}/>
                                 
-                                <label> Adress: </label>
-                                <input name="adress" className="form-control" value={this.state.adress} onChange={this.changeAdressHandler}/>
+                                <label> Address: </label>
+                                <input name="address" className="form-control" value={this.state.address} onChange={this.changeAddressHandler}/>
                                 <label> City: </label>
                                 <input name="city" className="form-control" value={this.state.city} onChange={this.changeCityHandler}/>   
                                 <label> Country: </label>
                                 <input name="country" className="form-control" value={this.state.country} onChange={this.changeCountryHandler}/> 
 
                                 <label> Phone number: </label>
-                                <input name="phonenumber" className="form-control" value={this.state.phonenumber} onChange={this.changePhoneNumberHandler}/>
+                                <input name="phonenumber" className="form-control" value={this.state.phoneNumber} onChange={this.changePhoneNumberHandler}/>
 
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={this.update}>Update</button></div>

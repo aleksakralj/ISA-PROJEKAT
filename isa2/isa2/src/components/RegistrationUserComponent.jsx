@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RegistrationRequestService from '../services/RegistrationRequestService';
+import Popup from 'reactjs-popup';
 
 class RegistrationUserComponent extends Component {
     constructor(props){
@@ -14,7 +15,8 @@ class RegistrationUserComponent extends Component {
             country:'',
             phoneNumber:'',
             type:'',
-            reason: ''
+            reason: '', 
+            password2:''
             
         }
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
@@ -39,13 +41,22 @@ class RegistrationUserComponent extends Component {
         e.preventDefault();
         let user = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type:this.state.type, reason:this.state.reason}
         console.log('user => ' + JSON.stringify(user));
-
-        RegistrationRequestService.createRegistrationRequest(user).then(res=> {
-            this.props.history.push('/registrationwait')
-        });
-
-        
+       
+        //provera da li su password i password2 isti NE RADI VAJ?
+        /*
+        if(user.password==password2.value){
+            RegistrationRequestService.createRegistrationRequest(user).then(res=> {
+                        this.props.history.push('/registrationwait')
+                    });
+        }
+        else {
+            <Popup trigger={<button> Trigger</button>} position="right center">
+                <div>Popup content here !!</div>
+            </Popup>
+        } 
+        */
     }
+    
     changeEmailHandler = (event) => {
         this.setState({email: event.target.value});
     }
