@@ -73,7 +73,7 @@ function App() {
           </div>                      
         </Router>
      
-      <FooterComponent/>
+     
     </div>
     
   );
