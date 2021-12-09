@@ -67,7 +67,7 @@ public class CottageController {
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
 
-
+// get by Email and Password
     @GetMapping("/cottages/owner/{ownerid}")
     public List<Cottage> getCottageByEmailAndPassword(@PathVariable Long ownerid){
     return cottageRepository.findByOwnerId(ownerid);

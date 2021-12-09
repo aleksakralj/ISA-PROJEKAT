@@ -78,6 +78,14 @@ class LoginComponent extends Component {
     changePasswordHandler = (event) => {
         this.setState({password: event.target.value});
     }
+
+
+    componentDidMount(){
+       // localStorage.removeItem('activeUser');
+        localStorage.removeItem('activeCottage');
+        localStorage.removeItem('activeRoom');
+        
+    }
    
     render() {
         return (

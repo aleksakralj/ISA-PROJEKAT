@@ -22,7 +22,12 @@ class LoginComponent extends Component {
        
         
     
+componentDidMount(){
+    localStorage.removeItem('activeUser');
+    localStorage.removeItem('activeCottage');
+    localStorage.removeItem('activeRoom');
 
+}
 
   
     render() {

@@ -30,7 +30,8 @@ class CottageProfileComponent extends Component {
     
     
     logout(){
-        this.props.history.push('/');
+        localStorage.removeItem('activeUser')
+        this.props.history.push(`/login`);
         }
 
     Rooms(){
@@ -57,9 +58,28 @@ class CottageProfileComponent extends Component {
     changeRulesHandler = (event) => {
         this.setState({rules: event.target.value});
     }
+
+    viewRooms(id){
+        this.props.history.push(`/allrooms`);
+    }
     
     componentDidMount(){
+        
        
+        let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'))
+
+            this.setState({
+                id:activeCottage.id,
+                name:activeCottage.name,
+            address:activeCottage.address,
+            description:activeCottage.description,
+            rating:activeCottage.rating,
+            numberOfRooms:activeCottage.numberOfRooms,
+            rules:activeCottage.rules,
+                
+            
+
+            });
     }
     render() {
         return (
@@ -78,15 +98,15 @@ class CottageProfileComponent extends Component {
                                 <label> Rating: </label>
                                 <input name="rating" className="form-control" value={this.state.rating} onChange={this.changeRatingHandler}/>
                                 <label> Number of rooms: </label>
-                                <input name="numberofrooms" className="form-control" value={this.state.numberofrooms} onChange={this.changeNumberOfRoomsHandler}/>
+                                <input name="numberofrooms" className="form-control" value={this.state.numberOfRooms} onChange={this.changeNumberOfRoomsHandler}/>
                                 
                                 <label> Rules: </label>
                                 <input name="rules" className="form-control" value={this.state.rules} onChange={this.changeRulesHandler}/>
                                 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.update}>Update</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.update}>Update</button></div>
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.update}>Rooms</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.viewRooms(this.state.id)}>Rooms</button></div>
                                 
 
                 </div>

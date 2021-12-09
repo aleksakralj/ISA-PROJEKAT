@@ -22,14 +22,15 @@ class CottageOwnerCottages extends Component {
         .then(response => {
             localStorage.setItem('activeCottage',JSON.stringify(response.data));});
             
-            let activeCottage =  JSON.parse(localStorage.getItem('activeUser'))
+            this.props.history.push('/cottageprofile');
     }
 
     deleteCottage(){
-
+//TODO
     }
 
     componentDidMount(){
+        
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         axios.get("http://localhost:8080/api/v1/cottages/owner" + "/" + activeUser.id).then((res)=>{
             this.setState({cottages: res.data});
@@ -76,7 +77,7 @@ class CottageOwnerCottages extends Component {
                                             <td>{cottages.rules}</td>
                                             
                                             <td>
-                                                <button onClick={()=>this.viewCottage(this.props.match.params.id)} className="loginbtn">View</button> 
+                                                <button onClick={()=>this.viewCottage(cottages.id)} className="loginbtn">View</button> 
                                                 <button onClick={()=>this.deleteCottage()} className="loginbtn">Delete</button> 
                                                  </td>
                                         </tr>

@@ -5,6 +5,7 @@ class RoomProfileComponent extends Component {
     constructor(props){
         super(props)
         this.state={
+            id:this.props.match.params.id,
             number:'',
             numberOfBeds:'',
             description:''
@@ -51,15 +52,16 @@ class RoomProfileComponent extends Component {
 
     
     componentDidMount(){
-        RoomService.getRoomById(this.props.match.params.id).then((res) => {
-            let room = res.data;
-            this.setState({
-                number:room.number,
-                numberOfBeds:room.numberOfBeds,
-                description:room.description
+        let activeRoom =  JSON.parse(localStorage.getItem('activeRoom'))
 
-            });
+        this.setState({
+            id:activeRoom.id,
+            number:activeRoom.number,
+            numberOfBeds:activeRoom.numberOfBeds,
+            description:activeRoom.description
+
         });
+        
     }
     render() {
         return (
@@ -78,11 +80,11 @@ class RoomProfileComponent extends Component {
                                 
                                 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.update}>Update</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.update}>Update</button></div>
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.Appointments}>Appointments</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.Appointments}>Appointments</button></div>
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.delete}>Delete</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.delete}>Delete</button></div>
                                 
                                 
 
