@@ -3,6 +3,7 @@ package stasaaleksadavid.isabackend.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -71,9 +72,14 @@ public class CottageOwnerController {
 
     // find by email and password
 
-    @GetMapping("/cottageowners/login")
-    public ResponseEntity<CottageOwner> getCottageOwnerByEmailAndPassword(@RequestBody String email,@RequestBody String password){
+    @GetMapping("/cottageowners/login/{email}/{password}")
+    public ResponseEntity<CottageOwner> getCottageOwnerByEmailAndPassword(@PathVariable String email,@PathVariable String password){
         CottageOwner cottageOwner = cottageOwnerRepository.findByEmailAndPassword(email,password);
         return ResponseEntity.ok(cottageOwner);
     }
+
+
+
+
+
 }

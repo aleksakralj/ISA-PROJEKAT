@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LoginService from '../services/LoginService';
+import axios from 'axios';
 
 class LoginComponent extends Component {
     constructor(props){
@@ -15,14 +16,51 @@ class LoginComponent extends Component {
         this.register=this.register.bind(this);
         this.register=this.registeruser.bind(this);
         this.use=this.use.bind(this);
+        
     }
     login(){
-        //ovde ce se raditi i proveravanje da li postoji i koji je on u bazi, rahimov video: 1:40
-        //NE RADI VAJ?
-        let cottageOwnerId =LoginService.getCottageOwner().Id;
-       
-        this.props.history.push(`/cotatgeownerprofile/${cottageOwnerId}`);
+        axios
+        .post("http://localhost:8080/api/v1/login" + "/" + this.state.email + "/" + this.state.password)
+        .then(response => {
+            localStorage.setItem('activeUser',JSON.stringify(response.data));
+            
+            let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+            switch(activeUser.type){
+                case 'fishing_instructor':
+                    this.props.history.push(`/fishinginstructorprofile`);
+                break;
+    
+                case 'ship_owner':
+                    this.props.history.push(`/shipownerprofile`);
+                break;
+    
+                case 'cottage_owner':
+                    this.props.history.push(`/cottageownerprofile`);
+                break;
+    
+                case 'user':
+                    this.props.history.push(`/userprofile`);
+                break;
+                case 'admin':
+                    this.props.history.push(`/adminprofile`);
+                break;
+                default :
+                
+            }
+            
+        })
+        .catch(error=>{
+            console.log("Greska.")	
+            alert("Uneti nevalidni ili nepostojeci parametri, pokusajte ponovo.")
+            window.location.reload()
+            
+        })
+        
     }
+       
+        
+    
+
 
     registeruser(){
         this.props.history.push('/registeruser');
@@ -40,7 +78,7 @@ class LoginComponent extends Component {
     changePasswordHandler = (event) => {
         this.setState({password: event.target.value});
     }
-    
+   
     render() {
         return (
             <div><br/><br/><br/><br/>
@@ -49,14 +87,15 @@ class LoginComponent extends Component {
                     <div className="logindiv">
                         <h3 className="text-center"> LOGIN </h3>
                 
-                        <form>
+                        <form id="myForm">
                             <div className="form-group">
                                 <label> Email: </label>
-                                <input placeholder="Email" name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler}/>
+                                <input placeholder="Email" name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler} type="text"/>
                                 <label> Password: </label>
-                                <input placeholder="Password" name="password" className="form-control" value={this.state.password} onChange={this.changePasswordHandler}/>
+                                <input placeholder="Password" name="password" className="form-control" value={this.state.password} onChange={this.changePasswordHandler} type="text"/>
                                     
-                                <div className="center"><button className="loginbtn" onClick={this.login}>Login</button></div>
+                                <br/>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.login()}>Login</button></div>
                             </div>
                         </form>
                             

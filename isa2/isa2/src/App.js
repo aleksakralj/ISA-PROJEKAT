@@ -36,6 +36,7 @@ import AdventuresComponent from './components/AdventuresComponent';
 import AddAdventureComponent from './components/AddAdventureComponent';
 import ViewAdventureComponent from './components/ViewAdventureComponent';
 import FishingInstructorProfileComponent from './components/FishingInstructorProfileComponent';
+import localhost from './components/localhost.jsx';
 const backStyle = {
   width: '100%',
   height: '800px',
@@ -53,7 +54,8 @@ function App() {
          
           <div className="container">
             <Switch> 
-              <Route path = "/" exact component={LoginComponent}></Route>
+            <Route path = "/" exact component={localhost}></Route>
+              <Route path = "/login" exact component={LoginComponent}></Route>
               <Route path = "/registrationrequests" component={RegistrationRequestComponent}></Route>
               <Route path = "/adminprofile" component={AdminProfileComponent}></Route>
               <Route path = "/register" component={RegistrationComponent}></Route>
@@ -72,9 +74,9 @@ function App() {
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
               <Route path = "/viewrequests/:id" component={ViewRegistrationRequestComponent}></Route>
-              <Route path = "/cottageownerprofile/:id" component={CottageOwnerProfileComponent}></Route>
-              <Route path = "/cottageprofile/:id" component={CottageProfileComponent}></Route>
-              <Route path = "/roomprofile/:id" component={RoomProfileComponent}></Route>
+              <Route path = "/cottageownerprofile" component={CottageOwnerProfileComponent}></Route>
+              <Route path = "/cottageprofile" component={CottageProfileComponent}></Route>
+              <Route path = "/roomprofile" component={RoomProfileComponent}></Route>
               <Route path = "/allrooms" component={AllRoomsComponent}></Route>
               <Route path = "/cottageowners" component={CottageOwnersComponent}></Route>
               <Route path = "/shipowners" component={ShipOwnersComponent}></Route>
@@ -84,7 +86,7 @@ function App() {
               <Route path = "/adventures" component={AdventuresComponent}></Route>  
               <Route path = "/addadventure" component={AddAdventureComponent}></Route> 
               <Route path = "/viewadventure/:id" component={ViewAdventureComponent}></Route>
-              <Route path = "/fishinginstructorprofile/:id" component={FishingInstructorProfileComponent}></Route>  
+              <Route path = "/fishinginstructorprofile" component={FishingInstructorProfileComponent}></Route>  
               </Switch>
 
           </div>

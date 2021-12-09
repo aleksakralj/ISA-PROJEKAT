@@ -92,20 +92,21 @@ class AdminProfileComponent extends Component {
         this.setState({phoneNumber: event.target.value});
     }
     componentDidMount(){
-        AdminService.getAdminById(this.props.match.params.id).then((res) => {
-            let admin = res.data;
+
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+
             this.setState({
-                email:admin.email,
-                password:admin.password,
-                firstName:admin.firstName,
-                lastName:admin.lastName,
-                address: admin.address,
-                city:admin.city,
-                country:admin.country,
-                phoneNumber:admin.phoneNumber
+            email: activeUser.email,
+            password: activeUser.password,
+            firstName:activeUser.firstName,
+            lastName:activeUser.lastName,
+            address: activeUser.address,
+            city:activeUser.city,
+            country:activeUser.country,
+            phoneNumber:activeUser.phoneNumber,
 
             });
-        });
+        
     }
     render() {
         return (

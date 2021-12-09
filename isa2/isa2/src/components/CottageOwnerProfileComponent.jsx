@@ -23,7 +23,7 @@ class CottageOwnerProfileComponent extends Component {
         this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
         this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
         
-        this.changeAdressHandler = this.changeAdressHandler.bind(this);
+        this.changeAddressHandler = this.changeAddressHandler.bind(this);
         this.changeCityHandler = this.changeCityHandler.bind(this);
         this.changeCountryHandler = this.changeCountryHandler.bind(this);
 
@@ -33,10 +33,10 @@ class CottageOwnerProfileComponent extends Component {
         
     }
     
-
-    
     logout(){
-        this.props.history.push('/'); //ne znam kako ga ga vratim samo na localhost
+        localStorage.removeItem('activeUser')
+        this.props.history.push(`/login`);
+       
     }
     changeEmailHandler = (event) => {
         this.setState({email: event.target.value});
@@ -55,7 +55,7 @@ class CottageOwnerProfileComponent extends Component {
         this.setState({lastname: event.target.value});
     }
 
-    changeAdressHandler = (event) => {
+    changeAddressHandler = (event) => {
         this.setState({adress: event.target.value});
     }
     changeCityHandler = (event) => {
@@ -68,11 +68,24 @@ class CottageOwnerProfileComponent extends Component {
     changePhoneNumberHandler = (event) => {
         this.setState({phonenumber: event.target.value});
     }
-    componentDidMount(){
-        CottageOwnerService.getCottageOwnerById().then((res) => {
-            this.setState({cottageOwner: res.data})
-        });
 
+    
+    componentDidMount(){
+
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+
+            this.setState({
+            email: activeUser.email,
+            password: activeUser.password,
+            firstName:activeUser.firstName,
+            lastName:activeUser.lastName,
+            address: activeUser.address,
+            city:activeUser.city,
+            country:activeUser.country,
+            phoneNumber:activeUser.phoneNumber,
+
+            });
+        
     }
 
     update(id){
@@ -82,7 +95,7 @@ class CottageOwnerProfileComponent extends Component {
         return (
             <div>
                
-                
+               
                 <div className="registrationdiv">
                     <br/><br/>
                                 <label> Email: </label>
@@ -90,25 +103,27 @@ class CottageOwnerProfileComponent extends Component {
                                 <label> Password: </label>
                                 <input name="password" className="form-control" value={this.state.password} onChange={this.changePasswordHandler}/>
                                 <label> Password again: </label>
-                                <input name="password2" className="form-control" value={this.state.password2} onChange={this.changePassword2Handler}/>
+                                <input name="password2" className="form-control" value={this.state.password} onChange={this.changePassword2Handler}/>
 
                                 <label> First name: </label>
-                                <input name="firstname" className="form-control" value={this.state.firstname} onChange={this.changeFirstNameHandler}/>
+                                <input name="firstname" className="form-control" value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
                                 <label> Last name: </label>
-                                <input name="lastname" className="form-control" value={this.state.lastname} onChange={this.changeLastNameHandler}/>
+                                <input name="lastname" className="form-control" value={this.state.lastName} onChange={this.changeLastNameHandler}/>
                                 
                                 <label> Adress: </label>
-                                <input name="adress" className="form-control" value={this.state.adress} onChange={this.changeAdressHandler}/>
+                                <input name="address" className="form-control" value={this.state.address} onChange={this.changeAddressHandler}/>
                                 <label> City: </label>
                                 <input name="city" className="form-control" value={this.state.city} onChange={this.changeCityHandler}/>   
                                 <label> Country: </label>
                                 <input name="country" className="form-control" value={this.state.country} onChange={this.changeCountryHandler}/> 
 
                                 <label> Phone number: </label>
-                                <input name="phonenumber" className="form-control" value={this.state.phonenumber} onChange={this.changePhoneNumberHandler}/>
+                                <input name="phonenumber" className="form-control" value={this.state.phoneNumber} onChange={this.changePhoneNumberHandler}/>
 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.update}>Update</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.update}>Update</button></div>
+                                <br/>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.logout()}>Logout</button></div>
 
                 </div>
             </div>

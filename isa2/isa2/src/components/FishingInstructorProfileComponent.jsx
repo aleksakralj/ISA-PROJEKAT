@@ -54,20 +54,21 @@ class FishingInstructorProfile extends Component {
         this.setState({phoneNumber: event.target.value});
     }
     componentDidMount(){
-        FishingInstructorService.getFishingInstructorById(this.props.match.params.id).then((res) => {
-            let fishinginstructor = res.data;
+
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+
             this.setState({
-                email:fishinginstructor.email,
-                password:fishinginstructor.password,
-                firstName:fishinginstructor.firstName,
-                lastName:fishinginstructor.lastName,
-                address: fishinginstructor.address,
-                city:fishinginstructor.city,
-                country:fishinginstructor.country,
-                phoneNumber:fishinginstructor.phoneNumber
+            email: activeUser.email,
+            password: activeUser.password,
+            firstName:activeUser.firstName,
+            lastName:activeUser.lastName,
+            address: activeUser.address,
+            city:activeUser.city,
+            country:activeUser.country,
+            phoneNumber:activeUser.phoneNumber,
 
             });
-        });
+        
     }
     render() {
         return (
