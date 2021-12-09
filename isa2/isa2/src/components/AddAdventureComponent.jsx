@@ -14,6 +14,8 @@ class AddAdventureComponent extends Component {
              
         }
         this.addAdventure=this.addAdventure.bind(this);
+        //this.fishinginstructorprofile=this.fishinginstructorprofile.bind(this);
+        
         this.changeNameHandler=this.changeNameHandler.bind(this);
         this.changeAddressHandler=this.changeAddressHandler.bind(this);
         this.changeDescriptionHandler=this.changeDescriptionHandler.bind(this);
@@ -23,12 +25,19 @@ class AddAdventureComponent extends Component {
     }
     addAdventure= (e) => {
         e.preventDefault();
-        let adventure = {name:this.state.name, address:this.state.address, description:this.state.description, maxPeople:this.state.maxPeople, rulesOfConduct:this.state.rulesOfConduct, termsOfReservation:this.state.termsOfReservation, instructorId:this.state.instructorId}
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        let adventure = {name:this.state.name, address:this.state.address, description:this.state.description, maxPeople:this.state.maxPeople, rulesOfConduct:this.state.rulesOfConduct, termsOfReservation:this.state.termsOfReservation, instructorId:activeUser.id}
         console.log('adventure => ' + JSON.stringify(adventure));
 
         AdventureService.createAdventure(adventure).then(res=> {
             this.props.history.push('/addadventure')
         });
+    }
+    fishinginstructorprofile(){
+        this.props.history.push('/fishinginstructorprofile')
+    }
+    adventures(){
+        window.location.reload();
     }
     changeNameHandler = (event) => {
         this.setState({name: event.target.value});
@@ -51,7 +60,13 @@ class AddAdventureComponent extends Component {
     render() {
         return (
             <div>
-            
+            <div className="menu">
+                <button onClick={()=>this.fishinginstructorprofile()} > Profile</button>
+                <button onClick={()=>this.adventures()}> Adventures</button>
+                
+
+                <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
+            </div>
                 <div className="registrationdiv">
                     <br/><br/>
                                 <label> Name: </label>

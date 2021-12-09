@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import RegistrationRequestService from '../services/RegistrationRequestService';
-import Popup from 'reactjs-popup';
+
 
 class RegistrationUserComponent extends Component {
     constructor(props){

@@ -31,13 +31,13 @@ class LoginComponent extends Component {
                 <div className="container">
                     
                     <div className="logindiv">
-                        <h3 className="text-center"> LOGIN </h3>
+                        <h3 className="text-center"> WELCOME </h3>
                 
                         <form id="myForm">
                             <div className="form-group">
                                 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.log()}>to login</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.log()}> TO LOGIN</button></div>
                             </div>
                         </form>
                             

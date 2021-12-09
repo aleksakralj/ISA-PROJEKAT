@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UserService from '../services/UserService';
 
-class AdminProfileComponent extends Component {
+class MainAdminProfileComponent extends Component {
     constructor(props){
         super(props)
         this.state={
@@ -30,10 +30,10 @@ class AdminProfileComponent extends Component {
         this.changePhoneNumberHandler = this.changePhoneNumberHandler.bind(this);
         
        
-        this.adminprofile = this.adminprofile.bind(this);
+        this.mainadminprofile = this.mainadminprofile.bind(this);
         this.logout= this.logout.bind(this); 
         this.income= this.income.bind(this);
-        this.addadmin= this.addadmin.bind(this);
+        this.admins= this.admins.bind(this);
         this.regreq= this.regreq.bind(this);
     }
     
@@ -54,11 +54,11 @@ class AdminProfileComponent extends Component {
     }
     //admin profile dugme ne radi nista jer smo vec na profilu, ako bude trebao da refreshuje zbog necega onda cemo ga uraditi
     //kako loguot vratiti na pocetnu tj localhost?
-    adminprofile(){
-        this.props.history.push('/adminprofile');
+    mainadminprofile(){
+        this.props.history.push('/mainadminprofile');
     }
-    addadmin(){
-        this.props.history.push('/addadmin');
+    admins(){
+        this.props.history.push('/alladmins');
     }
     regreq(){
         this.props.history.push('/registrationrequests');
@@ -123,9 +123,10 @@ class AdminProfileComponent extends Component {
             <div>
                 
                 <div className="menu">
-                <button onClick={this.adminprofile} > Profile</button>
+                <button onClick={this.mainadminprofile} > Profile</button>
                 <button onClick={this.regreq}> Registration requests</button>
                 <button onClick={this.income}> Income </button>
+                <button onClick={this.admins}> Admins </button>
 
                 <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
                 </div>
@@ -164,4 +165,4 @@ class AdminProfileComponent extends Component {
     }
 }
 
-export default AdminProfileComponent;
+export default MainAdminProfileComponent;

@@ -55,7 +55,7 @@ class ViewRegistrationRequestComponent extends Component {
     }
     acceptRequest= (e) => {
         e.preventDefault();
-        let registrationRequests = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type: this.state.type}
+        let registrationRequests = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type: this.state.type, reason:this.state.reason}
         console.log('registrationRequests => ' + JSON.stringify(registrationRequests));
 
         //const{type} = props

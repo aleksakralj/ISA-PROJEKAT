@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import AdminService from '../services/AdminService';
+import UserService from '../services/UserService';
+import axios from 'axios';
 class AllAdminsComponent extends Component {
     constructor(props){
         super(props)
@@ -35,19 +36,21 @@ class AllAdminsComponent extends Component {
         this.props.history.push('/income');
     }
     logout(){
-        this.props.history.push('/'); //ne znam kako ga ga vratim samo na localhost
+        localStorage.removeItem('activeUser')
+        this.props.history.push(`/login`);
     }
     addadmin(){
         this.props.history.push('/addadmin');
     }
     deleteAdmin(id){
-        AdminService.deleteAdmin(id).then(res=>{
+       UserService.deleteUser(id).then(res=>{
                 this.setState({admins: this.state.admins.filter(admin=>admin.id !==id)});
                 this.props.history.push("/alladmins"); // refresh ne radi nzm zasto
         });
     }
     componentDidMount(){
-        AdminService.getAdmins().then((res)=>{
+
+        axios.get("http://localhost:8080/api/v1/users/type/admin" ).then((res)=>{
                 this.setState({admins: res.data});
         });
     } 
@@ -56,11 +59,10 @@ class AllAdminsComponent extends Component {
             <div>
                 <div className="menu">
                     <button onClick={this.adminprofile} > Profile</button>
-                    <button onClick={this.alladmins}> All admins </button>
                     <button onClick={this.regreq}> Registration requests</button>
                     <button onClick={this.income}> Income </button>
-
-                    <button className="menubtnLog" onClick={this.loguot} >Logout</button>
+                    <button onClick={this.alladmins}> All admins </button>
+                    <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
                 </div>
 
                 <div> <br/><br/><br/><br/><br/><br/><br/><br/>

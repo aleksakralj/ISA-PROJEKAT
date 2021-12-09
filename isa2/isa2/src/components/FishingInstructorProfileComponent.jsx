@@ -14,7 +14,7 @@ class FishingInstructorProfile extends Component {
             phoneNumber:''
             
         }
-       
+        this.adventures= this.adventures.bind(this);
     }
     update(id) {
         
@@ -23,6 +23,14 @@ class FishingInstructorProfile extends Component {
 
         FishingInstructorService.updateFishingInstructor(fishinginstructor,id) ;
     }
+    logout(){
+        localStorage.removeItem('activeUser')
+        this.props.history.push(`/login`);
+    }
+    adventures(){
+        this.props.history.push('/adventures');
+    }
+
     changeEmailHandler = (event) => {
         this.setState({email: event.target.value});
     }
@@ -73,6 +81,13 @@ class FishingInstructorProfile extends Component {
     render() {
         return (
             <div>
+                <div className="menu">
+                <button onClick={this.fishinginstructorprofile} > Profile</button>
+                <button onClick={this.adventures}> Adventures</button>
+                
+
+                <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
+                </div>
                 <div className="registrationdiv">
                     <br/><br/>
                                 <label> Email: </label>
@@ -80,7 +95,7 @@ class FishingInstructorProfile extends Component {
                                 <label> Password: </label>
                                 <input name="password" className="form-control" value={this.state.password} onChange={this.changePasswordHandler}/>
                                 <label> Password again: </label>
-                                <input name="password2" className="form-control" value={this.state.password2} onChange={this.changePassword2Handler}/>
+                                <input name="password2" className="form-control" value={this.state.password} onChange={this.changePassword2Handler}/>
 
                                 <label> First name: </label>
                                 <input name="firstName" className="form-control" value={this.state.firstName} onChange={this.changeFirstNameHandler}/>

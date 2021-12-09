@@ -40,12 +40,21 @@ public class Adventure {
     public  Adventure() {}
 
     public Adventure(String name, String address, String description, int maxPeople, String rulesOfConduct, String termsOfReservation, long instructorId) {
+       super();
         this.name = name;
         this.address = address;
         this.description = description;
         this.maxPeople = maxPeople;
         this.rulesOfConduct = rulesOfConduct;
         this.termsOfReservation = termsOfReservation;
+        this.instructorId = instructorId;
+    }
+
+    public long getInstructorId() {
+        return instructorId;
+    }
+
+    public void setInstructorId(long instructorId) {
         this.instructorId = instructorId;
     }
 

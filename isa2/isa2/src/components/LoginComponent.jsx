@@ -41,9 +41,19 @@ class LoginComponent extends Component {
                 case 'user':
                     this.props.history.push(`/userprofile`);
                 break;
+
                 case 'admin':
-                    this.props.history.push(`/adminprofile`);
+                    //treba da resetuje lozinku
+                    if(activeUser.password=="password"){
+                     this.props.history.push(`/adminchangepassword`)   
+                    }
+                    else this.props.history.push(`/adminprofile`);
                 break;
+
+                case 'main_admin':
+                    this.props.history.push(`/mainadminprofile`);
+                break;
+                
                 default :
                 
             }

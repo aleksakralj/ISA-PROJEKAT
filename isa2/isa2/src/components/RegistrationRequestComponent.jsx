@@ -29,7 +29,8 @@ class RegistrationRequestComponent extends Component {
         this.props.history.push('/income');
     }
     logout(){
-        this.props.history.push('/'); //ne znam kako ga ga vratim samo na localhost
+        localStorage.removeItem('activeUser')
+        this.props.history.push(`/login`);
     }
     denyRequest(id){
         RegistrationRequestService.deleteRegistrationRequest(id).then(res=>{
@@ -87,7 +88,7 @@ class RegistrationRequestComponent extends Component {
                 <button onClick={this.regreq}> Registration requests</button>
                 <button onClick={this.income}> Income </button>
 
-                <button className="menubtnLog" onClick={this.loguot} >Logout</button>
+                <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
             </div>
             <br/><br/><br/><br/><br/><br/>
             <h2 className="text-center">Registration requests</h2>

@@ -37,17 +37,20 @@ import AddAdventureComponent from './components/AddAdventureComponent';
 import ViewAdventureComponent from './components/ViewAdventureComponent';
 import FishingInstructorProfileComponent from './components/FishingInstructorProfileComponent';
 import localhost from './components/localhost.jsx';
-const backStyle = {
+import MainAdminProfileComponent from './components/MainAdminProfileComponent';
+import AdminChangePasswordComponent from './components/AdminChangePasswordComponent';
+
+/*const backStyle = {
   width: '100%',
   height: '800px',
   backgroundImage: `url(${background})`,
   backgroundSize: 'cover'
-};
+};*/
 
 
 function App() {
   return (
-    <div style={backStyle}>
+    <div>
       <HeaderComponent />
       
         <Router>
@@ -87,6 +90,8 @@ function App() {
               <Route path = "/addadventure" component={AddAdventureComponent}></Route> 
               <Route path = "/viewadventure/:id" component={ViewAdventureComponent}></Route>
               <Route path = "/fishinginstructorprofile" component={FishingInstructorProfileComponent}></Route>  
+              <Route path = "/mainadminprofile" component={MainAdminProfileComponent}></Route>  
+              <Route path = "/adminchangepassword" component={AdminChangePasswordComponent}></Route>
               </Switch>
 
           </div>

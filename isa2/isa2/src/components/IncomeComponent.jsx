@@ -40,7 +40,8 @@ class IncomeComponent extends Component {
         this.props.history.push('/income');
     }
     logout(){
-        this.props.history.push('/'); //ne znam kako ga ga vratim samo na localhost
+        localStorage.removeItem('activeUser')
+        this.props.history.push(`/login`);
     }
     render() {
         return (
@@ -51,7 +52,7 @@ class IncomeComponent extends Component {
                 <button onClick={this.regreq}> Registration requests</button>
                 <button onClick={this.income}> Income </button>
 
-                <button className="menubtnLog" onClick={this.loguot} >Logout</button>
+                <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
                 </div>
 
                 <div className="container">
