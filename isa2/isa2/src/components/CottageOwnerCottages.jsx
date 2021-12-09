@@ -11,14 +11,22 @@ class CottageOwnerCottages extends Component {
     }
     
     logout(){
-        this.props.history.push('/'); 
+        localStorage.removeItem('activeUser')
+        localStorage.removeItem('activeCottage')
+        localStorage.removeItem('activeRoom')
+        this.props.history.push(`/login`);
+       
     }
-    addroom(){
-        this.props.history.push('/addroom');
+    addcottage(){
+
+        
+        this.props.history.push(`/addcottage`);
     }
+
+
     viewCottage(id){
         axios
-        .get("http://localhost:8080/api/v1/cottages" + "/" + id )
+        .get("http://localhost:8080/api/v1/cottages/" + id )
         .then(response => {
             localStorage.setItem('activeCottage',JSON.stringify(response.data));
             this.props.history.push('/cottageprofile');});
@@ -26,15 +34,16 @@ class CottageOwnerCottages extends Component {
             
     }
 
-    deleteCottage(){
-//TODO
+    deleteCottage(id){
+        axios.delete("http://localhost:8080/api/v1/cottages/" + id);
+        window.location.reload();
     }
 
     componentDidMount(){
         localStorage.removeItem('activeCottage');
         localStorage.removeItem('activeRoom');
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
-        axios.get("http://localhost:8080/api/v1/cottages/owner" + "/" + activeUser.id).then((res)=>{
+        axios.get("http://localhost:8080/api/v1/cottages/owner/" + activeUser.id).then((res)=>{
             this.setState({cottages: res.data});
     });
         
@@ -45,7 +54,7 @@ class CottageOwnerCottages extends Component {
                
 
                 <div> <br/><br/><br/><br/><br/><br/><br/><br/>
-                <button onClick={this.addroom} className="loginbtn" > Add room </button>
+                <button onClick={()=>this.addcottage()} className="loginbtn" > Add cottage </button>
          
                     <h2 className="text-center">Cottages</h2>
 
@@ -80,7 +89,7 @@ class CottageOwnerCottages extends Component {
                                             
                                             <td>
                                                 <button onClick={()=>this.viewCottage(cottages.id)} className="loginbtn">View</button> 
-                                                <button onClick={()=>this.deleteCottage()} className="loginbtn">Delete</button> 
+                                                <button onClick={()=>this.deleteCottage(cottages.id)} className="loginbtn">Delete</button> 
                                                  </td>
                                         </tr>
                                     )

@@ -38,6 +38,8 @@ import ViewAdventureComponent from './components/ViewAdventureComponent';
 import FishingInstructorProfileComponent from './components/FishingInstructorProfileComponent';
 import localhost from './components/localhost.jsx';
 import CottageOwnerCottages from './components/CottageOwnerCottages';
+import AddCottage from './components/AddCottageComponent';
+import AddRoom from './components/AddRoomComponent';
 const backStyle = {
   width: '100%',
   height: '800px',
@@ -89,6 +91,8 @@ function App() {
               <Route path = "/viewadventure/:id" component={ViewAdventureComponent}></Route>
               <Route path = "/fishinginstructorprofile" component={FishingInstructorProfileComponent}></Route>  
               <Route path = "/cottageownercottages" component={CottageOwnerCottages}></Route>
+              <Route path = "/addcottage" component={AddCottage}></Route>
+              <Route path = "/addroom" component={AddRoom}></Route>
               </Switch>
 
           </div>

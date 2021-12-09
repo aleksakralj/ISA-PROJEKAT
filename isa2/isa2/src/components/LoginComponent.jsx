@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import LoginService from '../services/LoginService';
 import axios from 'axios';
 
 class LoginComponent extends Component {
@@ -20,7 +19,7 @@ class LoginComponent extends Component {
     }
     login(){
         axios
-        .get("http://localhost:8080/api/v1/login" + "/" + this.state.email + "/" + this.state.password)
+        .get("http://localhost:8080/api/v1/login/" + this.state.email + "/" + this.state.password)
         .then(response => {
             localStorage.setItem('activeUser',JSON.stringify(response.data));
             
@@ -50,8 +49,8 @@ class LoginComponent extends Component {
             
         })
         .catch(error=>{
-            console.log("Greska.")	
-            alert("Uneti nevalidni ili nepostojeci parametri, pokusajte ponovo.")
+            console.log("Error")	
+            alert("Invalid email and/or password")
             window.location.reload()
             
         })

@@ -18,41 +18,10 @@ class RoomProfileComponent extends Component {
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         
 
-        this.logout= this.logout.bind(this); 
+     
        
-    }
-    update(){
-
-        let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'));
-
-        let room = {
-
-            id:this.state.id,
-            number:this.state.number,
-            numberOfBeds:this.state.numberOfBeds,
-            description:this.state.description,
-            cottageId:activeCottage.id,
-
-        }
-        let roid = this.state.id;
-
-        console.log('room => ' + JSON.stringify(room));
-        axios.put("http://localhost:8080/api/v1/rooms/"+ roid,room);
-        this.props.history.push(`/allrooms`);
-        window.location.reload();
-
-
     }
     
-    logout(){
-        localStorage.removeItem('activeUser')
-        localStorage.removeItem('activeCottage')
-        localStorage.removeItem('activeRoom')
-        this.props.history.push(`/login`);
-       
-    }
-
-   
 
     changeNumberHandler = (event) => {
         this.setState({number: event.target.value});
@@ -64,18 +33,26 @@ class RoomProfileComponent extends Component {
         this.setState({description: event.target.value});
     }
 
+    Add(){
+        let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'));
+
+        let room = {           
+            id:this.state.id,
+            number:this.state.number,
+            numberOfBeds:this.state.numberOfBeds,
+            description:this.state.description,
+            cottageId:activeCottage.id,
+        }
+        
+        console.log('room => ' + JSON.stringify(room));
+        axios.post("http://localhost:8080/api/v1/rooms/",room);
+        this.props.history.push(`/allrooms`);
+        window.location.reload();
+
+    }
     
     componentDidMount(){
-        let activeRoom =  JSON.parse(localStorage.getItem('activeRoom'))
-
-        this.setState({
-            id:activeRoom.id,
-            number:activeRoom.number,
-            numberOfBeds:activeRoom.numberOfBeds,
-            description:activeRoom.description
-
-        });
-        
+       
     }
     render() {
         return (
@@ -94,8 +71,9 @@ class RoomProfileComponent extends Component {
                                 
                                 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.update()}>Update</button></div>
-                               
+                                <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Add</button></div>
+                                
+                                
                                 
 
                 </div>
