@@ -20,9 +20,10 @@ class CottageOwnerCottages extends Component {
         axios
         .get("http://localhost:8080/api/v1/cottages" + "/" + id )
         .then(response => {
-            localStorage.setItem('activeCottage',JSON.stringify(response.data));});
+            localStorage.setItem('activeCottage',JSON.stringify(response.data));
+            this.props.history.push('/cottageprofile');});
             
-            this.props.history.push('/cottageprofile');
+            
     }
 
     deleteCottage(){
@@ -30,7 +31,8 @@ class CottageOwnerCottages extends Component {
     }
 
     componentDidMount(){
-        
+        localStorage.removeItem('activeCottage');
+        localStorage.removeItem('activeRoom');
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         axios.get("http://localhost:8080/api/v1/cottages/owner" + "/" + activeUser.id).then((res)=>{
             this.setState({cottages: res.data});

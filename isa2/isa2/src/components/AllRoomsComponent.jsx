@@ -21,9 +21,11 @@ class AllRoomsComponent extends Component {
         axios
         .get("http://localhost:8080/api/v1/rooms" + "/" + id )
         .then(response => {
-            localStorage.setItem('activeRoom',JSON.stringify(response.data));});
+            localStorage.setItem('activeRoom',JSON.stringify(response.data));
+            this.props.history.push(`/roomprofile`);
+        });
             
-        this.props.history.push(`/roomprofile`);
+        
     }
 
     
@@ -41,7 +43,7 @@ class AllRoomsComponent extends Component {
     }
     componentDidMount(){
     
-       
+        localStorage.removeItem('activeRoom');
         let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'));
         axios.get("http://localhost:8080/api/v1/rooms/cottage" + "/" + activeCottage.id).then((res)=>{
             this.setState({rooms: res.data});

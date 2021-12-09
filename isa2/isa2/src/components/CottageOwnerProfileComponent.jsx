@@ -79,6 +79,8 @@ class CottageOwnerProfileComponent extends Component {
     
     componentDidMount(){
 
+        localStorage.removeItem('activeCottage');
+        localStorage.removeItem('activeRoom');
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
 
             this.setState({
