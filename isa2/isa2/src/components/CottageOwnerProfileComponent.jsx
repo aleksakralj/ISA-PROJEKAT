@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import CottageOwnerService from '../services/CottageOwnerService';
+import axios from 'axios';
+
 class CottageOwnerProfileComponent extends Component {
     constructor(props){
         super(props)
@@ -69,12 +70,19 @@ class CottageOwnerProfileComponent extends Component {
         this.setState({phonenumber: event.target.value});
     }
 
+    cottages()
+    {
+        
+        this.props.history.push(`/cottageownercottages`);
+
+    }
     
     componentDidMount(){
 
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
 
             this.setState({
+                id:activeUser.id,
             email: activeUser.email,
             password: activeUser.password,
             firstName:activeUser.firstName,
@@ -94,7 +102,9 @@ class CottageOwnerProfileComponent extends Component {
     render() {
         return (
             <div>
-               
+               <br/>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.cottages()}>My cottages</button></div>
+
                
                 <div className="registrationdiv">
                     <br/><br/>
