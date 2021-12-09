@@ -91,4 +91,5 @@ public class UserController {
     @GetMapping("/users/type/{type}")
     public List<User> getAllUsersByType(@PathVariable String type){return userRepository.findByType(type);}
 
+
 }

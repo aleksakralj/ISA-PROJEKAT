@@ -49,6 +49,10 @@ public class AdventureController {
         adventure.setRulesOfConduct(adventureDetails.getRulesOfConduct());
         adventure.setTermsOfReservation(adventureDetails.getTermsOfReservation());
 
+        adventure.setFishingEquipment(adventureDetails.getFishingEquipment());
+        adventure.setAdditionalServices(adventureDetails.getAdditionalServices());
+        adventure.setPrices(adventureDetails.getPrices());
+
         Adventure updatedAdventure = adventureRepository.save(adventure);
         return ResponseEntity.ok(updatedAdventure);
     }
@@ -69,5 +73,9 @@ public class AdventureController {
     //get by instructorId
     @GetMapping("/adventures/instructorid/{instructorId}")
     public List<Adventure> getAdventuresByInstructorId(@PathVariable Long instructorId){return adventureRepository.findByInstructorId(instructorId);}
+
+    //get by instructorId
+    @GetMapping("/adventures/name/{name}")
+    public List<Adventure> getAdventuresByName(@PathVariable String name){return adventureRepository.findByName(name);}
 
 }

@@ -35,6 +35,12 @@ class AdminProfileComponent extends Component {
         this.income= this.income.bind(this);
         this.addadmin= this.addadmin.bind(this);
         this.regreq= this.regreq.bind(this);
+
+        this.cottageowners=this.cottageowners.bind(this);
+        this.cottages=this.cottages.bind(this);
+        this.shipowners=this.shipowners.bind(this);
+        this.ships=this.ships.bind(this);
+        this.clients=this.clients.bind(this);
     }
     
     update(id) {
@@ -65,6 +71,22 @@ class AdminProfileComponent extends Component {
     }
     income(){
         this.props.history.push('/income');
+    }
+    
+    cottageowners(){
+        this.props.history.push('/cottageowners');
+    }
+    cottages(){
+        this.props.history.push('/cottages');
+    }
+    shipowners(){
+        this.props.history.push('/shipowners');
+    }
+    ships(){
+        this.props.history.push('/ships');
+    }
+    clients(){
+        this.props.history.push('/clients');
     }
     logout(){
         localStorage.removeItem('activeUser')
@@ -126,7 +148,12 @@ class AdminProfileComponent extends Component {
                 <button onClick={this.adminprofile} > Profile</button>
                 <button onClick={this.regreq}> Registration requests</button>
                 <button onClick={this.income}> Income </button>
-
+                <button onClick={this.cottageowners}> Cottage owners </button>
+                <button onClick={this.cottages}> Cottages </button>
+                <button onClick={this.shipowners}> Ship owners </button>
+                <button onClick={this.ships}> Ships </button>
+                <button onClick={this.clients}> Clients </button>
+                
                 <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
                 </div>
                 

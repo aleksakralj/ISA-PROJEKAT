@@ -36,13 +36,21 @@ class AdventuresComponent extends Component {
     adventures(){
         this.props.history.push('/adventures');
     }
+    search(search){
+        //this.setState({seach: this.state.seach})
+        axios.get("http://localhost:8080/api/v1/adventures/name/" + search ).then((res)=>{
+                this.setState({adventures: res.data});
+        });
+    }
     componentDidMount(){
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
-        axios.get("http://localhost:8080/api/v1/instructorid/" + activeUser.id ).then((res)=>{
+        axios.get("http://localhost:8080/api/v1/adventures/instructorid/" + activeUser.id ).then((res)=>{
                 this.setState({adventures: res.data});
         });
      } 
-
+     changeSearchHandler = (event) => {
+        this.setState({search: event.target.value});
+    }
     render() {
         return (
             <div>
@@ -56,6 +64,10 @@ class AdventuresComponent extends Component {
 
                 <br/><br/><br/><br/><br/><br/>
                 <button onClick={()=>this.addAdventure(this.props.match.params.id)} className="loginbtn">Add</button>
+                <br/>
+                <input name="name" value={this.state.search} onChange={this.changeSearchHandler}></input>
+                <button onClick={()=>this.search(this.state.search)} className="loginbtn">Search</button>
+
                 <h2 className="text-center">Adventures</h2>
 
                     <div className="row">

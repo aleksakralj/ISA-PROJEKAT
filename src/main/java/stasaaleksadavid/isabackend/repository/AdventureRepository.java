@@ -11,4 +11,5 @@ import java.util.List;
 public interface AdventureRepository extends JpaRepository<Adventure,Long> {
 
     List<Adventure> findByInstructorId(Long instructorId);
+    List<Adventure> findByName(String name);
 }

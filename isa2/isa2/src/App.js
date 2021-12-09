@@ -39,6 +39,7 @@ import FishingInstructorProfileComponent from './components/FishingInstructorPro
 import localhost from './components/localhost.jsx';
 import MainAdminProfileComponent from './components/MainAdminProfileComponent';
 import AdminChangePasswordComponent from './components/AdminChangePasswordComponent';
+import DeleteRequestComponent from './components/DeleteRequestComponent'
 
 /*const backStyle = {
   width: '100%',
@@ -92,6 +93,7 @@ function App() {
               <Route path = "/fishinginstructorprofile" component={FishingInstructorProfileComponent}></Route>  
               <Route path = "/mainadminprofile" component={MainAdminProfileComponent}></Route>  
               <Route path = "/adminchangepassword" component={AdminChangePasswordComponent}></Route>
+              <Route path = "/deleterequest" component={DeleteRequestComponent}></Route>
               </Switch>
 
           </div>

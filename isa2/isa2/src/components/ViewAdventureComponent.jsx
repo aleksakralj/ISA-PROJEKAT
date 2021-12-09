@@ -15,6 +15,9 @@ class ViewAdventureComponent extends Component {
             instructorId:''
              
         }
+        this.adventures=this.adventures.bind(this);
+        this.fishinginstructorprofile=this.fishinginstructorprofile.bind(this);
+        
         this.updateAdventure=this.updateAdventure.bind(this);
         this.changeNameHandler=this.changeNameHandler.bind(this);
         this.changeAddressHandler=this.changeAddressHandler.bind(this);
@@ -22,6 +25,9 @@ class ViewAdventureComponent extends Component {
         this.changeMaxPeopleHandler=this.changeMaxPeopleHandler.bind(this);
         this.changeRulesOfConductHandler=this.changeRulesOfConductHandler.bind(this);
         this.changeTermsOfReservationHandler=this.changeTermsOfReservationHandler.bind(this);
+        this.changeAdditionalServicesHandler=this.changeAdditionalServicesHandler.bind(this);
+        this.changePricesHandler=this.changePricesHandler.bind(this);
+        this.changeFishingEquipmentHandler=this.changeFishingEquipmentHandler.bind(this);
     }
     updateAdventure= (e) => {
         e.preventDefault();
@@ -32,6 +38,13 @@ class ViewAdventureComponent extends Component {
             this.props.history.push('/adventures');
         });
     }
+    fishinginstructorprofile(){
+        this.props.history.push('/fishinginstructorprofile')
+    }
+    adventures(){
+        this.props.history.push("/adventures");
+    }
+    
     changeNameHandler = (event) => {
         this.setState({name: event.target.value});
     }
@@ -50,6 +63,16 @@ class ViewAdventureComponent extends Component {
     changeTermsOfReservationHandler = (event) => {
         this.setState({termsOfReservation: event.target.value});
     }
+    changeAdditionalServicesHandler = (event) => {
+        this.setState({additionalServices: event.target.value});
+    }
+    changePricesHandler = (event) => {
+        this.setState({prices: event.target.value});
+    }
+    changeFishingEquipmentHandler = (event) => {
+        this.setState({fishingEquipment: event.target.value});
+    }
+
     componentDidMount(){
         AdventureService.getAdventureById(this.props.match.params.id).then((res) => {
             let adventure = res.data;
@@ -59,8 +82,10 @@ class ViewAdventureComponent extends Component {
                 description:adventure.description,
                 maxPeople:adventure.maxPeople,
                 rulesOfConduct:adventure.rulesOfConduct,
-                termsOfReservation:adventure.termsOfReservation
-
+                termsOfReservation:adventure.termsOfReservation,
+                additionalServices:adventure.additionalServices,
+                prices:adventure.prices,
+                fishingEquipment:adventure.fishingEquipment
 
             });
         });
@@ -68,6 +93,13 @@ class ViewAdventureComponent extends Component {
     render() {
         return (
             <div>
+                <div className="menu">
+            <button onClick={()=>this.fishinginstructorprofile()} > Profile</button>
+            <button onClick={()=>this.adventures()}> Adventures</button>
+            
+
+            <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
+            </div>
                 <div className="registrationdiv">
                     <br/><br/>
                                 <label> Name: </label>
@@ -84,6 +116,12 @@ class ViewAdventureComponent extends Component {
                                 <label> Terms of reservation: </label>
                                 <input name="termsOfReservation" className="form-control" value={this.state.termsOfReservation} onChange={this.changeTermsOfReservationHandler}/>
                                 
+                                <label> Additional services: </label>
+                                <input name="additionalServices" className="form-control" value={this.state.additionalServices} onChange={this.changeAdditionalServicesHandler}/>
+                                <label> Prices: </label>
+                                <input name="prices" className="form-control" value={this.state.prices} onChange={this.changePricesHandler}/>
+                                <label> Fishing equipment: </label>
+                                <input name="fishingEquipment" className="form-control" value={this.state.fishingEquipment} onChange={this.changeFishingEquipmentHandler}/>
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={this.updateAdventure}>Update</button></div>
 

@@ -37,10 +37,19 @@ public class Adventure {
     @Column(name = "InstructorId")
     private long instructorId;
 
+    @Column(name = "FishingEquipment")
+    private String fishingEquipment;
+
+    @Column(name = "AdditionalServices")
+    private String additionalServices;
+
+    @Column(name = "Prices")
+    private String prices;
+
     public  Adventure() {}
 
-    public Adventure(String name, String address, String description, int maxPeople, String rulesOfConduct, String termsOfReservation, long instructorId) {
-       super();
+    public Adventure(String name, String address, String description, int maxPeople, String rulesOfConduct, String termsOfReservation, long instructorId, String fishingEquipment, String additionalServices, String prices) {
+        super();
         this.name = name;
         this.address = address;
         this.description = description;
@@ -48,6 +57,9 @@ public class Adventure {
         this.rulesOfConduct = rulesOfConduct;
         this.termsOfReservation = termsOfReservation;
         this.instructorId = instructorId;
+        this.fishingEquipment = fishingEquipment;
+        this.additionalServices = additionalServices;
+        this.prices = prices;
     }
 
     public long getInstructorId() {
@@ -115,4 +127,27 @@ public class Adventure {
         this.termsOfReservation = termsOfReservation;
     }
 
+    public String getFishingEquipment() {
+        return fishingEquipment;
+    }
+
+    public void setFishingEquipment(String fishingEquipment) {
+        this.fishingEquipment = fishingEquipment;
+    }
+
+    public String getAdditionalServices() {
+        return additionalServices;
+    }
+
+    public void setAdditionalServices(String additionalServices) {
+        this.additionalServices = additionalServices;
+    }
+
+    public String getPrices() {
+        return prices;
+    }
+
+    public void setPrices(String prices) {
+        this.prices = prices;
+    }
 }

@@ -23,6 +23,9 @@ class FishingInstructorProfile extends Component {
 
         FishingInstructorService.updateFishingInstructor(fishinginstructor,id) ;
     }
+    deleterequest(){
+        this.props.history.push(`/deleterequest`);
+    }
     logout(){
         localStorage.removeItem('activeUser')
         this.props.history.push(`/login`);
@@ -88,8 +91,10 @@ class FishingInstructorProfile extends Component {
 
                 <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
                 </div>
+               
                 <div className="registrationdiv">
-                    <br/><br/>
+                    <br/>
+                
                                 <label> Email: </label>
                                 <input name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler}/>
                                 <label> Password: </label>
@@ -112,8 +117,10 @@ class FishingInstructorProfile extends Component {
                                 <label> Phone number: </label>
                                 <input name="phoneNumber" className="form-control" value={this.state.phoneNumber} onChange={this.changePhoneNumberHandler}/>
 
-                                <br/>
+                                
                                 <div className="center"><button className="loginbtn" onClick={this.update}>Update</button></div>
+                               <br/>
+                                <div className="center"><button  onClick={()=>this.deleterequest()} className="loginbtn" >Delete profile </button></div>
 
                 </div>
             </div>

@@ -37,7 +37,7 @@ class AddAdventureComponent extends Component {
         this.props.history.push('/fishinginstructorprofile')
     }
     adventures(){
-        window.location.reload();
+        this.props.history.push('/adventures')
     }
     changeNameHandler = (event) => {
         this.setState({name: event.target.value});
