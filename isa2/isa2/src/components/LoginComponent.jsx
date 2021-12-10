@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import LoginService from '../services/LoginService';
+
 import axios from 'axios';
 
 class LoginComponent extends Component {
@@ -20,7 +20,7 @@ class LoginComponent extends Component {
     }
     login(){
         axios
-        .post("http://localhost:8080/api/v1/login" + "/" + this.state.email + "/" + this.state.password)
+        .get("http://localhost:8080/api/v1/login/" + this.state.email + "/" + this.state.password)
         .then(response => {
             localStorage.setItem('activeUser',JSON.stringify(response.data));
             
@@ -35,7 +35,7 @@ class LoginComponent extends Component {
                 break;
     
                 case 'cottage_owner':
-                    this.props.history.push(`/cottageownerprofile`);
+                    this.props.history.push('/cottageownerprofile');
                 break;
     
                 case 'user':
@@ -60,8 +60,8 @@ class LoginComponent extends Component {
             
         })
         .catch(error=>{
-            console.log("Greska.")	
-            alert("Uneti nevalidni ili nepostojeci parametri, pokusajte ponovo.")
+            console.log("Error")	
+            alert("Invalid email and/or password")
             window.location.reload()
             
         })
@@ -87,6 +87,14 @@ class LoginComponent extends Component {
     }
     changePasswordHandler = (event) => {
         this.setState({password: event.target.value});
+    }
+
+
+    componentDidMount(){
+       // localStorage.removeItem('activeUser');
+        localStorage.removeItem('activeCottage');
+        localStorage.removeItem('activeRoom');
+        
     }
    
     render() {
