@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const REGISTRATIONREQUESTS_API_BASE_URL = "http://localhost:8080/api/v1/registrationrequests";
+
 const USERS_API_BASE_URL = "http://localhost:8080/api/v1/users";
 
 /*const REGISTRATIONREQUESTS_API_BASE_URL_FI = "http://localhost:8080/api/v1/users";
@@ -8,12 +9,16 @@ const REGISTRATIONREQUESTS_API_BASE_URL_SO = "http://localhost:8080/api/v1/shipo
 const REGISTRATIONREQUESTS_API_BASE_URL_CO = "http://localhost:8080/api/v1/cottageowners";
 const REGISTRATIONREQUESTS_API_BASE_URL_U = "http://localhost:8080/api/v1/users";*/
 
+
 class RegistrationRequestsService{
 
 getRegistrationRequests(){
     return axios.get( REGISTRATIONREQUESTS_API_BASE_URL);
 }
-
+/*createRegistrationRequest(registrationRequest){
+    return axios.post(REGISTRATIONREQUESTS_API_BASE_URL,registrationRequest);
+}
+*/
 createRegistrationRequest(request){
     return axios.post(REGISTRATIONREQUESTS_API_BASE_URL, request);
 }

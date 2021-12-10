@@ -16,6 +16,7 @@ class LoginComponent extends Component {
         this.register=this.register.bind(this);
         this.register=this.registeruser.bind(this);
         this.use=this.use.bind(this);
+
         
     }
     login(){
@@ -66,6 +67,7 @@ class LoginComponent extends Component {
             
         })
         
+
     }
        
         
@@ -102,33 +104,36 @@ class LoginComponent extends Component {
             <div><br/><br/><br/><br/>
                 <div className="container">
                     
-                    <div className="logindiv">
-                        <h3 className="text-center"> LOGIN </h3>
+                    <div style={{position: 'relative', top: '0px'}} className="logindiv">                        
+                        <h3 style={{position: 'relative', top:'20px'}} className="text-center"> LOGIN </h3>
                 
                         <form id="myForm">
                             <div className="form-group">
-                                <label> Email: </label>
-                                <input placeholder="Email" name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler} type="text"/>
-                                <label> Password: </label>
-                                <input placeholder="Password" name="password" className="form-control" value={this.state.password} onChange={this.changePasswordHandler} type="text"/>
+
+                                <br></br>
+                                <label style={{position: 'relative', left:'10px'}}> Email: </label>
+                                <input placeholder="Email" name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler}/>
+                                
+                                <label style={{position: 'relative', left:'10px'}}> Password: </label>
+                                <input placeholder="Password"  name="password" className="form-control" value={this.state.password} onChange={this.changePasswordHandler}/>
+
                                     
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.login()}>Login</button></div>
                             </div>
+
+                            
                         </form>
                             
                     </div>
-                   
                     
+                    <div style={{position: 'relative',top: '40px',left:'550px'}}>
+                        <label> Don't have an account? </label> <br></br>
+                        <button style={{position: 'relative',left:'30px'}} className="loginbtn" onClick={event =>  window.location.href='/registeruser'} > Register</button>
+                    </div>
                     
                 
-                </div> 
-                <p className="noProfile">You do not have a profile?</p><br/>
-                <button className="registeruserbtn" onClick={this.registeruser}> Register here.</button><br/>
-                <button className="usebtn" onClick={this.use}> Use without login.</button>
-
-                <button className="registerbtn" onClick={this.register}> Register as adviser or instructor.</button>
-                
+                </div>                 
             </div>
         );
     }

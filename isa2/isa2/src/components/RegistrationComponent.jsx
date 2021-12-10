@@ -106,7 +106,7 @@ class RegistrationComponent extends Component {
                                 <label> Type: </label>
                                 <input placeholder="Type" name="type" className="form-control" value={this.state.type} onChange={this.changeTypeHandler}/>
                                 
-                                <div className="center"><button className="loginbtn" onClick={this.regisedr}>Register</button></div>
+                                <div className="center"><button className="loginbtn" onClick={this.register}>Register</button></div>
                             </div>
                         </form>
                             

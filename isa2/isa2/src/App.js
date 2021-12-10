@@ -22,6 +22,7 @@ import AllAdminsComponent from './components/AllAdminsComponent';
 import UpdateAdminComponent from './components/UpdateAdminComponent';
 import ViewRegistrationRequestComponent from './components/ViewRegistrationRequestComponent';
 import HomePageCommponent from './components/HomePageCommponent';
+
 import background from './images/pexels-ron-lach-10412889.jpg';
 import CottageOwnerProfileComponent from './components/CottageOwnerProfileComponent';
 import CottageProfileComponent from './components/CottageProfileComponent';
@@ -57,26 +58,32 @@ import MainViewRegistrationRequestComponent from './components/MainViewRegistrat
 
 //import MainClientsComponent from './components/MainClientsComponent'; <Route path = "/mainclients" component={MainClientsComponent}></Route>
 
-/*const backStyle = {
 
-  width: '100%',
-  height: '800px',
-  backgroundImage: `url(${background})`,
-  backgroundSize: 'cover'
-};*/
+
+//import background from './images/stephen-crowley-eh3kB7wAJgs-unsplash.jpg';
+import ClientProfileComponent from './components/ClientProfileComponent';
+import ShipProfileComponent from './components/ShipProfileComponent';
+
+
+  
+
 
 
 function App() {
   return (
+
     <div>
-      <HeaderComponent />
       
         <Router>
-         
+          <HeaderComponent/>
           <div className="container">
             <Switch> 
+
             <Route path = "/" exact component={localhost}></Route>
               <Route path = "/login" exact component={LoginComponent}></Route>
+
+              <Route path = "/TODO" exact component={HomePageCommponent}></Route>
+
               <Route path = "/registrationrequests" component={RegistrationRequestComponent}></Route>
               <Route path = "/adminprofile" component={AdminProfileComponent}></Route>
               <Route path = "/register" component={RegistrationComponent}></Route>
@@ -92,8 +99,10 @@ function App() {
               <Route path = "/serviceequipment" component={ServiceEquipmentComponent}></Route>
               <Route path = "/serviceprice" component={ServicePriceComponent}></Route>
               <Route path = "/homepage" component={HomePageCommponent} ></Route>
+              <Route path = "/login" component={LoginComponent}></Route>
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
+
               <Route path = "/viewrequests/:id" component={ViewRegistrationRequestComponent}></Route>
               <Route path = "/cottageownerprofile" component={CottageOwnerProfileComponent}></Route>
               <Route path = "/cottageprofile" component={CottageProfileComponent}></Route>
@@ -126,13 +135,18 @@ function App() {
               <Route path = "/mainships" component={MainShipsComponent}></Route>
               <Route path = "/mainviewrequests/:id" component={MainViewRegistrationRequestComponent}></Route>
               
+
+              <Route path = "/clientprofile" component={ClientProfileComponent}></Route>
+
+
+
+              <Route path = "/shipprofile" component={ShipProfileComponent}></Route>
+
               </Switch>
-
-          </div>
-            
+          </div>                      
         </Router>
-
-      <FooterComponent/>
+     
+     
     </div>
     
   );
