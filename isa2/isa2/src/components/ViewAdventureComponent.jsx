@@ -31,7 +31,7 @@ class ViewAdventureComponent extends Component {
     }
     updateAdventure= (e) => {
         e.preventDefault();
-        let adventure = {name:this.state.name, address:this.state.address, description:this.state.description, maxPeople:this.state.maxPeople, rulesOfConduct:this.state.rulesOfConduct, termsOfReservation:this.state.termsOfReservation, instructorId:this.state.instructorId}
+        let adventure = {name:this.state.name, address:this.state.address, description:this.state.description, maxPeople:this.state.maxPeople, rulesOfConduct:this.state.rulesOfConduct, termsOfReservation:this.state.termsOfReservation, instructorId:this.state.instructorId, additionalServices:this.state.additionalServices, prices: this.state.prices, fishingEquipment:this.state.fishingEquipment}
         console.log('adventure => ' + JSON.stringify(adventure));
 
         AdventureService.updateAdventure( adventure,this.props.match.params.id).then(res => {

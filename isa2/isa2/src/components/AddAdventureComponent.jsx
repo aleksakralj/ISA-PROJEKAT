@@ -26,7 +26,8 @@ class AddAdventureComponent extends Component {
     addAdventure= (e) => {
         e.preventDefault();
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
-        let adventure = {name:this.state.name, address:this.state.address, description:this.state.description, maxPeople:this.state.maxPeople, rulesOfConduct:this.state.rulesOfConduct, termsOfReservation:this.state.termsOfReservation, instructorId:activeUser.id}
+        
+        let adventure = {name:this.state.name, address:this.state.address, description:this.state.description, maxPeople:this.state.maxPeople, rulesOfConduct:this.state.rulesOfConduct, termsOfReservation:this.state.termsOfReservation, instructorId:activeUser.id, additionalServices:this.state.additionalServices, prices: this.state.prices, fishingEquipment:this.state.fishingEquipment}
         console.log('adventure => ' + JSON.stringify(adventure));
 
         AdventureService.createAdventure(adventure).then(res=> {

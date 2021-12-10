@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import FishingInstructorService from '../services/FishingInstructorService';
+import UserService from '../services/UserService';
 class FishingInstructorProfile extends Component {
     constructor(props){
         super(props)
         this.state={
+            id:'',
             email:'',
             password:'',
             firstName:'',
@@ -18,10 +19,10 @@ class FishingInstructorProfile extends Component {
     }
     update(id) {
         
-        let fishinginstructor = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address: this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber}
+        let fishinginstructor = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address: this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type:"fishing_instructor"}
         console.log('fishinginstructor => ' + JSON.stringify(fishinginstructor));
 
-        FishingInstructorService.updateFishingInstructor(fishinginstructor,id) ;
+        UserService.updateUser(fishinginstructor,id);
     }
     deleterequest(){
         this.props.history.push(`/deleterequest`);
@@ -69,6 +70,7 @@ class FishingInstructorProfile extends Component {
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
 
             this.setState({
+                id:activeUser.id,
             email: activeUser.email,
             password: activeUser.password,
             firstName:activeUser.firstName,
@@ -118,7 +120,7 @@ class FishingInstructorProfile extends Component {
                                 <input name="phoneNumber" className="form-control" value={this.state.phoneNumber} onChange={this.changePhoneNumberHandler}/>
 
                                 
-                                <div className="center"><button className="loginbtn" onClick={this.update}>Update</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.update(this.state.id)}>Update</button></div>
                                <br/>
                                 <div className="center"><button  onClick={()=>this.deleterequest()} className="loginbtn" >Delete profile </button></div>
 

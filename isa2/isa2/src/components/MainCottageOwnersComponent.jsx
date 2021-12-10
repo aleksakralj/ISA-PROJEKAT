@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React, { Component } from 'react';
-import CottageOwnerService from '../services/CottageOwnerService';
+import UserService from '../services/UserService';
+
 class MainCottageOwnersComponent extends Component {
     constructor(props){
         super(props)
@@ -57,15 +59,15 @@ class MainCottageOwnersComponent extends Component {
         this.props.history.push(`/login`);
     }
     deleteCottageOwner(id){
-        CottageOwnerService.deleteCottageOwner(id).then(res=>{
+        UserService.deleteUser(id).then(res=>{
                 this.setState({cottageOwners: this.state.cottageOwners.filter(cottageowner=>cottageowner.id !==id)});
                 this.props.history.push("/maincottageowners"); // refresh ne radi nzm zasto
         });
     }
     componentDidMount(){
-        CottageOwnerService.getCottageOwners().then((res)=>{
-                 this.setState({cottageOwners: res.data});
-         });
+        axios.get("http://localhost:8080/api/v1/users/type/cottage_owner").then((res)=>{
+            this.setState({cottageOwners: res.data});
+    });
      } 
     render() {
         return (

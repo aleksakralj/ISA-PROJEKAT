@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import ShipOwnerService from '../services/ShipOwnerService';
+
 class MainShipOwnersComponent extends Component {
     constructor(props){
         super(props)
@@ -63,9 +65,9 @@ class MainShipOwnersComponent extends Component {
     }
     
     componentDidMount(){
-        ShipOwnerService.getShipOwners().then((res)=>{
-                 this.setState({shipOwners: res.data});
-         });
+        axios.get("http://localhost:8080/api/v1/users/type/ship_owner").then((res)=>{
+            this.setState({shipOwners: res.data});
+    });
      } 
     render() {
         return (
