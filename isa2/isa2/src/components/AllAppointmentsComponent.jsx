@@ -4,7 +4,7 @@ class AllRoomsComponent extends Component {
     constructor(props){
         super(props)
         this.state = {
-            rooms: []
+            appointments: []
         }
         this.viewRoom=this.viewRoom.bind(this);
         this.addroom=this.addroom.bind(this);
@@ -15,36 +15,19 @@ class AllRoomsComponent extends Component {
         
         
     }
-    viewRoom(id){
+    viewAppointment(id){
 
         axios
-        .get("http://localhost:8080/api/v1/rooms/" + id )
+        .get("http://localhost:8080/api/v1/appointments/" + id )
         .then(response => {
-            localStorage.setItem('activeRoom',JSON.stringify(response.data));
-            this.props.history.push(`/roomprofile`);
+            localStorage.setItem('activeAppointment',JSON.stringify(response.data));
+            this.props.history.push(`/appointmentprofile`);
         });
             
         
     }
-    profile()
-    {
-        
-        this.props.history.push(`/cottageownerprofile`);
 
-    }
-
-    cottageprofile()
-    {
-        
-        this.props.history.push(`/cottageprofile`);
-
-    }
-    cottages()
-    {
-        
-        this.props.history.push(`/cottageownercottages`);
-
-    }
+    
     logout(){
         localStorage.removeItem('activeUser')
         localStorage.removeItem('activeCottage')
@@ -53,18 +36,18 @@ class AllRoomsComponent extends Component {
        
     }
     addroom(){
-        this.props.history.push('/addroom');
+        this.props.history.push('/addappointment');
     }
     deleteRoom(id){
-        axios.delete("http://localhost:8080/api/v1/rooms/" + id);
+        axios.delete("http://localhost:8080/api/v1/appointments/" + id);
         window.location.reload();
     }
     componentDidMount(){
     
-        localStorage.removeItem('activeRoom');
+        localStorage.removeItem('activeAppointment');
         let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'));
-        axios.get("http://localhost:8080/api/v1/rooms/cottage/" + activeCottage.id).then((res)=>{
-            this.setState({rooms: res.data});
+        axios.get("http://localhost:8080/api/v1/appointments/cottage/" + activeCottage.id).then((res)=>{
+            this.setState({appointments: res.data});
     });
       
         
@@ -72,14 +55,6 @@ class AllRoomsComponent extends Component {
     render() {
         return (
             <div>
-               <div className="menu">
-               <button onClick={()=>this.profile()}>Profile</button>
-               <button onClick={()=>this.cottages()}>My cottages</button>
-               <button onClick={()=>this.cottageprofile()}>Cottage profile</button>
-               <button>Rooms</button>
-               
-               <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>
-            </div>
                
 
                 <div> <br/><br/><br/><br/><br/><br/><br/><br/>

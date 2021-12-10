@@ -16,7 +16,12 @@ class AddCottageComponent extends Component {
         }
        
     }
-    
+    cottages()
+    {
+        
+        this.props.history.push(`/cottageownercottages`);
+
+    }
     changeNameHandler = (event) => {
         this.setState({name: event.target.value});
     }
@@ -38,7 +43,12 @@ class AddCottageComponent extends Component {
         this.setState({rules: event.target.value});
     }
     
-    
+    profile()
+    {
+        
+        this.props.history.push(`/cottageownerprofile`);
+
+    }
 
     Add(){
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
@@ -55,6 +65,7 @@ class AddCottageComponent extends Component {
         console.log('cottage => ' + JSON.stringify(cottage));
         axios.post("http://localhost:8080/api/v1/cottages/",cottage);
         this.props.history.push(`/cottageownercottages`);
+        window.location.reload();
 
     }
     componentDidMount(){
@@ -63,7 +74,11 @@ class AddCottageComponent extends Component {
     render() {
         return (
             <div>
-               
+               <div className="menu">
+               <button onClick={()=>this.profile()}>Profile</button>
+               <button onClick={()=>this.cottages()}>My cottages</button>
+               <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>
+</div>
                 
                 <div className="registrationdiv">
                     <br/><br/>

@@ -138,13 +138,13 @@ class CottageOwnerProfileComponent extends Component {
     render() {
         return (
             <div>
-               <br/>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.cottages()}>My cottages</button></div>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.deleteprofile(this.state.id)}>Delete profile</button></div>
-
-               
+                <div className="menu">
+                                <button>Profile</button>
+                                <button onClick={()=>this.cottages()}>My cottages</button>
+                                <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>
+                </div>
                 <div className="registrationdiv">
-                    <br/><br/>
+                    
                                 <label> Email: </label>
                                 <input name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler}/>
                                 <label> Password: </label>
@@ -170,7 +170,9 @@ class CottageOwnerProfileComponent extends Component {
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.update()}>Update</button></div>
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.logout()}>Logout</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.deleteprofile(this.state.id)}>Delete</button></div>
+                                <br/>
+                                
 
                 </div>
             </div>

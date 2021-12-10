@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import ClientsService from '../services/ClientsService';
-
-class ClientsComponent extends Component {
+import ShipOwnerService from '../services/ShipOwnerService';
+class MainShipOwnersComponent extends Component {
     constructor(props){
         super(props)
         this.state = {
-            ships:[]
+            shipOwners:[]
         }
         this.adminprofile = this.adminprofile.bind(this);
         this.logout= this.logout.bind(this); 
@@ -17,52 +16,56 @@ class ClientsComponent extends Component {
         this.shipowners=this.shipowners.bind(this);
         this.ships=this.ships.bind(this);
         this.clients=this.clients.bind(this);
+        this.admins=this.admins.bind(this);
     }
     adminprofile(){
-        this.props.history.push('/adminprofile');
+        this.props.history.push('/mainadminprofile');
     }
 
     regreq(){
-        this.props.history.push('/registrationrequests');
+        this.props.history.push('/mainregistrationrequests');
     }
     income(){
-        this.props.history.push('/income');
+        this.props.history.push('/mainincome');
     }
     
     cottageowners(){
-        this.props.history.push('/cottageowners');
+        this.props.history.push('/maincottageowners');
     }
     cottages(){
-        this.props.history.push('/cottages');
+        this.props.history.push('/maincottages');
     }
     shipowners(){
-        this.props.history.push('/shipowners');
+        this.props.history.push('/mainshipowners');
     }
     ships(){
-        this.props.history.push('/ships');
+        this.props.history.push('/mainships');
     }
     clients(){
-        this.props.history.push('/clients');
+        this.props.history.push('/mainclients');
+    }
+    admins(){
+        this.props.history.push('/alladmins');
     }
     logout(){
         localStorage.removeItem('activeUser')
         this.props.history.push(`/login`);
     }
-    deleteClient(id){
-        ClientsService.deleteClient(id).then(res=>{
-                this.setState({sclients: this.state.clients.filter(client=>client.id !==id)});
-                this.props.history.push("/clients"); 
+    deleteShipOwner(id){
+        ShipOwnerService.deleteShipOwner(id).then(res=>{
+                this.setState({shipOwners: this.state.shipOwners.filter(shipowner=>shipowner.id !==id)});
+                this.props.history.push("/mainshipowners"); // refresh ne radi nzm zasto
         });
     }
+    
     componentDidMount(){
-        ClientsService.getClients().then((res)=>{
-                 this.setState({clients: res.data});
+        ShipOwnerService.getShipOwners().then((res)=>{
+                 this.setState({shipOwners: res.data});
          });
      } 
     render() {
         return (
-            <div>
-            <div className="menu">
+            <div><div className="menu">
             <button onClick={this.adminprofile} > Profile</button>
             <button onClick={this.regreq}> Registration requests</button>
             <button onClick={this.income}> Income </button>
@@ -71,42 +74,46 @@ class ClientsComponent extends Component {
             <button onClick={this.shipowners}> Ship owners </button>
             <button onClick={this.ships}> Ships </button>
             <button onClick={this.clients}> Clients </button>
+            <button onClick={this.admins}> Admins </button>
             
             <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
             </div>
+
+             
                 <br/><br/><br/><br/><br/><br/>
-                <h2 className="text-center">Ships</h2>
+                <h2 className="text-center">Ship owners</h2>
 
                     <div className="row">
                         <table className = "table table-striped table-borderd">
                             <thead>
                                 <tr>
-                                <th>Email</th>
+                                    <th>Email</th>
                                     <th>First name</th>
                                     <th>Last name</th>
                                     <th>Address</th>
                                     <th>City</th>
                                     <th>Country</th>
                                     <th>Phone number</th>
-
-                                    <th>Action</th>
                                     
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    this.state.clients.map(
-                                        clients =>
-                                        <tr key= {clients.id}>
-                                            <td>{clients.email}</td>
-                                            <td>{clients.firstName}</td>
-                                            <td>{clients.lastName}</td>
-                                            <td>{clients.address}</td>
-                                            <td>{clients.city}</td>
-                                            <td>{clients.country}</td>
-                                            <td>{clients.phoneNumber}</td>
+                                    this.state.shipOwners.map(
+                                        shipOwners =>
+                                        <tr key= {shipOwners.id}>
+                                            <td>{shipOwners.email}</td>
+                                            <td>{shipOwners.firstName} </td>
+                                            <td>{shipOwners.lastName} </td>
+                                            <td>{shipOwners.address} </td>
+                                            <td>{shipOwners.city} </td>
+                                            <td>{shipOwners.country} </td>
+                                            <td>{shipOwners.phoneNumber} </td>
                                             
-                                            <td><button onClick={()=>this.deleteClient(clients.id)} className="loginbtn">Delete</button></td>
+                                            
+                                            
+                                            <td><button onClick={()=>this.deleteShipOwner(shipOwners.id)} className="loginbtn">Delete</button></td>
                                             
                                         </tr>
                                     )
@@ -115,8 +122,9 @@ class ClientsComponent extends Component {
                         </table>
                     </div>
             </div>
+            
         );
     }
 }
 
-export default ClientsComponent;
+export default MainShipOwnersComponent;

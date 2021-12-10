@@ -97,6 +97,7 @@ class CottagesComponent extends Component {
                                             <td>{cottages.name} </td>
                                             <td>{cottages.address}</td>
                                             <td>{cottages.description} </td>
+                                            <td>{cottages.numberOfRooms}</td>
                                             <td>{cottages.rating} </td>
                                             <td>{cottages.rules} </td>
                                             

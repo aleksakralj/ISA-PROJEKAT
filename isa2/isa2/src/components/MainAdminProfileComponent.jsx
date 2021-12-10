@@ -35,6 +35,13 @@ class MainAdminProfileComponent extends Component {
         this.income= this.income.bind(this);
         this.admins= this.admins.bind(this);
         this.regreq= this.regreq.bind(this);
+
+        this.cottageowners=this.cottageowners.bind(this);
+        this.cottages=this.cottages.bind(this);
+        this.shipowners=this.shipowners.bind(this);
+        this.ships=this.ships.bind(this);
+        this.clients=this.clients.bind(this);
+        this.admins=this.admins.bind(this);
     }
     
     update(id) {
@@ -61,11 +68,28 @@ class MainAdminProfileComponent extends Component {
         this.props.history.push('/alladmins');
     }
     regreq(){
-        this.props.history.push('/registrationrequests');
+        this.props.history.push('/mainregistrationrequests');
     }
     income(){
-        this.props.history.push('/income');
+        this.props.history.push('/mainincome');
     }
+    cottageowners(){
+        this.props.history.push('/maincottageowners');
+    }
+    cottages(){
+        this.props.history.push('/maincottages');
+    }
+    shipowners(){
+        this.props.history.push('/mainshipowners');
+    }
+    ships(){
+        this.props.history.push('/mainships');
+    }
+    clients(){
+        this.props.history.push('/mainclients');
+    }
+
+    
     logout(){
         localStorage.removeItem('activeUser')
         this.props.history.push(`/login`);
@@ -126,6 +150,11 @@ class MainAdminProfileComponent extends Component {
                 <button onClick={this.mainadminprofile} > Profile</button>
                 <button onClick={this.regreq}> Registration requests</button>
                 <button onClick={this.income}> Income </button>
+                <button onClick={this.cottageowners}> Cottage owners </button>
+                <button onClick={this.cottages}> Cottages </button>
+                <button onClick={this.shipowners}> Ship owners </button>
+                <button onClick={this.ships}> Ships </button>
+                <button onClick={this.clients}> Clients </button>
                 <button onClick={this.admins}> Admins </button>
 
                 <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>

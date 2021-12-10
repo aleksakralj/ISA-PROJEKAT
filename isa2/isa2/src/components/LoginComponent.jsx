@@ -20,7 +20,7 @@ class LoginComponent extends Component {
     }
     login(){
         axios
-        .get("http://localhost:8080/api/v1/login/" + this.state.email + "/" + this.state.password)
+        .post("http://localhost:8080/api/v1/login/" + this.state.email + "/" + this.state.password)
         .then(response => {
             localStorage.setItem('activeUser',JSON.stringify(response.data));
             

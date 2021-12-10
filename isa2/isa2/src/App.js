@@ -41,11 +41,21 @@ import localhost from './components/localhost.jsx';
 import CottageOwnerCottages from './components/CottageOwnerCottages';
 import AddCottage from './components/AddCottageComponent';
 import AddRoom from './components/AddRoomComponent';
-const backStyle = {
+
 
 import MainAdminProfileComponent from './components/MainAdminProfileComponent';
 import AdminChangePasswordComponent from './components/AdminChangePasswordComponent';
-import DeleteRequestComponent from './components/DeleteRequestComponent'
+import DeleteRequestComponent from './components/DeleteRequestComponent';
+
+import MainRegistrationRequestComponent from './components/MainRegistrationRequestComponent';
+import MainIncomeComponent from './components/MainIncomeComponent';
+import MainCottageOwnersComponent from './components/MainCottageOwnersComponent';
+import MainCottagesComponent from './components/MainCottagesComponent';
+import MainShipOwnersComponent from './components/MainShipOwnersComponent';
+import MainShipsComponent from './components/MainShipsComponent';
+import MainViewRegistrationRequestComponent from './components/MainViewRegistrationRequestComponent';
+
+//import MainClientsComponent from './components/MainClientsComponent'; <Route path = "/mainclients" component={MainClientsComponent}></Route>
 
 /*const backStyle = {
 
@@ -107,6 +117,15 @@ function App() {
               <Route path = "/adminchangepassword" component={AdminChangePasswordComponent}></Route>
               <Route path = "/deleterequest" component={DeleteRequestComponent}></Route>
 
+
+              <Route path = "/mainregistrationrequests" component={MainRegistrationRequestComponent}></Route>
+              <Route path = "/mainincome" component={MainIncomeComponent}></Route>
+              <Route path = "/maincottageowners" component={MainCottageOwnersComponent}></Route>
+              <Route path = "/maincottages" component={MainCottagesComponent}></Route>
+              <Route path = "/mainshipowners" component={MainShipOwnersComponent}></Route>
+              <Route path = "/mainships" component={MainShipsComponent}></Route>
+              <Route path = "/mainviewrequests/:id" component={MainViewRegistrationRequestComponent}></Route>
+              
               </Switch>
 
           </div>

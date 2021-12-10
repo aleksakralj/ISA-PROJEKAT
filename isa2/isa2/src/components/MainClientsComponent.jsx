@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ClientsService from '../services/ClientsService';
 
-class ClientsComponent extends Component {
+class MainClientsComponent extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -17,32 +17,36 @@ class ClientsComponent extends Component {
         this.shipowners=this.shipowners.bind(this);
         this.ships=this.ships.bind(this);
         this.clients=this.clients.bind(this);
+        this.admins=this.admins.bind(this);
     }
     adminprofile(){
-        this.props.history.push('/adminprofile');
+        this.props.history.push('/mainadminprofile');
     }
 
     regreq(){
-        this.props.history.push('/registrationrequests');
+        this.props.history.push('/mainregistrationrequests');
     }
     income(){
-        this.props.history.push('/income');
+        this.props.history.push('/mainincome');
     }
     
     cottageowners(){
-        this.props.history.push('/cottageowners');
+        this.props.history.push('/maincottageowners');
     }
     cottages(){
-        this.props.history.push('/cottages');
+        this.props.history.push('/maincottages');
     }
     shipowners(){
-        this.props.history.push('/shipowners');
+        this.props.history.push('/mainshipowners');
     }
     ships(){
-        this.props.history.push('/ships');
+        this.props.history.push('/mainships');
     }
     clients(){
-        this.props.history.push('/clients');
+        this.props.history.push('/mainclients');
+    }
+    admins(){
+        this.props.history.push('/alladmins');
     }
     logout(){
         localStorage.removeItem('activeUser')
@@ -51,7 +55,7 @@ class ClientsComponent extends Component {
     deleteClient(id){
         ClientsService.deleteClient(id).then(res=>{
                 this.setState({sclients: this.state.clients.filter(client=>client.id !==id)});
-                this.props.history.push("/clients"); 
+                this.props.history.push("/mainclients"); 
         });
     }
     componentDidMount(){
@@ -71,6 +75,7 @@ class ClientsComponent extends Component {
             <button onClick={this.shipowners}> Ship owners </button>
             <button onClick={this.ships}> Ships </button>
             <button onClick={this.clients}> Clients </button>
+            <button onClick={this.admins}> Admins </button>
             
             <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
             </div>
@@ -119,4 +124,4 @@ class ClientsComponent extends Component {
     }
 }
 
-export default ClientsComponent;
+export default MainClientsComponent;

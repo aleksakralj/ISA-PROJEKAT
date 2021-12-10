@@ -9,7 +9,12 @@ class CottageOwnerCottages extends Component {
         }
         
     }
-    
+    profile()
+    {
+        
+        this.props.history.push(`/cottageownerprofile`);
+
+    }
     logout(){
         localStorage.removeItem('activeUser')
         localStorage.removeItem('activeCottage')
@@ -51,7 +56,12 @@ class CottageOwnerCottages extends Component {
     render() {
         return (
             <div>
+               <div className="menu">
                
+               <button onClick={()=>this.profile()}>Profile</button>
+               <button>My cottages</button>
+               <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>
+            </div>
 
                 <div> <br/><br/><br/><br/><br/><br/><br/><br/>
                 <button onClick={()=>this.addcottage()} className="loginbtn" > Add cottage </button>

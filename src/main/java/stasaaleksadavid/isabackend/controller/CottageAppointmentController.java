@@ -67,4 +67,6 @@ public class CottageAppointmentController {
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
 
+
+
 }

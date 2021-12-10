@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import RegistrationRequestService from '../services/RegistrationRequestService';
 
 
-class ViewRegistrationRequestComponent extends Component {
+class MainViewRegistrationRequestComponent extends Component {
     constructor(props){
         super(props)
         this.state={
@@ -39,31 +39,31 @@ class ViewRegistrationRequestComponent extends Component {
         this.acceptRequest= this.acceptRequest.bind(this);
     }
     adminprofile(){
-        this.props.history.push('/adminprofile');
+        this.props.history.push('/mainadminprofile');
     }
     addadmin(){
         this.props.history.push('/addadmin');
     }
     regreq(){
-        this.props.history.push('/registrationrequests');
+        this.props.history.push('/mainregistrationrequests');
     }
     income(){
-        this.props.history.push('/income');
+        this.props.history.push('/mainincome');
     }
     cottageowners(){
-        this.props.history.push('/cottageowners');
+        this.props.history.push('/maincottageowners');
     }
     cottages(){
-        this.props.history.push('/cottages');
+        this.props.history.push('/maincottages');
     }
     shipowners(){
-        this.props.history.push('/shipowners');
+        this.props.history.push('/mainshipowners');
     }
     ships(){
-        this.props.history.push('/ships');
+        this.props.history.push('/mainships');
     }
     clients(){
-        this.props.history.push('/clients');
+        this.props.history.push('/mainclients');
     }
     logout(){
         localStorage.removeItem('activeUser')
@@ -73,14 +73,14 @@ class ViewRegistrationRequestComponent extends Component {
     denyRequest(id){
         RegistrationRequestService.deleteRegistrationRequest(id).then(res=>{
                 this.setState({registrationRequests: this.state.registrationRequests.filter(request=>request.id !==id)});
-                this.props.history.push("/registrationrequests"); // refresh ne radi nzm zasto
+                this.props.history.push("/mainregistrationrequests"); // refresh ne radi nzm zasto
         });
     }
     acceptRequest= (e) => {
         e.preventDefault();
         let registrationRequests = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type: this.state.type, reason:this.state.reason}
         console.log('registrationRequests => ' + JSON.stringify(registrationRequests));
-        RegistrationRequestService.createUser(registrationRequests).then((res)=>{this.props.history.push('/registrationrequests')});
+        RegistrationRequestService.createUser(registrationRequests).then((res)=>{this.props.history.push('/mainregistrationrequests')});
         this.denyRequest(this.props.match.params.id);
 
         
@@ -184,4 +184,4 @@ class ViewRegistrationRequestComponent extends Component {
     }
 }
 
-export default ViewRegistrationRequestComponent;
+export default MainViewRegistrationRequestComponent;

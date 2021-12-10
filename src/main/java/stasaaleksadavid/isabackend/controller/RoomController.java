@@ -1,14 +1,11 @@
 package stasaaleksadavid.isabackend.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
-import stasaaleksadavid.isabackend.model.Cottage;
 import stasaaleksadavid.isabackend.model.Room;
 import stasaaleksadavid.isabackend.repository.RoomRepository;
-
 
 import java.util.HashMap;
 import java.util.List;
@@ -70,7 +67,7 @@ public class RoomController {
 
 
     @GetMapping("/rooms/cottage/{cottageid}")
-    public List<Room> getCottageByEmailAndPassword(@PathVariable Long cottageid){
+    public List<Room> getRoomByCottageId(@PathVariable Long cottageid){
         return roomRepository.findByCottageId(cottageid);
     }
 }

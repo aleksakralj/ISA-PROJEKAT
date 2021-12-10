@@ -65,6 +65,11 @@ class CottageProfileComponent extends Component {
         this.props.history.push(`/allrooms`);
     }
 
+    viewAppointmets(){
+
+        this.props.history.push(`/allappointments`);
+    }
+
     update(){
 
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
@@ -90,6 +95,18 @@ class CottageProfileComponent extends Component {
 
         
     }
+    profile()
+    {
+        
+        this.props.history.push(`/cottageownerprofile`);
+
+    }
+    cottages()
+    {
+        
+        this.props.history.push(`/cottageownercottages`);
+
+    }
     
     componentDidMount(){
         
@@ -113,7 +130,14 @@ class CottageProfileComponent extends Component {
     render() {
         return (
             <div>
-               
+               <div className="menu">
+               <button onClick={()=>this.profile()}>Profile</button>
+               <button onClick={()=>this.cottages()}>My cottages</button>
+               <button>Cottage profile</button>
+               <button onClick={()=>this.viewRooms(this.state.id)}>Rooms</button>
+               <button onClick={()=>this.viewAppointmets(this.state.id)}>Appointments</button>
+               <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>
+            </div>
                 
                 <div className="registrationdiv">
                     <br/><br/>
@@ -134,8 +158,8 @@ class CottageProfileComponent extends Component {
                                 
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.update()}>Update</button></div>
-                                <br/>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.viewRooms(this.state.id)}>Rooms</button></div>
+                                
+                                
                                 
 
                 </div>

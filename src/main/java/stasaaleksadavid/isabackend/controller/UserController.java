@@ -69,7 +69,7 @@ public class UserController {
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
     //login
-    @GetMapping("/login/{email}/{password}")
+    @PostMapping("/login/{email}/{password}")
     public User loginUser(@PathVariable("email") String email, @PathVariable("password") String password)
     {
         Optional<User> user = Optional.ofNullable(userRepository.findByEmailAndPassword(email,password));

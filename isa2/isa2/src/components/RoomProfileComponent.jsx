@@ -21,6 +21,28 @@ class RoomProfileComponent extends Component {
         this.logout= this.logout.bind(this); 
        
     }
+    profile()
+    {
+        
+        this.props.history.push(`/cottageownerprofile`);
+
+    }
+
+    cottageprofile()
+    {
+        
+        this.props.history.push(`/cottageprofile`);
+
+    }
+    cottages()
+    {
+        
+        this.props.history.push(`/cottageownercottages`);
+
+    }
+    viewRooms(){
+        this.props.history.push(`/allrooms`);
+    }
     update(){
 
         let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'));
@@ -79,8 +101,17 @@ class RoomProfileComponent extends Component {
     }
     render() {
         return (
+        
             <div>
+               <div className="menu">
+               <button onClick={()=>this.profile()}>Profile</button>
+               <button onClick={()=>this.cottages()}>My cottages</button>
+               <button onClick={()=>this.cottageprofile()}>Cottage profile</button>
+               <button onClick={()=>this.viewRooms()}>Rooms</button>
+               <button >Room profile</button> 
                
+               <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>
+            </div>
                 
                 <div className="registrationdiv">
                     <br/><br/>
