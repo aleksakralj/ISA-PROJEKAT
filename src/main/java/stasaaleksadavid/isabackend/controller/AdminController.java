@@ -51,7 +51,7 @@ public class AdminController {
         admin.setPhoneNumber(adminDetails.getPhoneNumber());
         admin.setAddress(adminDetails.getAddress());
         admin.setCity(adminDetails.getCity());
-        admin.setCountry(admin.getCountry());
+        admin.setCountry(adminDetails.getCountry());
 
         Admin updatedAdmin = adminRepository.save(admin);
         return ResponseEntity.ok(updatedAdmin);

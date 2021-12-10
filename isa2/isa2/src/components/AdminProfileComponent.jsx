@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
-import AdminService from '../services/AdminService';
+import UserService from '../services/UserService';
 
 class AdminProfileComponent extends Component {
     constructor(props){
         super(props)
         this.state={
-            admins: []
+            email:'',
+            password:'',
+            firstName:'',
+            lastName:'',
+            address:'',
+            city:'',
+            country:'',
+            phoneNumber:''
             
         }
-        //treba da bude popunjeno podacima ulogovanog admina
+        
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
         this.changePasswordHandler = this.changePasswordHandler.bind(this);
         this.changePassword2Handler = this.changePassword2Handler.bind(this);
@@ -16,7 +23,7 @@ class AdminProfileComponent extends Component {
         this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
         this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
         
-        this.changeAdressHandler = this.changeAdressHandler.bind(this);
+        this.changeAddressHandler = this.changeAddressHandler.bind(this);
         this.changeCityHandler = this.changeCityHandler.bind(this);
         this.changeCountryHandler = this.changeCountryHandler.bind(this);
 
@@ -28,11 +35,29 @@ class AdminProfileComponent extends Component {
         this.income= this.income.bind(this);
         this.addadmin= this.addadmin.bind(this);
         this.regreq= this.regreq.bind(this);
-    }
-    update(){
-        this.props.history.push('/adminprofile');
-    }
 
+        this.cottageowners=this.cottageowners.bind(this);
+        this.cottages=this.cottages.bind(this);
+        this.shipowners=this.shipowners.bind(this);
+        this.ships=this.ships.bind(this);
+        this.clients=this.clients.bind(this);
+    }
+    
+    update(id) {
+        
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+        activeUser.email=this.state.email;
+        activeUser.firstName=this.state.firstName;
+        activeUser.lastName=this.state.lastName;
+        activeUser.address=this.state.address;
+        activeUser.city=this.state.city;
+        activeUser.country=this.state.country;
+        activeUser.phoneNumber=this.state.phoneNumber;
+        
+        console.log('activeUser => ' + JSON.stringify(activeUser));
+
+        UserService.updateUser(activeUser,id) ;
+    }
     //admin profile dugme ne radi nista jer smo vec na profilu, ako bude trebao da refreshuje zbog necega onda cemo ga uraditi
     //kako loguot vratiti na pocetnu tj localhost?
     adminprofile(){
@@ -47,8 +72,25 @@ class AdminProfileComponent extends Component {
     income(){
         this.props.history.push('/income');
     }
+    
+    cottageowners(){
+        this.props.history.push('/cottageowners');
+    }
+    cottages(){
+        this.props.history.push('/cottages');
+    }
+    shipowners(){
+        this.props.history.push('/shipowners');
+    }
+    ships(){
+        this.props.history.push('/ships');
+    }
+    clients(){
+        this.props.history.push('/clients');
+    }
     logout(){
-        this.props.history.push('/'); //ne znam kako ga ga vratim samo na localhost
+        localStorage.removeItem('activeUser')
+        this.props.history.push(`/login`);
     }
     changeEmailHandler = (event) => {
         this.setState({email: event.target.value});
@@ -61,14 +103,14 @@ class AdminProfileComponent extends Component {
     }
 
     changeFirstNameHandler = (event) => {
-        this.setState({firstname: event.target.value});
+        this.setState({firstName: event.target.value});
     }
     changeLastNameHandler = (event) => {
-        this.setState({lastname: event.target.value});
+        this.setState({lastName: event.target.value});
     }
 
-    changeAdressHandler = (event) => {
-        this.setState({adress: event.target.value});
+    changeAddressHandler = (event) => {
+        this.setState({address: event.target.value});
     }
     changeCityHandler = (event) => {
         this.setState({city: event.target.value});
@@ -78,12 +120,25 @@ class AdminProfileComponent extends Component {
     }
 
     changePhoneNumberHandler = (event) => {
-        this.setState({phonenumber: event.target.value});
+        this.setState({phoneNumber: event.target.value});
     }
     componentDidMount(){
-        AdminService.getAdmins().then((res) => {
-            this.setState({admins: res.data})
-        });
+
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+
+            this.setState({
+            id:activeUser.id,
+            email: activeUser.email,
+            password: activeUser.password,
+            firstName:activeUser.firstName,
+            lastName:activeUser.lastName,
+            address: activeUser.address,
+            city:activeUser.city,
+            country:activeUser.country,
+            phoneNumber:activeUser.phoneNumber,
+
+            });
+        
     }
     render() {
         return (
@@ -93,8 +148,13 @@ class AdminProfileComponent extends Component {
                 <button onClick={this.adminprofile} > Profile</button>
                 <button onClick={this.regreq}> Registration requests</button>
                 <button onClick={this.income}> Income </button>
-
-                <button className="menubtnLog" onClick={this.loguot} >Logout</button>
+                <button onClick={this.cottageowners}> Cottage owners </button>
+                <button onClick={this.cottages}> Cottages </button>
+                <button onClick={this.shipowners}> Ship owners </button>
+                <button onClick={this.ships}> Ships </button>
+                <button onClick={this.clients}> Clients </button>
+                
+                <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
                 </div>
                 
                 <div className="registrationdiv">
@@ -104,25 +164,25 @@ class AdminProfileComponent extends Component {
                                 <label> Password: </label>
                                 <input name="password" className="form-control" value={this.state.password} onChange={this.changePasswordHandler}/>
                                 <label> Password again: </label>
-                                <input name="password2" className="form-control" value={this.state.password2} onChange={this.changePassword2Handler}/>
+                                <input name="password2" className="form-control" value={this.state.password} onChange={this.changePassword2Handler}/>
 
                                 <label> First name: </label>
-                                <input name="firstname" className="form-control" value={this.state.firstname} onChange={this.changeFirstNameHandler}/>
+                                <input name="firstname" className="form-control" value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
                                 <label> Last name: </label>
-                                <input name="lastname" className="form-control" value={this.state.lastname} onChange={this.changeLastNameHandler}/>
+                                <input name="lastname" className="form-control" value={this.state.lastName} onChange={this.changeLastNameHandler}/>
                                 
-                                <label> Adress: </label>
-                                <input name="adress" className="form-control" value={this.state.adress} onChange={this.changeAdressHandler}/>
+                                <label> Address: </label>
+                                <input name="address" className="form-control" value={this.state.address} onChange={this.changeAddressHandler}/>
                                 <label> City: </label>
                                 <input name="city" className="form-control" value={this.state.city} onChange={this.changeCityHandler}/>   
                                 <label> Country: </label>
                                 <input name="country" className="form-control" value={this.state.country} onChange={this.changeCountryHandler}/> 
 
                                 <label> Phone number: </label>
-                                <input name="phonenumber" className="form-control" value={this.state.phonenumber} onChange={this.changePhoneNumberHandler}/>
+                                <input name="phonenumber" className="form-control" value={this.state.phoneNumber} onChange={this.changePhoneNumberHandler}/>
 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.update}>Update</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.update(this.state.id)}>Update</button></div>
 
                 </div>
             </div>

@@ -10,39 +10,47 @@ public class Cottage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "")
+    @Column(name = "Name")
     private String name;
 
-    @Column(name = "")
+    @Column(name = "Address")
     private String address;
 
-    @Column(name = "")
+    @Column(name = "Description")
     private String description;
 
-    @Column(name = "")
+    @Column(name = "Rating")
     private double rating;
 
-    @Column(name = "")
+    @Column(name = "Number_Of_Rooms")
     private int numberOfRooms;
 
-    @Column(name = "")
-    private String rulesOfConduct;
+    @Column(name = "Rules")
+    private String rules;
 
-    //TO DO
-    @Column(name = "")
-    private String priceList;
+    @Column(name = "Owner_Id")
+    private long ownerId;
 
 
     public Cottage() {}
 
-    public Cottage(String name, String address, String description, double rating, int numberOfRooms, String rulesOfConduct, String priceList) {
+    public Cottage(String name, String address, String description, double rating, int numberOfRooms, String rules, long ownerId) {
+        super();
         this.name = name;
         this.address = address;
         this.description = description;
         this.rating = rating;
         this.numberOfRooms = numberOfRooms;
-        this.rulesOfConduct = rulesOfConduct;
-        this.priceList = priceList;
+        this.rules = rules;
+        this.ownerId = ownerId;
+    }
+
+    public String getRules() {
+        return rules;
+    }
+
+    public void setRules(String rules) {
+        this.rules = rules;
     }
 
     public String getName() {
@@ -93,5 +101,12 @@ public class Cottage {
         this.numberOfRooms = numberOfRooms;
     }
 
+    public long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(long ownerId) {
+        this.ownerId = ownerId;
+    }
 
 }

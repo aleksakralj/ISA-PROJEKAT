@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AdminService from '../services/AdminService';
+import UserService from '../services/UserService';
 
 class AddAdminComponent extends Component {
     constructor(props){
@@ -18,9 +18,7 @@ class AddAdminComponent extends Component {
         }
       
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
-        this.changePasswordHandler = this.changePasswordHandler.bind(this);
-        this.changePassword2Handler = this.changePassword2Handler.bind(this);
-
+        
         this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
         this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
         
@@ -34,23 +32,23 @@ class AddAdminComponent extends Component {
        this.adminprofile = this.adminprofile.bind(this);
        this.logout= this.logout.bind(this); 
        this.income= this.income.bind(this);
+       this.alladmins= this.alladmins.bind(this);
        this.addadmin= this.addadmin.bind(this);
        this.regreq= this.regreq.bind(this);
     }
 
     addAdmin= (e) => {
         e.preventDefault();
-        let admin = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber}
+        let admin = {email:this.state.email, password:"password", firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type: "admin"}
         console.log('admin => ' + JSON.stringify(admin));
 
-        AdminService.createAdmin(admin).then(res=> {
+        UserService.createUser(admin).then(res=> {
             this.props.history.push('/addadmin')
         });
     }
 
 
-    //admin profile dugme ne radi nista jer smo vec na profilu, ako bude trebao da refreshuje zbog necega onda cemo ga uraditi
-    //kako loguot vratiti na pocetnu tj localhost?
+    
     adminprofile(){
         this.props.history.push('/adminprofile');
     }
@@ -63,20 +61,18 @@ class AddAdminComponent extends Component {
     income(){
         this.props.history.push('/income');
     }
+    alladmins(){
+        this.props.history.push("/alladmins");
+    }
     logout(){
-        this.props.history.push('/'); //ne znam kako ga ga vratim samo na localhost
+        localStorage.removeItem('activeUser')
+        this.props.history.push(`/login`);
     }
     
     changeEmailHandler = (event) => {
         this.setState({email: event.target.value});
     }
-    changePasswordHandler = (event) => {
-        this.setState({password: event.target.value});
-    }
-    changePassword2Handler = (event) => {
-        this.setState({password2: event.target.value});
-    }
-
+    
     changeFirstNameHandler = (event) => {
         this.setState({firstName: event.target.value});
     }
@@ -106,18 +102,16 @@ class AddAdminComponent extends Component {
                 
                 <button onClick={this.regreq}> Registration requests</button>
                 <button onClick={this.income}> Income </button>
+                <button onClick={this.alladmins}> All admins </button>
 
-                <button className="menubtnLog" onClick={this.loguot} >Logout</button>
+                <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
                 </div>
                 
                 <div className="registrationdiv">
                     <br/><br/>
                                 <label> Email: </label>
                                 <input name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler}/>
-                                <label> Password: </label>
-                                <input name="password" className="form-control" value={this.state.password} onChange={this.changePasswordHandler}/>
-                                <label> Password again: </label>
-                                <input name="password2" className="form-control" value={this.state.password2} onChange={this.changePassword2Handler}/>
+                               
 
                                 <label> First name: </label>
                                 <input name="firstName" className="form-control" value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
