@@ -32,9 +32,16 @@ class AddAdminComponent extends Component {
        this.adminprofile = this.adminprofile.bind(this);
        this.logout= this.logout.bind(this); 
        this.income= this.income.bind(this);
-       this.alladmins= this.alladmins.bind(this);
+      
        this.addadmin= this.addadmin.bind(this);
        this.regreq= this.regreq.bind(this);
+       this.cottageowners=this.cottageowners.bind(this);
+        this.cottages=this.cottages.bind(this);
+        this.shipowners=this.shipowners.bind(this);
+        this.ships=this.ships.bind(this);
+        this.fishinginstructors=this.fishinginstructors.bind(this);
+        this.clients=this.clients.bind(this);
+        this.admins=this.admins.bind(this);
     }
 
     addAdmin= (e) => {
@@ -61,8 +68,27 @@ class AddAdminComponent extends Component {
     income(){
         this.props.history.push('/income');
     }
-    alladmins(){
-        this.props.history.push("/alladmins");
+    
+    cottageowners(){
+        this.props.history.push('/maincottageowners');
+    }
+    cottages(){
+        this.props.history.push('/maincottages');
+    }
+    shipowners(){
+        this.props.history.push('/mainshipowners');
+    }
+    ships(){
+        this.props.history.push('/mainships');
+    }
+    fishinginstructors(){
+        this.props.history.push('/mainfishinginstructors');
+    }
+    clients(){
+        this.props.history.push('/mainclients');
+    }
+    admins(){
+        this.props.history.push('/alladmins');
     }
     logout(){
         localStorage.removeItem('activeUser')
@@ -102,7 +128,13 @@ class AddAdminComponent extends Component {
                 
                 <button onClick={this.regreq}> Registration requests</button>
                 <button onClick={this.income}> Income </button>
-                <button onClick={this.alladmins}> All admins </button>
+                <button onClick={this.cottageowners}> Cottage owners </button>
+                    <button onClick={this.cottages}> Cottages </button>
+                    <button onClick={this.shipowners}> Ship owners </button>
+                    <button onClick={this.ships}> Ships </button>
+                    <button onClick={this.fishinginstructors}> Fishing instructors </button>
+                    <button onClick={this.clients}> Clients </button>
+                    <button onClick={this.alladmins}> Admins </button>
 
                 <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
                 </div>

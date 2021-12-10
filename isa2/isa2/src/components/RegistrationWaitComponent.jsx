@@ -17,7 +17,7 @@ class RegistrationWaitComponent extends Component {
     render() {
 
         return (
-            <div><br /><br />
+            <div><br /><br /><br /><br /><br /><br />
 
                 <div className="container">
 
@@ -29,7 +29,7 @@ class RegistrationWaitComponent extends Component {
 
                             <h3 style={{ position: 'absolute', top: '150px' }}>Wait for administrator to confirm your registration.</h3><br />
                             <button style={{ position: 'absolute', top: '300px' }} className="proceedbtn" onClick={this.proceed}><h3>Then proceed to login page.</h3></button>
-                            <button style={{ position: 'absolute', top: '350px' }} className="proceedbtn" onClick={this.returnHome}><h3>Return to the home page.</h3></button>
+                            
                         </div>
                     </div>
                 </div>

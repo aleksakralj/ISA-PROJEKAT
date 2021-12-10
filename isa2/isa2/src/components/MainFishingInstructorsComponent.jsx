@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import FishingInstructorService from '../services/FishingInstructorService';
 
-class FishingInstructorsComponent extends Component {
+class MainFishingInstructorsComponent extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -20,6 +20,7 @@ class FishingInstructorsComponent extends Component {
         this.ships=this.ships.bind(this);
         this.fishinginstructors=this.fishinginstructors.bind(this);
         this.clients=this.clients.bind(this);
+        this.admins=this.admins.bind(this);
     }
     deleteFishingInstructor(id){
         FishingInstructorService.deleteFishingInstructor(id).then(res=>{
@@ -33,33 +34,36 @@ class FishingInstructorsComponent extends Component {
     });
     }
     adminprofile(){
-        this.props.history.push('/adminprofile');
+        this.props.history.push('/mainadminprofile');
     }
     
     regreq(){
-        this.props.history.push('/registrationrequests');
+        this.props.history.push('/mainregistrationrequests');
     }
     income(){
-        this.props.history.push('/income');
+        this.props.history.push('/mainincome');
     }
     
     cottageowners(){
-        this.props.history.push('/cottageowners');
+        this.props.history.push('/maincottageowners');
     }
     cottages(){
-        this.props.history.push('/cottages');
+        this.props.history.push('/maincottages');
     }
     shipowners(){
-        this.props.history.push('/shipowners');
+        this.props.history.push('/mainshipowners');
     }
     ships(){
-        this.props.history.push('/ships');
+        this.props.history.push('/mainships');
     }
     fishinginstructors(){
-        this.props.history.push('/fishinginstructors');
+        this.props.history.push('/mainfishinginstructors');
     }
     clients(){
-        this.props.history.push('/clients');
+        this.props.history.push('/mainclients');
+    }
+    admins(){
+        this.props.history.push('/alladmins');
     }
     logout(){
         localStorage.removeItem('activeUser')
@@ -79,7 +83,8 @@ class FishingInstructorsComponent extends Component {
                 <button onClick={this.ships}> Ships </button>
                 <button onClick={this.fishinginstructors}> Fishing instructors </button>
                 <button onClick={this.clients}> Clients </button>
-                
+                <button onClick={this.admins}> Admins </button>
+
                 <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
                 </div>
                 <br/><br/><br/><br/><br/><br/>
@@ -130,4 +135,4 @@ class FishingInstructorsComponent extends Component {
     }
 }
 
-export default FishingInstructorsComponent;
+export default MainFishingInstructorsComponent;

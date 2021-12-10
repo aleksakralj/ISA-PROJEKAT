@@ -18,6 +18,7 @@ class RegistrationRequestComponent extends Component {
         this.cottages=this.cottages.bind(this);
         this.shipowners=this.shipowners.bind(this);
         this.ships=this.ships.bind(this);
+        this.fishinginstructors=this.fishinginstructors.bind(this);
         this.clients=this.clients.bind(this);
     
         this.viewRequest= this.viewRequest.bind(this);
@@ -45,6 +46,9 @@ class RegistrationRequestComponent extends Component {
     }
     ships(){
         this.props.history.push('/ships');
+    }
+    fishinginstructors(){
+        this.props.history.push('/fishinginstructors');
     }
     clients(){
         this.props.history.push('/clients');
@@ -115,6 +119,7 @@ class RegistrationRequestComponent extends Component {
                 <button onClick={this.cottages}> Cottages </button>
                 <button onClick={this.shipowners}> Ship owners </button>
                 <button onClick={this.ships}> Ships </button>
+                <button onClick={this.fishinginstructors}> Fishing instructors </button>
                 <button onClick={this.clients}> Clients </button>
 
                 <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>

@@ -35,11 +35,11 @@ public class ClientController {
     public ResponseEntity<Client> updateClient(@PathVariable Long id, @RequestBody Client clientDetails) {
         Client client = clientRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Client does not exist with id: " + id));
 
-        client.setPasswrod(clientDetails.getPasswrod());
+        client.setPassword(clientDetails.getPassword());
         client.setFirstName(clientDetails.getFirstName());
         client.setLastName(clientDetails.getLastName());
         client.setPhoneNumber(clientDetails.getPhoneNumber());
-        client.setAddres(clientDetails.getAddres());
+        client.setAddress(clientDetails.getAddress());
         client.setCity(clientDetails.getCity());
         client.setCountry(clientDetails.getCountry());
         client.setDateOfBirth(clientDetails.getDateOfBirth());

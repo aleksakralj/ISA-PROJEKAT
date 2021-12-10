@@ -16,7 +16,7 @@ public class Client {
     private String email;
 
     @Column(name = "")
-    private String passwrod;
+    private String password;
 
     @Column(name= "")
     private String firstName;
@@ -28,7 +28,7 @@ public class Client {
     private String city;
 
     @Column(name="")
-    private String addres;
+    private String address;
 
     @Column(name="")
     private String country;
@@ -41,15 +41,15 @@ public class Client {
 
     public Client() {}
 
-    public Client(String email, String passwrod, LocalDateTime dateOfBirth, String firstName, String lastName,String city, String addres, String country, String phoneNumber) {
+    public Client(String email, String password, LocalDateTime dateOfBirth, String firstName, String lastName,String city, String address, String country, String phoneNumber) {
         super();
         this.email = email;
-        this.passwrod = passwrod;
+        this.password = password;
         this.dateOfBirth = dateOfBirth;
         this.firstName = firstName;
         this.lastName = lastName;
         this.city = city;
-        this.addres = addres;
+        this.address = address;
         this.country = country;
         this.phoneNumber = phoneNumber;
     }
@@ -62,12 +62,12 @@ public class Client {
         this.email = email;
     }
 
-    public String getPasswrod() {
-        return passwrod;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswrod(String passwrod) {
-        this.passwrod = passwrod;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getCity() {
@@ -78,12 +78,12 @@ public class Client {
         this.city = city;
     }
 
-    public String getAddres() {
-        return addres;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddres(String addres) {
-        this.addres = addres;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCountry() {

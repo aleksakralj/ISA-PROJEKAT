@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React, { Component } from 'react';
-import CottageOwnerService from '../services/CottageOwnerService';
+import UserService from '../services/UserService';
+ 
 class CottageOwnersComponent extends Component {
     constructor(props){
         super(props)
@@ -15,6 +17,7 @@ class CottageOwnersComponent extends Component {
         this.cottages=this.cottages.bind(this);
         this.shipowners=this.shipowners.bind(this);
         this.ships=this.ships.bind(this);
+        this.fishinginstructors=this.fishinginstructors.bind(this);
         this.clients=this.clients.bind(this);
     }
     
@@ -41,6 +44,9 @@ class CottageOwnersComponent extends Component {
     ships(){
         this.props.history.push('/ships');
     }
+    fishinginstructors(){
+        this.props.history.push('/fishinginstructors');
+    }
     clients(){
         this.props.history.push('/clients');
     }
@@ -49,15 +55,15 @@ class CottageOwnersComponent extends Component {
         this.props.history.push(`/login`);
     }
     deleteCottageOwner(id){
-        CottageOwnerService.deleteCottageOwner(id).then(res=>{
+        UserService.deleteUser(id).then(res=>{
                 this.setState({cottageOwners: this.state.cottageOwners.filter(cottageowner=>cottageowner.id !==id)});
-                this.props.history.push("/cottageowners"); // refresh ne radi nzm zasto
+                this.props.history.push("/cottageowners"); 
         });
     }
     componentDidMount(){
-        CottageOwnerService.getCottageOwners().then((res)=>{
-                 this.setState({cottageOwners: res.data});
-         });
+        axios.get("http://localhost:8080/api/v1/users/type/cottage_owner").then((res)=>{
+            this.setState({cottageOwners: res.data});
+    });
      } 
     render() {
         return (
@@ -70,6 +76,7 @@ class CottageOwnersComponent extends Component {
                 <button onClick={this.cottages}> Cottages </button>
                 <button onClick={this.shipowners}> Ship owners </button>
                 <button onClick={this.ships}> Ships </button>
+                <button onClick={this.fishinginstructors}> Fishing instructors </button>
                 <button onClick={this.clients}> Clients </button>
                 
                 <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>

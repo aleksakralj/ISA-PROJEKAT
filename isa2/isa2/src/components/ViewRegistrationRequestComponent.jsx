@@ -33,7 +33,9 @@ class ViewRegistrationRequestComponent extends Component {
         this.cottages=this.cottages.bind(this);
         this.shipowners=this.shipowners.bind(this);
         this.ships=this.ships.bind(this);
+        this.fishinginstructors=this.fishinginstructors.bind(this);
         this.clients=this.clients.bind(this);
+        
 
 
         this.acceptRequest= this.acceptRequest.bind(this);
@@ -62,9 +64,13 @@ class ViewRegistrationRequestComponent extends Component {
     ships(){
         this.props.history.push('/ships');
     }
+    fishinginstructors(){
+        this.props.history.push('/fishinginstructors');
+    }
     clients(){
         this.props.history.push('/clients');
     }
+    
     logout(){
         localStorage.removeItem('activeUser')
         this.props.history.push(`/login`);
@@ -140,6 +146,7 @@ class ViewRegistrationRequestComponent extends Component {
                 <button onClick={this.cottages}> Cottages </button>
                 <button onClick={this.shipowners}> Ship owners </button>
                 <button onClick={this.ships}> Ships </button>
+                <button onClick={this.fishinginstructors}> Fishing instructors </button>
                 <button onClick={this.clients}> Clients </button>
 
                 <button className="menubtnLog" onClick={this.loguot} >Logout</button>

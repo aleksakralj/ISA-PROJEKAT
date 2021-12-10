@@ -65,6 +65,7 @@ import ClientProfileComponent from './components/ClientProfileComponent';
 import ShipProfileComponent from './components/ShipProfileComponent';
 import ClientsComponent from './components/ClientsComponent';
 import MainClientsComponent from './components/MainClientsComponent';
+import MainFishingInstructorsComponent from './components/MainFishingInstructorsComponent';
 
   
 
@@ -142,7 +143,8 @@ function App() {
               <Route path = "/shipprofile" component={ShipProfileComponent}></Route>
               <Route path = "/clients" component={ClientsComponent}></Route>
               <Route path = "/mainclients" component={MainClientsComponent}></Route>
-
+              <Route path = "/fishinginstructors" component={FishingInstructorsComponent}></Route>
+              <Route path = "/mainfishinginstructors" component={MainFishingInstructorsComponent}></Route>
               </Switch>
           </div>
           <FooterComponent/>                      

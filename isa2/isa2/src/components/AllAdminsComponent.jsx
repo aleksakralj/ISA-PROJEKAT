@@ -7,7 +7,7 @@ class AllAdminsComponent extends Component {
         this.state = {
             admins: []
         }
-        this.alladmins=this.alladmins.bind(this);
+        
         this.editAdmin=this.editAdmin.bind(this);
         this.deleteAdmin = this.deleteAdmin.bind(this);
 
@@ -21,13 +21,12 @@ class AllAdminsComponent extends Component {
         this.cottages=this.cottages.bind(this);
         this.shipowners=this.shipowners.bind(this);
         this.ships=this.ships.bind(this);
+        this.fishinginstructors=this.fishinginstructors.bind(this);
         this.clients=this.clients.bind(this);
         this.admins=this.admins.bind(this);
         
     }
-    alladmins(){
-        this.props.history.push("/alladmins");
-    }
+   
     editAdmin(id){
         this.props.history.push(`/updateadmin/${id}`);
     }
@@ -53,6 +52,9 @@ class AllAdminsComponent extends Component {
     }
     ships(){
         this.props.history.push('/mainships');
+    }
+    fishinginstructors(){
+        this.props.history.push('/mainfishinginstructors');
     }
     clients(){
         this.props.history.push('/mainclients');
@@ -90,8 +92,9 @@ class AllAdminsComponent extends Component {
                     <button onClick={this.cottages}> Cottages </button>
                     <button onClick={this.shipowners}> Ship owners </button>
                     <button onClick={this.ships}> Ships </button>
+                    <button onClick={this.fishinginstructors}> Fishing instructors </button>
                     <button onClick={this.clients}> Clients </button>
-                    <button onClick={this.alladmins}> Admins </button>
+                    <button onClick={this.admins}> Admins </button>
                     <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
                 </div>
 
