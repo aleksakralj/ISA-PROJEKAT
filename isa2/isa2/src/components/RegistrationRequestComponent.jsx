@@ -13,6 +13,12 @@ class RegistrationRequestComponent extends Component {
         this.logout= this.logout.bind(this); 
         this.income= this.income.bind(this);
         this.regreq= this.regreq.bind(this);
+        
+        this.cottageowners=this.cottageowners.bind(this);
+        this.cottages=this.cottages.bind(this);
+        this.shipowners=this.shipowners.bind(this);
+        this.ships=this.ships.bind(this);
+        this.clients=this.clients.bind(this);
     
         this.viewRequest= this.viewRequest.bind(this);
     }
@@ -28,8 +34,24 @@ class RegistrationRequestComponent extends Component {
     income(){
         this.props.history.push('/income');
     }
+    cottageowners(){
+        this.props.history.push('/cottageowners');
+    }
+    cottages(){
+        this.props.history.push('/cottages');
+    }
+    shipowners(){
+        this.props.history.push('/shipowners');
+    }
+    ships(){
+        this.props.history.push('/ships');
+    }
+    clients(){
+        this.props.history.push('/clients');
+    }
     logout(){
-        this.props.history.push('/'); //ne znam kako ga ga vratim samo na localhost
+        localStorage.removeItem('activeUser')
+        this.props.history.push(`/login`);
     }
     denyRequest(id){
         RegistrationRequestService.deleteRegistrationRequest(id).then(res=>{
@@ -43,11 +65,14 @@ class RegistrationRequestComponent extends Component {
     }
     
     
-    acceptRequest= (e) => {
+   /* acceptRequest= (e) => {
         //e.preventDefault();
         //let registrationRequests = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type: this.state.type}
         let registrationRequests = this.state.registrationRequests;
         console.log('registrationRequests => ' + JSON.stringify(registrationRequests));
+
+        //RegistrationRequestService.createUser(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});
+
 
         //const{type} = props
         switch(registrationRequests.type){
@@ -71,7 +96,7 @@ class RegistrationRequestComponent extends Component {
             
         }
         
-    }
+    }*/
 
     componentDidMount(){
        RegistrationRequestService.getRegistrationRequests().then((res)=>{
@@ -86,8 +111,13 @@ class RegistrationRequestComponent extends Component {
                 <button onClick={this.adminprofile} > Profile</button>
                 <button onClick={this.regreq}> Registration requests</button>
                 <button onClick={this.income}> Income </button>
+                <button onClick={this.cottageowners}> Cottage owners </button>
+                <button onClick={this.cottages}> Cottages </button>
+                <button onClick={this.shipowners}> Ship owners </button>
+                <button onClick={this.ships}> Ships </button>
+                <button onClick={this.clients}> Clients </button>
 
-                <button className="menubtnLog" onClick={this.loguot} >Logout</button>
+                <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
             </div>
             <br/><br/><br/><br/><br/><br/>
             <h2 className="text-center">Registration requests</h2>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ShipService from '../services/ShipService'
+import ClientsService from '../services/ClientsService'
 
-class ShipsComponent extends Component {
+class ClientsComponent extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -48,15 +48,15 @@ class ShipsComponent extends Component {
         localStorage.removeItem('activeUser')
         this.props.history.push(`/login`);
     }
-    deleteShip(id){
-        ShipService.deleteShip(id).then(res=>{
-                this.setState({ships: this.state.ships.filter(ship=>ship.id !==id)});
-                this.props.history.push("/ships"); // refresh ne radi nzm zasto
+    deleteClient(id){
+        ClientsService.deleteClient(id).then(res=>{
+                this.setState({sclients: this.state.clients.filter(client=>client.id !==id)});
+                this.props.history.push("/clients"); 
         });
     }
     componentDidMount(){
-        ShipService.getShips().then((res)=>{
-                 this.setState({ships: res.data});
+        ClientsService.getClients().then((res)=>{
+                 this.setState({clients: res.data});
          });
      } 
     render() {
@@ -81,25 +81,32 @@ class ShipsComponent extends Component {
                         <table className = "table table-striped table-borderd">
                             <thead>
                                 <tr>
+                                <th>Email</th>
+                                    <th>First name</th>
+                                    <th>Last name</th>
                                     <th>Address</th>
-                                    <th>Description</th>
-                                    <th>Name</th>
-                                    <th>Rating</th>
-                            
+                                    <th>City</th>
+                                    <th>Country</th>
+                                    <th>Phone number</th>
+
                                     <th>Action</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    this.state.ships.map(
-                                        ships =>
-                                        <tr key= {ships.id}>
-                                            <td>{ships.address}</td>
-                                            <td>{ships.description} </td>
-                                            <td>{ships.name} </td>
-                                            <td>{ships.rating} </td>
+                                    this.state.clients.map(
+                                        clients =>
+                                        <tr key= {clients.id}>
+                                            <td>{clients.email}</td>
+                                            <td>{clients.firstName}</td>
+                                            <td>{clients.lastName}</td>
+                                            <td>{clients.address}</td>
+                                            <td>{clients.city}</td>
+                                            <td>{clients.country}</td>
+                                            <td>{clients.phoneNumber}</td>
                                             
-                                            <td><button onClick={()=>this.deleteShip(ships.id)} className="loginbtn">Delete</button></td>
+                                            <td><button onClick={()=>this.deleteClient(clients.id)} className="loginbtn">Delete</button></td>
                                             
                                         </tr>
                                     )
@@ -112,4 +119,4 @@ class ShipsComponent extends Component {
     }
 }
 
-export default ShipsComponent;
+export default ClientsComponent;
