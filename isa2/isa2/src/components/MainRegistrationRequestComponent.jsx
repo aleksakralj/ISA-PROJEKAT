@@ -153,8 +153,8 @@ class MainRegistrationRequestComponent extends Component {
                                         
                                         <td>{registrationRequests.type} </td>
                                         
-                                        <td><button onClick={()=>this.denyRequest(registrationRequests.id)} className="loginbtn">Deny</button></td>
-                                        <td><button onClick={()=>this.viewRequest(registrationRequests.id)} className="loginbtn">View details</button></td>
+                                        <td><button onClick={()=>this.denyRequest(registrationRequests.id)} className="loginbtn">Deny</button>
+                                        <button onClick={()=>this.viewRequest(registrationRequests.id)} className="loginbtn">View details</button></td>
                                     </tr>
                                 )
                             }

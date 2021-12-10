@@ -131,15 +131,7 @@ class RegistrationRequestComponent extends Component {
                                 <th>Email</th>
                                 <th>First name</th>
                                 <th>Last name</th>
-
                                 <th>Type</th>
-
-                                <th>Address</th>
-                                <th>City</th>
-                                <th>Country</th>
-                                <th>Phone number</th>
-                                <th>Date of birth</th>
-                                
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -155,8 +147,8 @@ class RegistrationRequestComponent extends Component {
                                         
                                         <td>{registrationRequests.type} </td>
                                         
-                                        <td><button onClick={()=>this.denyRequest(registrationRequests.id)} className="loginbtn">Deny</button></td>
-                                        <td><button onClick={()=>this.viewRequest(registrationRequests.id)} className="loginbtn">View details</button></td>
+                                        <td><button onClick={()=>this.denyRequest(registrationRequests.id)} className="loginbtn">Deny</button>
+                                        <button onClick={()=>this.viewRequest(registrationRequests.id)} className="loginbtn">View details</button></td>
 
                                     </tr>
                                 )

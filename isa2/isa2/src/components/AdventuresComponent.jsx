@@ -217,6 +217,6 @@ class AdventuresComponent extends Component {
         )
     }
 };
->>>>>>> master
 
-export default AdventuresComponent;*/
+*/
+export default AdventuresComponent;

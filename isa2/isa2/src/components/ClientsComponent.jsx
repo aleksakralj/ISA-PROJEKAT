@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import ClientsService from '../services/ClientsService';
+import ClientService from '../services/ClientService';
 
 class ClientsComponent extends Component {
     constructor(props){
         super(props)
         this.state = {
-            ships:[]
+            clients:[]
         }
         this.adminprofile = this.adminprofile.bind(this);
         this.logout= this.logout.bind(this); 
@@ -49,13 +49,13 @@ class ClientsComponent extends Component {
         this.props.history.push(`/login`);
     }
     deleteClient(id){
-        ClientsService.deleteClient(id).then(res=>{
+        ClientService.deleteClient(id).then(res=>{
                 this.setState({sclients: this.state.clients.filter(client=>client.id !==id)});
                 this.props.history.push("/clients"); 
         });
     }
     componentDidMount(){
-        ClientsService.getClients().then((res)=>{
+        ClientService.getClients().then((res)=>{
                  this.setState({clients: res.data});
          });
      } 

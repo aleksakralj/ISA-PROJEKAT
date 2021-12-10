@@ -23,7 +23,7 @@ import UpdateAdminComponent from './components/UpdateAdminComponent';
 import ViewRegistrationRequestComponent from './components/ViewRegistrationRequestComponent';
 import HomePageCommponent from './components/HomePageCommponent';
 
-import background from './images/pexels-ron-lach-10412889.jpg';
+
 import CottageOwnerProfileComponent from './components/CottageOwnerProfileComponent';
 import CottageProfileComponent from './components/CottageProfileComponent';
 import RoomProfileComponent from './components/RoomProfileComponent';
@@ -63,6 +63,7 @@ import MainViewRegistrationRequestComponent from './components/MainViewRegistrat
 //import background from './images/stephen-crowley-eh3kB7wAJgs-unsplash.jpg';
 import ClientProfileComponent from './components/ClientProfileComponent';
 import ShipProfileComponent from './components/ShipProfileComponent';
+import ClientsComponent from './components/ClientsComponent';
 
 
   
@@ -138,12 +139,12 @@ function App() {
 
               <Route path = "/clientprofile" component={ClientProfileComponent}></Route>
 
-
-
               <Route path = "/shipprofile" component={ShipProfileComponent}></Route>
+              <Route path = "/clients" component={ClientsComponent}></Route>
 
               </Switch>
-          </div>                      
+          </div>
+          <FooterComponent/>                      
         </Router>
      
      
