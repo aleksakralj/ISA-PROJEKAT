@@ -64,7 +64,7 @@ import MainViewRegistrationRequestComponent from './components/MainViewRegistrat
 import ClientProfileComponent from './components/ClientProfileComponent';
 import ShipProfileComponent from './components/ShipProfileComponent';
 import ClientsComponent from './components/ClientsComponent';
-
+import MainClientsComponent from './components/MainClientsComponent';
 
   
 
@@ -141,6 +141,7 @@ function App() {
 
               <Route path = "/shipprofile" component={ShipProfileComponent}></Route>
               <Route path = "/clients" component={ClientsComponent}></Route>
+              <Route path = "/mainclients" component={MainClientsComponent}></Route>
 
               </Switch>
           </div>
