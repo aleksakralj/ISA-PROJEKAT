@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AdminService from '../services/AdminService';
+import UserService from '../services/UserService';
 
 
 class UpdateAdminComponent extends Component {
@@ -35,11 +35,11 @@ class UpdateAdminComponent extends Component {
        this.adminprofile = this.adminprofile.bind(this);
        this.logout= this.logout.bind(this); 
        this.income= this.income.bind(this);
-       //this.addadmin= this.addadmin.bind(this);
+       this.alladmins= this.alladmins.bind(this);
        this.regreq= this.regreq.bind(this);
     }
     componentDidMount(){
-        AdminService.getAdminById(this.props.match.params.id).then((res) => {
+        UserService.getUserById(this.props.match.params.id).then((res) => {
             let admin = res.data;
             this.setState({
                 email: admin.email,
@@ -56,10 +56,10 @@ class UpdateAdminComponent extends Component {
     }
     updateAdmin= (e) => {
         e.preventDefault();
-        let admin = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber}
+        let admin = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type:"admin"}
         console.log('admin => ' + JSON.stringify(admin));
 
-        AdminService.updateAdmin( admin,this.props.match.params.id).then(res => {
+        UserService.updateUser( admin,this.props.match.params.id).then(res => {
             this.props.history.push('/alladmins');
         });
     }
@@ -77,8 +77,12 @@ class UpdateAdminComponent extends Component {
     income(){
         this.props.history.push('/income');
     }
+    alladmins(){
+        this.props.history.push("/alladmins");
+    }
     logout(){
-        this.props.history.push('/'); //ne znam kako ga ga vratim samo na localhost
+        localStorage.removeItem('activeUser')
+        this.props.history.push(`/login`);
     }
     
     changeEmailHandler = (event) => {
@@ -117,21 +121,22 @@ class UpdateAdminComponent extends Component {
                 
                 <div className="menu">
                 <button onClick={this.adminprofile} > Profile</button>
-                <button onClick={this.addadmin}> Add admin </button>
+                
                 <button onClick={this.regreq}> Registration requests</button>
                 <button onClick={this.income}> Income </button>
+                <button onClick={this.alladmins}> All admins </button>
 
-                <button className="menubtnLog" onClick={this.loguot} >Logout</button>
+                <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
                 </div>
                 
                 <div className="registrationdiv">
-                    <br/><br/><input name="id" value={this.props.match.params.id}></input>
+                    <br/><br/>
                                 <label> Email: </label>
                                 <input name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler}/>
                                 <label> Password: </label>
                                 <input name="password" className="form-control" value={this.state.password} onChange={this.changePasswordHandler}/>
                                 <label> Password again: </label>
-                                <input name="password2" className="form-control" value={this.state.password2} onChange={this.changePassword2Handler}/>
+                                <input name="password2" className="form-control" value={this.state.password} onChange={this.changePassword2Handler}/>
 
                                 <label> First name: </label>
                                 <input name="firstName" className="form-control" value={this.state.firstName} onChange={this.changeFirstNameHandler}/>

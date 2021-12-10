@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.Admin;
 import stasaaleksadavid.isabackend.model.Adventure;
+import stasaaleksadavid.isabackend.model.User;
 import stasaaleksadavid.isabackend.repository.AdventureRepository;
 
 import java.util.HashMap;
@@ -48,6 +49,10 @@ public class AdventureController {
         adventure.setRulesOfConduct(adventureDetails.getRulesOfConduct());
         adventure.setTermsOfReservation(adventureDetails.getTermsOfReservation());
 
+        adventure.setFishingEquipment(adventureDetails.getFishingEquipment());
+        adventure.setAdditionalServices(adventureDetails.getAdditionalServices());
+        adventure.setPrices(adventureDetails.getPrices());
+
         Adventure updatedAdventure = adventureRepository.save(adventure);
         return ResponseEntity.ok(updatedAdventure);
     }
@@ -64,5 +69,13 @@ public class AdventureController {
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
+
+    //get by instructorId
+    @GetMapping("/adventures/instructorid/{instructorId}")
+    public List<Adventure> getAdventuresByInstructorId(@PathVariable Long instructorId){return adventureRepository.findByInstructorId(instructorId);}
+
+    //get by instructorId
+    @GetMapping("/adventures/name/{name}")
+    public List<Adventure> getAdventuresByName(@PathVariable String name){return adventureRepository.findByName(name);}
 
 }

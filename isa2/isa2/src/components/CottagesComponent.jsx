@@ -6,7 +6,46 @@ class CottagesComponent extends Component {
         this.state = {
             cottages:[]
         }
-         
+        this.adminprofile = this.adminprofile.bind(this);
+        this.logout= this.logout.bind(this); 
+        this.income= this.income.bind(this);
+        this.regreq= this.regreq.bind(this);
+
+        this.cottageowners=this.cottageowners.bind(this);
+        this.cottages=this.cottages.bind(this);
+        this.shipowners=this.shipowners.bind(this);
+        this.ships=this.ships.bind(this);
+        this.clients=this.clients.bind(this);
+    }
+    adminprofile(){
+        this.props.history.push('/adminprofile');
+    }
+
+    regreq(){
+        this.props.history.push('/registrationrequests');
+    }
+    income(){
+        this.props.history.push('/income');
+    }
+    
+    cottageowners(){
+        this.props.history.push('/cottageowners');
+    }
+    cottages(){
+        this.props.history.push('/cottages');
+    }
+    shipowners(){
+        this.props.history.push('/shipowners');
+    }
+    ships(){
+        this.props.history.push('/ships');
+    }
+    clients(){
+        this.props.history.push('/clients');
+    }
+    logout(){
+        localStorage.removeItem('activeUser')
+        this.props.history.push(`/login`);
     }
     deleteCottage(id){
         CottageService.deleteCottage(id).then(res=>{
@@ -21,7 +60,19 @@ class CottagesComponent extends Component {
      } 
     render() {
         return (
-            <div>
+            <div><div className="menu">
+            <button onClick={this.adminprofile} > Profile</button>
+            <button onClick={this.regreq}> Registration requests</button>
+            <button onClick={this.income}> Income </button>
+            <button onClick={this.cottageowners}> Cottage owners </button>
+            <button onClick={this.cottages}> Cottages </button>
+            <button onClick={this.shipowners}> Ship owners </button>
+            <button onClick={this.ships}> Ships </button>
+            <button onClick={this.clients}> Clients </button>
+            
+            <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
+            </div>
+
                 <br/><br/><br/><br/><br/><br/>
                 <h2 className="text-center">Cottages</h2>
 
