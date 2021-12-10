@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-
+import IncomeService from '../services/IncomeService';
 class IncomeComponent extends Component {
     constructor(props){
         super(props)
         this.state={
-            income: '',
-            percentage: ''
+            
+           incomeFromReservations:'',
+           percentageOfReservations:''
         }
         this.changeIncomeHandler = this.changeIncomeHandler.bind(this);
         this.changePercentageHandler = this.changePercentageHandler.bind(this);
@@ -20,18 +21,26 @@ class IncomeComponent extends Component {
         this.shipowners=this.shipowners.bind(this);
         this.ships=this.ships.bind(this);
         this.clients=this.clients.bind(this);
+
+        this.change=this.change.bind(this);
         
     }
-
+    
     
     change(){
-        this.props.history.push('/income')
+       
+        let income = {percentageOfReservations: this.state.percentageOfReservations,
+            incomeFromReservations:this.state.incomeFromReservations}
+        console.log('income =>' + JSON.stringify(income));
+
+        IncomeService.updateIncome(1,income);
+        
     }
     changeIncomeHandler = (event) => {
-        this.setState({eincome: event.target.value});
+        this.setState({incomeFromReservations: event.target.value});
     }
     changePercentageHandler = (event) => {
-        this.setState({percentage: event.target.value});
+        this.setState({percentageOfReservations: event.target.value});
     }
     adminprofile(){
         this.props.history.push('/adminprofile');
@@ -64,6 +73,17 @@ class IncomeComponent extends Component {
         localStorage.removeItem('activeUser')
         this.props.history.push(`/login`);
     }
+
+    componentDidMount(){
+       IncomeService.getIncomeById(1).then((res) => {
+            let income = res.data;
+            this.setState({
+                incomeFromReservations: income.incomeFromReservations,
+                percentageOfReservations: income.percentageOfReservations
+                
+            });
+        });
+    }
     render() {
         return (
             <div>
@@ -88,13 +108,13 @@ class IncomeComponent extends Component {
                 
                         <form>
                             <div className="form-group">
-                                <label> Income from reservations: </label>
-                                <input  name="income" className="form-control" value={this.state.income} onChange={this.changeIncomeHandler}/>
+                                <label> Income from reservations:  </label>
+                                <input  name="incomeFromReservations" className="form-control" value={this.state.incomeFromReservations} onChange={this.changeIncomeHandler}/>
                                 <br/> <br/> 
-                                <label> Percentage of reservation: </label>
-                                <input  name="percentage" className="form-control" value={this.state.percenrtage} onChange={this.changePercentageHandler}/>
+                                <label> Percentage of reservations: </label>
+                                <input  name="percentageOfReservations" className="form-control" value={this.state.percentageOfReservations} onChange={this.changePercentageHandler}/>
                                     
-                                <div className="center"><button className="changepercentagebtn" onClick={this.change}>Change percentage</button></div>
+                                <div className="center"><button className="changepercentagebtn" onClick={()=>this.change()}>Change percentage</button></div>
                             </div>
                         </form>
                      </div>    

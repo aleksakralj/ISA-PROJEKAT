@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LoginService from '../services/LoginService';
+//import LoginService from '../services/LoginService';
 import axios from 'axios';
 
 class LoginComponent extends Component {

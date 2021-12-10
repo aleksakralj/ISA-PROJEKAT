@@ -65,11 +65,14 @@ class RegistrationRequestComponent extends Component {
     }
     
     
-    acceptRequest= (e) => {
+   /* acceptRequest= (e) => {
         //e.preventDefault();
         //let registrationRequests = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type: this.state.type}
         let registrationRequests = this.state.registrationRequests;
         console.log('registrationRequests => ' + JSON.stringify(registrationRequests));
+
+        //RegistrationRequestService.createUser(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});
+
 
         //const{type} = props
         switch(registrationRequests.type){
@@ -93,7 +96,7 @@ class RegistrationRequestComponent extends Component {
             
         }
         
-    }
+    }*/
 
     componentDidMount(){
        RegistrationRequestService.getRegistrationRequests().then((res)=>{

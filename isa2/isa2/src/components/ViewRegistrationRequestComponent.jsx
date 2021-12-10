@@ -45,7 +45,9 @@ class ViewRegistrationRequestComponent extends Component {
         this.props.history.push('/income');
     }
     logout(){
-        this.props.history.push('/'); //ne znam kako ga ga vratim samo na localhost
+        localStorage.removeItem('activeUser')
+        this.props.history.push(`/login`);
+    
     }
     denyRequest(id){
         RegistrationRequestService.deleteRegistrationRequest(id).then(res=>{
@@ -57,9 +59,12 @@ class ViewRegistrationRequestComponent extends Component {
         e.preventDefault();
         let registrationRequests = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type: this.state.type, reason:this.state.reason}
         console.log('registrationRequests => ' + JSON.stringify(registrationRequests));
+        RegistrationRequestService.createUser(registrationRequests).then((res)=>{this.props.history.push('/registrationrequests')});
+        this.denyRequest(this.props.match.params.id);
 
+        
         //const{type} = props
-        switch(registrationRequests.type){
+        /*switch(registrationRequests.type){
             case 'fishing_instructor':
                 RegistrationRequestService.createRegistrationRequestFI(registrationRequests).then((res)=>{this.props.history.push('/registrationrequests')});
                 this.denyRequest(this.props.match.params.id);
@@ -83,7 +88,7 @@ class ViewRegistrationRequestComponent extends Component {
             default :
             
         }
-        
+        */
     }
     componentDidMount(){
         RegistrationRequestService.getRegistrationRequestById(this.props.match.params.id).then((res) => {

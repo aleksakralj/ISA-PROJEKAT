@@ -80,6 +80,7 @@ class AdventuresComponent extends Component {
                                     <th>Max number of people</th>
                                     <th>Rules of conduct</th>
                                     <th>Terms of reservation</th>
+                                    
                             
                                     <th>Action</th>
                                 </tr>
