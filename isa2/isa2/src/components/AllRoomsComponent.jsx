@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import RoomService from '../services/RoomService';
+import axios from 'axios';
 class AllRoomsComponent extends Component {
     constructor(props){
         super(props)
@@ -16,26 +16,40 @@ class AllRoomsComponent extends Component {
         
     }
     viewRoom(id){
-        this.props.history.push(`/roomprofile/${id}`);
+
+        axios
+        .get("http://localhost:8080/api/v1/rooms/" + id )
+        .then(response => {
+            localStorage.setItem('activeRoom',JSON.stringify(response.data));
+            this.props.history.push(`/roomprofile`);
+        });
+            
+        
     }
 
     
     logout(){
-        this.props.history.push('/'); 
+        localStorage.removeItem('activeUser')
+        localStorage.removeItem('activeCottage')
+        localStorage.removeItem('activeRoom')
+        this.props.history.push(`/login`);
+       
     }
     addroom(){
         this.props.history.push('/addroom');
     }
     deleteRoom(id){
-        RoomService.deleteRoom(id).then(res=>{
-                this.setState({rooms: this.state.rooms.filter(room=>room.id !==id)});
-                this.props.history.push("/allrooms"); // refresh ne radi nzm zasto
-        });
+        axios.delete("http://localhost:8080/api/v1/rooms/" + id);
+        window.location.reload();
     }
     componentDidMount(){
-        RoomService.getRooms().then((res)=>{
+    
+        localStorage.removeItem('activeRoom');
+        let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'));
+        axios.get("http://localhost:8080/api/v1/rooms/cottage/" + activeCottage.id).then((res)=>{
             this.setState({rooms: res.data});
     });
+      
         
     } 
     render() {

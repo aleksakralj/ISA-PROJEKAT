@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
+import stasaaleksadavid.isabackend.model.Cottage;
 import stasaaleksadavid.isabackend.model.Room;
 import stasaaleksadavid.isabackend.repository.RoomRepository;
 
@@ -64,5 +65,12 @@ public class RoomController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
+    }
+
+
+
+    @GetMapping("/rooms/cottage/{cottageid}")
+    public List<Room> getCottageByEmailAndPassword(@PathVariable Long cottageid){
+        return roomRepository.findByCottageId(cottageid);
     }
 }

@@ -37,11 +37,18 @@ import AddAdventureComponent from './components/AddAdventureComponent';
 import ViewAdventureComponent from './components/ViewAdventureComponent';
 import FishingInstructorProfileComponent from './components/FishingInstructorProfileComponent';
 import localhost from './components/localhost.jsx';
+
+import CottageOwnerCottages from './components/CottageOwnerCottages';
+import AddCottage from './components/AddCottageComponent';
+import AddRoom from './components/AddRoomComponent';
+const backStyle = {
+
 import MainAdminProfileComponent from './components/MainAdminProfileComponent';
 import AdminChangePasswordComponent from './components/AdminChangePasswordComponent';
 import DeleteRequestComponent from './components/DeleteRequestComponent'
 
 /*const backStyle = {
+
   width: '100%',
   height: '800px',
   backgroundImage: `url(${background})`,
@@ -91,9 +98,15 @@ function App() {
               <Route path = "/addadventure" component={AddAdventureComponent}></Route> 
               <Route path = "/viewadventure/:id" component={ViewAdventureComponent}></Route>
               <Route path = "/fishinginstructorprofile" component={FishingInstructorProfileComponent}></Route>  
+
+              <Route path = "/cottageownercottages" component={CottageOwnerCottages}></Route>
+              <Route path = "/addcottage" component={AddCottage}></Route>
+              <Route path = "/addroom" component={AddRoom}></Route>
+
               <Route path = "/mainadminprofile" component={MainAdminProfileComponent}></Route>  
               <Route path = "/adminchangepassword" component={AdminChangePasswordComponent}></Route>
               <Route path = "/deleterequest" component={DeleteRequestComponent}></Route>
+
               </Switch>
 
           </div>

@@ -36,12 +36,6 @@ public class CottageController {
         return ResponseEntity.ok(cottage);
     }
 
-    //get by owner id
-
-    @GetMapping("/cottages/owner/{ownerid}")
-  public List<CottageOwner> getCottageByOwnerId(@PathVariable Long ownerid){
-      return cottageRepository.findByOwnerId(ownerid);
-   }
 
     //update
     @PutMapping("/cottages/{id}")
@@ -71,5 +65,11 @@ public class CottageController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
+    }
+
+// get by Email and Password
+    @GetMapping("/cottages/owner/{ownerid}")
+    public List<Cottage> getCottageByEmailAndPassword(@PathVariable Long ownerid){
+    return cottageRepository.findByOwnerId(ownerid);
     }
 }
