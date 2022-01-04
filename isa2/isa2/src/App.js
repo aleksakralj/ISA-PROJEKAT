@@ -60,7 +60,7 @@ import MainViewRegistrationRequestComponent from './components/MainViewRegistrat
 
 
 
-//import background from './images/stephen-crowley-eh3kB7wAJgs-unsplash.jpg';
+import background from './images/stephen-crowley-eh3kB7wAJgs-unsplash.jpg';
 import ClientProfileComponent from './components/ClientProfileComponent';
 import ShipProfileComponent from './components/ShipProfileComponent';
 import ClientsComponent from './components/ClientsComponent';
@@ -68,20 +68,26 @@ import MainClientsComponent from './components/MainClientsComponent';
 import MainFishingInstructorsComponent from './components/MainFishingInstructorsComponent';
 
   
+const backStyle = {
+  width: '100%',
+  height: '800px',
+  backgroundImage: `url(${background})`,
+  backgroundSize: 'cover' 
+};
 
 
 
 function App() {
   return (
 
-    <div>
+    <div style={backStyle}> 
       
         <Router>
           <HeaderComponent/>
           <div className="container">
             <Switch> 
 
-            <Route path = "/" exact component={localhost}></Route>
+            <Route path = "/" exact component={HomePageCommponent}></Route>
               <Route path = "/login" exact component={LoginComponent}></Route>
 
               <Route path = "/TODO" exact component={HomePageCommponent}></Route>
@@ -147,7 +153,7 @@ function App() {
               <Route path = "/mainfishinginstructors" component={MainFishingInstructorsComponent}></Route>
               </Switch>
           </div>
-          <FooterComponent/>                      
+                                
         </Router>
      
      
