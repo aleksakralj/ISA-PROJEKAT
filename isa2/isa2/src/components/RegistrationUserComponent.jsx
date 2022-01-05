@@ -128,7 +128,8 @@ class RegistrationUserComponent extends Component {
         })
     }
 
-    render() {return (
+    render() {
+        return (
         <div>
             <div className="container">
 
@@ -172,16 +173,23 @@ class RegistrationUserComponent extends Component {
                 }
                     {
                         this.state.hiddenRegistration?
-                            <div style={{  width: '250px', height: '200px', position: 'absolute', top: '150px', left: '500px' }}>
-                                <label style={{ fontSize: '18px', position: 'absolute', left: '52px' }}>Choose your role:</label>
-                                <div style={{  width: '20px', height: '100px', position: 'absolute', left: '50px', top: '40px' }}>
+                            <div style={{  width: '250px', height: '200px', position: 'absolute', top: '120px', left: '500px' }}>
+
+                                <div style={{position: 'absolute', left: '52px', top:'0px'}}>
+                                    <label> Reason: </label>
+                                    <input name="reason" style={{width:'300px'}} className="form-control" value={this.state.reason} onChange={this.changeReasonHandler} />
+                                  
+                                </div>
+
+                                <label style={{ fontSize: '18px', position: 'absolute', left: '52px' , top:'80px' }}>Choose your role:</label>
+                                <div style={{  width: '20px', height: '100px', position: 'absolute', left: '50px', top: '110px' }}>
                                     <input name="roleRadioButton" value='admin' type='radio' onChange={this.changeTypeHandler}></input>
                                     <input name="roleRadioButton" value='fishing_instructor' type='radio' onChange={this.changeTypeHandler}></input>
                                     <input name="roleRadioButton" value='ship_owner' type='radio' onChange={this.changeTypeHandler}></input>
                                     <input name="roleRadioButton" value='cottage_owner' type='radio' onChange={this.changeTypeHandler}></input>
                                 </div>
 
-                                <div style={{  width: '140px', height: '100px', position: 'absolute', top: '40px', left: '70px' }}>
+                                <div style={{  width: '140px', height: '100px', position: 'absolute', top: '110px', left: '70px' }}>
                                     <label>Administrator</label>
                                     <label>Fishing instructor</label>
                                     <label>Ship owner</label>
@@ -189,7 +197,9 @@ class RegistrationUserComponent extends Component {
                                     <label>Cottage owner</label>
                                 </div>
 
-                                <div style={{  width: '245px', height: '50px', position: 'absolute', top: '145px' }}>
+                                
+
+                                <div style={{  width: '245px', height: '50px', position: 'absolute', top: '215px' }}>
                                     <button style={{ height: '30px', width: '80px', position: 'absolute', top: '5px', left: '35px' }} onClick={this.register}> Register</button>
                                     <button style={{ height: '30px', width: '80px', position: 'absolute', top: '5px', left: '135px' }} onClick={() => this.hideHiddenRegistration()} >Cancel</button>
                                 </div>
@@ -197,11 +207,7 @@ class RegistrationUserComponent extends Component {
                         : null
                     }
                 </div>
-                 {/*
-                                <label> Reason: </label>
-                                <input name="reason" className="form-control" value={this.state.reason} onChange={this.changeReasonHandler} />
-                                <div className="center"><button className="loginbtn" onClick={this.register}>Regiser</button></div>*/ }
-
+                
             </div>
         </div>
     );

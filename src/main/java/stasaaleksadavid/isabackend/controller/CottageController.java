@@ -8,6 +8,8 @@ import stasaaleksadavid.isabackend.model.Cottage;
 import stasaaleksadavid.isabackend.model.CottageOwner;
 import stasaaleksadavid.isabackend.repository.CottageRepository;
 
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,5 +73,17 @@ public class CottageController {
     @GetMapping("/cottages/owner/{ownerid}")
     public List<Cottage> getCottageByEmailAndPassword(@PathVariable Long ownerid){
     return cottageRepository.findByOwnerId(ownerid);
+    }
+
+    @GetMapping("/cottages")
+    public List<String> getAllCottagesNames(){
+        List<Cottage> cottages = cottageRepository.findAll();
+
+        ArrayList<String> cottageNames= new ArrayList<String>();
+
+        for (Cottage varCottage:cottages) {
+            cottageNames.add(varCottage.getName());
+        }
+        return cottageNames;
     }
 }

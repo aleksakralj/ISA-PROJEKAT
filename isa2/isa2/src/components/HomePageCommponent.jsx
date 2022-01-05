@@ -1,77 +1,51 @@
 import React, { Component } from 'react';
 import background from './try/pexels-ron-lach-10412889.jpg';
 
-const homeBackgroundStyle = {
-    width: '100%',
-    height: '800px',
-    backgrounImage: '',
-    backgroundSize: 'cover'
-};
 
-const recStyle1 = {
-    border: '2px outset black',  
-    margin: 0,
-    position: 'relative',
-    top: '-10px',
-    right: '-950px',
-    width: '170px',
-    height: '180px'  
-};
-
-const recStyle2 = {
-    border: '2px outset black',  
-    margin: 0,
-    position: 'relative',
-    top: '-190px',
-    right: '-1150px',
-    width: '170px',
-    height: '180px'    
-};
-
-const welcomingStyle = {
-    width: '200px',
-    position: 'relative',
-    top:'130px',
-    right:'-932px'
-
-};
-
-
- class HomePageCommponent extends Component {
-    constructor(props){
+class HomePageCommponent extends Component {
+    constructor(props) {
         super(props)
-        this.state={
-          
-        }        
+        this.state = {
+
+        }
     }
-    
+
     render() {
         return (
-           <div>
-                           
-               <div style={welcomingStyle}>
+            <div>
+
+                <div style={{position:'absolute',top:'150px', left:'670px'}}>
                     <h1 align="center"> WELCOME </h1>
                     <h3 align="center"> Look at our </h3>
                 </div>
 
-                <div className="cardrectangle" >
-                    <br></br>
-                    <img src="https://cdn-icons.flaticon.com/png/512/2118/premium/2118218.png?token=exp=1638912260~hmac=e9d16d6f208f2fc57e70bf7d7cf9c4b5"  align="left" alt="" width="165" height="68"/> 
-                    <h3 align="center"> <br></br> Adventures </h3>
-                </div>
-                
-                <div className="cardrectangle" style={recStyle1} >
-                    <br></br>
-                    <img src="https://d1bd5u3q1t3nu7.cloudfront.net/icons/50/cargo-ship-icon.png"    align="left" alt="" width="165" height="68"/> 
-                    <h3 align="center"> <br></br> Ships </h3>
+                <div style={{  display:'flex', height:'18rem', flexDirection: "row", gap:"40px", alignItems:'baseline',justifyContent:'space-evenly', position:'relative', top:'200px' }}>
+                    <div class="card text-center" style={{ width: "18rem", height: "18rem", backgroundColor: 'transparent', border: '3px solid #111111',borderRadius:'5%' }}>
+                        <img class="card-img-top" style={{ height: "11rem" }} src="https://cdn-icons.flaticon.com/png/512/2118/premium/2118218.png?token=exp=1638912260~hmac=e9d16d6f208f2fc57e70bf7d7cf9c4b5" />
+                        <div class="card-body">
+                            <h5 align='center' class="card-title">Adventures</h5>
+                            <a href="/adventures" class="btn btn-primary">See adventures</a>
+                        </div>
+                    </div>
+
+                    <div class="card text-center" style={{ width: "18rem", height: "18rem", backgroundColor: 'transparent', border: '3px solid #111111',borderRadius:'5%' }}>
+                        <img class="card-img-top" style={{ height: "11rem" }} src="https://cdn-icons-png.flaticon.com/512/20/20176.png" />
+                        <div class="card-body">
+                            <h5 align='center' class="card-title">Cottages</h5>
+                            <a href="/cottages"  class="btn btn-primary">See cottages</a>
+                        </div>
+                    </div>
+
+                    <div class="card text-center" style={{ width: "18rem", height: "18rem", backgroundColor: 'transparent', border: '3px solid #111111', borderRadius:'5%' }}>
+                        <img class="card-img-top" style={{ height: "11rem" }} src="https://d1bd5u3q1t3nu7.cloudfront.net/icons/50/cargo-ship-icon.png" />
+                        <div class="card-body">
+                            <h5 align='center' class="card-title">Ships</h5>
+                            <a href="/ships" class="btn btn-primary">See ships</a>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div className="cardrectangle" style={recStyle2} >
-                    <br></br>
-                    <img src="https://cdn-icons-png.flaticon.com/512/20/20176.png" align="left"  alt="" width="165" height="68"/> 
-                    <h3 align="center"><br></br> Cottages </h3>
-                </div>
-        
 
 
             </div>

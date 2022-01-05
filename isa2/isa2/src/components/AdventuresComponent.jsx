@@ -54,6 +54,7 @@ class AdventuresComponent extends Component {
     render() {
         return (
             <div>
+                {/*}
                 <div className="menu">
                 <button onClick={()=>this.fishinginstructorprofile()} > Profile</button>
                 <button onClick={()=>this.adventures()}> Adventures</button>
@@ -67,7 +68,7 @@ class AdventuresComponent extends Component {
                 <br/>
                 <input name="name" value={this.state.search} onChange={this.changeSearchHandler}></input>
                 <button onClick={()=>this.search(this.state.search)} className="loginbtn">Search</button>
-
+                  */}
                 <h2 className="text-center">Adventures</h2>
 
                     <div className="row">
