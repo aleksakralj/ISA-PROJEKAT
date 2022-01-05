@@ -130,8 +130,10 @@
   width: 100px;
   height:40px;
   border: none;
-  display: inline-block;
-  
+  display: inline-block;  
+}
+.loginbtn:hover{
+  background-color: paleturquoise;
 }
 .noProfile{
   background-color:white;

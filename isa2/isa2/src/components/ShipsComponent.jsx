@@ -66,7 +66,8 @@ class ShipsComponent extends Component {
     render() {
         return (
             <div>
-            <div className="menu">
+     {/*
+            <div className="menu"> 
             <button onClick={this.adminprofile} > Profile</button>
             <button onClick={this.regreq}> Registration requests</button>
             <button onClick={this.income}> Income </button>
@@ -78,9 +79,11 @@ class ShipsComponent extends Component {
             <button onClick={this.clients}> Clients </button>
             
             <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
-            </div>
+          </div>
+          */}  
+          
                 <br/><br/><br/><br/><br/><br/>
-                <h2 className="text-center">Ships</h2>
+                <h1 className="text-center">Ships</h1>
 
                     <div className="row">
                         <table className = "table table-striped table-borderd">

@@ -66,8 +66,11 @@ import ShipProfileComponent from './components/ShipProfileComponent';
 import ClientsComponent from './components/ClientsComponent';
 import MainClientsComponent from './components/MainClientsComponent';
 import MainFishingInstructorsComponent from './components/MainFishingInstructorsComponent';
+import ClientCottageHistoryComponent from './components/ClientCottageHistoryComponent';
+import Clientadvenutreshistorycomponent from './components/ClientAdvenutresHistoryComponent';
+import Clientshipshistorycomponent from './components/ClientShipsHistoryComponent';
+import Clientschedulecottagecomponent from './components/ClientScheduleCottageComponent';
 
-  
 const backStyle = {
   width: '100%',
   height: '800px',
@@ -105,8 +108,8 @@ function App() {
               <Route path = "/servicereservations" component={ServiceFreeReservationsComponent}></Route>
               <Route path = "/servicerules" component={ServiceRulesComponent}></Route>
               <Route path = "/serviceequipment" component={ServiceEquipmentComponent}></Route>
-              <Route path = "/serviceprice" component={ServicePriceComponent}></Route>
-              <Route path = "/homepage" component={HomePageCommponent} ></Route>
+              <Route path = "/serviceprice" component={ServicePriceComponent}></Route>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ +             <Route path = "/homepage" component={HomePageCommponent} ></Route>
               <Route path = "/login" component={LoginComponent}></Route>
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
@@ -151,6 +154,11 @@ function App() {
               <Route path = "/mainclients" component={MainClientsComponent}></Route>
               <Route path = "/fishinginstructors" component={FishingInstructorsComponent}></Route>
               <Route path = "/mainfishinginstructors" component={MainFishingInstructorsComponent}></Route>
+              <Route path = "/clientcottagehistory" component={ClientCottageHistoryComponent}></Route>
+              <Route path = "/clientadventureshistory" component={Clientadvenutreshistorycomponent}></Route>
+              <Route path = "/clientshipshistory" component={Clientshipshistorycomponent}></Route>
+              <Route path= "/clientschedulecottage" component={Clientschedulecottagecomponent}></Route>
+
               </Switch>
           </div>
                                 
