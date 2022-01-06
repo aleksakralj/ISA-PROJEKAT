@@ -3,6 +3,7 @@ package stasaaleksadavid.isabackend.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Cottage_Appointments")
@@ -12,11 +13,17 @@ public class CottageAppointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "Cottage_ID")
+    private long cottageId;
+
+    @Column(name = "Client_ID")
+    private long clientId;
+
     @Column(name = "Starting_Date")
-    private LocalDate startingDate;
+    private LocalDateTime startingDate;
 
     @Column(name = "Ending_Date")
-    private LocalDate endingDate;
+    private LocalDateTime endingDate;
 
     @Column(name = "Numer_Of_People")
     private int numberOfPeople ;
@@ -30,13 +37,31 @@ public class CottageAppointment {
     public CottageAppointment() {
     }
 
-    public CottageAppointment(LocalDate startingDate, LocalDate endingDate, int numberOfPeople, String additionalServices, double price) {
+    public CottageAppointment(long cottageId, long clientId, LocalDateTime startingDate, LocalDateTime endingDate, int numberOfPeople, String additionalServices, double price) {
         super();
+        this.cottageId = cottageId;
+        this.clientId = clientId;
         this.startingDate = startingDate;
         this.endingDate = endingDate;
         this.numberOfPeople = numberOfPeople;
         this.additionalServices = additionalServices;
         this.price = price;
+    }
+
+    public long getCottageId() {
+        return cottageId;
+    }
+
+    public void setCottageId(long cottageId) {
+        this.cottageId = cottageId;
+    }
+
+    public long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(long clientId) {
+        this.clientId = clientId;
     }
 
     public long getId() {
@@ -47,19 +72,19 @@ public class CottageAppointment {
         this.id = id;
     }
 
-    public LocalDate getStartingDate() {
+    public LocalDateTime getStartingDate() {
         return startingDate;
     }
 
-    public void setStartingDate(LocalDate startingDate) {
+    public void setStartingDate(LocalDateTime startingDate) {
         this.startingDate = startingDate;
     }
 
-    public LocalDate getEndingDate() {
+    public LocalDateTime getEndingDate() {
         return endingDate;
     }
 
-    public void setEndingDate(LocalDate endingDate) {
+    public void setEndingDate(LocalDateTime endingDate) {
         this.endingDate = endingDate;
     }
 

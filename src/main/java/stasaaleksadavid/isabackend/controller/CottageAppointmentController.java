@@ -22,27 +22,30 @@ public class CottageAppointmentController {
     //get all
 
     @GetMapping("/cottageappointments")
-    public List<CottageAppointment> getAllCottageAppointments(){return cottageAppointmentRepository.findAll();}
+    public List<CottageAppointment> getAllCottageAppointments() {
+        return cottageAppointmentRepository.findAll();
+    }
 
     //create
     @PostMapping("/cottageappointments")
-    public  CottageAppointment createCottageAppointment(@RequestBody CottageAppointment cottageAppointment){
+    public CottageAppointment createCottageAppointment(@RequestBody CottageAppointment cottageAppointment) {
         return cottageAppointmentRepository.save(cottageAppointment);
     }
 
     //get by id
     @GetMapping("/cottageappointments/{id}")
-    public ResponseEntity<CottageAppointment> getCottageAppointmentById(@PathVariable Long id){
-        CottageAppointment cottageAppointment = cottageAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageAppointment does not exist with id:"+ id));
+    public ResponseEntity<CottageAppointment> getCottageAppointmentById(@PathVariable Long id) {
+        CottageAppointment cottageAppointment = cottageAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageAppointment does not exist with id:" + id));
         return ResponseEntity.ok(cottageAppointment);
     }
 
     //update
     @PutMapping("/cottageappointments/{id}")
-    public ResponseEntity<CottageAppointment> updateCottageAppointment(@PathVariable Long id,@RequestBody CottageAppointment cottageAppointmentDetails){
-        CottageAppointment cottageAppointment = cottageAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageAppointment does not exist with id:"+ id));
+    public ResponseEntity<CottageAppointment> updateCottageAppointment(@PathVariable Long id, @RequestBody CottageAppointment cottageAppointmentDetails) {
+        CottageAppointment cottageAppointment = cottageAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageAppointment does not exist with id:" + id));
 
-
+        cottageAppointment.setClientId(cottageAppointmentDetails.getClientId());
+        cottageAppointment.setCottageId(cottageAppointmentDetails.getCottageId());
         cottageAppointment.setStartingDate(cottageAppointmentDetails.getStartingDate());
         cottageAppointment.setEndingDate(cottageAppointmentDetails.getEndingDate());
         cottageAppointment.setNumberOfPeople(cottageAppointmentDetails.getNumberOfPeople());
@@ -57,9 +60,9 @@ public class CottageAppointmentController {
 
     //delete
     @DeleteMapping("/cottageappointments/{id}")
-    public Map<String, Boolean> deleteCottageAppointment(@PathVariable Long id){
+    public Map<String, Boolean> deleteCottageAppointment(@PathVariable Long id) {
 
-        CottageAppointment cottageAppointment = cottageAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageAppointment does not exist with id:"+ id));
+        CottageAppointment cottageAppointment = cottageAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageAppointment does not exist with id:" + id));
 
         cottageAppointmentRepository.delete(cottageAppointment);
         Map<String, Boolean> response = new HashMap<>();
@@ -68,5 +71,8 @@ public class CottageAppointmentController {
     }
 
 
-
+    @GetMapping("/cottageappointments/cottage/{cottageid}")
+    public List<CottageAppointment> getAppointmentByCottageId(@PathVariable Long cottageid) {
+        return cottageAppointmentRepository.findByCottageId(cottageid);
+    }
 }

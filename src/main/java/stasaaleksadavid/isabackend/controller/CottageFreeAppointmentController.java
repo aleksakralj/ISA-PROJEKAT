@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
+import stasaaleksadavid.isabackend.model.CottageAppointment;
 import stasaaleksadavid.isabackend.model.CottageFreeAppointment;
 import stasaaleksadavid.isabackend.repository.CottageFreeAppointmentRepository;
 
@@ -46,7 +47,7 @@ public class CottageFreeAppointmentController {
     public ResponseEntity<CottageFreeAppointment> updateCottageFreeAppointment(@PathVariable Long id, @RequestBody CottageFreeAppointment cottageFreeAppointmentDetails) {
         CottageFreeAppointment cottageFreeAppointment = cottageFreeAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageFreeAppointment does not exist with id:" + id));
 
-
+        cottageFreeAppointment.setCottageId(cottageFreeAppointmentDetails.getCottageId());
         cottageFreeAppointment.setStartingDate(cottageFreeAppointmentDetails.getStartingDate());
         cottageFreeAppointment.setEndingDate(cottageFreeAppointmentDetails.getEndingDate());
         cottageFreeAppointment.setNumberOfPeople(cottageFreeAppointmentDetails.getNumberOfPeople());
@@ -69,5 +70,10 @@ public class CottageFreeAppointmentController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/cottagefreeappointments/cottage/{cottageid}")
+    public List<CottageFreeAppointment> getFreeAppointmentByCottageId(@PathVariable Long cottageid) {
+        return cottageFreeAppointmentRepository.findByCottageId(cottageid);
     }
 }
