@@ -70,6 +70,10 @@ import ClientCottageHistoryComponent from './components/ClientCottageHistoryComp
 import Clientadvenutreshistorycomponent from './components/ClientAdvenutresHistoryComponent';
 import Clientshipshistorycomponent from './components/ClientShipsHistoryComponent';
 import Clientschedulecottagecomponent from './components/ClientScheduleCottageComponent';
+import Clientupdateprofile from './components/ClientUpdateProfile';
+import Clientdeleteprofilecomponent from './components/ClientDeleteProfileComponent';
+import Profiledeletionrequestwait from './components/ProfileDeletionRequestWait';
+import Adminprofiledeletionsrequestscomponent from './components/AdminProfileDeletionsRequestsComponent';
 
 const backStyle = {
   width: '100%',
@@ -158,7 +162,10 @@ function App() {
               <Route path = "/clientadventureshistory" component={Clientadvenutreshistorycomponent}></Route>
               <Route path = "/clientshipshistory" component={Clientshipshistorycomponent}></Route>
               <Route path= "/clientschedulecottage" component={Clientschedulecottagecomponent}></Route>
-
+              <Route path= "/clientupdateprofile" component={Clientupdateprofile}></Route>
+              <Route path="/clientdeleteprofile" component={Clientdeleteprofilecomponent}></Route>
+              <Route path="/profiledeletionrequestwait" component={Profiledeletionrequestwait}></Route>
+              <Route path="/adminprofiledeletionrequests" component={Adminprofiledeletionsrequestscomponent}></Route>
               </Switch>
           </div>
                                 
