@@ -19,8 +19,6 @@ updateCottage(cottage,cottageId){
 deleteCottage(cottageId){
     return axios.delete(COTTAGE_API_BASE_URL + '/' + cottageId);
 }
-getCottageNames(){
-    return axios.get(COTTAGE_API_BASE_URL);
-}
+
 }
 export default new Cottage();
