@@ -82,6 +82,7 @@ class AdventuresComponent extends Component {
                                     <th>Rules of conduct</th>
                                     <th>Terms of reservation</th>
                                     
+                                    
                             
                                     <th>Action</th>
                                 </tr>
