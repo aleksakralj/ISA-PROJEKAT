@@ -20,7 +20,7 @@ class Clientadvenutreshistorycomponent extends Component {
                                     <th>Name</th>
                                     <th>Price</th>
                                     <th>Duration</th>
-                                                           
+                                    <th>Instructor name</th>                        
                                     <th>Rating</th>                                    
                                     <th>Action</th>
                                 </tr>

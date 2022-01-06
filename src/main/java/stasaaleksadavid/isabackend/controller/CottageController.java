@@ -75,15 +75,5 @@ public class CottageController {
     return cottageRepository.findByOwnerId(ownerid);
     }
 
-    @GetMapping("/cottages")
-    public List<String> getAllCottagesNames(){
-        List<Cottage> cottages = cottageRepository.findAll();
-
-        ArrayList<String> cottageNames= new ArrayList<String>();
-
-        for (Cottage varCottage:cottages) {
-            cottageNames.add(varCottage.getName());
-        }
-        return cottageNames;
-    }
+    
 }

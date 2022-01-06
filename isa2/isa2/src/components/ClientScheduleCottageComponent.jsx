@@ -11,7 +11,7 @@ class Clientschedulecottagecomponent extends Component {
             shownContainer: true
         }
         this.cancelCottages = this.cancelCottages.bind(this);
-        this.getAllCottageNames = this.getAllCottageNames(this);
+        
         
     }
     cancelCottages() {
@@ -23,11 +23,21 @@ class Clientschedulecottagecomponent extends Component {
             shownContainer:false
         })
     }
-    getAllCottageNames(){
-       CottageService.getCottageNames().then((res) => {
-        this.setState({ cottageNames: res.data });
-    });
-    }
+    
+    componentDidMount() {
+        fetch('http://localhost:8080/api/v1/cottages')
+          .then(res => res.json())
+          .then(
+            (result) => {
+              this.setState({
+                
+                cottageNames: result
+              });
+            },
+           
+            
+          )
+      }
     render() {
         return (
             <div>
