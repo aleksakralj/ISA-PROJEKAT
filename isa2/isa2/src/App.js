@@ -162,7 +162,7 @@ function App() {
               <Route path = "/clientadventureshistory" component={Clientadvenutreshistorycomponent}></Route>
               <Route path = "/clientshipshistory" component={Clientshipshistorycomponent}></Route>
               <Route path= "/clientschedulecottage" component={Clientschedulecottagecomponent}></Route>
-              <Route path= "/clientupdateprofile" component={Clientupdateprofile}></Route>
+              <Route path= "/clientupdateprofile/:id" component={Clientupdateprofile}></Route>
               <Route path="/clientdeleteprofile" component={Clientdeleteprofilecomponent}></Route>
               <Route path="/profiledeletionrequestwait" component={Profiledeletionrequestwait}></Route>
               <Route path="/adminprofiledeletionrequests" component={Adminprofiledeletionsrequestscomponent}></Route>

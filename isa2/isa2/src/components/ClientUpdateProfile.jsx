@@ -1,13 +1,91 @@
 import React, { Component } from 'react';
+import UserService from '../services/UserService';
 
 class Clientupdateprofile extends Component {
     constructor(props){
         super(props)
-        this.state={}
+        this.state={ 
+            id: this.props.match.params.id,
+            email: '',
+            password: '',
+            firstName: '',
+            lastName: '',
+            dateOfBirth: "",
+            address: '',
+            city: '',
+            country: '',
+            phoneNumber: '',
+            type: ''
 
+        }
+
+        this.updateAccount=this.updateAccount.bind(this);
         this.cancelUpdate=this.cancelUpdate.bind(this);
+        this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
+        this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
+
+        this.changeAddressHandler = this.changeAddressHandler.bind(this);
+        this.changeCityHandler = this.changeCityHandler.bind(this);
+        this.changeCountryHandler = this.changeCountryHandler.bind(this);
+        this.changeDateOfBirthHandler = this.changeDateOfBirthHandler.bind(this);
+        this.changePhoneNumberHandler = this.changePhoneNumberHandler.bind(this);
     }
-    updateAccount(){
+    componentDidMount(){
+        UserService.getUserById(this.state.id).then((res)=> {
+            let client = res.data;
+            this.setState({
+                email: client.email,
+                password: client.password,
+                firstName: client.firstName,
+                lastName: client.lastName,
+                dateOfBirth: client.dateOfBirth,
+                address: client.address,
+                city: client.city,
+                country: client.country,
+                phoneNumber: client.phoneNumber,
+                type: client.type
+            });
+        });
+    }
+    
+    changeFirstNameHandler = (event) => {
+
+        this.setState({ firstName: event.target.value });
+    }
+    changeLastNameHandler = (event) => {
+        this.setState({ lastName: event.target.value });
+    }
+
+    changeAddressHandler = (event) => {
+        this.setState({ address: event.target.value });
+
+    }
+    changeCityHandler = (event) => {
+        this.setState({ city: event.target.value });
+    }
+    changeCountryHandler = (event) => {
+        this.setState({ country: event.target.value });
+    }
+    changeDateOfBirthHandler = (event) => {
+        this.setState({ dateOfBirth: event.target.value });
+    }
+    changePhoneNumberHandler = (event) => {
+
+        this.setState({ phoneNumber: event.target.value });
+    }
+    updateAccount = (e) => {
+        e.preventDefault();
+        let client = { id: this.state.id, email: this.state.email, password: this.state.password, firstName: this.state.firstName, lastName: this.state.lastName, address: this.state.address,dateOfBirth: this.state.dateOfBirth ,city: this.state.city, country: this.state.country, phoneNumber: this.state.phoneNumber, type: this.state.type, reason: this.state.reason }
+        console.log('client => ' + JSON.stringify(client));
+
+  
+        localStorage.setItem('activeUser',JSON.stringify(client));
+
+
+        UserService.updateUser(client,this.state.id).then( res => {
+            this.props.history.push('/clientprofile');
+        })
+
         
     }
     cancelUpdate(){
@@ -39,8 +117,8 @@ class Clientupdateprofile extends Component {
                     </div>
 
                     <div style={{position: 'absolute', top: '520px', left: '0px'}}>
-                        <button style={{width:'150px',height:'60px', position: 'absolute',  left: '150px' ,backgroundColor:'lightgreen'}}>Update</button>
-                        <button style={{width:'150px',height:'60px', position: 'absolute',  left: '380px'}} onClick={this.cancelUpdate} >Cancel</button>
+                        <button onClick={this.updateAccount} style={{width:'150px',height:'60px', position: 'absolute',  left: '150px' ,backgroundColor:'lightgreen'}}>Update</button>
+                        <button onClick={this.cancelUpdate}  style={{width:'150px',height:'60px', position: 'absolute',  left: '380px'}} >Cancel</button>
                     </div>
                 </div>
             </div>
