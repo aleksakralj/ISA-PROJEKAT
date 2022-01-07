@@ -38,8 +38,8 @@ class ClientProfileComponent extends Component {
         });
 
     }
-   clientUpdate(){
-       this.props.history.push("/clientupdateprofile")
+   clientUpdate(id){
+       this.props.history.push(`/clientupdateprofile/${id}`);
    }
    deletePforile(){
        this.props.history.push("/clientdeleteprofile")
@@ -89,7 +89,7 @@ class ClientProfileComponent extends Component {
                         </div>
                     </div>
                     <div style={{position:'absolute', top:'490px', left:'700px'}}>
-                        <button onClick={this.clientUpdate} style={{position:'absolute', width:'150px', height:'50px'}} > Update Account </button>      
+                        <button onClick={()=> this.clientUpdate(this.state.id)} style={{position:'absolute', width:'150px', height:'50px'}} > Update Account </button>      
                         <button onClick={this.deletePforile} style={{position:'absolute', left:'165px' ,width:'150px', height:'50px'}}> Delete Account </button>               
                     </div>
                 </div>

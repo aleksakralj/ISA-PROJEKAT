@@ -16,6 +16,7 @@ class RegistrationUserComponent extends Component {
             address: '',
             city: '',
             country: '',
+            dateOfBirth: '',
             phoneNumber: '',
             hiddenRegistration: false,
             shownRegistration: true,
@@ -49,7 +50,7 @@ class RegistrationUserComponent extends Component {
 
     register = (e) => {
         e.preventDefault();
-        let user = { email: this.state.email, password: this.state.password, firstName: this.state.firstName, lastName: this.state.lastName, address: this.state.address, city: this.state.city, country: this.state.country, phoneNumber: this.state.phoneNumber, type: this.state.type, reason: this.state.reason }
+        let user = { email: this.state.email, password: this.state.password, firstName: this.state.firstName, lastName: this.state.lastName, address: this.state.address,dateOfBirth: this.state.dateOfBirth ,city: this.state.city, country: this.state.country, phoneNumber: this.state.phoneNumber, type: this.state.type, reason: this.state.reason }
         console.log('user => ' + JSON.stringify(user));
 
         RegistrationRequestService.createRegistrationRequest(user).then(res => {
