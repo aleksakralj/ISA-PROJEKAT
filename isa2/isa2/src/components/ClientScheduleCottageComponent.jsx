@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CottageService from '../services/CottageService';
+import validator from 'validator';
 
 class Clientschedulecottagecomponent extends Component {
     constructor(props) {
@@ -8,20 +9,64 @@ class Clientschedulecottagecomponent extends Component {
             cottages: [],
             cottageNames: [],
             hiddenTable: false,
-            shownContainer: true
+            shownContainer: true,
+            numOfDaysError: '',
+            numOfPeopleError:'',
+            numOfDays: '',
+            numOfPeople: ''
+
         }
         this.cancelCottages = this.cancelCottages.bind(this);
-        
+        this.changeNumOfDaysHandler = this.changeNumOfDaysHandler.bind(this);
+        this.changeNumOfPeopleHandler = this.changeNumOfPeopleHandler.bind(this);
         
     }
+    changeNumOfDaysHandler = (event) => {
+        this.setState({ numOfDays: event.target.value });
+    }
+    changeNumOfPeopleHandler= (event) => {
+        this.setState({ numOfPeople: event.target.value });
+    }
+    validate = () => {
+        let  numOfDaysError= '';
+        let numOfPeopleError= '';
+
+        if(!validator.isNumeric(this.state.numOfDays)) {
+            numOfDaysError='must be number*'
+        }
+        if(validator.isEmpty(this.state.numOfDays)) {
+            numOfDaysError='required*'
+        }
+
+        if(!validator.isNumeric(this.state.numOfPeople)) {
+            numOfPeopleError='must be number*'
+        }
+        if(validator.isEmpty(this.state.numOfPeople)) {
+            numOfPeopleError='required*'
+        }
+
+        if (numOfDaysError || numOfPeopleError){
+            this.setState({numOfDaysError,numOfPeopleError});
+            return false;
+        }
+        
+        return true;
+    }
+
+
     cancelCottages() {
         this.props.history.push('/cottages');
     }
     revealHiddenTable(){
+
+        const isValid= this.validate();
+        
+        if(isValid){
         this.setState({
             hiddenTable:true,
             shownContainer:false
         })
+    }
     }
     
     componentDidMount() {
@@ -65,8 +110,12 @@ class Clientschedulecottagecomponent extends Component {
                         <div style={{ position: 'absolute', top: '120px', right: '0px', width: '300px' }}>
                             <input type="text" list="allcottages" style={{ position: 'absolute', top: '50px', right: '0px', width: '247px' }} />
                             <input type="datetime-local" style={{ position: 'absolute', top: '100px', right: '0px', }} />
-                            <input style={{ position: 'absolute', top: '150px', right: '0px', width: '247px' }}></input>
-                            <input style={{ position: 'absolute', top: '200px', right: '0px', width: '247px' }}></input>
+                            <input onChange={this.changeNumOfDaysHandler} value={this.state.numOfDays} style={{ position: 'absolute', top: '150px', right: '0px', width: '247px' }}></input>
+                            <input onChange={this.changeNumOfPeopleHandler} value={this.state.numOfPeople} style={{ position: 'absolute', top: '200px', right: '0px', width: '247px' }}></input>
+                        </div>
+                        <div style={{ width:'200px',height:'80px', position:'absolute',top:'271px',left:'250px'}}>
+                            <label style={{color:'red', position:'absolute',right:'2px'}}>{this.state.numOfDaysError}</label>
+                            <label style={{color:'red', position:'absolute',right:'2px', top:'50px'}}>{this.state.numOfPeopleError}</label>
                         </div>
                         <div style={{ position: 'absolute', top: '400px', left: '0px' }}>
                             <button style={{ position: 'absolute', left: '200px', width: '100px', height: '50px', backgroundColor: 'silver' }} onClick={()=>this.revealHiddenTable()}> Schedule</button>
