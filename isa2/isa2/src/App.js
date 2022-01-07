@@ -23,7 +23,6 @@ import UpdateAdminComponent from './components/UpdateAdminComponent';
 import ViewRegistrationRequestComponent from './components/ViewRegistrationRequestComponent';
 import HomePageCommponent from './components/HomePageCommponent';
 
-
 import CottageOwnerProfileComponent from './components/CottageOwnerProfileComponent';
 import CottageProfileComponent from './components/CottageProfileComponent';
 import RoomProfileComponent from './components/RoomProfileComponent';
@@ -43,7 +42,6 @@ import CottageOwnerCottages from './components/CottageOwnerCottages';
 import AddCottage from './components/AddCottageComponent';
 import AddRoom from './components/AddRoomComponent';
 
-
 import MainAdminProfileComponent from './components/MainAdminProfileComponent';
 import AdminChangePasswordComponent from './components/AdminChangePasswordComponent';
 import DeleteRequestComponent from './components/DeleteRequestComponent';
@@ -57,8 +55,6 @@ import MainShipsComponent from './components/MainShipsComponent';
 import MainViewRegistrationRequestComponent from './components/MainViewRegistrationRequestComponent';
 
 //import MainClientsComponent from './components/MainClientsComponent'; <Route path = "/mainclients" component={MainClientsComponent}></Route>
-
-
 
 import background from './images/stephen-crowley-eh3kB7wAJgs-unsplash.jpg';
 import ClientProfileComponent from './components/ClientProfileComponent';
@@ -74,6 +70,7 @@ import Clientupdateprofile from './components/ClientUpdateProfile';
 import Clientdeleteprofilecomponent from './components/ClientDeleteProfileComponent';
 import Profiledeletionrequestwait from './components/ProfileDeletionRequestWait';
 import Adminprofiledeletionsrequestscomponent from './components/AdminProfileDeletionsRequestsComponent';
+import Unautentifieduserheader from './components/UnautentifiedUserHeader';
 
 const backStyle = {
   width: '100%',
@@ -83,17 +80,49 @@ const backStyle = {
 };
 
 
+function headerDefinition(){
+
+  if(localStorage.getItem('activeUser')===null){
+    return(<Unautentifieduserheader/>)
+  }
+else{
+  let activeUser = JSON.parse(localStorage.getItem('activeUser'))
+    
+  switch (activeUser.type) {    
+    case 'Clinet': return( <HeaderComponent/>)      
+      break;
+    case 'fishing_instructor': return(<h1>Nestoo</h1>)    
+      break;
+    case 'ship_owner':  return(<h1>Nestoo</h1>)  
+      break;
+    case 'cottage_owner':   return(<h1>Nestoo</h1>)   
+      break;
+      case 'admin':    return(<h1>Nestoo</h1>)   
+      break;
+      case '' :    return(<h1>WRONG</h1>)   
+      break;
+    default: return(<Unautentifieduserheader/>) 
+      break;
+  
+  }
+}
+
+  
+}
+
 
 function App() {
+  
   return (
 
     <div style={backStyle}> 
       
         <Router>
-          <HeaderComponent/>
+          
+         {headerDefinition() } 
           <div className="container">
             <Switch> 
-
+        
             <Route path = "/" exact component={HomePageCommponent}></Route>
               <Route path = "/login" exact component={LoginComponent}></Route>
 
