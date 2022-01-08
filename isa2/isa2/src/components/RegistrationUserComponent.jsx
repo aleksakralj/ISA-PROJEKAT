@@ -20,7 +20,7 @@ class RegistrationUserComponent extends Component {
             phoneNumber: '',
             hiddenRegistration: false,
             shownRegistration: true,
-            type: 'Clinet',
+            type: 'Client',
             reason: '',
             password2: '',
             emailError: '',

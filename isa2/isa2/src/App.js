@@ -101,7 +101,7 @@ else{
       break;
       case '' :    return(<h1>WRONG</h1>)   
       break;
-    default: return(<Unautentifieduserheader/>) 
+    default: 
       break;
   
   }
