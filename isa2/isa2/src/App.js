@@ -71,6 +71,9 @@ import Clientadvenutreshistorycomponent from './components/ClientAdvenutresHisto
 import Clientshipshistorycomponent from './components/ClientShipsHistoryComponent';
 import Clientschedulecottagecomponent from './components/ClientScheduleCottageComponent';
 
+import CottageAppointmentComponent from './components/CottageAppointmentComponent';
+import AddAppointmentComponent from './components/AddAppointmentComponent';
+
 const backStyle = {
   width: '100%',
   height: '800px',
@@ -108,8 +111,8 @@ function App() {
               <Route path = "/servicereservations" component={ServiceFreeReservationsComponent}></Route>
               <Route path = "/servicerules" component={ServiceRulesComponent}></Route>
               <Route path = "/serviceequipment" component={ServiceEquipmentComponent}></Route>
-              <Route path = "/serviceprice" component={ServicePriceComponent}></Route>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- +             <Route path = "/homepage" component={HomePageCommponent} ></Route>
+              <Route path = "/serviceprice" component={ServicePriceComponent}></Route>
+              <Route path = "/homepage" component={HomePageCommponent} ></Route>
               <Route path = "/login" component={LoginComponent}></Route>
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
@@ -158,7 +161,9 @@ function App() {
               <Route path = "/clientadventureshistory" component={Clientadvenutreshistorycomponent}></Route>
               <Route path = "/clientshipshistory" component={Clientshipshistorycomponent}></Route>
               <Route path= "/clientschedulecottage" component={Clientschedulecottagecomponent}></Route>
-
+              <Route path= "/cottageappointments" component={CottageAppointmentComponent}></Route>
+              <Route path= "/cottageaddappointment" component={AddAppointmentComponent}></Route>
+              
               </Switch>
           </div>
                                 

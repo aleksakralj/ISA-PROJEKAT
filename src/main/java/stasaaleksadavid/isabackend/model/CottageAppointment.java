@@ -20,10 +20,10 @@ public class CottageAppointment {
     private long clientId;
 
     @Column(name = "Starting_Date")
-    private LocalDateTime startingDate;
+    private LocalDate startingDate;
 
     @Column(name = "Ending_Date")
-    private LocalDateTime endingDate;
+    private LocalDate endingDate;
 
     @Column(name = "Numer_Of_People")
     private int numberOfPeople ;
@@ -37,7 +37,7 @@ public class CottageAppointment {
     public CottageAppointment() {
     }
 
-    public CottageAppointment(long cottageId, long clientId, LocalDateTime startingDate, LocalDateTime endingDate, int numberOfPeople, String additionalServices, double price) {
+    public CottageAppointment(long cottageId, long clientId, LocalDate startingDate, LocalDate endingDate, int numberOfPeople, String additionalServices, double price) {
         super();
         this.cottageId = cottageId;
         this.clientId = clientId;
@@ -72,19 +72,19 @@ public class CottageAppointment {
         this.id = id;
     }
 
-    public LocalDateTime getStartingDate() {
+    public LocalDate getStartingDate() {
         return startingDate;
     }
 
-    public void setStartingDate(LocalDateTime startingDate) {
+    public void setStartingDate(LocalDate startingDate) {
         this.startingDate = startingDate;
     }
 
-    public LocalDateTime getEndingDate() {
+    public LocalDate getEndingDate() {
         return endingDate;
     }
 
-    public void setEndingDate(LocalDateTime endingDate) {
+    public void setEndingDate(LocalDate endingDate) {
         this.endingDate = endingDate;
     }
 

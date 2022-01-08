@@ -67,7 +67,7 @@ class CottageProfileComponent extends Component {
 
     viewAppointmets(){
 
-        this.props.history.push(`/allappointments`);
+        this.props.history.push(`/cottageappointments`);
     }
 
     update(){
