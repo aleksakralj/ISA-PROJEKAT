@@ -84,7 +84,7 @@ class CottagesComponent extends Component {
             this.state.clientComponents=false;
         }
         else{
-            if(activeUser.type=='Clinet'){
+            if(activeUser.type=='Client'){
              this.state.clientComponents=true;
              this.state.cottageOwnerComponents=false;
              this.state.unautentifiedUserComponents = false;

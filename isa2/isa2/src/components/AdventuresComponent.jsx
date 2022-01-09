@@ -68,7 +68,7 @@ class AdventuresComponent extends Component {
            this.state.clientComponents=false;
            this.state.unautentifiedUserComponents= false;
         }
-        if(activeUser.type==='Clinet'){
+        if(activeUser.type==='Client'){
             AdventureService.getAdventures().then((res) => {
                 this.setState({ adventures: res.data });
             });
