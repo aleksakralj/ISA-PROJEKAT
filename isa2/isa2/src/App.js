@@ -89,7 +89,7 @@ else{
   let activeUser = JSON.parse(localStorage.getItem('activeUser'))
     
   switch (activeUser.type) {    
-    case 'Clinet': return( <HeaderComponent/>)      
+    case 'Client': return( <HeaderComponent/>)      
       break;
     case 'fishing_instructor': return(<h1>Nestoo</h1>)    
       break;
@@ -143,7 +143,7 @@ function App() {
               <Route path = "/serviceequipment" component={ServiceEquipmentComponent}></Route>
               <Route path = "/serviceprice" component={ServicePriceComponent}></Route>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  +             <Route path = "/homepageclient" component={HomePageCommponent} ></Route>
-              <Route path = "/login" component={LoginComponent}></Route>
+              
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
 

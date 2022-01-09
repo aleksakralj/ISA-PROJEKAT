@@ -1,5 +1,6 @@
 package stasaaleksadavid.isabackend.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
@@ -15,14 +16,15 @@ import java.util.Map;
 @RequestMapping("/api/v1")
 public class ClientPointsController {
 
+    @Autowired
     private ClientPointsRepository clientPointsRepository;
 
     @GetMapping("/clientPoints")
     public List<ClientPoints> getAllClientPoints(){return clientPointsRepository.findAll();}
 
     @PostMapping("/clientPoints")
-    public  ClientPoints createClientPenalty(@RequestBody ClientPoints clientPoints){
-        return clientPointsRepository.save(clientPoints);
+    public  ClientPoints createClientPoints(@RequestBody ClientPoints userPoints){
+        return clientPointsRepository.save(userPoints);
     }
 
     @GetMapping("/clientPoints/{id}")

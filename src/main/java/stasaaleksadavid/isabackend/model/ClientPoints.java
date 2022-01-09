@@ -10,18 +10,21 @@ public class ClientPoints {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "user_id")
-    private long userId;
+
 
     @Column(name = "points")
-    private double points;
+    private int points;
+
+    @Column(name = "user_category")
+    private LoyaltyCategory userCategory;
 
     public ClientPoints() {}
 
-    public ClientPoints(long userId, double points) {
+    public ClientPoints( int points, LoyaltyCategory userCategory) {
         super();
-        this.userId = userId;
+
         this.points = points;
+        this.userCategory = userCategory;
     }
 
     public long getId() {
@@ -32,19 +35,21 @@ public class ClientPoints {
         this.id = id;
     }
 
-    public long getUserId() {
-        return userId;
-    }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
 
-    public double getPoints() {
+    public int getPoints() {
         return points;
     }
 
-    public void setPoints(double points) {
+    public void setPoints(int points) {
         this.points = points;
+    }
+
+    public LoyaltyCategory getUserCategory() {
+        return userCategory;
+    }
+
+    public void setUserCategory(LoyaltyCategory userCategory) {
+        this.userCategory = userCategory;
     }
 }
