@@ -67,14 +67,14 @@ import Clientadvenutreshistorycomponent from './components/ClientAdvenutresHisto
 import Clientshipshistorycomponent from './components/ClientShipsHistoryComponent';
 import Clientschedulecottagecomponent from './components/ClientScheduleCottageComponent';
 import Clientupdateprofile from './components/ClientUpdateProfile';
-import Clientdeleteprofilecomponent from './components/ClientDeleteProfileComponent';
+import DeleteProfileComponent from './components/DeleteProfileComponent';
 import Profiledeletionrequestwait from './components/ProfileDeletionRequestWait';
-import Adminprofiledeletionsrequestscomponent from './components/AdminProfileDeletionsRequestsComponent';
+import AdminProfileDeletionsRequestsComponent from './components/AdminProfileDeletionsRequestsComponent';
 import Unautentifieduserheader from './components/UnautentifiedUserHeader';
 import AdminHeaderComponent from './components/AdminHeaderComponent';
 import MainAdminHeaderComponent from './components/MainAdminHeaderComponent';
 import FishingInstructorHeaderComponent from './components/FishingInstructorHeaderComponent';
-
+import SendEmailComponent from './components/SendEmailComponent';
 const backStyle = {
   width: '100%',
   height: '800px',
@@ -173,8 +173,7 @@ function App() {
 
               <Route path = "/mainadminprofile" component={MainAdminProfileComponent}></Route>  
               <Route path = "/adminchangepassword" component={AdminChangePasswordComponent}></Route>
-              <Route path = "/deleterequest" component={DeleteRequestComponent}></Route>
-
+              
 
               <Route path = "/mainregistrationrequests" component={MainRegistrationRequestComponent}></Route>
               <Route path = "/mainincome" component={MainIncomeComponent}></Route>
@@ -197,9 +196,10 @@ function App() {
               <Route path = "/clientshipshistory" component={Clientshipshistorycomponent}></Route>
               <Route path= "/clientschedulecottage" component={Clientschedulecottagecomponent}></Route>
               <Route path= "/clientupdateprofile/:id" component={Clientupdateprofile}></Route>
-              <Route path="/clientdeleteprofile" component={Clientdeleteprofilecomponent}></Route>
+              <Route path="/deleteprofile" component={DeleteProfileComponent}></Route>
               <Route path="/profiledeletionrequestwait" component={Profiledeletionrequestwait}></Route>
-              <Route path="/adminprofiledeletionrequests" component={Adminprofiledeletionsrequestscomponent}></Route>
+              <Route path="/adminprofiledeletionrequests" component={AdminProfileDeletionsRequestsComponent}></Route>
+              <Route path="/sendmail" component={SendEmailComponent}></Route>
               </Switch>
           </div>
                                 

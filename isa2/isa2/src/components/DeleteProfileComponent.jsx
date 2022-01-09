@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ProfileDeletionRequestService from '../services/ProfileDeletionRequestService';
 
-class Clientdeleteprofilecomponent extends Component {
+class DeleteProfileComponent extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -22,7 +22,7 @@ class Clientdeleteprofilecomponent extends Component {
     requestDeletion = (e) => {
         e.preventDefault();
         let activeUser = JSON.parse(localStorage.getItem('activeUser'))
-        let request = {userId: activeUser.id, reason: this.state.reason, userType:"client"}
+        let request = {userId: activeUser.id, reason: this.state.reason, userType:activeUser.type}
         console.log('request => ' + JSON.stringify(request));
 
         ProfileDeletionRequestService.createProfileDeletionRequest(request).then(res=>{
@@ -40,7 +40,7 @@ class Clientdeleteprofilecomponent extends Component {
                 <textarea onChange={this.changeReqsonHendler} style={{position:'absolute', width:'800px', height:'400px', top:'250px'}}></textarea>
 
                 <div style={{position: 'absolute', top: '400px', left: '850px'}}>
-                        <button onClick={this.requestDeletion} style={{width:'150px',height:'60px', position: 'absolute',  left: '150px' ,backgroundColor:'peachpuff'}}>Delete</button>
+                        <button onClick={this.requestDeletion} style={{width:'150px',height:'60px', position: 'absolute',  left: '200px' ,backgroundColor:'peachpuff'}}>Delete</button>
                         <button onClick={this.cancelDelition} style={{width:'150px',height:'60px', position: 'absolute',  left: '380px'}}  >Cancel</button>
                     </div>
             </div>
@@ -48,4 +48,4 @@ class Clientdeleteprofilecomponent extends Component {
     }
 }
 
-export default Clientdeleteprofilecomponent;
+export default DeleteProfileComponent;

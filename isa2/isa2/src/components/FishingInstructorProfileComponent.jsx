@@ -24,8 +24,8 @@ class FishingInstructorProfile extends Component {
 
         UserService.updateUser(fishinginstructor,id);
     }
-    deleterequest(){
-        this.props.history.push(`/deleterequest`);
+    deleteprofile(){
+        this.props.history.push(`/deleteprofile`);
     }
    
 
@@ -108,7 +108,7 @@ class FishingInstructorProfile extends Component {
                                 
                                 <div className="center"><button className="loginbtn" onClick={()=>this.update(this.state.id)}>Update</button></div>
                                <br/>
-                                <div className="center"><button  onClick={()=>this.deleterequest()} className="loginbtn" >Delete profile </button></div>
+                                <div className="center"><button  onClick={()=>this.deleteprofile()} className="loginbtn" >Delete account </button></div>
 
                 </div>
             </div>

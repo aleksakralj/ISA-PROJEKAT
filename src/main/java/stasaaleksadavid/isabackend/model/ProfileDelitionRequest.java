@@ -19,13 +19,17 @@ public class ProfileDelitionRequest {
     @Column(name = "User_Type")
     private String userType;
 
+    @Column(name = "User_Email")
+    private String userEmail;
+
     public ProfileDelitionRequest(){}
 
-    public ProfileDelitionRequest(String reason, long userId,String userType) {
+    public ProfileDelitionRequest(String reason, long userId,String userType, String userEmail) {
         super();
         this.reason = reason;
         this.userId = userId;
         this.userType = userType;
+        this.userEmail = userEmail;
     }
 
     public long getId() {
@@ -58,5 +62,13 @@ public class ProfileDelitionRequest {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 }
