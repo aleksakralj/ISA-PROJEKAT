@@ -6,7 +6,7 @@ class Clientdeleteprofilecomponent extends Component {
         super(props)
         this.state = {
             userId:'',
-            userType: 'client',
+            userType: '',
             reason:''
         }
 

@@ -71,6 +71,7 @@ import Clientdeleteprofilecomponent from './components/ClientDeleteProfileCompon
 import Profiledeletionrequestwait from './components/ProfileDeletionRequestWait';
 import Adminprofiledeletionsrequestscomponent from './components/AdminProfileDeletionsRequestsComponent';
 import Unautentifieduserheader from './components/UnautentifiedUserHeader';
+import AdminHeaderComponent from './components/AdminHeaderComponent';
 
 const backStyle = {
   width: '100%',
@@ -97,7 +98,7 @@ else{
       break;
     case 'cottage_owner':   return(<h1>Nestoo</h1>)   
       break;
-      case 'admin':    return(<h1>Nestoo</h1>)   
+      case 'admin':    return(<AdminHeaderComponent/>)   
       break;
       case '' :    return(<h1>WRONG</h1>)   
       break;
