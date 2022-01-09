@@ -73,6 +73,7 @@ import Clientschedulecottagecomponent from './components/ClientScheduleCottageCo
 
 import CottageAppointmentComponent from './components/CottageAppointmentComponent';
 import AddAppointmentComponent from './components/AddAppointmentComponent';
+import AddQuickAppointmentComponent from './components/AddQuickAppointmentComponent';
 
 const backStyle = {
   width: '100%',
@@ -163,7 +164,7 @@ function App() {
               <Route path= "/clientschedulecottage" component={Clientschedulecottagecomponent}></Route>
               <Route path= "/cottageappointments" component={CottageAppointmentComponent}></Route>
               <Route path= "/cottageaddappointment" component={AddAppointmentComponent}></Route>
-              
+              <Route path= "/cottageaddquickappointment" component={AddQuickAppointmentComponent}></Route>
               </Switch>
           </div>
                                 

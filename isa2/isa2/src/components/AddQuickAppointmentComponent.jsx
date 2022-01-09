@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class AddAppointmentComponent extends Component {
+class AddQuickAppointmentComponent extends Component {
     constructor(props){
         super(props)
         this.state={
@@ -146,7 +146,7 @@ class AddAppointmentComponent extends Component {
         if (this.DateTimeIsEmpty(appointment) == true){
 
         console.log('appointment => ' + JSON.stringify(appointment));
-        axios.post("http://localhost:8080/api/v1/cottagefreeappointments/",appointment);
+        axios.post("http://localhost:8080/api/v1/cottagequickappointments/",appointment);
         this.props.history.push(`/cottageappointments`);
         window.location.reload();
     }
@@ -187,7 +187,7 @@ class AddAppointmentComponent extends Component {
                                 
                                 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Add</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Add Quick Appointment</button></div>
                                 
                                 
                                 
@@ -199,4 +199,4 @@ class AddAppointmentComponent extends Component {
     }
 }
 
-export default AddAppointmentComponent;
+export default AddQuickAppointmentComponent;
