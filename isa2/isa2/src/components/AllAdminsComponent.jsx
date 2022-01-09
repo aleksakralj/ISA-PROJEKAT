@@ -8,64 +8,14 @@ class AllAdminsComponent extends Component {
             admins: []
         }
         
-        this.editAdmin=this.editAdmin.bind(this);
+        //this.editAdmin=this.editAdmin.bind(this);
         this.deleteAdmin = this.deleteAdmin.bind(this);
 
-        this.adminprofile = this.adminprofile.bind(this);
-        this.logout= this.logout.bind(this); 
-        this.income= this.income.bind(this);
-        this.addadmin= this.addadmin.bind(this);
-        this.regreq= this.regreq.bind(this);
-
-        this.cottageowners=this.cottageowners.bind(this);
-        this.cottages=this.cottages.bind(this);
-        this.shipowners=this.shipowners.bind(this);
-        this.ships=this.ships.bind(this);
-        this.fishinginstructors=this.fishinginstructors.bind(this);
-        this.clients=this.clients.bind(this);
-        this.admins=this.admins.bind(this);
+        
         
     }
    
-    editAdmin(id){
-        this.props.history.push(`/updateadmin/${id}`);
-    }
-
-    adminprofile(){
-        this.props.history.push('/mainadminprofile');
-    }
-
-    regreq(){
-        this.props.history.push('/mainregistrationrequests');
-    }
-    income(){
-        this.props.history.push('/mainincome');
-    }
-    cottageowners(){
-        this.props.history.push('/maincottageowners');
-    }
-    cottages(){
-        this.props.history.push('/maincottages');
-    }
-    shipowners(){
-        this.props.history.push('/mainshipowners');
-    }
-    ships(){
-        this.props.history.push('/mainships');
-    }
-    fishinginstructors(){
-        this.props.history.push('/mainfishinginstructors');
-    }
-    clients(){
-        this.props.history.push('/mainclients');
-    }
-    admins(){
-        this.props.history.push('/alladmins');
-    }
-    logout(){
-        localStorage.removeItem('activeUser')
-        this.props.history.push(`/login`);
-    }
+    
     addadmin(){
         this.props.history.push('/addadmin');
     }
@@ -84,19 +34,7 @@ class AllAdminsComponent extends Component {
     render() {
         return (
             <div>
-                <div className="menu">
-                    <button onClick={this.adminprofile} > Profile</button>
-                    <button onClick={this.regreq}> Registration requests</button>
-                    <button onClick={this.income}> Income </button>
-                    <button onClick={this.cottageowners}> Cottage owners </button>
-                    <button onClick={this.cottages}> Cottages </button>
-                    <button onClick={this.shipowners}> Ship owners </button>
-                    <button onClick={this.ships}> Ships </button>
-                    <button onClick={this.fishinginstructors}> Fishing instructors </button>
-                    <button onClick={this.clients}> Clients </button>
-                    <button onClick={this.admins}> Admins </button>
-                    <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
-                </div>
+               
 
                 <div> <br/><br/><br/><br/><br/><br/><br/><br/>
                     <button onClick={this.addadmin} className="loginbtn" > Add admin </button>
