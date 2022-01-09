@@ -6,4 +6,5 @@ import stasaaleksadavid.isabackend.model.ShipOwner;
 
 @Repository
 public interface ShipOwnerRepository extends JpaRepository<ShipOwner, Long> {
+    ShipOwner findByEmailAndPassword(String email, String password);
 }

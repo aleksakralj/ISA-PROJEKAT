@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
-import stasaaleksadavid.isabackend.model.CottageAppointment;
 import stasaaleksadavid.isabackend.model.CottageFreeAppointment;
 import stasaaleksadavid.isabackend.repository.CottageFreeAppointmentRepository;
 
@@ -52,7 +51,7 @@ public class CottageFreeAppointmentController {
         cottageFreeAppointment.setEndingDate(cottageFreeAppointmentDetails.getEndingDate());
         cottageFreeAppointment.setNumberOfPeople(cottageFreeAppointmentDetails.getNumberOfPeople());
         cottageFreeAppointment.setAdditionalServices(cottageFreeAppointmentDetails.getAdditionalServices());
-        cottageFreeAppointment.setPrice(cottageFreeAppointment.getPrice());
+        cottageFreeAppointment.setPrice(cottageFreeAppointmentDetails.getPrice());
 
 
         CottageFreeAppointment updatedCottageFreeAppointment = cottageFreeAppointmentRepository.save(cottageFreeAppointment);

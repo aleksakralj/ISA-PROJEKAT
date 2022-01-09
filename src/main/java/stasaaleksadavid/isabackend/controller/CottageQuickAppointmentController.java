@@ -50,7 +50,7 @@ public class CottageQuickAppointmentController {
         cottageQuickAppointment.setEndingDate(cottageQuickAppointmentDetails.getEndingDate());
         cottageQuickAppointment.setNumberOfPeople(cottageQuickAppointmentDetails.getNumberOfPeople());
         cottageQuickAppointment.setAdditionalServices(cottageQuickAppointmentDetails.getAdditionalServices());
-        cottageQuickAppointment.setPrice(cottageQuickAppointment.getPrice());
+        cottageQuickAppointment.setPrice(cottageQuickAppointmentDetails.getPrice());
 
 
         CottageQuickAppointment updatedCottageQuickAppointment = cottageQuickAppointmentRepository.save(cottageQuickAppointment);

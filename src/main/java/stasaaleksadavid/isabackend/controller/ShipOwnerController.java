@@ -24,24 +24,27 @@ public class ShipOwnerController {
     //get all
 
     @GetMapping("/shipowners")
-    public List<ShipOwner> getAllShipOwners(){ return shipOwnerRepository.findAll();}
+    public List<ShipOwner> getAllShipOwners() {
+        return shipOwnerRepository.findAll();
+    }
 
     //create
     @PostMapping("/shipowners")
-    public ShipOwner createShipOwner(@RequestBody ShipOwner shipOwner){
+    public ShipOwner createShipOwner(@RequestBody ShipOwner shipOwner) {
         return shipOwnerRepository.save(shipOwner);
     }
+
     //get by id
     @GetMapping("/shipowners/{id}")
-    public ResponseEntity<ShipOwner> getCottageOwnerById(@PathVariable Long id){
-        ShipOwner shipOwner = shipOwnerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ship owner does not exist with id:"+ id));
+    public ResponseEntity<ShipOwner> getCottageOwnerById(@PathVariable Long id) {
+        ShipOwner shipOwner = shipOwnerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ship owner does not exist with id:" + id));
         return ResponseEntity.ok(shipOwner);
     }
 
     //update
     @PutMapping("/shipowners/{id}")
-    public ResponseEntity<ShipOwner> updateShipOwner(@PathVariable Long id,@RequestBody ShipOwner shipOwnerDetails){
-        ShipOwner shipOwner = shipOwnerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ship owner does not exist with id:"+ id));
+    public ResponseEntity<ShipOwner> updateShipOwner(@PathVariable Long id, @RequestBody ShipOwner shipOwnerDetails) {
+        ShipOwner shipOwner = shipOwnerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ship owner does not exist with id:" + id));
 
         shipOwner.setPassword(shipOwnerDetails.getPassword());
         shipOwner.setFirstName(shipOwnerDetails.getFirstName());
@@ -60,9 +63,9 @@ public class ShipOwnerController {
 
     //delete
     @DeleteMapping("/shipowners/{id}")
-    public Map<String, Boolean> deleteShipOwner(@PathVariable Long id){
+    public Map<String, Boolean> deleteShipOwner(@PathVariable Long id) {
 
-        ShipOwner shipOwner = shipOwnerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ship owner does not exist with id:"+ id));
+        ShipOwner shipOwner = shipOwnerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ship owner does not exist with id:" + id));
 
         shipOwnerRepository.delete(shipOwner);
         Map<String, Boolean> response = new HashMap<>();
@@ -70,4 +73,9 @@ public class ShipOwnerController {
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
 
+    @GetMapping("/shipowners/login/{email}/{password}")
+    public ResponseEntity<ShipOwner> getShipOwnerByEmailAndPassword(@PathVariable String email, @PathVariable String password) {
+        ShipOwner shipOwner = shipOwnerRepository.findByEmailAndPassword(email, password);
+        return ResponseEntity.ok(shipOwner);
+    }
 }
