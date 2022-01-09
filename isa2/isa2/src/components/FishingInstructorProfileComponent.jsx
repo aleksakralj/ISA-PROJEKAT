@@ -15,7 +15,7 @@ class FishingInstructorProfile extends Component {
             phoneNumber:''
             
         }
-        this.adventures= this.adventures.bind(this);
+        
     }
     update(id) {
         
@@ -27,13 +27,7 @@ class FishingInstructorProfile extends Component {
     deleterequest(){
         this.props.history.push(`/deleterequest`);
     }
-    logout(){
-        localStorage.removeItem('activeUser')
-        this.props.history.push(`/login`);
-    }
-    adventures(){
-        this.props.history.push('/adventures');
-    }
+   
 
     changeEmailHandler = (event) => {
         this.setState({email: event.target.value});
@@ -86,14 +80,6 @@ class FishingInstructorProfile extends Component {
     render() {
         return (
             <div>
-                <div className="menu">
-                <button onClick={this.fishinginstructorprofile} > Profile</button>
-                <button onClick={this.adventures}> Adventures</button>
-                
-
-                <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
-                </div>
-               
                 <div className="registrationdiv">
                     <br/>
                 

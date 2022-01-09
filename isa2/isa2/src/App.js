@@ -73,6 +73,8 @@ import Adminprofiledeletionsrequestscomponent from './components/AdminProfileDel
 import Unautentifieduserheader from './components/UnautentifiedUserHeader';
 import AdminHeaderComponent from './components/AdminHeaderComponent';
 import MainAdminHeaderComponent from './components/MainAdminHeaderComponent';
+import FishingInstructorHeaderComponent from './components/FishingInstructorHeaderComponent';
+
 const backStyle = {
   width: '100%',
   height: '800px',
@@ -92,7 +94,7 @@ else{
   switch (activeUser.type) {    
     case 'Clinet': return( <HeaderComponent/>)      
       break;
-    case 'fishing_instructor': return(<h1>Nestoo</h1>)    
+    case 'fishing_instructor': return(<FishingInstructorHeaderComponent/>)    
       break;
     case 'ship_owner':  return(<h1>Nestoo</h1>)  
       break;

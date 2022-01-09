@@ -15,7 +15,7 @@ class AllAdminsComponent extends Component {
         
     }
    
-    
+
     addadmin(){
         this.props.history.push('/addadmin');
     }
