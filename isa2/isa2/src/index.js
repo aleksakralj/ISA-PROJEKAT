@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+<head><script src=
+    "https://smtpjs.com/v3/smtp.js">
+  </script></head>
 ReactDOM.render(
   <React.StrictMode>
     <App />
