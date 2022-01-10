@@ -76,6 +76,10 @@ import CottageAppointmentComponent from './components/CottageAppointmentComponen
 import AddAppointmentComponent from './components/AddAppointmentComponent';
 import AddQuickAppointmentComponent from './components/AddQuickAppointmentComponent';
 import EmailComponent from './components/EmailComponent';
+import ClientCottagesComponent from './components/ClientCottagesComponent';
+import ClientAdventuresComponent from './components/ClientAdventuresComponent';
+import ClientShipsComponent from './components/ClientShipsComponent';
+import ClientHomePageCommponent from './components/ClientHomePageComponent';
 
 const backStyle = {
   width: '100%',
@@ -206,7 +210,11 @@ function App() {
               <Route path="/clientdeleteprofile" component={Clientdeleteprofilecomponent}></Route>
               <Route path="/profiledeletionrequestwait" component={Profiledeletionrequestwait}></Route>
               <Route path="/adminprofiledeletionrequests" component={Adminprofiledeletionsrequestscomponent}></Route>
-
+              <Route path="/clientcottages" component={ClientCottagesComponent}></Route> 
+              <Route path="/clientadventures" component={ClientAdventuresComponent}></Route>
+              <Route path="/clientships" component={ClientShipsComponent}></Route>
+              <Route path="/homepageclient" component={ClientHomePageCommponent}></Route>
+              
               </Switch>
           </div>
                                 
