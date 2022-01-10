@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Fade } from 'react-bootstrap';
 import CottageService from '../services/CottageService';
 
 
@@ -6,7 +7,10 @@ class CottagesComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            cottages: []
+            cottages: [],
+            clientComponents:false,
+            cottageOwnerComponents:true,
+            unautentifiedUserComponents: false
         }
         this.adminprofile = this.adminprofile.bind(this);
         this.logout = this.logout.bind(this);
@@ -58,6 +62,13 @@ class CottagesComponent extends Component {
     clientScheduleCottage(){
         this.props.history.push('/clientschedulecottage')
     }
+    cottageProfile(id){
+        CottageService.getCottageById(id).then(res=>{
+            localStorage.setItem('activeCottage', JSON.stringify(res.data));
+        })
+        this.props.history.push('/cottageprofile')
+        
+    }
     deleteCottage(id) {
         CottageService.deleteCottage(id).then(res => {
             this.setState({ cottages: this.state.cottages.filter(cottage => cottage.id !== id) });
@@ -65,15 +76,36 @@ class CottagesComponent extends Component {
         });
     }
     componentDidMount() {
+
+        let activeUser = JSON.parse(localStorage.getItem('activeUser'));
+        if(activeUser===null){
+            this.state.unautentifiedUserComponents = true;
+            this.state.cottageOwnerComponents=false;
+            this.state.clientComponents=false;
+        }
+        else{
+            if(activeUser.type=='Client'){
+             this.state.clientComponents=true;
+             this.state.cottageOwnerComponents=false;
+             this.state.unautentifiedUserComponents = false;
+         }
+            if(activeUser.type=='cottage_owner'){
+                this.state.clientComponents=false;
+                this.state.cottageOwnerComponents=true; 
+                this.state.unautentifiedUserComponents = false;       
+            }
+        }
         CottageService.getCottages().then((res) => {
             this.setState({ cottages: res.data });
         });
+
+        
     }
    
     render() {
         return (
             <div>
-                {/*
+                {this.state.cottageOwnerComponents?
             
             <div className="menu">
             <button onClick={this.adminprofile} > Profile</button>
@@ -88,7 +120,8 @@ class CottagesComponent extends Component {
             
             <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
             </div>
-            */}
+            :null
+            }
 
 
                 <div style={{ height: '50px', width: '400px', position: 'absolute', top: '165px', left: '140px' }}>
@@ -103,8 +136,10 @@ class CottagesComponent extends Component {
                 </div>
 
                 <h2 style={{position:'absolute',top:'100px',left:'45%'}}>Cottages</h2>
+                { this.state.clientComponents?
                 <button className='loginbtn' style={{position:'absolute', width:'150px',height:'35px', top:'162px',left:'1200px'}} onClick={this.clientScheduleCottage} >Schedule</button>
-               
+                :null}
+
                 <div className="row">
                     <table className="table table-striped table-borderd" style={{ position: 'absolute', top: '200px', left: '0px' }}>
                         <thead>
@@ -130,9 +165,21 @@ class CottagesComponent extends Component {
                                             <td>{cottages.rating} </td>
                                             <td>{cottages.rules} </td>
 
+                                        {   this.state.cottageOwnerComponents ? 
                                             <td><button onClick={() => this.deleteCottage(cottages.id)} className="loginbtn">Delete</button></td>
-
-                                        </tr>
+                                            :null
+                                        }   
+                                        {   
+                                            this.state.clientComponents ?       
+                                            <td><button onClick={() => this.cottageProfile(cottages.id)} className="loginbtn">SEE</button></td>
+                                        :null
+                                        }
+                                        {   
+                                            this.state.unautentifiedUserComponents ?       
+                                            <td><button onClick={() => this.cottageProfile(cottages.id)} className="loginbtn">SEE</button></td>
+                                        :null
+                                        }
+                                    </tr>
                                 )
                             }
                         </tbody>

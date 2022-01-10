@@ -11,7 +11,10 @@ class CottageProfileComponent extends Component {
             rating:'',
             numberOfRooms:'',
             rules:'',
-            ownerId:''
+            ownerId:'',
+            clientComponents: false ,
+            cottegeOwnerComponents: true ,
+            unautentifiedUserComponents: false
 
         }
        
@@ -74,6 +77,7 @@ class CottageProfileComponent extends Component {
 
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
 
+
         let cottage = {
 
             id:this.state.id,
@@ -111,6 +115,24 @@ class CottageProfileComponent extends Component {
     componentDidMount(){
         
         
+        let activeUser = JSON.parse(localStorage.getItem('activeUser'));
+        if(activeUser===null){
+            this.state.unautentifiedUserComponents = true;
+            this.state.clientComponents=false;
+            this.state.cottegeOwnerComponents=false;
+        }
+        else{
+        if(activeUser.type=='Client'){
+            this.state.clientComponents=true;
+            this.state.cottegeOwnerComponents=false;
+            this.state.unautentifiedUserComponents = false;
+        }
+        if(activeUser.type=='cottage_owner'){
+            this.state.clientComponents=false;
+            this.state.cottegeOwnerComponents=true;  
+            this.state.unautentifiedUserComponents = false;      
+        }}
+
         localStorage.removeItem('activeRoom');
         let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'))
 
@@ -129,7 +151,9 @@ class CottageProfileComponent extends Component {
     }
     render() {
         return (
+            
             <div>
+                { this.state.cottegeOwnerComponents?
                <div className="menu">
                <button onClick={()=>this.profile()}>Profile</button>
                <button onClick={()=>this.cottages()}>My cottages</button>
@@ -138,8 +162,11 @@ class CottageProfileComponent extends Component {
                <button onClick={()=>this.viewAppointmets(this.state.id)}>Appointments</button>
                <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>
             </div>
-                
-                <div className="registrationdiv">
+            :null
+            } 
+                <div style={{position:'absolute',top:'100px',left:'35%',height:'600px'}} className="registrationdiv">
+                    <br/><br/>
+                    <h2 className='text-center'>Cottage Profile</h2>
                     <br/><br/>
                                 <label> Name: </label>
                                 <input name="name" className="form-control" value={this.state.name} onChange={this.changeNameHandler}/>
@@ -157,8 +184,10 @@ class CottageProfileComponent extends Component {
                                 <input name="rules" className="form-control" value={this.state.rules} onChange={this.changeRulesHandler}/>
                                 
                                 <br/>
+                                { this.state.cottegeOwnerComponents?
                                 <div className="center"><button className="loginbtn" onClick={()=>this.update()}>Update</button></div>
-                                
+                                :null
+                                }
                                 
                                 
 

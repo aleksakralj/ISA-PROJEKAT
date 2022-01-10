@@ -16,12 +16,16 @@ class ShipProfileComponent extends Component {
                     <input readOnly="true" value="Aca Faca" contentEditable="false" style={{ boxShadow: "none", outline: "none", backgroundColor: "transparent", borderColor: "transparent", fontSize: "30px" }} ></input>
                 </div>
 
-                <div style={{ backgroundColor: "orange" , textAlign: "center", borderStyle: "solid", position: "relative", left: "450px", top: "-100px", height: "550px", width: "400px" }}>
+                <div style={{ backgroundColor: "lightblue", borderRadius:'5%' , textAlign: "center", borderStyle: "solid", position: "relative", left: "450px", top: "-100px", height: "550px", width: "400px" }}>
+                    
                     <text style={{ fontSize: "27px" }}> Description </text>
                     <br></br>
+                    
+                    <br></br>
+                        
                     <textarea readOnly="true" style={{outline: "none", width: "360px", height: "150px" }}> This is the best ship in the whole world. He is named in honor of small village near Srpska Crnja. Today, this village is called Radojevo, but it is stupid name for a ship.</textarea>
                     <br></br>
-                    <div style={{ borderStyle: "solid", textAlign: "left", height: "300px" }}>
+                    <div style={{  textAlign: "left", height: "300px" }}>
                         <text style={{ fontSize: "20px", position: "relative", left: "10px", top: "20px" }}>Type:</text>
                         <input readOnly="true" value="Yacht" style={{outline: "none", position: "relative", top: "20px", left: "193px", width: "150px" }}></input>
                         <br></br>

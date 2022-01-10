@@ -23,7 +23,6 @@ import UpdateAdminComponent from './components/UpdateAdminComponent';
 import ViewRegistrationRequestComponent from './components/ViewRegistrationRequestComponent';
 import HomePageCommponent from './components/HomePageCommponent';
 
-
 import CottageOwnerProfileComponent from './components/CottageOwnerProfileComponent';
 import CottageProfileComponent from './components/CottageProfileComponent';
 import RoomProfileComponent from './components/RoomProfileComponent';
@@ -43,7 +42,6 @@ import CottageOwnerCottages from './components/CottageOwnerCottages';
 import AddCottage from './components/AddCottageComponent';
 import AddRoom from './components/AddRoomComponent';
 
-
 import MainAdminProfileComponent from './components/MainAdminProfileComponent';
 import AdminChangePasswordComponent from './components/AdminChangePasswordComponent';
 import DeleteRequestComponent from './components/DeleteRequestComponent';
@@ -58,8 +56,6 @@ import MainViewRegistrationRequestComponent from './components/MainViewRegistrat
 
 //import MainClientsComponent from './components/MainClientsComponent'; <Route path = "/mainclients" component={MainClientsComponent}></Route>
 
-
-
 import background from './images/stephen-crowley-eh3kB7wAJgs-unsplash.jpg';
 import ClientProfileComponent from './components/ClientProfileComponent';
 import ShipProfileComponent from './components/ShipProfileComponent';
@@ -70,6 +66,11 @@ import ClientCottageHistoryComponent from './components/ClientCottageHistoryComp
 import Clientadvenutreshistorycomponent from './components/ClientAdvenutresHistoryComponent';
 import Clientshipshistorycomponent from './components/ClientShipsHistoryComponent';
 import Clientschedulecottagecomponent from './components/ClientScheduleCottageComponent';
+import Clientupdateprofile from './components/ClientUpdateProfile';
+import Clientdeleteprofilecomponent from './components/ClientDeleteProfileComponent';
+import Profiledeletionrequestwait from './components/ProfileDeletionRequestWait';
+import Adminprofiledeletionsrequestscomponent from './components/AdminProfileDeletionsRequestsComponent';
+import Unautentifieduserheader from './components/UnautentifiedUserHeader';
 
 import CottageAppointmentComponent from './components/CottageAppointmentComponent';
 import AddAppointmentComponent from './components/AddAppointmentComponent';
@@ -84,17 +85,49 @@ const backStyle = {
 };
 
 
+function headerDefinition(){
+
+  if(localStorage.getItem('activeUser')===null){
+    return(<Unautentifieduserheader/>)
+  }
+else{
+  let activeUser = JSON.parse(localStorage.getItem('activeUser'))
+    
+  switch (activeUser.type) {    
+    case 'Client': return( <HeaderComponent/>)      
+      break;
+    case 'fishing_instructor': return(<h1>Nestoo</h1>)    
+      break;
+    case 'ship_owner':  return(<h1>Nestoo</h1>)  
+      break;
+    case 'cottage_owner':   return(<h1>Nestoo</h1>)   
+      break;
+      case 'admin':    return(<h1>Nestoo</h1>)   
+      break;
+      case '' :    return(<h1>WRONG</h1>)   
+      break;
+    default: 
+      break;
+  
+  }
+}
+
+  
+}
+
 
 function App() {
+  
   return (
 
     <div style={backStyle}> 
       
         <Router>
-          <HeaderComponent/>
+          
+         {headerDefinition() } 
           <div className="container">
             <Switch> 
-
+        
             <Route path = "/" exact component={HomePageCommponent}></Route>
               <Route path = "/login" exact component={LoginComponent}></Route>
 
@@ -113,9 +146,11 @@ function App() {
               <Route path = "/servicereservations" component={ServiceFreeReservationsComponent}></Route>
               <Route path = "/servicerules" component={ServiceRulesComponent}></Route>
               <Route path = "/serviceequipment" component={ServiceEquipmentComponent}></Route>
+
               <Route path = "/serviceprice" component={ServicePriceComponent}></Route>
               <Route path = "/homepage" component={HomePageCommponent} ></Route>
-              <Route path = "/login" component={LoginComponent}></Route>
+              
+
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
 
@@ -167,6 +202,11 @@ function App() {
               <Route path= "/cottageaddappointment" component={AddAppointmentComponent}></Route>
               <Route path= "/cottageaddquickappointment" component={AddQuickAppointmentComponent}></Route>
               <Route path= "/email" component={EmailComponent}></Route>
+              <Route path= "/clientupdateprofile/:id" component={Clientupdateprofile}></Route>
+              <Route path="/clientdeleteprofile" component={Clientdeleteprofilecomponent}></Route>
+              <Route path="/profiledeletionrequestwait" component={Profiledeletionrequestwait}></Route>
+              <Route path="/adminprofiledeletionrequests" component={Adminprofiledeletionsrequestscomponent}></Route>
+
               </Switch>
           </div>
                                 
