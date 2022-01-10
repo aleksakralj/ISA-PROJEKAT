@@ -2,18 +2,18 @@ package stasaaleksadavid.isabackend.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 @Entity
-@Table(name = "Cottage_Free_Appointments")
-public class CottageFreeAppointment {
+@Table(name = "Ship_Free_Appointments")
+public class ShipFreeAppointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "Cottage_ID")
-    private long cottageId;
+    @Column(name = "Ship_ID")
+    private long shipId;
 
     @Column(name = "Starting_Date")
     private LocalDate startingDate;
@@ -30,12 +30,12 @@ public class CottageFreeAppointment {
     @Column(name = "Price")
     private double price;
 
-    public CottageFreeAppointment() {
+    public ShipFreeAppointment() {
     }
 
-    public CottageFreeAppointment(long cottageId, LocalDate startingDate, LocalDate endingDate, int numberOfPeople, String additionalServices, double price) {
+    public ShipFreeAppointment(long shipId, LocalDate startingDate, LocalDate endingDate, int numberOfPeople, String additionalServices, double price) {
         super();
-        this.cottageId = cottageId;
+        this.shipId = shipId;
         this.startingDate = startingDate;
         this.endingDate = endingDate;
         this.numberOfPeople = numberOfPeople;
@@ -43,12 +43,12 @@ public class CottageFreeAppointment {
         this.price = price;
     }
 
-    public long getCottageId() {
-        return cottageId;
+    public long getShipId() {
+        return shipId;
     }
 
-    public void setCottageId(long cottageId) {
-        this.cottageId = cottageId;
+    public void setShipId(long shipId) {
+        this.shipId = shipId;
     }
 
     public long getId() {
@@ -99,3 +99,4 @@ public class CottageFreeAppointment {
         this.price = price;
     }
 }
+

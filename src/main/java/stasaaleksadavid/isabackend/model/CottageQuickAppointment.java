@@ -1,12 +1,13 @@
 package stasaaleksadavid.isabackend.model;
 
+
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 @Entity
-@Table(name = "Cottage_Free_Appointments")
-public class CottageFreeAppointment {
+@Table(name = "Cottage_Quick_Appointments")
+public class CottageQuickAppointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +31,10 @@ public class CottageFreeAppointment {
     @Column(name = "Price")
     private double price;
 
-    public CottageFreeAppointment() {
+    public CottageQuickAppointment() {
     }
 
-    public CottageFreeAppointment(long cottageId, LocalDate startingDate, LocalDate endingDate, int numberOfPeople, String additionalServices, double price) {
+    public CottageQuickAppointment(long cottageId, LocalDate startingDate, LocalDate endingDate, int numberOfPeople, String additionalServices, double price) {
         super();
         this.cottageId = cottageId;
         this.startingDate = startingDate;
@@ -43,20 +44,20 @@ public class CottageFreeAppointment {
         this.price = price;
     }
 
-    public long getCottageId() {
-        return cottageId;
-    }
-
-    public void setCottageId(long cottageId) {
-        this.cottageId = cottageId;
-    }
-
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getCottageId() {
+        return cottageId;
+    }
+
+    public void setCottageId(long cottageId) {
+        this.cottageId = cottageId;
     }
 
     public LocalDate getStartingDate() {
