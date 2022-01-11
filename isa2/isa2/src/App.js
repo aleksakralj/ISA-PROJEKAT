@@ -66,11 +66,41 @@ import ClientCottageHistoryComponent from './components/ClientCottageHistoryComp
 import Clientadvenutreshistorycomponent from './components/ClientAdvenutresHistoryComponent';
 import Clientshipshistorycomponent from './components/ClientShipsHistoryComponent';
 import Clientschedulecottagecomponent from './components/ClientScheduleCottageComponent';
+
+
+import CottageAppointmentComponent from './components/CottageAppointmentComponent';
+import AddAppointmentComponent from './components/AddAppointmentComponent';
+import AddQuickAppointmentComponent from './components/AddQuickAppointmentComponent';
+import EmailComponent from './components/EmailComponent';
+import ShipOwnerProfileComponent from './components/ShipOwnerProfileComponent';
+import ShipOwnerShipsComponent from './components/ShipOwnerShipsComponent';
+import AddShipComponent from './components/AddShipComponent';
+import ShipProfileSOComponent from './components/ShipProfileSOComponent';
+import ShipAppointmentComponent from './components/ShipAppointmentComponent';
+import AddShipAppointmentComponent from './components/AddShipAppointmentComponent';
+import AddShipQuickAppointmentComponent from './components/AddShipQuickAppointment';
+
+
 import Clientupdateprofile from './components/ClientUpdateProfile';
-import Clientdeleteprofilecomponent from './components/ClientDeleteProfileComponent';
+import DeleteProfileComponent from './components/DeleteProfileComponent';
 import Profiledeletionrequestwait from './components/ProfileDeletionRequestWait';
-import Adminprofiledeletionsrequestscomponent from './components/AdminProfileDeletionsRequestsComponent';
+import AdminProfileDeletionsRequestsComponent from './components/AdminProfileDeletionsRequestsComponent';
 import Unautentifieduserheader from './components/UnautentifiedUserHeader';
+import AdminHeaderComponent from './components/AdminHeaderComponent';
+import MainAdminHeaderComponent from './components/MainAdminHeaderComponent';
+import FishingInstructorHeaderComponent from './components/FishingInstructorHeaderComponent';
+import AdminSendEmailComponent from './components/AdminSendEmailComponent';
+import AdminSendEmailREGComponent from './components/AdminSendEmailREGComponent';
+import AdminSendEmailCOMComponent from './components/AdminSendEmailCOMComponent';
+import AdminSendEmailGRAComponent from './components/AdminSendEmailGRAComponent';
+import AdminComplaintsComponent from './components/AdminComplaintsComponent';
+import AdminGradeRequestsComponent from './components/AdminGradeRequestsComponent';
+
+import CottageOwnerHeaderComponent from './components/CottageOwnerHeaderComponent';
+
+import AddAdventureAppointmentComponent from './components/AddAdventureAppointmentComponent';
+import AddAdventureQuickAppointmentComponent from './components/AddAdventureQuickAppointmentComponent';
+
 
 import CottageAppointmentComponent from './components/CottageAppointmentComponent';
 import AddAppointmentComponent from './components/AddAppointmentComponent';
@@ -100,13 +130,15 @@ else{
   switch (activeUser.type) {    
     case 'Client': return( <HeaderComponent/>)      
       break;
-    case 'fishing_instructor': return(<h1>Nestoo</h1>)    
+    case 'fishing_instructor': return(<FishingInstructorHeaderComponent/>)    
       break;
-    case 'ship_owner':  return(<h1>Nestoo</h1>)  
+    case 'ship_owner':  return(<div><br/><br/><br/></div>)  
       break;
-    case 'cottage_owner':   return(<h1>Nestoo</h1>)   
+    case 'cottage_owner':   return(<div><br/><br/><br/></div>)   
       break;
-      case 'admin':    return(<h1>Nestoo</h1>)   
+      case 'admin':    return(<AdminHeaderComponent/>)   
+      break;
+      case 'main_admin':    return(<MainAdminHeaderComponent/>)   
       break;
       case '' :    return(<h1>WRONG</h1>)   
       break;
@@ -151,9 +183,19 @@ function App() {
               <Route path = "/servicerules" component={ServiceRulesComponent}></Route>
               <Route path = "/serviceequipment" component={ServiceEquipmentComponent}></Route>
 
+
+              
+              <Route path = "/homepage" component={HomePageCommponent} ></Route>
+
               <Route path = "/serviceprice" component={ServicePriceComponent}></Route>
+              <Route path = "/homepageclient" component={HomePageCommponent} ></Route>
+
+              <Route path = "/login" component={LoginComponent}></Route>
+
+             
               <Route path = "/homepage" component={HomePageCommponent} ></Route>
               
+
 
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
@@ -179,8 +221,7 @@ function App() {
 
               <Route path = "/mainadminprofile" component={MainAdminProfileComponent}></Route>  
               <Route path = "/adminchangepassword" component={AdminChangePasswordComponent}></Route>
-              <Route path = "/deleterequest" component={DeleteRequestComponent}></Route>
-
+              
 
               <Route path = "/mainregistrationrequests" component={MainRegistrationRequestComponent}></Route>
               <Route path = "/mainincome" component={MainIncomeComponent}></Route>
@@ -202,19 +243,41 @@ function App() {
               <Route path = "/clientadventureshistory" component={Clientadvenutreshistorycomponent}></Route>
               <Route path = "/clientshipshistory" component={Clientshipshistorycomponent}></Route>
               <Route path= "/clientschedulecottage" component={Clientschedulecottagecomponent}></Route>
+
+
               <Route path= "/cottageappointments" component={CottageAppointmentComponent}></Route>
               <Route path= "/cottageaddappointment" component={AddAppointmentComponent}></Route>
               <Route path= "/cottageaddquickappointment" component={AddQuickAppointmentComponent}></Route>
+              <Route path= "/shipownerprofile" component={ShipOwnerProfileComponent}></Route>
               <Route path= "/email" component={EmailComponent}></Route>
+              <Route path= "/shipownerships" component={ShipOwnerShipsComponent}></Route>
+              <Route path= "/addship" component={AddShipComponent}></Route>
+              <Route path= "/shipprofileso" component={ShipProfileSOComponent}></Route>
+              <Route path= "/shipappointments" component={ShipAppointmentComponent}></Route>
+              <Route path= "/shipaddappointment" component={AddShipAppointmentComponent}></Route>
+              <Route path= "/shipaddquickappointment" component={AddShipQuickAppointmentComponent}></Route>
+
+
               <Route path= "/clientupdateprofile/:id" component={Clientupdateprofile}></Route>
-              <Route path="/clientdeleteprofile" component={Clientdeleteprofilecomponent}></Route>
+              <Route path="/deleteprofile" component={DeleteProfileComponent}></Route>
               <Route path="/profiledeletionrequestwait" component={Profiledeletionrequestwait}></Route>
-              <Route path="/adminprofiledeletionrequests" component={Adminprofiledeletionsrequestscomponent}></Route>
+
+              <Route path="/adminprofiledeletionrequests" component={AdminProfileDeletionsRequestsComponent}></Route>
+              <Route path="/adminsendemail" component={AdminSendEmailComponent}></Route>
+              <Route path="/adminsendemailreg" component={AdminSendEmailREGComponent}></Route>
+              <Route path="/adminsendemailcom" component={AdminSendEmailCOMComponent}></Route>
+              <Route path="/adminsendemailgra" component={AdminSendEmailGRAComponent}></Route>
+              <Route path="/admincomplaints" component={AdminComplaintsComponent}></Route>
+              <Route path="/admingraderequests" component={AdminGradeRequestsComponent}></Route>
+              <Route path="/addadventureappointment" component={AddAdventureAppointmentComponent}></Route>
+              <Route path="/addadventurequickappointment" component={AddAdventureQuickAppointmentComponent}></Route>
+
+ 
               <Route path="/clientcottages" component={ClientCottagesComponent}></Route> 
               <Route path="/clientadventures" component={ClientAdventuresComponent}></Route>
               <Route path="/clientships" component={ClientShipsComponent}></Route>
               <Route path="/homepageclient" component={ClientHomePageCommponent}></Route>
-              
+
               </Switch>
           </div>
                                 

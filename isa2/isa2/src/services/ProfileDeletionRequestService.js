@@ -17,7 +17,7 @@ class ProfileDeletionRequestService {
     }
 
     deleteProfileDeletionRequest(requestId){
-        return axios.delete(PROFILEDELETIONREQUESTS_API_BASE_URL+''+requestId);
+        return axios.delete(PROFILEDELETIONREQUESTS_API_BASE_URL+'/'+requestId);
     }
 
 }

@@ -96,6 +96,13 @@ class CottageAppointmentComponent extends Component {
         this.props.history.push(`/email`);
     }
 
+    cottageprofile()
+    {
+        
+        this.props.history.push(`/cottageprofile`);
+
+    }
+
 
     componentDidMount(){
 
@@ -126,7 +133,9 @@ class CottageAppointmentComponent extends Component {
                 <div className="menu">
                <button onClick={()=>this.profile()}>Profile</button>
                <button onClick={()=>this.cottages()}>My cottages</button>
-               <button>Cottage profile</button>
+
+               <button onClick={()=>this.cottageprofile()}>Cottage profile</button>
+
                <button onClick={()=>this.viewRooms(this.state.id)}>Rooms</button>
                <button onClick={()=>this.viewAppointmets(this.state.id)}>Appointments</button>
                <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>

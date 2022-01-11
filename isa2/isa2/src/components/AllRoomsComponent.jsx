@@ -97,6 +97,7 @@ class AllRoomsComponent extends Component {
                                     <th>Number</th>
                                     <th>Number of beds</th>
                                     <th>Description</th>
+                                    <th>ACTION</th>
                                     
                                 
                                 </tr>

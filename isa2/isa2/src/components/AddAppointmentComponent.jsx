@@ -49,6 +49,12 @@ class AddAppointmentComponent extends Component {
     viewRooms(){
         this.props.history.push(`/allrooms`);
     }
+
+    Appointmets()
+    {
+        this.props.history.push(`/cottageappointments`);
+    }
+
     
 
     changeStartingDateHandler = (event) => {
@@ -66,7 +72,13 @@ class AddAppointmentComponent extends Component {
     changeAdditionalServicesHandler = (event) => {
         this.setState({additionalServices: event.target.value});
     }
-    
+
+    logout(){
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
+    }
+
     DateTimeIsEmpty(appointment){
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
@@ -166,7 +178,9 @@ class AddAppointmentComponent extends Component {
                <button onClick={()=>this.cottages()}>My cottages</button>
                <button onClick={()=>this.cottageprofile()}>Cottage profile</button>
                <button onClick={()=>this.viewRooms(this.state.id)}>Rooms</button>
-               <button onClick={()=>this.viewAppointmets(this.state.id)}>Appointments</button>
+
+               <button onClick={()=>this.Appointmets()}>Appointments</button>
+
                
                <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>
             </div>

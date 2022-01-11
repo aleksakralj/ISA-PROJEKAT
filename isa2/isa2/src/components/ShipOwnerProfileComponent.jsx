@@ -1,18 +1,21 @@
-import React, { Component } from 'react';
-import UserService from '../services/UserService';
 
-class AdminProfileComponent extends Component {
+import React, { Component } from 'react';
+import axios from 'axios';
+
+class ShipOwnerProfileComponent extends Component {
     constructor(props){
         super(props)
         this.state={
-            email:'',
-            password:'',
+            id:this.props.match.params.id,
+            email: '',
+            password: '',
             firstName:'',
             lastName:'',
-            address:'',
+            address: '',
             city:'',
             country:'',
-            phoneNumber:''
+            phoneNumber:'',
+            type:'',
             
         }
         
@@ -29,26 +32,21 @@ class AdminProfileComponent extends Component {
 
         this.changePhoneNumberHandler = this.changePhoneNumberHandler.bind(this);
         
-    
+       
         
     }
-    
-    update(id) {
-        
-        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
-        activeUser.email=this.state.email;
-        activeUser.firstName=this.state.firstName;
-        activeUser.lastName=this.state.lastName;
-        activeUser.address=this.state.address;
-        activeUser.city=this.state.city;
-        activeUser.country=this.state.country;
-        activeUser.phoneNumber=this.state.phoneNumber;
-        
-        console.log('activeUser => ' + JSON.stringify(activeUser));
 
-        UserService.updateUser(activeUser,id) ;
+    deleteprofile(id){
+
+        axios.delete("http://localhost:8080/api/v1/users/" + id)
+        this.logout();
     }
     
+    logout(){
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
+    }
     changeEmailHandler = (event) => {
         this.setState({email: event.target.value});
     }
@@ -79,12 +77,45 @@ class AdminProfileComponent extends Component {
     changePhoneNumberHandler = (event) => {
         this.setState({phoneNumber: event.target.value});
     }
+
+    myShips()
+    {
+        this.props.history.push(`/shipownerships`);
+    }
+
+    update(){
+
+        let shipOwner = {
+
+            id:this.state.id,
+            email: this.state.email,
+            password: this.state.password,
+            firstName:this.state.firstName,
+            lastName:this.state.lastName,
+            address: this.state.address,
+            city:this.state.city,
+            country:this.state.country,
+            phoneNumber:this.state.phoneNumber,
+            type:"ship_owner",
+
+
+        }
+        let coid = this.state.id;
+
+        console.log('shipOwner => ' + JSON.stringify(shipOwner));
+        axios.put("http://localhost:8080/api/v1/users/" +coid,shipOwner);
+        this.props.history.push(`/login`);
+
+        
+    }
+    
     componentDidMount(){
 
+        
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
 
             this.setState({
-            id:activeUser.id,
+                id:activeUser.id,
             email: activeUser.email,
             password: activeUser.password,
             firstName:activeUser.firstName,
@@ -93,15 +124,25 @@ class AdminProfileComponent extends Component {
             city:activeUser.city,
             country:activeUser.country,
             phoneNumber:activeUser.phoneNumber,
+            type:activeUser.type
 
             });
+            localStorage.clear();
+            localStorage.setItem('activeUser',JSON.stringify(activeUser));
         
     }
+
+    
     render() {
         return (
-                
-            <div className="registrationdiv">
-                    <br/><br/>
+            <div>
+                <div className="menu">
+                                <button>Profile</button>
+                                <button onClick={()=>this.myShips()}>My ships</button>
+                                <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>
+                </div>
+                <div className="registrationdiv">
+                    
                                 <label> Email: </label>
                                 <input name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler}/>
                                 <label> Password: </label>
@@ -110,9 +151,9 @@ class AdminProfileComponent extends Component {
                                 <input name="password2" className="form-control" value={this.state.password} onChange={this.changePassword2Handler}/>
 
                                 <label> First name: </label>
-                                <input name="firstname" className="form-control" value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
+                                <input name="firstName" className="form-control" value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
                                 <label> Last name: </label>
-                                <input name="lastname" className="form-control" value={this.state.lastName} onChange={this.changeLastNameHandler}/>
+                                <input name="lastName" className="form-control" value={this.state.lastName} onChange={this.changeLastNameHandler}/>
                                 
                                 <label> Address: </label>
                                 <input name="address" className="form-control" value={this.state.address} onChange={this.changeAddressHandler}/>
@@ -122,15 +163,20 @@ class AdminProfileComponent extends Component {
                                 <input name="country" className="form-control" value={this.state.country} onChange={this.changeCountryHandler}/> 
 
                                 <label> Phone number: </label>
-                                <input name="phonenumber" className="form-control" value={this.state.phoneNumber} onChange={this.changePhoneNumberHandler}/>
+                                <input name="phoneNumber" className="form-control" value={this.state.phoneNumber} onChange={this.changePhoneNumberHandler}/>
 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.update(this.state.id)}>Update</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.update()}>Update</button></div>
+                                <br/>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.deleteprofile(this.state.id)}>Delete</button></div>
+                                <br/>
+                                
 
+                </div>
             </div>
-            
+
         )   ;
     }
 }
 
-export default AdminProfileComponent;
+export default ShipOwnerProfileComponent;

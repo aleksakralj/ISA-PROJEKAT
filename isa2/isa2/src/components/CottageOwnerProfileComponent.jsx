@@ -42,9 +42,8 @@ class CottageOwnerProfileComponent extends Component {
     }
     
     logout(){
-        localStorage.removeItem('activeUser')
-        localStorage.removeItem('activeCottage')
-        localStorage.removeItem('activeRoom')
+       
+        localStorage.clear();
         this.props.history.push(`/login`);
        
     }

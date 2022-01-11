@@ -149,10 +149,7 @@ class LoginComponent extends Component {
 
                 </div>
 
-                <div style={{ position: 'absolute', top: '600px', left: '44%' }}>
-                    <label> Don't have an account? </label> <br></br>
-                    <button style={{ position: 'absolute', left: '30px' }} className="loginbtn" onClick={event => window.location.href = '/registeruser'} > Register</button>
-                </div>
+               
             </div>
         );
     }

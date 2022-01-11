@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class AddQuickAppointmentComponent extends Component {
+class AddAdventureAppointmentComponent extends Component {
     constructor(props){
         super(props)
         this.state={
@@ -11,7 +11,7 @@ class AddQuickAppointmentComponent extends Component {
             numberOfPeople:'',
             price:'',
             startingDate:'',
-            cottageId:'',
+            instructorId:'',
             allFreeAppointments:[],
             allScheduledAppointments:[],
             allQuickAppointments:[]
@@ -27,34 +27,8 @@ class AddQuickAppointmentComponent extends Component {
      
        
     }
-    profile()
-    {
-        
-        this.props.history.push(`/cottageownerprofile`);
-
-    }
-
-    cottageprofile()
-    {
-        
-        this.props.history.push(`/cottageprofile`);
-
-    }
-    cottages()
-    {
-        
-        this.props.history.push(`/cottageownercottages`);
-
-    }
-    viewRooms(){
-        this.props.history.push(`/allrooms`);
-    }
-
-    Appointmets()
-    {
-        this.props.history.push(`/cottageappointments`);
-    }
-
+    
+    
 
     changeStartingDateHandler = (event) => {
         this.setState({startingDate: event.target.value});
@@ -71,7 +45,11 @@ class AddQuickAppointmentComponent extends Component {
     changeAdditionalServicesHandler = (event) => {
         this.setState({additionalServices: event.target.value});
     }
-    
+    logout(){
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
+    }
     DateTimeIsEmpty(appointment){
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
@@ -135,7 +113,7 @@ class AddQuickAppointmentComponent extends Component {
     }
 
     Add(){
-        let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'));
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
 
         let appointment = {           
             id:this.state.id,
@@ -144,46 +122,30 @@ class AddQuickAppointmentComponent extends Component {
             numberOfPeople:this.state.numberOfPeople,
             price:this.state.price,
             startingDate:this.state.startingDate,
-            cottageId:activeCottage.id,
+            instructorId:activeUser.id,
         }
         
 
         if (this.DateTimeIsEmpty(appointment) == true){
 
         console.log('appointment => ' + JSON.stringify(appointment));
-        axios.post("http://localhost:8080/api/v1/cottagequickappointments/",appointment);
-        this.props.history.push(`/cottageappointments`);
+        axios.post("http://localhost:8080/api/v1/adventurefreeappointments/",appointment);
+        
         window.location.reload();
     }
     else{window.alert("Invalid date or date is not empty")}
     }
-
-    logout(){
-        localStorage.clear();
-        this.props.history.push(`/login`);
-       
-    }
-
     
     componentDidMount(){
-        axios.get("http://localhost:8080/api/v1/cottagefreeappointments").then((res)=>{this.setState({allFreeAppointments: res.data});});
-        axios.get("http://localhost:8080/api/v1/cottageappointments").then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
-        axios.get("http://localhost:8080/api/v1/cottagequickappointments").then((res3)=>{this.setState({allQuickAppointments: res3.data});});
+        axios.get("http://localhost:8080/api/v1/adventurefreeappointments").then((res)=>{this.setState({allFreeAppointments: res.data});});
+        axios.get("http://localhost:8080/api/v1/adventureappointments").then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
+        axios.get("http://localhost:8080/api/v1/adventurequickappointments").then((res3)=>{this.setState({allQuickAppointments: res3.data});});
     }
     render() {
         return (
             <div>
-               <div className="menu">
-               <button onClick={()=>this.profile()}>Profile</button>
-               <button onClick={()=>this.cottages()}>My cottages</button>
-               <button onClick={()=>this.cottageprofile()}>Cottage profile</button>
-
-               <button onClick={()=>this.viewRooms()}>Rooms</button>
-               <button onClick={()=>this.Appointmets()}>Appointments</button>
-
                
-               <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>
-            </div>
+            
                 
                 <div className="registrationdiv">
                     <br/><br/>
@@ -201,7 +163,7 @@ class AddQuickAppointmentComponent extends Component {
                                 
                                 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Add Quick Appointment</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Add</button></div>
                                 
                                 
                                 
@@ -213,4 +175,4 @@ class AddQuickAppointmentComponent extends Component {
     }
 }
 
-export default AddQuickAppointmentComponent;
+export default AddAdventureAppointmentComponent;
