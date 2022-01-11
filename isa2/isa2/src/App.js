@@ -75,6 +75,13 @@ import CottageAppointmentComponent from './components/CottageAppointmentComponen
 import AddAppointmentComponent from './components/AddAppointmentComponent';
 import AddQuickAppointmentComponent from './components/AddQuickAppointmentComponent';
 import EmailComponent from './components/EmailComponent';
+import ShipOwnerProfileComponent from './components/ShipOwnerProfileComponent';
+import ShipOwnerShipsComponent from './components/ShipOwnerShipsComponent';
+import AddShipComponent from './components/AddShipComponent';
+import ShipProfileSOComponent from './components/ShipProfileSOComponent';
+import ShipAppointmentComponent from './components/ShipAppointmentComponent';
+import AddShipAppointmentComponent from './components/AddShipAppointmentComponent';
+import AddShipQuickAppointmentComponent from './components/AddShipQuickAppointment';
 
 const backStyle = {
   width: '100%',
@@ -166,7 +173,14 @@ function App() {
               <Route path= "/cottageappointments" component={CottageAppointmentComponent}></Route>
               <Route path= "/cottageaddappointment" component={AddAppointmentComponent}></Route>
               <Route path= "/cottageaddquickappointment" component={AddQuickAppointmentComponent}></Route>
+              <Route path= "/shipownerprofile" component={ShipOwnerProfileComponent}></Route>
               <Route path= "/email" component={EmailComponent}></Route>
+              <Route path= "/shipownerships" component={ShipOwnerShipsComponent}></Route>
+              <Route path= "/addship" component={AddShipComponent}></Route>
+              <Route path= "/shipprofileso" component={ShipProfileSOComponent}></Route>
+              <Route path= "/shipappointments" component={ShipAppointmentComponent}></Route>
+              <Route path= "/shipaddappointment" component={AddShipAppointmentComponent}></Route>
+              <Route path= "/shipaddquickappointment" component={AddShipQuickAppointmentComponent}></Route>
               </Switch>
           </div>
                                 

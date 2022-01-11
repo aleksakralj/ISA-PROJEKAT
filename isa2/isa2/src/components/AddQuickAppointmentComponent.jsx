@@ -49,7 +49,10 @@ class AddQuickAppointmentComponent extends Component {
     viewRooms(){
         this.props.history.push(`/allrooms`);
     }
-    
+    Appointmets()
+    {
+        this.props.history.push(`/cottageappointments`);
+    }
 
     changeStartingDateHandler = (event) => {
         this.setState({startingDate: event.target.value});
@@ -152,6 +155,11 @@ class AddQuickAppointmentComponent extends Component {
     }
     else{window.alert("Invalid date or date is not empty")}
     }
+    logout(){
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
+    }
     
     componentDidMount(){
         axios.get("http://localhost:8080/api/v1/cottagefreeappointments").then((res)=>{this.setState({allFreeAppointments: res.data});});
@@ -165,8 +173,8 @@ class AddQuickAppointmentComponent extends Component {
                <button onClick={()=>this.profile()}>Profile</button>
                <button onClick={()=>this.cottages()}>My cottages</button>
                <button onClick={()=>this.cottageprofile()}>Cottage profile</button>
-               <button onClick={()=>this.viewRooms(this.state.id)}>Rooms</button>
-               <button onClick={()=>this.viewAppointmets(this.state.id)}>Appointments</button>
+               <button onClick={()=>this.viewRooms()}>Rooms</button>
+               <button onClick={()=>this.Appointmets()}>Appointments</button>
                
                <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>
             </div>

@@ -81,6 +81,7 @@ class CottageOwnerCottages extends Component {
                                     <th>Rating</th>
                                     <th>Number of rooms</th>
                                     <th>Rules</th>
+                                    <th>ACTION</th>
                                     
                                 
                                 </tr>
