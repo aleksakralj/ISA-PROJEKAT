@@ -23,7 +23,6 @@ import UpdateAdminComponent from './components/UpdateAdminComponent';
 import ViewRegistrationRequestComponent from './components/ViewRegistrationRequestComponent';
 import HomePageCommponent from './components/HomePageCommponent';
 
-
 import CottageOwnerProfileComponent from './components/CottageOwnerProfileComponent';
 import CottageProfileComponent from './components/CottageProfileComponent';
 import RoomProfileComponent from './components/RoomProfileComponent';
@@ -43,7 +42,6 @@ import CottageOwnerCottages from './components/CottageOwnerCottages';
 import AddCottage from './components/AddCottageComponent';
 import AddRoom from './components/AddRoomComponent';
 
-
 import MainAdminProfileComponent from './components/MainAdminProfileComponent';
 import AdminChangePasswordComponent from './components/AdminChangePasswordComponent';
 import DeleteRequestComponent from './components/DeleteRequestComponent';
@@ -58,8 +56,6 @@ import MainViewRegistrationRequestComponent from './components/MainViewRegistrat
 
 //import MainClientsComponent from './components/MainClientsComponent'; <Route path = "/mainclients" component={MainClientsComponent}></Route>
 
-
-
 import background from './images/stephen-crowley-eh3kB7wAJgs-unsplash.jpg';
 import ClientProfileComponent from './components/ClientProfileComponent';
 import ShipProfileComponent from './components/ShipProfileComponent';
@@ -70,6 +66,7 @@ import ClientCottageHistoryComponent from './components/ClientCottageHistoryComp
 import Clientadvenutreshistorycomponent from './components/ClientAdvenutresHistoryComponent';
 import Clientshipshistorycomponent from './components/ClientShipsHistoryComponent';
 import Clientschedulecottagecomponent from './components/ClientScheduleCottageComponent';
+
 
 import CottageAppointmentComponent from './components/CottageAppointmentComponent';
 import AddAppointmentComponent from './components/AddAppointmentComponent';
@@ -83,6 +80,22 @@ import ShipAppointmentComponent from './components/ShipAppointmentComponent';
 import AddShipAppointmentComponent from './components/AddShipAppointmentComponent';
 import AddShipQuickAppointmentComponent from './components/AddShipQuickAppointment';
 
+
+import Clientupdateprofile from './components/ClientUpdateProfile';
+import DeleteProfileComponent from './components/DeleteProfileComponent';
+import Profiledeletionrequestwait from './components/ProfileDeletionRequestWait';
+import AdminProfileDeletionsRequestsComponent from './components/AdminProfileDeletionsRequestsComponent';
+import Unautentifieduserheader from './components/UnautentifiedUserHeader';
+import AdminHeaderComponent from './components/AdminHeaderComponent';
+import MainAdminHeaderComponent from './components/MainAdminHeaderComponent';
+import FishingInstructorHeaderComponent from './components/FishingInstructorHeaderComponent';
+import AdminSendEmailComponent from './components/AdminSendEmailComponent';
+import AdminSendEmailREGComponent from './components/AdminSendEmailREGComponent';
+import AdminSendEmailCOMComponent from './components/AdminSendEmailCOMComponent';
+import AdminSendEmailGRAComponent from './components/AdminSendEmailGRAComponent';
+import AdminComplaintsComponent from './components/AdminComplaintsComponent';
+import AdminGradeRequestsComponent from './components/AdminGradeRequestsComponent';
+
 const backStyle = {
   width: '100%',
   height: '800px',
@@ -91,17 +104,51 @@ const backStyle = {
 };
 
 
+function headerDefinition(){
+
+  if(localStorage.getItem('activeUser')===null){
+    return(<Unautentifieduserheader/>)
+  }
+else{
+  let activeUser = JSON.parse(localStorage.getItem('activeUser'))
+    
+  switch (activeUser.type) {    
+    case 'Clinet': return( <HeaderComponent/>)      
+      break;
+    case 'fishing_instructor': return(<FishingInstructorHeaderComponent/>)    
+      break;
+    case 'ship_owner':  return(<h1>Nestoo</h1>)  
+      break;
+    case 'cottage_owner':   return(<h1>Nestoo</h1>)   
+      break;
+      case 'admin':    return(<AdminHeaderComponent/>)   
+      break;
+      case 'main_admin':    return(<MainAdminHeaderComponent/>)   
+      break;
+      case '' :    return(<h1>WRONG</h1>)   
+      break;
+    default: return(<Unautentifieduserheader/>) 
+      break;
+  
+  }
+}
+
+  
+}
+
 
 function App() {
+  
   return (
 
     <div style={backStyle}> 
       
         <Router>
-          <HeaderComponent/>
+          
+         {headerDefinition() } 
           <div className="container">
             <Switch> 
-
+        
             <Route path = "/" exact component={HomePageCommponent}></Route>
               <Route path = "/login" exact component={LoginComponent}></Route>
 
@@ -120,8 +167,13 @@ function App() {
               <Route path = "/servicereservations" component={ServiceFreeReservationsComponent}></Route>
               <Route path = "/servicerules" component={ServiceRulesComponent}></Route>
               <Route path = "/serviceequipment" component={ServiceEquipmentComponent}></Route>
-              <Route path = "/serviceprice" component={ServicePriceComponent}></Route>
+
+              
               <Route path = "/homepage" component={HomePageCommponent} ></Route>
+
+              <Route path = "/serviceprice" component={ServicePriceComponent}></Route>
+              <Route path = "/homepageclient" component={HomePageCommponent} ></Route>
+
               <Route path = "/login" component={LoginComponent}></Route>
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
@@ -147,8 +199,7 @@ function App() {
 
               <Route path = "/mainadminprofile" component={MainAdminProfileComponent}></Route>  
               <Route path = "/adminchangepassword" component={AdminChangePasswordComponent}></Route>
-              <Route path = "/deleterequest" component={DeleteRequestComponent}></Route>
-
+              
 
               <Route path = "/mainregistrationrequests" component={MainRegistrationRequestComponent}></Route>
               <Route path = "/mainincome" component={MainIncomeComponent}></Route>
@@ -170,6 +221,7 @@ function App() {
               <Route path = "/clientadventureshistory" component={Clientadvenutreshistorycomponent}></Route>
               <Route path = "/clientshipshistory" component={Clientshipshistorycomponent}></Route>
               <Route path= "/clientschedulecottage" component={Clientschedulecottagecomponent}></Route>
+
               <Route path= "/cottageappointments" component={CottageAppointmentComponent}></Route>
               <Route path= "/cottageaddappointment" component={AddAppointmentComponent}></Route>
               <Route path= "/cottageaddquickappointment" component={AddQuickAppointmentComponent}></Route>
@@ -181,6 +233,18 @@ function App() {
               <Route path= "/shipappointments" component={ShipAppointmentComponent}></Route>
               <Route path= "/shipaddappointment" component={AddShipAppointmentComponent}></Route>
               <Route path= "/shipaddquickappointment" component={AddShipQuickAppointmentComponent}></Route>
+
+              <Route path= "/clientupdateprofile/:id" component={Clientupdateprofile}></Route>
+              <Route path="/deleteprofile" component={DeleteProfileComponent}></Route>
+              <Route path="/profiledeletionrequestwait" component={Profiledeletionrequestwait}></Route>
+              <Route path="/adminprofiledeletionrequests" component={AdminProfileDeletionsRequestsComponent}></Route>
+              <Route path="/adminsendemail" component={AdminSendEmailComponent}></Route>
+              <Route path="/adminsendemailreg" component={AdminSendEmailREGComponent}></Route>
+              <Route path="/adminsendemailcom" component={AdminSendEmailCOMComponent}></Route>
+              <Route path="/adminsendemailgra" component={AdminSendEmailGRAComponent}></Route>
+              <Route path="/admincomplaints" component={AdminComplaintsComponent}></Route>
+              <Route path="/admingraderequests" component={AdminGradeRequestsComponent}></Route>
+
               </Switch>
           </div>
                                 

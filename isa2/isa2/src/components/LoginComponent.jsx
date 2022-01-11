@@ -1,134 +1,139 @@
 import React, { Component } from 'react';
 
 import axios from 'axios';
+import validator from 'validator';
 
 class LoginComponent extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state={
-           email: '',
-           password: ''
-            
+        this.state = {
+            email: '',
+            password: '',
+            emailErrorMessage: ''
         }
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
         this.changePasswordHandler = this.changePasswordHandler.bind(this);
         this.login = this.login.bind(this);
-        this.register=this.register.bind(this);
-        this.register=this.registeruser.bind(this);
-        this.use=this.use.bind(this);
-        
-    }
-    login(){
-        axios
-        .post("http://localhost:8080/api/v1/login/" + this.state.email + "/" + this.state.password)
-        .then(response => {
-            localStorage.setItem('activeUser',JSON.stringify(response.data));
-            
-            let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
-            switch(activeUser.type){
-                case 'fishing_instructor':
-                    this.props.history.push(`/fishinginstructorprofile`);
-                break;
-    
-                case 'ship_owner':
-                    this.props.history.push(`/shipownerprofile`);
-                break;
-    
-                case 'cottage_owner':
-                    this.props.history.push('/cottageownerprofile');
-                break;
-    
-                case 'user':
-                    this.props.history.push(`/userprofile`);
-                break;
+        this.register = this.register.bind(this);
+        this.register = this.registeruser.bind(this);
+        this.use = this.use.bind(this);
 
-                case 'admin':
-                    //treba da resetuje lozinku
-                    if(activeUser.password=="password"){
-                     this.props.history.push(`/adminchangepassword`)   
+    }
+   
+    login() {
+
+        if(validator.isEmail(this.state.email)){
+                      
+            axios
+                .post("http://localhost:8080/api/v1/login/" + this.state.email + "/" + this.state.password)
+                .then(response => {
+                    localStorage.setItem('activeUser', JSON.stringify(response.data));
+
+                    let activeUser = JSON.parse(localStorage.getItem('activeUser'))
+                    switch (activeUser.type) {
+                        case 'fishing_instructor':
+                            this.props.history.push(`/fishinginstructorprofile`);
+                            break;
+
+                        case 'ship_owner':
+                            this.props.history.push(`/shipownerprofile`);
+                            break;
+
+                        case 'cottage_owner':
+                            this.props.history.push('/cottageownerprofile');
+                            break;
+
+                        case 'Clinet':
+                            this.props.history.push('/homepageclient');
+                            break;
+
+                        case 'admin':
+                            //treba da resetuje lozinku
+                            if (activeUser.password == "password") {
+                                this.props.history.push(`/adminchangepassword`)
+                            }
+                            else this.props.history.push(`/adminprofile`);
+                            break;
+
+                        case 'main_admin':
+                            this.props.history.push(`/mainadminprofile`);
+                            break;
+
+                        default:
+
                     }
-                    else this.props.history.push(`/adminprofile`);
-                break;
 
-                case 'main_admin':
-                    this.props.history.push(`/mainadminprofile`);
-                break;
-                
-                default :
-                
-            }
+
+                })
+               
+                    
+        } else{
+            this.setState({emailErrorMessage:'Email is invalid'})
             
-        })
-        .catch(error=>{
-            console.log("Error")	
-            alert("Invalid email and/or password")
-            window.location.reload()
-            
-        })
-        
+        }
+
     }
-       
-        
-    
 
 
-    registeruser(){
+
+
+
+    registeruser() {
         this.props.history.push('/registeruser');
     }
-    register(){
+    register() {
         this.props.history.push('/register');
     }
-    use(){
+    use() {
         this.props.history.push('/use')
     }
 
     changeEmailHandler = (event) => {
-        this.setState({email: event.target.value});
+
+
+        this.setState({ email: event.target.value });
     }
     changePasswordHandler = (event) => {
-        this.setState({password: event.target.value});
+        this.setState({ password: event.target.value });
     }
 
 
-    componentDidMount(){
-       // localStorage.removeItem('activeUser');
+    componentDidMount() {
+        // localStorage.removeItem('activeUser');
         localStorage.removeItem('activeCottage');
         localStorage.removeItem('activeRoom');
-        
+
     }
-   
+
     render() {
         return (
-            <div><br/><br/><br/><br/>
-                <div className="container">
-                    
-                    <div style={{position: 'relative', top: '0px'}} className="logindiv">                        
-                        <h3 style={{position: 'relative', top:'20px'}} className="text-center"> LOGIN </h3>
-                
+            <div>
+                <div style={{ position: 'absolute', top: '150px', left: '33%', height: '300px', width: '500px' }} >
+
+                    <div style={{ position: 'absolute', top: '0px', left: '0px' }} className="logindiv">
+                        <h3 style={{ position: 'absolute', top: '20px', left: '40%' }} className="text-center"> LOGIN </h3>
+
                         <form>
                             <div className="form-group">
-                                <br></br>
-                                <label style={{position: 'relative', left:'10px'}}> Email: </label>
-                                <input placeholder="Email" name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler}/>
-                                
-                                <label style={{position: 'relative', left:'10px'}}> Password: </label>
-                                <input placeholder="Password"  name="password" className="form-control" value={this.state.password} onChange={this.changePasswordHandler}/>
-                                    
-                                <div className="center"><button className="loginbtn" onClick={this.login}>Login</button></div>
+
+                                <label style={{ position: 'absolute', left: '10px', top: '100px' }}> Email: </label>
+                                <input style={{ position: 'absolute', top: '125px' }} placeholder="Email" name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler} />                              
+                                <div style={{ position: 'absolute', top: '165px', color: 'red', left: '38%' }}>{this.state.emailErrorMessage}</div>
+                                   
+                                <label style={{ position: 'absolute', left: '10px', top: '200px' }}> Password: </label>
+                                <input style={{ position: 'absolute', top: '225px' }} type='password' placeholder="Password" name="password" className="form-control" value={this.state.password} onChange={this.changePasswordHandler} />
+
+                                <div style={{ position: 'absolute', top: '315px' }} className="center"><button className="loginbtn" onClick={this.login}>Login</button></div>
                             </div>
 
-                            
+
                         </form>
-                            
+
                     </div>
-                    
-                    <div style={{position: 'relative',top: '40px',left:'550px'}}>
-                        <label> Don't have an account? </label> <br></br>
-                        <button style={{position: 'relative',left:'30px'}} className="loginbtn" onClick={event =>  window.location.href='/registeruser'} > Register</button>
-                    </div>
-                    
-                
-                </div>                 
+
+                </div>
+
+               
             </div>
         );
     }

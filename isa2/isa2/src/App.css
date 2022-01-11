@@ -75,7 +75,7 @@
 .logindiv{
   border: 2px outset black;
   background-color: white;
-  height: 280px;
+  height: 400px;
   width: 500px;
   margin: 0;
   position:relative;
@@ -193,7 +193,7 @@
   margin: 0;
   position:relative;
   left: 30%;
-  top:150px;
+  top:20px;
   border-radius: 10px;
   
 }.registrationwaitdiv{
