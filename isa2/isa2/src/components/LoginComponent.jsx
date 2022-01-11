@@ -3,13 +3,17 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import validator from 'validator';
 
+import UserService from '../services/UserService';
+import ClientPointsService from '../services/ClientPointsService';
+
 class LoginComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
             email: '',
             password: '',
-            emailErrorMessage: ''
+            emailErrorMessage: '',
+            pointsId: ''
         }
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
         this.changePasswordHandler = this.changePasswordHandler.bind(this);
@@ -19,57 +23,69 @@ class LoginComponent extends Component {
         this.use = this.use.bind(this);
 
     }
-   
-    login() {
 
-        if(validator.isEmail(this.state.email)){
-                      
-            axios
-                .post("http://localhost:8080/api/v1/login/" + this.state.email + "/" + this.state.password)
-                .then(response => {
-                    localStorage.setItem('activeUser', JSON.stringify(response.data));
+    async login() {
 
-                    let activeUser = JSON.parse(localStorage.getItem('activeUser'))
-                    switch (activeUser.type) {
-                        case 'fishing_instructor':
-                            this.props.history.push(`/fishinginstructorprofile`);
-                            break;
+        if (validator.isEmail(this.state.email)) {
 
-                        case 'ship_owner':
-                            this.props.history.push(`/shipownerprofile`);
-                            break;
+         
 
-                        case 'cottage_owner':
-                            this.props.history.push('/cottageownerprofile');
-                            break;
+          
+            axios.post("http://localhost:8080/api/v1/login/" + this.state.email + "/" + this.state.password).then(response => {
+                localStorage.setItem('activeUser', JSON.stringify(response.data));
 
-                        case 'Clinet':
-                            this.props.history.push('/homepageclient');
-                            break;
+                let activeUser = JSON.parse(localStorage.getItem('activeUser'));
 
-                        case 'admin':
-                            //treba da resetuje lozinku
-                            if (activeUser.password == "password") {
-                                this.props.history.push(`/adminchangepassword`)
-                            }
-                            else this.props.history.push(`/adminprofile`);
-                            break;
+                this.setState({ pointsId: activeUser.id })
+                ClientPointsService.getClientPointsById(this.state.pointsId).then(response => {
+                    localStorage.setItem('activeUserPoints', JSON.stringify(response.data));
+                });
 
-                        case 'main_admin':
-                            this.props.history.push(`/mainadminprofile`);
-                            break;
+                switch (activeUser.type) {
+                    case 'fishing_instructor':
+                        this.props.history.push(`/fishinginstructorprofile`);
+                        
+    
+                    case 'ship_owner':
+                        this.props.history.push(`/shipownerprofile`);
+                        break;
+    
+                    case 'cottage_owner':
+                        this.props.history.push('/cottageownerprofile');
+                        break;
+    
+                    case 'Clinet':
+    
+    
+                        this.props.history.push('/homepageclient');
+                        break;
+                    case 'admin':
+                        //treba da resetuje lozinku
+                        if (activeUser.password == "password") {
+                            this.props.history.push(`/adminchangepassword`)
+                        }
+                        else this.props.history.push(`/adminprofile`);
+                        break;
+    
+                    case 'main_admin':
+                        this.props.history.push(`/mainadminprofile`);
+                        break;
+    
+                    default:
+                        return 'NE ZNAM';
+    
+                }
 
-                        default:
 
-                    }
+            })
 
 
-                })
-               
-                    
-        } else{
-            this.setState({emailErrorMessage:'Email is invalid'})
-            
+
+
+
+        } else {
+            this.setState({ emailErrorMessage: 'Email is invalid' })
+
         }
 
     }
@@ -117,9 +133,9 @@ class LoginComponent extends Component {
                             <div className="form-group">
 
                                 <label style={{ position: 'absolute', left: '10px', top: '100px' }}> Email: </label>
-                                <input style={{ position: 'absolute', top: '125px' }} placeholder="Email" name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler} />                              
+                                <input style={{ position: 'absolute', top: '125px' }} placeholder="Email" name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler} />
                                 <div style={{ position: 'absolute', top: '165px', color: 'red', left: '38%' }}>{this.state.emailErrorMessage}</div>
-                                   
+
                                 <label style={{ position: 'absolute', left: '10px', top: '200px' }}> Password: </label>
                                 <input style={{ position: 'absolute', top: '225px' }} type='password' placeholder="Password" name="password" className="form-control" value={this.state.password} onChange={this.changePasswordHandler} />
 

@@ -68,6 +68,13 @@ public class UserController {
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
+
+    @GetMapping("/users/{email}/{password}")
+    public User logUser(@PathVariable("email") String email, @PathVariable("password") String password){
+        User loggedUser = userRepository.findByEmailAndPassword(email,password);
+        return loggedUser;
+    }
+
     //login
     @PostMapping("/login/{email}/{password}")
     public User loginUser(@PathVariable("email") String email, @PathVariable("password") String password)

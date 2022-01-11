@@ -102,6 +102,15 @@ import AddAdventureAppointmentComponent from './components/AddAdventureAppointme
 import AddAdventureQuickAppointmentComponent from './components/AddAdventureQuickAppointmentComponent';
 
 
+import CottageAppointmentComponent from './components/CottageAppointmentComponent';
+import AddAppointmentComponent from './components/AddAppointmentComponent';
+import AddQuickAppointmentComponent from './components/AddQuickAppointmentComponent';
+import EmailComponent from './components/EmailComponent';
+import ClientCottagesComponent from './components/ClientCottagesComponent';
+import ClientAdventuresComponent from './components/ClientAdventuresComponent';
+import ClientShipsComponent from './components/ClientShipsComponent';
+import ClientHomePageCommponent from './components/ClientHomePageComponent';
+
 const backStyle = {
   width: '100%',
   height: '800px',
@@ -119,7 +128,7 @@ else{
   let activeUser = JSON.parse(localStorage.getItem('activeUser'))
     
   switch (activeUser.type) {    
-    case 'Clinet': return( <HeaderComponent/>)      
+    case 'Client': return( <HeaderComponent/>)      
       break;
     case 'fishing_instructor': return(<FishingInstructorHeaderComponent/>)    
       break;
@@ -133,7 +142,7 @@ else{
       break;
       case '' :    return(<h1>WRONG</h1>)   
       break;
-    default: return(<Unautentifieduserheader/>) 
+    default: 
       break;
   
   }
@@ -174,6 +183,7 @@ function App() {
               <Route path = "/servicerules" component={ServiceRulesComponent}></Route>
               <Route path = "/serviceequipment" component={ServiceEquipmentComponent}></Route>
 
+
               
               <Route path = "/homepage" component={HomePageCommponent} ></Route>
 
@@ -181,6 +191,12 @@ function App() {
               <Route path = "/homepageclient" component={HomePageCommponent} ></Route>
 
               <Route path = "/login" component={LoginComponent}></Route>
+
+             
+              <Route path = "/homepage" component={HomePageCommponent} ></Route>
+              
+
+
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
 
@@ -228,6 +244,7 @@ function App() {
               <Route path = "/clientshipshistory" component={Clientshipshistorycomponent}></Route>
               <Route path= "/clientschedulecottage" component={Clientschedulecottagecomponent}></Route>
 
+
               <Route path= "/cottageappointments" component={CottageAppointmentComponent}></Route>
               <Route path= "/cottageaddappointment" component={AddAppointmentComponent}></Route>
               <Route path= "/cottageaddquickappointment" component={AddQuickAppointmentComponent}></Route>
@@ -240,9 +257,11 @@ function App() {
               <Route path= "/shipaddappointment" component={AddShipAppointmentComponent}></Route>
               <Route path= "/shipaddquickappointment" component={AddShipQuickAppointmentComponent}></Route>
 
+
               <Route path= "/clientupdateprofile/:id" component={Clientupdateprofile}></Route>
               <Route path="/deleteprofile" component={DeleteProfileComponent}></Route>
               <Route path="/profiledeletionrequestwait" component={Profiledeletionrequestwait}></Route>
+
               <Route path="/adminprofiledeletionrequests" component={AdminProfileDeletionsRequestsComponent}></Route>
               <Route path="/adminsendemail" component={AdminSendEmailComponent}></Route>
               <Route path="/adminsendemailreg" component={AdminSendEmailREGComponent}></Route>
@@ -252,6 +271,13 @@ function App() {
               <Route path="/admingraderequests" component={AdminGradeRequestsComponent}></Route>
               <Route path="/addadventureappointment" component={AddAdventureAppointmentComponent}></Route>
               <Route path="/addadventurequickappointment" component={AddAdventureQuickAppointmentComponent}></Route>
+
+ 
+              <Route path="/clientcottages" component={ClientCottagesComponent}></Route> 
+              <Route path="/clientadventures" component={ClientAdventuresComponent}></Route>
+              <Route path="/clientships" component={ClientShipsComponent}></Route>
+              <Route path="/homepageclient" component={ClientHomePageCommponent}></Route>
+
               </Switch>
           </div>
                                 

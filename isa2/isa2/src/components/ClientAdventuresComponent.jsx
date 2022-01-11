@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import AdventureService from '../services/AdventureService';
 
-class AdventuresComponent extends Component {
+class ClientAdventuresComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -10,28 +10,10 @@ class AdventuresComponent extends Component {
             adventures: []
 
         }
-        this.addAdventure = this.addAdventure.bind(this);
         this.viewAdventure = this.viewAdventure.bind(this);
-        this.deleteAdventure = this.deleteAdventure.bind(this);
-    }
-    deleteAdventure(id) {
-        AdventureService.deleteAdventure(id).then(res => {
-            this.setState({ adventures: this.state.adventures.filter(adventure => adventure.id !== id) });
-            window.location.refresh(); //zasto ni ovkao nece da refrehuje ni sa reload nece 
-        });
-    }
-    fishinginstructorprofile() {
-        this.props.history.push('/fishinginstructorprofile')
-    }
-    addAdventure() {
-        this.props.history.push("/addadventure");
-    }
+        }
     viewAdventure(id) {
         this.props.history.push(`/viewadventure/${id}`);
-    }
-    logout() {
-        localStorage.removeItem('activeUser')
-        this.props.history.push(`/login`);
     }
     adventures() {
         this.props.history.push('/adventures');
@@ -43,13 +25,11 @@ class AdventuresComponent extends Component {
         });
     }
     componentDidMount() {
-        let activeUser = JSON.parse(localStorage.getItem('activeUser'));
-
-       
-           axios.get("http://localhost:8080/api/v1/adventures/instructorid/" + activeUser.id).then((res) => {
-                this.setState({ adventures: res.data });
-           });
-       
+        
+        AdventureService.getAdventures().then((res) => {
+            this.setState({ cottages: res.data });
+        });           
+        
     }
 
     changeSearchHandler = (event) => {
@@ -58,18 +38,9 @@ class AdventuresComponent extends Component {
     render() {
         return (
             <div>
-       
-                    <div className="menu">
-                        <button onClick={() => this.fishinginstructorprofile()} > Profile</button>
-                        <button onClick={() => this.adventures()}> Adventures</button>
-
-
-                        <button className="menubtnLog" onClick={() => this.logout()} >Logout</button>
-                    </div>
-
-       
-                <button style={{position:'absolute', top:'100px', left:'1200px'}} onClick={() => this.addAdventure(this.props.match.params.id)} className="loginbtn">Add</button>
-       
+            
+            <button style={{position:'absolute', top:'100px', left:'1200px'}} className='loginbtn'>Schedule</button>
+            
                 <br />
                 <input style={{position:'absolute',top:'100px'}} name="name" value={this.state.search} onChange={this.changeSearchHandler}></input>
                 <button style={{position:'absolute',top:'100px',left:'310px', height:'35px'}} onClick={() => this.search(this.state.search)} className="loginbtn">Search</button>
@@ -104,7 +75,7 @@ class AdventuresComponent extends Component {
                                             <td>{adventures.rulesOfConduct}</td>
                                             <td>{adventures.termsOfReservation}</td>
 
-                                                <td><button onClick={() => this.deleteAdventure(adventures.id)} className="loginbtn">Delete</button></td>
+                                                <td><button onClick={() => this.viewAdventure(adventures.id)} className="loginbtn">View</button></td>
                                         </tr>
                                 )
                             }
@@ -116,4 +87,4 @@ class AdventuresComponent extends Component {
     }
 }
 
-export default AdventuresComponent;
+export default ClientAdventuresComponent;

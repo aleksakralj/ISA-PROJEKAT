@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import RegistrationRequestService from '../services/RegistrationRequestService';
-
+import ClientPointsService from '../services/ClientPointsService';
 
 class ViewRegistrationRequestComponent extends Component {
     constructor(props){
@@ -16,7 +16,10 @@ class ViewRegistrationRequestComponent extends Component {
             country:'',
             phoneNumber:'',
             type:'',
-            reason:''
+            reason:'',
+            userPoints:0,
+            userCategory:0,
+        
             
             
         }
@@ -33,9 +36,16 @@ class ViewRegistrationRequestComponent extends Component {
     }
     acceptRequest= (e) => {
         e.preventDefault();
+
+        let usersPoints = { userPoints:this.state.userPoints,userCategory:this.state.userCategory}
+        console.log('usersPoints => ' + JSON.stringify(usersPoints));
+        ClientPointsService.createClientPoints(usersPoints);
+        
         let registrationRequests = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type: this.state.type, reason:this.state.reason}
         console.log('registrationRequests => ' + JSON.stringify(registrationRequests));
+
         RegistrationRequestService.createUser(registrationRequests).then((res)=>{this.props.history.push('/adminsendemailreg')});
+
         this.denyRequest(this.props.match.params.id);
 
         

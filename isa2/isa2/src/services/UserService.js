@@ -19,5 +19,9 @@ updateUser(user,userId){
 deleteUser(userId){
     return axios.delete(USER_API_BASE_URL + '/' + userId);
 }
+getUserByEmailAndPassword(userEmail, userPassword){
+    return axios.get(USER_API_BASE_URL + '/' + userEmail + '/' + userPassword);
+}
+
 }
 export default new User();
