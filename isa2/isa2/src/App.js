@@ -95,6 +95,8 @@ import AdminSendEmailCOMComponent from './components/AdminSendEmailCOMComponent'
 import AdminSendEmailGRAComponent from './components/AdminSendEmailGRAComponent';
 import AdminComplaintsComponent from './components/AdminComplaintsComponent';
 import AdminGradeRequestsComponent from './components/AdminGradeRequestsComponent';
+import AddAdventureAppointmentComponent from './components/AddAdventureAppointmentComponent';
+import AddAdventureQuickAppointmentComponent from './components/AddAdventureQuickAppointmentComponent';
 
 const backStyle = {
   width: '100%',
@@ -244,7 +246,8 @@ function App() {
               <Route path="/adminsendemailgra" component={AdminSendEmailGRAComponent}></Route>
               <Route path="/admincomplaints" component={AdminComplaintsComponent}></Route>
               <Route path="/admingraderequests" component={AdminGradeRequestsComponent}></Route>
-
+              <Route path="/addadventureappointment" component={AddAdventureAppointmentComponent}></Route>
+              <Route path="/addadventurequickappointment" component={AddAdventureQuickAppointmentComponent}></Route>
               </Switch>
           </div>
                                 
