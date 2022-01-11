@@ -28,9 +28,9 @@
 .menu {
   position: absolute;
   left: 0;
-  top:50px;
+  top:0px;
   width: 280px;
-  height: 90%;
+  height: 100%;
   background-color:#318f6e;
   text-align: center;
   color: white;
