@@ -1,7 +1,8 @@
+
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class CottageOwnerProfileComponent extends Component {
+class ShipOwnerProfileComponent extends Component {
     constructor(props){
         super(props)
         this.state={
@@ -42,7 +43,6 @@ class CottageOwnerProfileComponent extends Component {
     }
     
     logout(){
-       
         localStorage.clear();
         this.props.history.push(`/login`);
        
@@ -78,16 +78,14 @@ class CottageOwnerProfileComponent extends Component {
         this.setState({phoneNumber: event.target.value});
     }
 
-    cottages()
+    myShips()
     {
-        
-        this.props.history.push(`/cottageownercottages`);
-
+        this.props.history.push(`/shipownerships`);
     }
 
     update(){
 
-        let cottageOwner = {
+        let shipOwner = {
 
             id:this.state.id,
             email: this.state.email,
@@ -98,14 +96,14 @@ class CottageOwnerProfileComponent extends Component {
             city:this.state.city,
             country:this.state.country,
             phoneNumber:this.state.phoneNumber,
-            type:"cottage_owner",
+            type:"ship_owner",
 
 
         }
         let coid = this.state.id;
 
-        console.log('cottageOwner => ' + JSON.stringify(cottageOwner));
-        axios.put("http://localhost:8080/api/v1/users/" +coid,cottageOwner);
+        console.log('shipOwner => ' + JSON.stringify(shipOwner));
+        axios.put("http://localhost:8080/api/v1/users/" +coid,shipOwner);
         this.props.history.push(`/login`);
 
         
@@ -113,8 +111,7 @@ class CottageOwnerProfileComponent extends Component {
     
     componentDidMount(){
 
-        localStorage.removeItem('activeCottage');
-        localStorage.removeItem('activeRoom');
+        
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
 
             this.setState({
@@ -130,6 +127,8 @@ class CottageOwnerProfileComponent extends Component {
             type:activeUser.type
 
             });
+            localStorage.clear();
+            localStorage.setItem('activeUser',JSON.stringify(activeUser));
         
     }
 
@@ -139,7 +138,7 @@ class CottageOwnerProfileComponent extends Component {
             <div>
                 <div className="menu">
                                 <button>Profile</button>
-                                <button onClick={()=>this.cottages()}>My cottages</button>
+                                <button onClick={()=>this.myShips()}>My ships</button>
                                 <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>
                 </div>
                 <div className="registrationdiv">
@@ -180,4 +179,4 @@ class CottageOwnerProfileComponent extends Component {
     }
 }
 
-export default CottageOwnerProfileComponent;
+export default ShipOwnerProfileComponent;

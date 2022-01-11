@@ -21,6 +21,11 @@ class RoomProfileComponent extends Component {
      
        
     }
+    logout(){
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
+    }
     profile()
     {
         

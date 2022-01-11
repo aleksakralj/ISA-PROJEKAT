@@ -66,6 +66,21 @@ import ClientCottageHistoryComponent from './components/ClientCottageHistoryComp
 import Clientadvenutreshistorycomponent from './components/ClientAdvenutresHistoryComponent';
 import Clientshipshistorycomponent from './components/ClientShipsHistoryComponent';
 import Clientschedulecottagecomponent from './components/ClientScheduleCottageComponent';
+
+
+import CottageAppointmentComponent from './components/CottageAppointmentComponent';
+import AddAppointmentComponent from './components/AddAppointmentComponent';
+import AddQuickAppointmentComponent from './components/AddQuickAppointmentComponent';
+import EmailComponent from './components/EmailComponent';
+import ShipOwnerProfileComponent from './components/ShipOwnerProfileComponent';
+import ShipOwnerShipsComponent from './components/ShipOwnerShipsComponent';
+import AddShipComponent from './components/AddShipComponent';
+import ShipProfileSOComponent from './components/ShipProfileSOComponent';
+import ShipAppointmentComponent from './components/ShipAppointmentComponent';
+import AddShipAppointmentComponent from './components/AddShipAppointmentComponent';
+import AddShipQuickAppointmentComponent from './components/AddShipQuickAppointment';
+
+
 import Clientupdateprofile from './components/ClientUpdateProfile';
 import DeleteProfileComponent from './components/DeleteProfileComponent';
 import Profiledeletionrequestwait from './components/ProfileDeletionRequestWait';
@@ -80,6 +95,7 @@ import AdminSendEmailCOMComponent from './components/AdminSendEmailCOMComponent'
 import AdminSendEmailGRAComponent from './components/AdminSendEmailGRAComponent';
 import AdminComplaintsComponent from './components/AdminComplaintsComponent';
 import AdminGradeRequestsComponent from './components/AdminGradeRequestsComponent';
+
 const backStyle = {
   width: '100%',
   height: '800px',
@@ -151,8 +167,13 @@ function App() {
               <Route path = "/servicereservations" component={ServiceFreeReservationsComponent}></Route>
               <Route path = "/servicerules" component={ServiceRulesComponent}></Route>
               <Route path = "/serviceequipment" component={ServiceEquipmentComponent}></Route>
-              <Route path = "/serviceprice" component={ServicePriceComponent}></Route>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- +             <Route path = "/homepageclient" component={HomePageCommponent} ></Route>
+
+              
+              <Route path = "/homepage" component={HomePageCommponent} ></Route>
+
+              <Route path = "/serviceprice" component={ServicePriceComponent}></Route>
+              <Route path = "/homepageclient" component={HomePageCommponent} ></Route>
+
               <Route path = "/login" component={LoginComponent}></Route>
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
@@ -200,6 +221,19 @@ function App() {
               <Route path = "/clientadventureshistory" component={Clientadvenutreshistorycomponent}></Route>
               <Route path = "/clientshipshistory" component={Clientshipshistorycomponent}></Route>
               <Route path= "/clientschedulecottage" component={Clientschedulecottagecomponent}></Route>
+
+              <Route path= "/cottageappointments" component={CottageAppointmentComponent}></Route>
+              <Route path= "/cottageaddappointment" component={AddAppointmentComponent}></Route>
+              <Route path= "/cottageaddquickappointment" component={AddQuickAppointmentComponent}></Route>
+              <Route path= "/shipownerprofile" component={ShipOwnerProfileComponent}></Route>
+              <Route path= "/email" component={EmailComponent}></Route>
+              <Route path= "/shipownerships" component={ShipOwnerShipsComponent}></Route>
+              <Route path= "/addship" component={AddShipComponent}></Route>
+              <Route path= "/shipprofileso" component={ShipProfileSOComponent}></Route>
+              <Route path= "/shipappointments" component={ShipAppointmentComponent}></Route>
+              <Route path= "/shipaddappointment" component={AddShipAppointmentComponent}></Route>
+              <Route path= "/shipaddquickappointment" component={AddShipQuickAppointmentComponent}></Route>
+
               <Route path= "/clientupdateprofile/:id" component={Clientupdateprofile}></Route>
               <Route path="/deleteprofile" component={DeleteProfileComponent}></Route>
               <Route path="/profiledeletionrequestwait" component={Profiledeletionrequestwait}></Route>
@@ -210,6 +244,7 @@ function App() {
               <Route path="/adminsendemailgra" component={AdminSendEmailGRAComponent}></Route>
               <Route path="/admincomplaints" component={AdminComplaintsComponent}></Route>
               <Route path="/admingraderequests" component={AdminGradeRequestsComponent}></Route>
+
               </Switch>
           </div>
                                 

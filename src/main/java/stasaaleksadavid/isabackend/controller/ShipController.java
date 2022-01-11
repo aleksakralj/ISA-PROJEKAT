@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
+import stasaaleksadavid.isabackend.model.CottageFreeAppointment;
 import stasaaleksadavid.isabackend.model.Ship;
 import stasaaleksadavid.isabackend.repository.ShipRepository;
 
@@ -45,11 +46,18 @@ public class ShipController {
 
         ship.setOwnerId(shipDetails.getOwnerId());
         ship.setName(shipDetails.getName());
+        ship.setType(shipDetails.getType());
+        ship.setLength(shipDetails.getLength());
+        ship.setNumberOfEngines(shipDetails.getNumberOfEngines());
+        ship.setHp(shipDetails.getHp());
+        ship.setTopSpeed(shipDetails.getTopSpeed());
+        ship.setNavigation(shipDetails.getNavigation());
         ship.setAddress(shipDetails.getAddress());
         ship.setDescription(shipDetails.getDescription());
-        ship.setRating(shipDetails.getRating());
-        ship.setRulesOfConduct(shipDetails.getRulesOfConduct());
-        ship.setTermsOfReservation(shipDetails.getTermsOfReservation());
+        ship.setCapacity(shipDetails.getCapacity());
+        ship.setRules(shipDetails.getRules());
+        ship.setFishingEquipment(shipDetails.getFishingEquipment());
+
 
 
         Ship updatedShip = shipRepository.save(ship);
@@ -67,5 +75,9 @@ public class ShipController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
+    }
+    @GetMapping("/ships/owner/{ownerid}")
+    public List<Ship> getShipsByOwnerId(@PathVariable Long ownerid) {
+        return shipRepository.findByOwnerId(ownerid);
     }
 }

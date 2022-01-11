@@ -46,12 +46,12 @@ public class CottageFreeAppointmentController {
     public ResponseEntity<CottageFreeAppointment> updateCottageFreeAppointment(@PathVariable Long id, @RequestBody CottageFreeAppointment cottageFreeAppointmentDetails) {
         CottageFreeAppointment cottageFreeAppointment = cottageFreeAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageFreeAppointment does not exist with id:" + id));
 
-
+        cottageFreeAppointment.setCottageId(cottageFreeAppointmentDetails.getCottageId());
         cottageFreeAppointment.setStartingDate(cottageFreeAppointmentDetails.getStartingDate());
         cottageFreeAppointment.setEndingDate(cottageFreeAppointmentDetails.getEndingDate());
         cottageFreeAppointment.setNumberOfPeople(cottageFreeAppointmentDetails.getNumberOfPeople());
         cottageFreeAppointment.setAdditionalServices(cottageFreeAppointmentDetails.getAdditionalServices());
-        cottageFreeAppointment.setPrice(cottageFreeAppointment.getPrice());
+        cottageFreeAppointment.setPrice(cottageFreeAppointmentDetails.getPrice());
 
 
         CottageFreeAppointment updatedCottageFreeAppointment = cottageFreeAppointmentRepository.save(cottageFreeAppointment);
@@ -69,5 +69,10 @@ public class CottageFreeAppointmentController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/cottagefreeappointments/cottage/{cottageid}")
+    public List<CottageFreeAppointment> getFreeAppointmentByCottageId(@PathVariable Long cottageid) {
+        return cottageFreeAppointmentRepository.findByCottageId(cottageid);
     }
 }
