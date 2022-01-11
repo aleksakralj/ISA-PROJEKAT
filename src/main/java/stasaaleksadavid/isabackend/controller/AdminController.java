@@ -3,6 +3,7 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.Admin;
@@ -23,16 +24,19 @@ public class AdminController {
     //get all
 
     @GetMapping("/admins")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Admin> getAllAdmins(){return adminRepository.findAll();}
 
     //create
     @PostMapping("/admins")
+    @PreAuthorize("hasRole('ADMIN')")
     public  Admin createAdmin(@RequestBody Admin admin){
         return adminRepository.save(admin);
     }
 
     //get by id
     @GetMapping("/admins/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity <Admin> getAdminById(@PathVariable Long id){
         Admin admin = adminRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Admin does not exist with id:"+ id));
         return ResponseEntity.ok(admin);
@@ -40,6 +44,7 @@ public class AdminController {
 
    //update
     @PutMapping("/admins/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Admin> updateAdmin(@PathVariable Long id,@RequestBody Admin adminDetails){
         Admin admin = adminRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Admin does not exist with id:"+ id));
 
@@ -60,6 +65,7 @@ public class AdminController {
 
     //delete
     @DeleteMapping("/admins/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public Map<String, Boolean> deleteAdmin(@PathVariable Long id){
 
         Admin admin = adminRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Admin does not exist with id:"+ id));

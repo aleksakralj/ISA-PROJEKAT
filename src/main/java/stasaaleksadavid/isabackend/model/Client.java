@@ -52,11 +52,13 @@ public class Client {
         this.address = address;
         this.country = country;
         this.phoneNumber = phoneNumber;
+
     }
 
     public String getEmail() {
         return email;
     }
+
 
     public void setEmail(String email) {
         this.email = email;
