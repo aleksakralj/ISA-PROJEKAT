@@ -95,8 +95,12 @@ import AdminSendEmailCOMComponent from './components/AdminSendEmailCOMComponent'
 import AdminSendEmailGRAComponent from './components/AdminSendEmailGRAComponent';
 import AdminComplaintsComponent from './components/AdminComplaintsComponent';
 import AdminGradeRequestsComponent from './components/AdminGradeRequestsComponent';
+
+import CottageOwnerHeaderComponent from './components/CottageOwnerHeaderComponent';
+
 import AddAdventureAppointmentComponent from './components/AddAdventureAppointmentComponent';
 import AddAdventureQuickAppointmentComponent from './components/AddAdventureQuickAppointmentComponent';
+
 
 const backStyle = {
   width: '100%',
@@ -119,9 +123,9 @@ else{
       break;
     case 'fishing_instructor': return(<FishingInstructorHeaderComponent/>)    
       break;
-    case 'ship_owner':  return(<h1>Nestoo</h1>)  
+    case 'ship_owner':  return(<div><br/><br/><br/></div>)  
       break;
-    case 'cottage_owner':   return(<h1>Nestoo</h1>)   
+    case 'cottage_owner':   return(<div><br/><br/><br/></div>)   
       break;
       case 'admin':    return(<AdminHeaderComponent/>)   
       break;
