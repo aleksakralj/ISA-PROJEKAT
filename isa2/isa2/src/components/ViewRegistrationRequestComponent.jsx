@@ -21,72 +21,21 @@ class ViewRegistrationRequestComponent extends Component {
             
         }
        
-        
-       
-        this.adminprofile = this.adminprofile.bind(this);
-        this.logout= this.logout.bind(this); 
-        this.income= this.income.bind(this);
-        this.addadmin= this.addadmin.bind(this);
-        this.regreq= this.regreq.bind(this);
-
-        this.cottageowners=this.cottageowners.bind(this);
-        this.cottages=this.cottages.bind(this);
-        this.shipowners=this.shipowners.bind(this);
-        this.ships=this.ships.bind(this);
-        this.fishinginstructors=this.fishinginstructors.bind(this);
-        this.clients=this.clients.bind(this);
-        
-
-
+    
         this.acceptRequest= this.acceptRequest.bind(this);
     }
-    adminprofile(){
-        this.props.history.push('/adminprofile');
-    }
-    addadmin(){
-        this.props.history.push('/addadmin');
-    }
-    regreq(){
-        this.props.history.push('/registrationrequests');
-    }
-    income(){
-        this.props.history.push('/income');
-    }
-    cottageowners(){
-        this.props.history.push('/cottageowners');
-    }
-    cottages(){
-        this.props.history.push('/cottages');
-    }
-    shipowners(){
-        this.props.history.push('/shipowners');
-    }
-    ships(){
-        this.props.history.push('/ships');
-    }
-    fishinginstructors(){
-        this.props.history.push('/fishinginstructors');
-    }
-    clients(){
-        this.props.history.push('/clients');
-    }
     
-    logout(){
-        localStorage.removeItem('activeUser')
-        this.props.history.push(`/login`);
-    
-    }
     denyRequest(id){
         RegistrationRequestService.deleteRegistrationRequest(id).then(res=>{
                 this.setState({registrationRequests: this.state.registrationRequests.filter(request=>request.id !==id)});
-                this.props.history.push("/registrationrequests"); // refresh ne radi nzm zasto
+                this.props.history.push("/adminsendemailreg"); // refresh ne radi nzm zasto
         });
     }
     acceptRequest= (e) => {
         e.preventDefault();
         let registrationRequests = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type: this.state.type, reason:this.state.reason}
         console.log('registrationRequests => ' + JSON.stringify(registrationRequests));
-        RegistrationRequestService.createUser(registrationRequests).then((res)=>{this.props.history.push('/registrationrequests')});
+        RegistrationRequestService.createUser(registrationRequests).then((res)=>{this.props.history.push('/adminsendemailreg')});
         this.denyRequest(this.props.match.params.id);
 
         
@@ -138,20 +87,7 @@ class ViewRegistrationRequestComponent extends Component {
     render() {
         return (
             <div>
-                 <div className="menu">
-                <button onClick={this.adminprofile} > Profile</button>
-                <button onClick={this.regreq}> Registration requests</button>
-                <button onClick={this.income}> Income </button>
-                <button onClick={this.cottageowners}> Cottage owners </button>
-                <button onClick={this.cottages}> Cottages </button>
-                <button onClick={this.shipowners}> Ship owners </button>
-                <button onClick={this.ships}> Ships </button>
-                <button onClick={this.fishinginstructors}> Fishing instructors </button>
-                <button onClick={this.clients}> Clients </button>
-
-                <button className="menubtnLog" onClick={this.loguot} >Logout</button>
-                </div>
-                
+                 
                 <div className="registrationdiv">
                     <br/><br/>
                                 <label> Email: </label>
@@ -184,6 +120,7 @@ class ViewRegistrationRequestComponent extends Component {
 
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={this.acceptRequest}>Accept</button></div>
+                                <div className="center"><button className="loginbtn" onClick={this.denyRequest}>Deny</button></div>
 
                 </div>
             </div>

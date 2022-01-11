@@ -74,7 +74,12 @@ import Unautentifieduserheader from './components/UnautentifiedUserHeader';
 import AdminHeaderComponent from './components/AdminHeaderComponent';
 import MainAdminHeaderComponent from './components/MainAdminHeaderComponent';
 import FishingInstructorHeaderComponent from './components/FishingInstructorHeaderComponent';
-import SendEmailComponent from './components/SendEmailComponent';
+import AdminSendEmailComponent from './components/AdminSendEmailComponent';
+import AdminSendEmailREGComponent from './components/AdminSendEmailREGComponent';
+import AdminSendEmailCOMComponent from './components/AdminSendEmailCOMComponent';
+import AdminSendEmailGRAComponent from './components/AdminSendEmailGRAComponent';
+import AdminComplaintsComponent from './components/AdminComplaintsComponent';
+import AdminGradeRequestsComponent from './components/AdminGradeRequestsComponent';
 const backStyle = {
   width: '100%',
   height: '800px',
@@ -199,7 +204,12 @@ function App() {
               <Route path="/deleteprofile" component={DeleteProfileComponent}></Route>
               <Route path="/profiledeletionrequestwait" component={Profiledeletionrequestwait}></Route>
               <Route path="/adminprofiledeletionrequests" component={AdminProfileDeletionsRequestsComponent}></Route>
-              <Route path="/sendmail" component={SendEmailComponent}></Route>
+              <Route path="/adminsendemail" component={AdminSendEmailComponent}></Route>
+              <Route path="/adminsendemailreg" component={AdminSendEmailREGComponent}></Route>
+              <Route path="/adminsendemailcom" component={AdminSendEmailCOMComponent}></Route>
+              <Route path="/adminsendemailgra" component={AdminSendEmailGRAComponent}></Route>
+              <Route path="/admincomplaints" component={AdminComplaintsComponent}></Route>
+              <Route path="/admingraderequests" component={AdminGradeRequestsComponent}></Route>
               </Switch>
           </div>
                                 

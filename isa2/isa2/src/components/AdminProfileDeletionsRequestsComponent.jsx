@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import UserService from '../services/UserService';
 import ProfileDeletionRequestService from '../services/ProfileDeletionRequestService';
 import axios from 'axios';
-import emailjs from "emailjs-com";
+
 
 
 
@@ -11,16 +11,31 @@ class AdminProfileDeletionsRequestsComponent extends Component {
     constructor(props) {
         super(props);
         this.state= {
-            profiledeletionrequests:[],
-            feedback:''
+            profiledeletionrequests:[]
         }
-        this.changeFeedbackHandler = this.changeFeedbackHandler.bind(this);
-	    this.acceptDeletion = this.acceptDeletion.bind(this);
+        
+        this.writeResponse = this.writeResponse.bind(this);
        
     }
     
+    writeResponse(userId,id){
+        axios
+        .get("http://localhost:8080/api/v1/users/" + userId )
+        .then(response => {
+            localStorage.setItem('activeRecipient',JSON.stringify(response.data));
+            
+            });
+        
+        axios
+        .get( "http://localhost:8080/api/v1/profiledeletionrequests/"+ id )
+        .then(response => {
+            localStorage.setItem('activeRequest', JSON.stringify(response.data));
+            
+            });
+        this.props.history.push('/adminsendemail');
+    }
     
-     acceptDeletion(userId,id){
+     /*acceptDeletion(userId,id){
         
         UserService.deleteUser(userId);  
 
@@ -42,41 +57,12 @@ class AdminProfileDeletionsRequestsComponent extends Component {
         window.location.reload();
 
      }
-     novisend(){
-         //e.preventDefault();
-
-         emailjs.send('gmail', 'template_633ebld', {user_email: 'gedgedfor@gmail.com'},'user_8ZDv9VEXQIiu7UptSVwB3')
-         .then((result)=>{
-             console.log(result.text);
-         },
-         (error)=>{console.log(error.text);});
-
-     }
-     sendi(userEmail){
-        const templateId = 'template_633ebld';
-
-        this.sendFeedback(templateId, {message_html: this.state.feedback, from_name: "FISHING BOOKER team", user_email: userEmail})
-      
-     }
-     sendFeedback (templateId, variables) {
-        emailjs.send(
-          'gmail', templateId,
-          variables
-          ).then(res => {
-            console.log('Email successfully sent!')
-          })
-          
-          .catch(err => console.error('Oh well, you failed. Here some thoughts on the error that occured:', err))
-      }
-      changeFeedbackHandler(event) {
-        this.setState({feedback: event.target.value})
-      }
+*/
+   
      componentDidMount(){
         ProfileDeletionRequestService.getProfileDeletionRequests().then((res)=>{
                  this.setState({profiledeletionrequests: res.data});
          });
-        
-        
      } 
  
     render() {
@@ -94,7 +80,6 @@ class AdminProfileDeletionsRequestsComponent extends Component {
                                 <th>User Id</th>
                                 <th>User type</th>
                                 <th>Reason for deletion</th>
-                                <th>Message for user</th>
                                 
                                 <th>Action</th>
                             </tr>
@@ -109,18 +94,9 @@ class AdminProfileDeletionsRequestsComponent extends Component {
                                         <td>{profiledeletionrequests.userId}</td>
                                         <td>{profiledeletionrequests.userType}</td>
                                         <td>{profiledeletionrequests.reason}</td>
-                                        <td><textarea 
-                                                id="test-mailing"
-                                                name="test-mailing"
-                                                required
-                                                value={this.state.feedback}
-                                                onChange={this.changeFeedbackHandler} 
-                                                style={{width:'400px', height:'70px'}}>
-                                            </textarea> <br/>
-                                            <button onClick={()=>this.novisend(profiledeletionrequests.userEmail)}  className="loginbtn">Send</button>
-                                        </td>
-                                        <td><button onClick={()=>this.acceptDeletion(profiledeletionrequests.userId,profiledeletionrequests.id)} className="loginbtn">Accept</button>
-                                        <button onClick={()=>this.denyDeletion(profiledeletionrequests.id)}  className="loginbtn">Deny</button></td>
+                                        
+                                        <td><button onClick={()=>this.writeResponse(profiledeletionrequests.userId,profiledeletionrequests.id)} className="loginbtn"> Respond </button></td>
+                                        
                                        
                                     </tr>
                                 )
