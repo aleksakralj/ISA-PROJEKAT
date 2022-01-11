@@ -102,10 +102,7 @@ import AddAdventureAppointmentComponent from './components/AddAdventureAppointme
 import AddAdventureQuickAppointmentComponent from './components/AddAdventureQuickAppointmentComponent';
 
 
-import CottageAppointmentComponent from './components/CottageAppointmentComponent';
-import AddAppointmentComponent from './components/AddAppointmentComponent';
-import AddQuickAppointmentComponent from './components/AddQuickAppointmentComponent';
-import EmailComponent from './components/EmailComponent';
+
 import ClientCottagesComponent from './components/ClientCottagesComponent';
 import ClientAdventuresComponent from './components/ClientAdventuresComponent';
 import ClientShipsComponent from './components/ClientShipsComponent';
