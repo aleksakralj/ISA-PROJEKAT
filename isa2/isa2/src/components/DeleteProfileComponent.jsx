@@ -10,7 +10,6 @@ class DeleteProfileComponent extends Component {
             reason:''
         }
 
-        this.cancelDelition=this.cancelDelition.bind(this)
         this.requestDeletion=this.requestDeletion.bind(this)
         this.changeReqsonHendler=this.changeReqsonHendler.bind(this)
     }
@@ -29,9 +28,7 @@ class DeleteProfileComponent extends Component {
             this.props.history.push('profiledeletionrequestwait')
         });
     }
-    cancelDelition(){
-        this.props.history.push("/clientprofile");
-    }
+   
     render() {
         return (
             <div>
@@ -41,8 +38,7 @@ class DeleteProfileComponent extends Component {
 
                 <div style={{position: 'absolute', top: '400px', left: '850px'}}>
                         <button onClick={this.requestDeletion} style={{width:'150px',height:'60px', position: 'absolute',  left: '200px' ,backgroundColor:'peachpuff'}}>Delete</button>
-                        <button onClick={this.cancelDelition} style={{width:'150px',height:'60px', position: 'absolute',  left: '380px'}}  >Cancel</button>
-                    </div>
+                         </div>
             </div>
         );
     }

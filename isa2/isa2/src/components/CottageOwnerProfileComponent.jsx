@@ -77,7 +77,9 @@ class CottageOwnerProfileComponent extends Component {
     changePhoneNumberHandler = (event) => {
         this.setState({phoneNumber: event.target.value});
     }
-
+    deleteprofile(){
+        this.props.history.push(`/deleteprofile`);
+    }
     cottages()
     {
         
@@ -169,9 +171,9 @@ class CottageOwnerProfileComponent extends Component {
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.update()}>Update</button></div>
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.deleteprofile(this.state.id)}>Delete</button></div>
-                                <br/>
                                 
+                                <div className="center"><button  onClick={()=>this.deleteprofile()} className="loginbtn" >Delete account </button></div>
+
 
                 </div>
             </div>
