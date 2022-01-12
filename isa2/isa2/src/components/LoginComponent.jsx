@@ -45,7 +45,7 @@ class LoginComponent extends Component {
                     case 'fishing_instructor':
                         this.props.history.push(`/fishinginstructorprofile`);
                         
-    
+                        break;
                     case 'ship_owner':
                         this.props.history.push(`/shipownerprofile`);
                         break;
@@ -115,9 +115,8 @@ class LoginComponent extends Component {
 
 
     componentDidMount() {
-        // localStorage.removeItem('activeUser');
-        localStorage.removeItem('activeCottage');
-        localStorage.removeItem('activeRoom');
+        //localStorage.clear(); Ne moze da stoji jer sam backuje na login page u procesu logina
+        
 
     }
 
@@ -139,7 +138,7 @@ class LoginComponent extends Component {
                                 <label style={{ position: 'absolute', left: '10px', top: '200px' }}> Password: </label>
                                 <input style={{ position: 'absolute', top: '225px' }} type='password' placeholder="Password" name="password" className="form-control" value={this.state.password} onChange={this.changePasswordHandler} />
 
-                                <div style={{ position: 'absolute', top: '315px' }} className="center"><button className="loginbtn" onClick={this.login}>Login</button></div>
+                                <div style={{ position: 'absolute', top: '315px' }} className="center"><button className="loginbtn" onClick={()=>this.login()}>Login</button></div>
                             </div>
 
 

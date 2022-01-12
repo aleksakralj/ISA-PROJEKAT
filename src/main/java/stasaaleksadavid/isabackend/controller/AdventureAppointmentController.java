@@ -45,12 +45,14 @@ public class AdventureAppointmentController {
         AdventureAppointment adventureAppointment = adventureAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("AdventureAppointment does not exist with id:" + id));
 
         adventureAppointment.setClientId(adventureAppointmentDetails.getClientId());
-        adventureAppointment.setInstructorId(adventureAppointmentDetails.getInstructorId());
+        adventureAppointment.setAdventureId(adventureAppointmentDetails.getAdventureId());
         adventureAppointment.setStartingDate(adventureAppointmentDetails.getStartingDate());
         adventureAppointment.setEndingDate(adventureAppointmentDetails.getEndingDate());
         adventureAppointment.setNumberOfPeople(adventureAppointmentDetails.getNumberOfPeople());
         adventureAppointment.setAdditionalServices(adventureAppointmentDetails.getAdditionalServices());
         adventureAppointment.setPrice(adventureAppointmentDetails.getPrice());
+        adventureAppointment.setLocation(adventureAppointmentDetails.getLocation());
+        adventureAppointment.setInstructorId(adventureAppointmentDetails.getInstructorId());
 
 
         AdventureAppointment updatedAdventureAppointment = adventureAppointmentRepository.save(adventureAppointment);
@@ -71,8 +73,13 @@ public class AdventureAppointmentController {
     }
 
 
-    @GetMapping("/adventureappointments/adventure/{instructorid}")
-    public List<AdventureAppointment> getAppointmentByAdventureId(@PathVariable Long instructorid) {
+    @GetMapping("/adventureappointments/instructor/{instructorid}")
+    public List<AdventureAppointment> getAppointmentByInstructorId(@PathVariable Long instructorid) {
         return adventureAppointmentRepository.findByInstructorId(instructorid);
+    }
+
+    @GetMapping("/adventureappointments/adventure/{adventureid}")
+    public List<AdventureAppointment> getAppointmentByAdventureId(@PathVariable Long adventureid) {
+        return adventureAppointmentRepository.findByAdventureId(adventureid);
     }
 }
