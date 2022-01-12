@@ -20,22 +20,22 @@ class AdventuresComponent extends Component {
             window.location.refresh(); //zasto ni ovkao nece da refrehuje ni sa reload nece 
         });
     }
-    fishinginstructorprofile() {
-        this.props.history.push('/fishinginstructorprofile')
-    }
+    
     addAdventure() {
         this.props.history.push("/addadventure");
     }
     viewAdventure(id) {
-        this.props.history.push(`/viewadventure/${id}`);
+
+        axios
+        .get("http://localhost:8080/api/v1/adventures/" + id )
+        .then(response => {
+            localStorage.setItem('activeAdventure',JSON.stringify(response.data));
+            this.props.history.push(`/viewadventure`);
+        });
+
+        
     }
-    logout() {
-        localStorage.removeItem('activeUser')
-        this.props.history.push(`/login`);
-    }
-    adventures() {
-        this.props.history.push('/adventures');
-    }
+    
     search(search) {
         //this.setState({seach: this.state.seach})
         axios.get("http://localhost:8080/api/v1/adventures/name/" + search).then((res) => {
@@ -43,7 +43,9 @@ class AdventuresComponent extends Component {
         });
     }
     componentDidMount() {
-        let activeUser = JSON.parse(localStorage.getItem('activeUser'));
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        localStorage.clear();
+        localStorage.setItem('activeUser',JSON.stringify(activeUser));
 
        
            axios.get("http://localhost:8080/api/v1/adventures/instructorid/" + activeUser.id).then((res) => {
@@ -54,18 +56,14 @@ class AdventuresComponent extends Component {
 
     changeSearchHandler = (event) => {
         this.setState({ search: event.target.value });
+        
+
     }
     render() {
         return (
             <div>
        
-                    <div className="menu">
-                        <button onClick={() => this.fishinginstructorprofile()} > Profile</button>
-                        <button onClick={() => this.adventures()}> Adventures</button>
-
-
-                        <button className="menubtnLog" onClick={() => this.logout()} >Logout</button>
-                    </div>
+                    
 
        
                 <button style={{position:'absolute', top:'100px', left:'1200px'}} onClick={() => this.addAdventure(this.props.match.params.id)} className="loginbtn">Add</button>
@@ -104,6 +102,7 @@ class AdventuresComponent extends Component {
                                             <td>{adventures.rulesOfConduct}</td>
                                             <td>{adventures.termsOfReservation}</td>
 
+                                                <td><button onClick={() => this.viewAdventure(adventures.id)} className="loginbtn">View</button></td>
                                                 <td><button onClick={() => this.deleteAdventure(adventures.id)} className="loginbtn">Delete</button></td>
                                         </tr>
                                 )

@@ -92,17 +92,19 @@ class CottageAppointmentComponent extends Component {
         this.props.history.push(`/cottageaddquickappointment`);
 
     }
-    email(){    
-        this.props.history.push(`/email`);
+    
+    cottages(){
+        this.props.history.push(`/cottageownercottages`);
     }
-
     cottageprofile()
     {
         
         this.props.history.push(`/cottageprofile`);
 
     }
-
+    profile(){
+        this.props.history.push(`/cottageownerprofile`);
+    }
 
     componentDidMount(){
 
@@ -136,8 +138,8 @@ class CottageAppointmentComponent extends Component {
 
                <button onClick={()=>this.cottageprofile()}>Cottage profile</button>
 
-               <button onClick={()=>this.viewRooms(this.state.id)}>Rooms</button>
-               <button onClick={()=>this.viewAppointmets(this.state.id)}>Appointments</button>
+               
+               <button >Appointments</button>
                <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>
                 </div>
                 <div className="registrationdiv">
@@ -149,8 +151,7 @@ class CottageAppointmentComponent extends Component {
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.AddQuickAppointment()}>Add Quick Appointment</button></div>
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.email()}>Email</button></div>
-                                <br/>
+                                
 
                 </div>
             </div>

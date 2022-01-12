@@ -69,7 +69,18 @@ class ShipAppointmentComponent extends Component {
     shipProfile(){
         this.props.history.push(`/shipprofileso`);
     }
+    profile()
+    {
+        
+        this.props.history.push(`/shipownerprofile`);
 
+    }
+    ships()
+    {
+        
+        this.props.history.push(`/shipownerships`);
+
+    }
 
     componentDidMount(){
 

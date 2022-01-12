@@ -44,6 +44,9 @@ class AddAdventureQuickAppointmentComponent extends Component {
     changeAdditionalServicesHandler = (event) => {
         this.setState({additionalServices: event.target.value});
     }
+    changeLocationHandler= (event) => {
+        this.setState({location: event.target.value});
+    }
     
     DateTimeIsEmpty(appointment){
         var today = new Date();
@@ -59,13 +62,13 @@ class AddAdventureQuickAppointmentComponent extends Component {
             else{
                 for(let i = 0; i < this.state.allFreeAppointments.length; i++) {    //prolaz kroz sve iz FREE baze
                                
-                    if(this.state.allFreeAppointments[i].startingDate > appointment.startingDate && this.state.allFreeAppointments[i].startingDate < appointment.endingDate){return false}  
+                    if(this.state.allFreeAppointments[i].startingDate >= appointment.startingDate && this.state.allFreeAppointments[i].startingDate <= appointment.endingDate){return false}  
                     
                     else{   
-                        if(this.state.allFreeAppointments[i].endingDate > appointment.startingDate && this.state.allFreeAppointments[i].endingDate < appointment.endingDate){return false}
+                        if(this.state.allFreeAppointments[i].endingDate >= appointment.startingDate && this.state.allFreeAppointments[i].endingDate <= appointment.endingDate){return false}
 
                         else{   
-                            if(this.state.allFreeAppointments[i].startingDate < appointment.startingDate && this.state.allFreeAppointments[i].endingDate > appointment.endingDate){return false}
+                            if(this.state.allFreeAppointments[i].startingDate <= appointment.startingDate && this.state.allFreeAppointments[i].endingDate >= appointment.endingDate){return false}
 
                         }
                     }
@@ -73,13 +76,13 @@ class AddAdventureQuickAppointmentComponent extends Component {
                   }
                   for(let i = 0; i < this.state.allScheduledAppointments.length; i++) {    //prolaz kroz sve iz SCHEDULED baze
                                
-                    if(this.state.allScheduledAppointments[i].startingDate > appointment.startingDate && this.state.allScheduledAppointments[i].startingDate < appointment.endingDate){return false}  
+                    if(this.state.allScheduledAppointments[i].startingDate >= appointment.startingDate && this.state.allScheduledAppointments[i].startingDate <= appointment.endingDate){return false}  
                     
                     else{   
-                        if(this.state.allScheduledAppointments[i].endingDate > appointment.startingDate && this.state.allScheduledAppointments[i].endingDate < appointment.endingDate){return false}
+                        if(this.state.allScheduledAppointments[i].endingDate >= appointment.startingDate && this.state.allScheduledAppointments[i].endingDate <= appointment.endingDate){return false}
 
                         else{   
-                            if(this.state.allScheduledAppointments[i].startingDate < appointment.startingDate && this.state.allScheduledAppointments[i].endingDate > appointment.endingDate){return false}
+                            if(this.state.allScheduledAppointments[i].startingDate <= appointment.startingDate && this.state.allScheduledAppointments[i].endingDate >= appointment.endingDate){return false}
 
                         }
                     }
@@ -88,13 +91,13 @@ class AddAdventureQuickAppointmentComponent extends Component {
                   
                   for(let i = 0; i < this.state.allQuickAppointments.length; i++) {    //prolaz kroz sve iz QUICK baze
                                
-                    if(this.state.allQuickAppointments[i].startingDate > appointment.startingDate && this.state.allQuickAppointments[i].startingDate < appointment.endingDate){return false}  
+                    if(this.state.allQuickAppointments[i].startingDate >= appointment.startingDate && this.state.allQuickAppointments[i].startingDate <= appointment.endingDate){return false}  
                     
                     else{   
-                        if(this.state.allQuickAppointments[i].endingDate > appointment.startingDate && this.state.allQuickAppointments[i].endingDate < appointment.endingDate){return false}
+                        if(this.state.allQuickAppointments[i].endingDate >= appointment.startingDate && this.state.allQuickAppointments[i].endingDate <= appointment.endingDate){return false}
 
                         else{   
-                            if(this.state.allQuickAppointments[i].startingDate < appointment.startingDate && this.state.allQuickAppointments[i].endingDate > appointment.endingDate){return false}
+                            if(this.state.allQuickAppointments[i].startingDate <= appointment.startingDate && this.state.allQuickAppointments[i].endingDate >= appointment.endingDate){return false}
 
                         }
                     }
@@ -109,7 +112,8 @@ class AddAdventureQuickAppointmentComponent extends Component {
 
     Add(){
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
-
+        let activeAdventure =  JSON.parse(localStorage.getItem('activeAdventure'));
+        
         let appointment = {           
             id:this.state.id,
             additionalServices:this.state.additionalServices,
@@ -118,6 +122,8 @@ class AddAdventureQuickAppointmentComponent extends Component {
             price:this.state.price,
             startingDate:this.state.startingDate,
             instructorId:activeUser.id,
+            location:this.state.location,
+            adventureId:activeAdventure.id
         }
         
 
@@ -137,9 +143,10 @@ class AddAdventureQuickAppointmentComponent extends Component {
     }
     
     componentDidMount(){
-        axios.get("http://localhost:8080/api/v1/adventurefreeappointments").then((res)=>{this.setState({allFreeAppointments: res.data});});
-        axios.get("http://localhost:8080/api/v1/adventureappointments").then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
-        axios.get("http://localhost:8080/api/v1/adventurequickappointments").then((res3)=>{this.setState({allQuickAppointments: res3.data});});
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        axios.get("http://localhost:8080/api/v1/adventurefreeappointments/instructor/"+activeUser.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
+        axios.get("http://localhost:8080/api/v1/adventureappointments/instructor/"+activeUser.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
+        axios.get("http://localhost:8080/api/v1/adventurequickappointments/instructor/"+activeUser.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
     }
     render() {
         return (
@@ -158,6 +165,8 @@ class AddAdventureQuickAppointmentComponent extends Component {
                                 <input name="price" className="form-control" value={this.state.price} onChange={this.changePriceHandler}/>
                                 <label> Additional Services: </label>
                                 <input name="additionalServices" className="form-control" value={this.state.additionalServices} onChange={this.changeAdditionalServicesHandler}/>
+                                <label> Location: </label>
+                                <input name="location" className="form-control" value={this.state.location} onChange={this.changeLocationHandler}/>
                                 
                                 
                                 

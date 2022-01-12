@@ -86,13 +86,13 @@ class AddQuickAppointmentComponent extends Component {
             else{
                 for(let i = 0; i < this.state.allFreeAppointments.length; i++) {    //prolaz kroz sve iz FREE baze
                                
-                    if(this.state.allFreeAppointments[i].startingDate > appointment.startingDate && this.state.allFreeAppointments[i].startingDate < appointment.endingDate){return false}  
+                    if(this.state.allFreeAppointments[i].startingDate >= appointment.startingDate && this.state.allFreeAppointments[i].startingDate <= appointment.endingDate){return false}  
                     
                     else{   
-                        if(this.state.allFreeAppointments[i].endingDate > appointment.startingDate && this.state.allFreeAppointments[i].endingDate < appointment.endingDate){return false}
+                        if(this.state.allFreeAppointments[i].endingDate >= appointment.startingDate && this.state.allFreeAppointments[i].endingDate <= appointment.endingDate){return false}
 
                         else{   
-                            if(this.state.allFreeAppointments[i].startingDate < appointment.startingDate && this.state.allFreeAppointments[i].endingDate > appointment.endingDate){return false}
+                            if(this.state.allFreeAppointments[i].startingDate <= appointment.startingDate && this.state.allFreeAppointments[i].endingDate >= appointment.endingDate){return false}
 
                         }
                     }
@@ -100,13 +100,13 @@ class AddQuickAppointmentComponent extends Component {
                   }
                   for(let i = 0; i < this.state.allScheduledAppointments.length; i++) {    //prolaz kroz sve iz SCHEDULED baze
                                
-                    if(this.state.allScheduledAppointments[i].startingDate > appointment.startingDate && this.state.allScheduledAppointments[i].startingDate < appointment.endingDate){return false}  
+                    if(this.state.allScheduledAppointments[i].startingDate >= appointment.startingDate && this.state.allScheduledAppointments[i].startingDate <= appointment.endingDate){return false}  
                     
                     else{   
-                        if(this.state.allScheduledAppointments[i].endingDate > appointment.startingDate && this.state.allScheduledAppointments[i].endingDate < appointment.endingDate){return false}
+                        if(this.state.allScheduledAppointments[i].endingDate >= appointment.startingDate && this.state.allScheduledAppointments[i].endingDate <= appointment.endingDate){return false}
 
                         else{   
-                            if(this.state.allScheduledAppointments[i].startingDate < appointment.startingDate && this.state.allScheduledAppointments[i].endingDate > appointment.endingDate){return false}
+                            if(this.state.allScheduledAppointments[i].startingDate <= appointment.startingDate && this.state.allScheduledAppointments[i].endingDate >= appointment.endingDate){return false}
 
                         }
                     }
@@ -115,13 +115,13 @@ class AddQuickAppointmentComponent extends Component {
                   
                   for(let i = 0; i < this.state.allQuickAppointments.length; i++) {    //prolaz kroz sve iz QUICK baze
                                
-                    if(this.state.allQuickAppointments[i].startingDate > appointment.startingDate && this.state.allQuickAppointments[i].startingDate < appointment.endingDate){return false}  
+                    if(this.state.allQuickAppointments[i].startingDate >= appointment.startingDate && this.state.allQuickAppointments[i].startingDate <= appointment.endingDate){return false}  
                     
                     else{   
-                        if(this.state.allQuickAppointments[i].endingDate > appointment.startingDate && this.state.allQuickAppointments[i].endingDate < appointment.endingDate){return false}
+                        if(this.state.allQuickAppointments[i].endingDate >= appointment.startingDate && this.state.allQuickAppointments[i].endingDate <= appointment.endingDate){return false}
 
                         else{   
-                            if(this.state.allQuickAppointments[i].startingDate < appointment.startingDate && this.state.allQuickAppointments[i].endingDate > appointment.endingDate){return false}
+                            if(this.state.allQuickAppointments[i].startingDate <= appointment.startingDate && this.state.allQuickAppointments[i].endingDate >= appointment.endingDate){return false}
 
                         }
                     }
@@ -166,9 +166,10 @@ class AddQuickAppointmentComponent extends Component {
 
     
     componentDidMount(){
-        axios.get("http://localhost:8080/api/v1/cottagefreeappointments").then((res)=>{this.setState({allFreeAppointments: res.data});});
-        axios.get("http://localhost:8080/api/v1/cottageappointments").then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
-        axios.get("http://localhost:8080/api/v1/cottagequickappointments").then((res3)=>{this.setState({allQuickAppointments: res3.data});});
+        let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'));
+        axios.get("http://localhost:8080/api/v1/cottagefreeappointments/cottage/"+activeCottage.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
+        axios.get("http://localhost:8080/api/v1/cottageappointments/cottage/"+activeCottage.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
+        axios.get("http://localhost:8080/api/v1/cottagequickappointments/cottage/"+activeCottage.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
     }
     render() {
         return (
@@ -178,7 +179,7 @@ class AddQuickAppointmentComponent extends Component {
                <button onClick={()=>this.cottages()}>My cottages</button>
                <button onClick={()=>this.cottageprofile()}>Cottage profile</button>
 
-               <button onClick={()=>this.viewRooms()}>Rooms</button>
+               
                <button onClick={()=>this.Appointmets()}>Appointments</button>
 
                

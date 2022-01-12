@@ -45,6 +45,8 @@ public class AdventureFreeAppointmentController {
     public ResponseEntity<AdventureFreeAppointment> updateAdventureFreeAppointment(@PathVariable Long id, @RequestBody AdventureFreeAppointment adventureFreeAppointmentDetails) {
         AdventureFreeAppointment adventureFreeAppointment = adventureFreeAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("AdventureFreeAppointment does not exist with id:" + id));
 
+        adventureFreeAppointment.setAdventureId(adventureFreeAppointmentDetails.getAdventureId());
+        adventureFreeAppointment.setLocation(adventureFreeAppointmentDetails.getLocation());
         adventureFreeAppointment.setInstructorId(adventureFreeAppointmentDetails.getInstructorId());
         adventureFreeAppointment.setStartingDate(adventureFreeAppointmentDetails.getStartingDate());
         adventureFreeAppointment.setEndingDate(adventureFreeAppointmentDetails.getEndingDate());
@@ -70,8 +72,13 @@ public class AdventureFreeAppointmentController {
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
 
-    @GetMapping("/adventurefreeappointments/adventure/{instructorid}")
-    public List<AdventureFreeAppointment> getFreeAppointmentByAdventureId(@PathVariable Long instructorid) {
+    @GetMapping("/adventurefreeappointments/instructor/{instructorid}")
+    public List<AdventureFreeAppointment> getFreeAppointmentByInstructorId(@PathVariable Long instructorid) {
         return adventureFreeAppointmentRepository.findByInstructorId(instructorid);
+    }
+
+    @GetMapping("/adventurefreeappointments/adventure/{adventureid}")
+    public List<AdventureFreeAppointment> getFreeAppointmentByAdventureId(@PathVariable Long adventureid) {
+        return adventureFreeAppointmentRepository.findByAdventureId(adventureid);
     }
 }

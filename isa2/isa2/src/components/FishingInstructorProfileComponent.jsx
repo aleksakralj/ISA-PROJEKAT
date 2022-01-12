@@ -75,7 +75,8 @@ class FishingInstructorProfile extends Component {
             phoneNumber:activeUser.phoneNumber,
 
             });
-        
+            localStorage.clear();
+            localStorage.setItem('activeUser',JSON.stringify(activeUser));
     }
     render() {
         return (

@@ -25,7 +25,7 @@ class AddShipComponent extends Component {
     ships()
     {
         
-        this.props.history.push(`/shipownercottages`);
+        this.props.history.push(`/shipownerships`);
 
     }
     changeNameHandler = (event) => {

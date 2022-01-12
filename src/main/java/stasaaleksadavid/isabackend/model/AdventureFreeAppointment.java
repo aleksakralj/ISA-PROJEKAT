@@ -14,6 +14,12 @@ public class AdventureFreeAppointment {
     @Column(name = "Instructor_ID")
     private long instructorId;
 
+    @Column(name = "Adventure_ID")
+    private long adventureId;
+
+    @Column(name = "Location")
+    private String location;
+
     @Column(name = "Starting_Date")
     private LocalDate startingDate;
 
@@ -32,14 +38,32 @@ public class AdventureFreeAppointment {
     public AdventureFreeAppointment() {
     }
 
-    public AdventureFreeAppointment(long instructorId, LocalDate startingDate, LocalDate endingDate, int numberOfPeople, String additionalServices, double price) {
+    public AdventureFreeAppointment(long instructorId, long adventureId, String location, LocalDate startingDate, LocalDate endingDate, int numberOfPeople, String additionalServices, double price) {
         super();
         this.instructorId = instructorId;
+        this.adventureId = adventureId;
+        this.location = location;
         this.startingDate = startingDate;
         this.endingDate = endingDate;
         this.numberOfPeople = numberOfPeople;
         this.additionalServices = additionalServices;
         this.price = price;
+    }
+
+    public long getAdventureId() {
+        return adventureId;
+    }
+
+    public void setAdventureId(long adventureId) {
+        this.adventureId = adventureId;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public long getInstructorId() {

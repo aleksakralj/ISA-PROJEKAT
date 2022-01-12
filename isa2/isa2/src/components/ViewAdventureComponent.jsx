@@ -76,8 +76,19 @@ class ViewAdventureComponent extends Component {
         this.setState({ fishingEquipment: event.target.value });
     }
 
+    addAppointment()
+    {
+        this.props.history.push('/addadventureappointment')
+    }
+
+    addQuickAppointment()
+    {
+        this.props.history.push('/addadventurequickappointment')
+    }
+
     componentDidMount() {
 
+        /*
         let activeUser = JSON.parse(localStorage.getItem('activeUser'));
         if (activeUser === null) {
             this.state.unautentifiedUserComponents = true;
@@ -96,7 +107,7 @@ class ViewAdventureComponent extends Component {
                 this.state.unautentifiedUserComponents = false;
             }
         }
-
+        
         AdventureService.getAdventureById(this.props.match.params.id).then((res) => {
             let adventure = res.data;
             this.setState({
@@ -112,22 +123,28 @@ class ViewAdventureComponent extends Component {
 
             });
         });
+        */
+
+        let activeAdventure =  JSON.parse(localStorage.getItem('activeAdventure'))
+
+        this.setState({
+            id:activeAdventure.id,
+            name:activeAdventure.name,
+            address:activeAdventure.address,
+            description:activeAdventure.description,
+            maxPeople:activeAdventure.maxPeople,
+            rulesOfConduct:activeAdventure.rulesOfConduct,
+            termsOfReservation:activeAdventure.termsOfReservation,
+            instructorId:activeAdventure.instructorId,
+
+
+        });
     }
     render() {
         return (
             <div>
 
-                {this.state.fishingInstructorComponents?
-                <div className="menu">
-                    <button onClick={() => this.fishinginstructorprofile()} > Profile</button>
-                    <button onClick={() => this.adventures()}> Adventures</button>
-
-
-                    <button className="menubtnLog" onClick={() => this.logout()} >Logout</button>
-                </div>
-    
-                :null}
-
+                
                 <h2 className='text-center'>Adventure profile</h2>
 
                 <div style={{position:'absolute',top:'150px',left:'35%'}} className="registrationdiv">
@@ -154,10 +171,12 @@ class ViewAdventureComponent extends Component {
                     <input name="fishingEquipment" className="form-control" value={this.state.fishingEquipment} onChange={this.changeFishingEquipmentHandler} />
                     <br />
 
-                    {this.state.fishingInstructorComponents?
-                    <div className="center"><button className="loginbtn" onClick={this.updateAdventure}>Update</button></div>
-                    :null
-                    }
+                   
+                    <div className="center"><button className="loginbtn" onClick={()=>this.updateAdventure}>Update</button><br/></div>
+                    <div className="center"><button className="loginbtn" onClick={()=>this.addAppointment()}>Add appointment</button></div>
+                    <div className="center"><button className="loginbtn" onClick={()=>this.addQuickAppointment()}>Add Quick appointment</button></div>
+                    
+                    
                 </div>
             </div>
         );

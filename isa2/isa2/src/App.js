@@ -209,7 +209,7 @@ function App() {
               <Route path = "/cottages" component={CottagesComponent}></Route>
               <Route path = "/adventures" component={AdventuresComponent}></Route>  
               <Route path = "/addadventure" component={AddAdventureComponent}></Route> 
-              <Route path = "/viewadventure/:id" component={ViewAdventureComponent}></Route>
+              <Route path = "/viewadventure" component={ViewAdventureComponent}></Route>
               <Route path = "/fishinginstructorprofile" component={FishingInstructorProfileComponent}></Route>  
 
               <Route path = "/cottageownercottages" component={CottageOwnerCottages}></Route>
