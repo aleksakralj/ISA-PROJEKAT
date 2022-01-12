@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 ReactDOM.render(
   <React.StrictMode>
     <App/>
-      
+      <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet" type="text/css"/>
       
   </React.StrictMode>,
   document.getElementById('root')
