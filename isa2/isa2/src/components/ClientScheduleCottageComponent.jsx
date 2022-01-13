@@ -102,15 +102,15 @@ class Clientschedulecottagecomponent extends Component {
                             <label style={{ position: 'absolute', top: '20px', left: '260px', fontWeight: 'bold', fontSize: '50px' }}> Schedule </label>
                         </div>
                         <div style={{ position: 'absolute', top: '120px', width: '300px' }}>
-                            <label style={{ position: 'absolute', top: '50px', fontSize: '18px', }}>Choose cottage you want to schedule</label>
-                            <label style={{ position: 'absolute', top: '100px', fontSize: '18px' }}>Choose date and time</label>
-                            <label style={{ position: 'absolute', top: '150px', fontSize: '18px' }}>Insert number of days</label>
+                            <label style={{ position: 'absolute', top: '50px', fontSize: '18px', }}>Choose name</label>
+                            <label style={{ position: 'absolute', top: '100px', fontSize: '18px' }}>Choose start time</label>
+                            <label style={{ position: 'absolute', top: '150px', fontSize: '18px' }}>Choose end time</label>
                             <label style={{ position: 'absolute', top: '200px', fontSize: '18px' }}>Insert number of people</label>
                         </div>
                         <div style={{ position: 'absolute', top: '120px', right: '0px', width: '300px' }}>
                             <input type="text" list="allcottages" style={{ position: 'absolute', top: '50px', right: '0px', width: '247px' }} />
                             <input type="datetime-local" style={{ position: 'absolute', top: '100px', right: '0px', }} />
-                            <input onChange={this.changeNumOfDaysHandler} value={this.state.numOfDays} style={{ position: 'absolute', top: '150px', right: '0px', width: '247px' }}></input>
+                            <input type="datetime-local" style={{ position: 'absolute', top: '150px', right: '0px', width: '247px' }}></input>
                             <input onChange={this.changeNumOfPeopleHandler} value={this.state.numOfPeople} style={{ position: 'absolute', top: '200px', right: '0px', width: '247px' }}></input>
                         </div>
                         <div style={{ width:'200px',height:'80px', position:'absolute',top:'271px',left:'250px'}}>

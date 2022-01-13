@@ -14,6 +14,12 @@ class ClientShipsComponent extends Component {
                  this.setState({ships: res.data});
          });
      } 
+    viewShip(id){
+        ShipService.getShipById(id).then(res=>{
+            localStorage.setItem('activeShip',JSON.stringify(res.data));
+        })
+        this.props.history.push('/clientshipprofile')
+    }
     render() {
         return (
             <div>
@@ -43,7 +49,7 @@ class ClientShipsComponent extends Component {
                                             <td>{ships.name} </td>
                                             <td>{ships.rating} </td>
                                             
-                                            <td><button onClick={()=>this.deleteShip(ships.id)} className="loginbtn">Delete</button></td>
+                                            <td><button onClick={()=>this.viewShip(ships.id)} className="loginbtn">View</button></td>
                                             
                                         </tr>
                                     )

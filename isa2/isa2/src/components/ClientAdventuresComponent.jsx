@@ -13,11 +13,12 @@ class ClientAdventuresComponent extends Component {
         this.viewAdventure = this.viewAdventure.bind(this);
         }
     viewAdventure(id) {
-        this.props.history.push(`/viewadventure/${id}`);
+        AdventureService.getAdventureById(id).then(res=>{
+            localStorage.setItem('activeAdventure',JSON.stringify(res.data));
+        })
+        this.props.history.push(`/clientadventureprofile`);
     }
-    adventures() {
-        this.props.history.push('/adventures');
-    }
+    
     search(search) {
         //this.setState({seach: this.state.seach})
         axios.get("http://localhost:8080/api/v1/adventures/name/" + search).then((res) => {
@@ -27,7 +28,7 @@ class ClientAdventuresComponent extends Component {
     componentDidMount() {
         
         AdventureService.getAdventures().then((res) => {
-            this.setState({ cottages: res.data });
+            this.setState({ adventures: res.data });
         });           
         
     }

@@ -10,16 +10,13 @@ class ClientCottagesComponent extends Component {
             cottages: [],
         }
    
-        this.clientScheduleCottage = this.clientScheduleCottage.bind(this);
     }
-    clientScheduleCottage(){
-        this.props.history.push('/clientschedulecottage')
-    }
+   
     cottageProfile(id){
         CottageService.getCottageById(id).then(res=>{
             localStorage.setItem('activeCottage', JSON.stringify(res.data));
         })
-        this.props.history.push('/cottageprofile')
+        this.props.history.push('/clientcottageprofile')
         
     }
     componentDidMount() {
@@ -49,9 +46,7 @@ class ClientCottagesComponent extends Component {
                 </div>
 
                 <h2 style={{position:'absolute',top:'100px',left:'45%'}}>Cottages</h2>
-                { this.state.clientComponents?
-                <button className='loginbtn' style={{position:'absolute', width:'150px',height:'35px', top:'162px',left:'1200px'}} onClick={this.clientScheduleCottage} >Schedule</button>
-                :null}
+                
 
                 <div className="row">
                     <table className="table table-striped table-borderd" style={{ position: 'absolute', top: '200px', left: '0px' }}>
