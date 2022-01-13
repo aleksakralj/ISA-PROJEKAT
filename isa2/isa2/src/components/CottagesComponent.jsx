@@ -86,7 +86,7 @@ class CottagesComponent extends Component {
         return (
             <div>
      
-            
+            {/*
             <div className="menu">
             <button onClick={this.adminprofile} > Profile</button>
             <button onClick={this.regreq}> Registration requests</button>
@@ -99,7 +99,9 @@ class CottagesComponent extends Component {
             <button onClick={this.clients}> Clients </button>
             
             <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
+            
             </div>
+            */}
      
 
                 <div style={{ height: '50px', width: '400px', position: 'absolute', top: '165px', left: '140px' }}>
@@ -140,7 +142,6 @@ class CottagesComponent extends Component {
                                             <td>{cottages.rating} </td>
                                             <td>{cottages.rules} </td>
 
-                                            <td><button onClick={() => this.deleteCottage(cottages.id)} className="loginbtn">Delete</button></td>
                                             <td><button onClick={() => this.cottageProfile(cottages.id)} className="loginbtn">SEE</button></td>
                              
                                     </tr>

@@ -108,6 +108,9 @@ import ClientAdventuresComponent from './components/ClientAdventuresComponent';
 import ClientShipsComponent from './components/ClientShipsComponent';
 import ClientHomePageCommponent from './components/ClientHomePageComponent';
 import FishingInstructorScheduleComponent from './components/FishingInstructorScheduleComponent';
+import Clientcottageprofilecomponent from './components/ClientCottageProfileComponent';
+import Clientadventureprofilecomponent from './components/ClientAdventureProfileComponent';
+import Clientshipprofilecomponent from './components/ClientShipProfileComponent';
 
 const backStyle = {
   width: '100%',
@@ -276,6 +279,9 @@ function App() {
               <Route path="/clientships" component={ClientShipsComponent}></Route>
               <Route path="/homepageclient" component={ClientHomePageCommponent}></Route>
               <Route path="/schedule" component={FishingInstructorScheduleComponent}></Route>
+              <Route path="/clientcottageprofile" component={Clientcottageprofilecomponent}></Route>
+              <Route path="/clientshipprofile" component={Clientshipprofilecomponent}></Route>
+              <Route path="/clientadventureprofile" component={Clientadventureprofilecomponent}></Route>
 
               </Switch>
           </div>
