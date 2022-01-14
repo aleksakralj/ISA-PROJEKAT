@@ -35,30 +35,45 @@ public class CottageAppointmentController {
     @PostMapping("/cottageappointments")
     public CottageAppointment createCottageAppointment(@RequestBody CottageAppointment cottageAppointment) {
 
+
         List<CottageFreeAppointment> cottageFreeAppointments = cottageFreeAppointmentRepository.findByCottageId(cottageAppointment.getCottageId());
-        for (CottageFreeAppointment c:cottageFreeAppointments) {
+
+       for (CottageFreeAppointment c:cottageFreeAppointments) {
             if(cottageAppointment.getStartingDate().isAfter(c.getStartingDate()) && cottageAppointment.getEndingDate().isBefore(c.getEndingDate())){
 
-                CottageFreeAppointment freeAppointment_1 = new CottageFreeAppointment();
-                CottageFreeAppointment freeAppointment_2 = new CottageFreeAppointment();
+                CottageFreeAppointment freeAppointment_1 = new CottageFreeAppointment(c.getCottageId(),c.getStartingDate(),cottageAppointment.getStartingDate(),c.getNumberOfPeople(),c.getAdditionalServices(),c.getPrice());
+                CottageFreeAppointment freeAppointment_2 = new CottageFreeAppointment(c.getCottageId(),cottageAppointment.getEndingDate(),c.getEndingDate(),c.getNumberOfPeople(),c.getAdditionalServices(),c.getPrice());
+                CottageAppointment newCottageAppointment = new CottageAppointment(cottageAppointment.getCottageId(),cottageAppointment.getClientId(),cottageAppointment.getStartingDate(),cottageAppointment.getEndingDate(),cottageAppointment.getNumberOfPeople(),cottageAppointment.getAdditionalServices(),cottageAppointment.getPrice());
 
-                freeAppointment_1.setCottageId(c.getCottageId());
-                freeAppointment_1.setPrice(c.getPrice());
-                freeAppointment_1.setStartingDate(c.getStartingDate());
-                freeAppointment_1.setEndingDate(cottageAppointment.getStartingDate());
-                freeAppointment_1.setAdditionalServices(c.getAdditionalServices());
-                freeAppointment_1.setNumberOfPeople(c.getNumberOfPeople());
-
-                freeAppointment_2.setCottageId(c.getCottageId());
-                freeAppointment_2.setPrice(c.getPrice());
-                freeAppointment_2.setStartingDate(cottageAppointment.getEndingDate());
-                freeAppointment_2.setEndingDate(c.getEndingDate());
-                freeAppointment_2.setAdditionalServices(c.getAdditionalServices());
-                freeAppointment_2.setNumberOfPeople(c.getNumberOfPeople());
-
-                cottageFreeAppointmentRepository.delete(c);
+                cottageFreeAppointmentRepository.deleteById(c.getId());
                 cottageFreeAppointmentRepository.save(freeAppointment_1);
                 cottageFreeAppointmentRepository.save(freeAppointment_2);
+
+                return cottageAppointmentRepository.save(newCottageAppointment);
+            }
+
+            else if(cottageAppointment.getStartingDate().isAfter(c.getStartingDate()) && cottageAppointment.getEndingDate().isAfter(c.getEndingDate())){
+                CottageFreeAppointment freeAppointment_1 = new CottageFreeAppointment(c.getCottageId(),c.getStartingDate(),cottageAppointment.getStartingDate(),c.getNumberOfPeople(),c.getAdditionalServices(),c.getPrice());
+                CottageAppointment newCottageAppointment = new CottageAppointment(cottageAppointment.getCottageId(),cottageAppointment.getClientId(), cottageAppointment.getStartingDate(), c.getEndingDate(),cottageAppointment.getNumberOfPeople(),c.getAdditionalServices(),c.getPrice());
+                cottageFreeAppointmentRepository.deleteById(c.getId());
+                cottageFreeAppointmentRepository.save(freeAppointment_1);
+
+                return cottageAppointmentRepository.save(newCottageAppointment);
+            }
+
+            else if(cottageAppointment.getStartingDate().isBefore(c.getStartingDate()) && cottageAppointment.getEndingDate().isBefore(c.getEndingDate())) {
+                CottageFreeAppointment freeAppointment_1 = new CottageFreeAppointment(c.getCottageId(),cottageAppointment.getEndingDate(),c.getEndingDate(),c.getNumberOfPeople(),c.getAdditionalServices(),c.getPrice());
+                CottageAppointment newCottageAppointment = new CottageAppointment(cottageAppointment.getCottageId(),cottageAppointment.getClientId(),c.getStartingDate(),cottageAppointment.getEndingDate(),cottageAppointment.getNumberOfPeople(),cottageAppointment.getAdditionalServices(),cottageAppointment.getPrice());
+
+                cottageFreeAppointmentRepository.deleteById(c.getId());
+                cottageFreeAppointmentRepository.save(freeAppointment_1);
+
+                return cottageAppointmentRepository.save(newCottageAppointment);
+            }
+
+            else if(cottageAppointment.getStartingDate().isBefore(c.getStartingDate()) && cottageAppointment.getEndingDate().isAfter(c.getEndingDate())){
+
+                return null;
             }
         }
 
@@ -108,4 +123,8 @@ public class CottageAppointmentController {
     public List<CottageAppointment> getAppointmentByCottageId(@PathVariable Long cottageid) {
         return cottageAppointmentRepository.findByCottageId(cottageid);
     }
+
+
+}
+
 }

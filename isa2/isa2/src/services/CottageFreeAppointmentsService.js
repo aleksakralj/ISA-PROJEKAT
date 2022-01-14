@@ -14,7 +14,7 @@ class CottageFreeAppointmenrsService {
     }
 
     findCottageFreeAppointmentsByCottageId(cottagetId){
-        return axios.get(COTTAGE_FREE_APPOINTMENTS_API_BASE_URL + '/' + cottagetId);
+        return axios.get(COTTAGE_FREE_APPOINTMENTS_API_BASE_URL + '/cottage/' + cottagetId);
     }
 
     findCottageFreeAppointmentsById(cottageAppointmentId){
@@ -22,7 +22,7 @@ class CottageFreeAppointmenrsService {
     }
 
     deleteCottageFreeAppointment(cottageAppointmentId){
-        return axios.delete(COTTAGE_FREE_APPOINTMENTS_API_BASE_URL+'/cottage/'+cottageAppointmentId);
+        return axios.delete(COTTAGE_FREE_APPOINTMENTS_API_BASE_URL+'/'+cottageAppointmentId);
     }
 
 }
