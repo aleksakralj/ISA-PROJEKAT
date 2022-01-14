@@ -5,11 +5,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.AdventureAppointment;
+import stasaaleksadavid.isabackend.model.CottageAppointment;
+import stasaaleksadavid.isabackend.model.CottageFreeAppointment;
 import stasaaleksadavid.isabackend.repository.AdventureAppointmentRepository;
+import stasaaleksadavid.isabackend.repository.AdventureFreeAppointmentRepository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import stasaaleksadavid.isabackend.model.*;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -19,6 +23,8 @@ public class AdventureAppointmentController {
     @Autowired
     private AdventureAppointmentRepository adventureAppointmentRepository;
 
+    @Autowired
+    private AdventureFreeAppointmentRepository adventureFreeAppointmentRepository;
     //get all
 
     @GetMapping("/adventureappointments")
@@ -29,9 +35,45 @@ public class AdventureAppointmentController {
     //create
     @PostMapping("/adventureappointments")
     public AdventureAppointment createAdventureAppointment(@RequestBody AdventureAppointment adventureAppointment) {
-        return adventureAppointmentRepository.save(adventureAppointment);
-    }
 
+        List<AdventureFreeAppointment> adventureFreeAppointments = adventureFreeAppointmentRepository.findByAdventureId(adventureAppointment.getAdventureId());
+
+        for (AdventureFreeAppointment a : adventureFreeAppointments) {
+            if (adventureAppointment.getStartingDate().isAfter(a.getStartingDate()) && adventureAppointment.getEndingDate().isBefore(a.getEndingDate())) {
+
+
+                AdventureFreeAppointment freeAppointment_1 = new AdventureFreeAppointment(adventureAppointment.getInstructorId(), a.getAdventureId(), a.getLocation(), a.getStartingDate(), adventureAppointment.getStartingDate(), a.getNumberOfPeople(), a.getAdditionalServices(), a.getPrice());
+                AdventureFreeAppointment freeAppointment_2 = new AdventureFreeAppointment(adventureAppointment.getInstructorId(), a.getAdventureId(), a.getLocation(), adventureAppointment.getEndingDate(), a.getEndingDate(), a.getNumberOfPeople(), a.getAdditionalServices(), a.getPrice());
+                AdventureAppointment newAdventureAppointment = new AdventureAppointment(adventureAppointment.getAdventureId(), adventureAppointment.getInstructorId(), adventureAppointment.getClientId(), adventureAppointment.getLocation(), adventureAppointment.getStartingDate(), adventureAppointment.getEndingDate(), adventureAppointment.getNumberOfPeople(), adventureAppointment.getAdditionalServices(), adventureAppointment.getPrice());
+
+                adventureFreeAppointmentRepository.deleteById(a.getId());
+                adventureFreeAppointmentRepository.save(freeAppointment_1);
+                adventureFreeAppointmentRepository.save(freeAppointment_2);
+
+                return adventureAppointmentRepository.save(newAdventureAppointment);
+            } else if (adventureAppointment.getStartingDate().isAfter(a.getStartingDate()) && adventureAppointment.getEndingDate().isAfter(a.getEndingDate())) {
+                AdventureFreeAppointment freeAppointment_1 = new AdventureFreeAppointment(a.getInstructorId(), a.getAdventureId(), a.getLocation(), a.getStartingDate(), adventureAppointment.getStartingDate(), a.getNumberOfPeople(), a.getAdditionalServices(), a.getPrice());
+                AdventureAppointment newAdventureAppointment = new AdventureAppointment(adventureAppointment.getAdventureId(), adventureAppointment.getInstructorId(), adventureAppointment.getClientId(), adventureAppointment.getLocation(), adventureAppointment.getStartingDate(), a.getEndingDate(), adventureAppointment.getNumberOfPeople(), a.getAdditionalServices(), a.getPrice());
+                adventureFreeAppointmentRepository.deleteById(a.getId());
+                adventureFreeAppointmentRepository.save(freeAppointment_1);
+
+                return adventureAppointmentRepository.save(newAdventureAppointment);
+            } else if (adventureAppointment.getStartingDate().isBefore(a.getStartingDate()) && adventureAppointment.getEndingDate().isBefore(a.getEndingDate())) {
+                AdventureFreeAppointment freeAppointment_1 = new AdventureFreeAppointment(a.getInstructorId(), a.getAdventureId(), a.getLocation(), adventureAppointment.getEndingDate(), a.getEndingDate(), a.getNumberOfPeople(), a.getAdditionalServices(), a.getPrice());
+                AdventureAppointment newAdventureAppointment = new AdventureAppointment(adventureAppointment.getAdventureId(), adventureAppointment.getInstructorId(), adventureAppointment.getClientId(), adventureAppointment.getLocation(), a.getStartingDate(), adventureAppointment.getEndingDate(), adventureAppointment.getNumberOfPeople(), adventureAppointment.getAdditionalServices(), adventureAppointment.getPrice());
+
+                adventureFreeAppointmentRepository.deleteById(a.getId());
+                adventureFreeAppointmentRepository.save(freeAppointment_1);
+
+                return adventureAppointmentRepository.save(newAdventureAppointment);
+            } else if (adventureAppointment.getStartingDate().isBefore(a.getStartingDate()) && adventureAppointment.getEndingDate().isAfter(a.getEndingDate())) {
+
+                return null;
+            }
+
+        }return adventureAppointmentRepository.save(adventureAppointment);
+
+    }
     //get by id
     @GetMapping("/adventureappointments/{id}")
     public ResponseEntity<AdventureAppointment> getAdventureAppointmentById(@PathVariable Long id) {

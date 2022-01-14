@@ -1,10 +1,10 @@
 package stasaaleksadavid.isabackend.controller;
-
+import stasaaleksadavid.isabackend.repository.ShipFreeAppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
-import stasaaleksadavid.isabackend.model.ShipAppointment;
+import stasaaleksadavid.isabackend.model.*;
 import stasaaleksadavid.isabackend.repository.ShipAppointmentRepository;
 
 import java.util.HashMap;
@@ -18,6 +18,9 @@ public class ShipAppointmentController {
     @Autowired
     private ShipAppointmentRepository shipAppointmentRepository;
 
+    @Autowired
+    private ShipFreeAppointmentRepository shipFreeAppointmentRepository;
+
 //get all
 
     @GetMapping("/shipappointments")
@@ -28,6 +31,47 @@ public class ShipAppointmentController {
     //create
     @PostMapping("/shipappointments")
     public ShipAppointment createShipAppointment(@RequestBody ShipAppointment shipAppointment) {
+        List<ShipFreeAppointment> shipFreeAppointments = shipFreeAppointmentRepository.findByShipId(shipAppointment.getShipId());
+
+        for (ShipFreeAppointment s:shipFreeAppointments) {
+            if(shipAppointment.getStartingDate().isAfter(s.getStartingDate()) && shipAppointment.getEndingDate().isBefore(s.getEndingDate())){
+
+                ShipFreeAppointment freeAppointment_1 = new ShipFreeAppointment(s.getShipId(),s.getStartingDate(),shipAppointment.getStartingDate(),s.getNumberOfPeople(),s.getAdditionalServices(),s.getPrice());
+                ShipFreeAppointment freeAppointment_2 = new ShipFreeAppointment(s.getShipId(),shipAppointment.getEndingDate(),s.getEndingDate(),s.getNumberOfPeople(),s.getAdditionalServices(),s.getPrice());
+                ShipAppointment newShipAppointment = new ShipAppointment(shipAppointment.getShipId(),shipAppointment.getClientId(),shipAppointment.getStartingDate(),shipAppointment.getEndingDate(),shipAppointment.getNumberOfPeople(),shipAppointment.getAdditionalServices(),shipAppointment.getPrice());
+
+                shipFreeAppointmentRepository.deleteById(s.getId());
+                shipFreeAppointmentRepository.save(freeAppointment_1);
+                shipFreeAppointmentRepository.save(freeAppointment_2);
+
+                return shipAppointmentRepository.save(newShipAppointment);
+            }
+
+            else if(shipAppointment.getStartingDate().isAfter(s.getStartingDate()) && shipAppointment.getEndingDate().isAfter(s.getEndingDate())){
+                ShipFreeAppointment freeAppointment_1 = new ShipFreeAppointment(s.getShipId(),s.getStartingDate(),shipAppointment.getStartingDate(),s.getNumberOfPeople(),s.getAdditionalServices(),s.getPrice());
+                ShipAppointment newShipAppointment = new ShipAppointment(shipAppointment.getShipId(),shipAppointment.getClientId(), shipAppointment.getStartingDate(), s.getEndingDate(),shipAppointment.getNumberOfPeople(),s.getAdditionalServices(),s.getPrice());
+                shipFreeAppointmentRepository.deleteById(s.getId());
+                shipFreeAppointmentRepository.save(freeAppointment_1);
+
+                return shipAppointmentRepository.save(newShipAppointment);
+            }
+
+            else if(shipAppointment.getStartingDate().isBefore(s.getStartingDate()) && shipAppointment.getEndingDate().isBefore(s.getEndingDate())) {
+                ShipFreeAppointment freeAppointment_1 = new ShipFreeAppointment(s.getShipId(),shipAppointment.getEndingDate(),s.getEndingDate(),s.getNumberOfPeople(),s.getAdditionalServices(),s.getPrice());
+                ShipAppointment newShipAppointment = new ShipAppointment(shipAppointment.getShipId(),shipAppointment.getClientId(),s.getStartingDate(),shipAppointment.getEndingDate(),shipAppointment.getNumberOfPeople(),shipAppointment.getAdditionalServices(),shipAppointment.getPrice());
+
+                shipFreeAppointmentRepository.deleteById(s.getId());
+                shipFreeAppointmentRepository.save(freeAppointment_1);
+
+                return shipAppointmentRepository.save(newShipAppointment);
+            }
+
+            else if(shipAppointment.getStartingDate().isBefore(s.getStartingDate()) && shipAppointment.getEndingDate().isAfter(s.getEndingDate())){
+
+                return null;
+            }
+        }
+
         return shipAppointmentRepository.save(shipAppointment);
     }
 
