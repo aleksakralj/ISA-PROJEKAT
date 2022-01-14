@@ -30,6 +30,9 @@ public class AdventureFreeAppointmentController {
     //create
     @PostMapping("/adventurefreeappointments")
     public AdventureFreeAppointment createAdventureFreeAppointment(@RequestBody AdventureFreeAppointment adventureFreeAppointment) {
+
+
+
         return adventureFreeAppointmentRepository.save(adventureFreeAppointment);
     }
 
