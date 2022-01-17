@@ -24,7 +24,7 @@ class LoginComponent extends Component {
 
     }
 
-    async login() {
+    login() {
 
         if (validator.isEmail(this.state.email)) {
 
@@ -63,6 +63,7 @@ class LoginComponent extends Component {
                         //treba da resetuje lozinku
                         if (activeUser.password == "password") {
                             this.props.history.push(`/adminchangepassword`)
+                            break;
                         }
                         else this.props.history.push(`/adminprofile`);
                         break;

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import emailjs from "emailjs-com";
 
-class AddShipQuickAppointmentComponent extends Component {
+class CottageScheduleForClientComponent extends Component {
     constructor(props){
         super(props)
         this.state={
@@ -12,11 +11,10 @@ class AddShipQuickAppointmentComponent extends Component {
             numberOfPeople:'',
             price:'',
             startingDate:'',
-            shipId:'',
+            cottageId:'',
             allFreeAppointments:[],
             allScheduledAppointments:[],
-            allQuickAppointments:[],
-            toEmail:[]
+            allQuickAppointments:[]
         }
        
         this.changeStartingDateHandler = this.changeStartingDateHandler.bind(this);
@@ -32,29 +30,31 @@ class AddShipQuickAppointmentComponent extends Component {
     profile()
     {
         
-        this.props.history.push(`/shipownerprofile`);
+        this.props.history.push(`/cottageownerprofile`);
 
     }
 
-    shipprofile()
+    cottageprofile()
     {
         
-        this.props.history.push(`/shipprofile`);
+        this.props.history.push(`/cottageprofile`);
 
     }
-    ships()
+    cottages()
     {
         
-        this.props.history.push(`/shipownerships`);
+        this.props.history.push(`/cottageownercottages`);
 
     }
-    Appointments(){
-        this.props.history.push(`/shipappointments`);
-        }
-    shipProfile(){
-            this.props.history.push(`/shipprofileso`);
-        }
-    
+    viewRooms(){
+        this.props.history.push(`/allrooms`);
+    }
+
+    Appointmets()
+    {
+        this.props.history.push(`/cottageappointments`);
+    }
+
 
     changeStartingDateHandler = (event) => {
         this.setState({startingDate: event.target.value});
@@ -71,26 +71,17 @@ class AddShipQuickAppointmentComponent extends Component {
     changeAdditionalServicesHandler = (event) => {
         this.setState({additionalServices: event.target.value});
     }
-    SendEmail(){
-        
-        
-            for (let i=0;i<this.state.toEmail.length;i++){
-                var template_params = {
-                    "email": this.state.toEmail[i].email,
-                    "message":"Blabla",
-                    "subject": "Subscription"
-                }
-                emailjs.send('service_h91s9bd', 'template_633ebld',template_params,'user_8ZDv9VEXQIiu7UptSVwB3')
-                .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                 }, function(error) {
-                    console.log('FAILED...', error);
-                 });
-                //poslati mail na res[i].email
+    
+    SendEmail(cottageId){
+
+        axios.post("http://localhost:8080/api/v1/cottagesubscriptions/cottageid/",cottageId).then((res)=>{
+            for (let i=0;i<res.length;i++){
+                //poslati mail na res[i].email da je rezervisan termin
             };
-        
+        });
 
     }
+
     DateTimeIsEmpty(appointment){
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
@@ -154,7 +145,7 @@ class AddShipQuickAppointmentComponent extends Component {
     }
 
     Add(){
-        let activeShip =  JSON.parse(localStorage.getItem('activeShip'));
+        let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'));
 
         let appointment = {           
             id:this.state.id,
@@ -163,43 +154,47 @@ class AddShipQuickAppointmentComponent extends Component {
             numberOfPeople:this.state.numberOfPeople,
             price:this.state.price,
             startingDate:this.state.startingDate,
-            shipId:activeShip.id,
+            cottageId:activeCottage.id,
         }
         
-
-        if (this.DateTimeIsEmpty(appointment) == true){
-            this.SendEmail();
-        console.log('appointment => ' + JSON.stringify(appointment));
-        axios.post("http://localhost:8080/api/v1/shipquickappointments/",appointment);
         
-        window.alert("Emails on their way.")
-        //this.props.history.push(`/shipappointments`);
-        //window.location.reload();
-       
+        if (this.DateTimeIsEmpty(appointment) == true){
+
+        console.log('appointment => ' + JSON.stringify(appointment));
+        axios.post("http://localhost:8080/api/v1/cottageappointments/",appointment);
+        this.props.history.push(`/cottageappointments`);
+        this.SendEmail(activeCottage.id);
+        window.location.reload();
+
+        
     }
     else{window.alert("Invalid date or date is not empty")}
     }
+
     logout(){
         localStorage.clear();
         this.props.history.push(`/login`);
        
     }
+
     
     componentDidMount(){
-        let activeShip =  JSON.parse(localStorage.getItem('activeShip'));
-        axios.get("http://localhost:8080/api/v1/shipfreeappointments/ship/"+activeShip.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
-        axios.get("http://localhost:8080/api/v1/shipappointments/ship/"+activeShip.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
-        axios.get("http://localhost:8080/api/v1/shipquickappointments/ship/"+activeShip.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
-        
+        let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'));
+        axios.get("http://localhost:8080/api/v1/cottagefreeappointments/cottage/"+activeCottage.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
+        axios.get("http://localhost:8080/api/v1/cottageappointments/cottage/"+activeCottage.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
+        axios.get("http://localhost:8080/api/v1/cottagequickappointments/cottage/"+activeCottage.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
     }
     render() {
         return (
             <div>
                <div className="menu">
                <button onClick={()=>this.profile()}>Profile</button>
-               <button onClick={()=>this.ships()}>My ships</button>
-               <button onClick={()=>this.shipprofile()}>Ship profile</button>
-               <button onClick={()=>this.Appointments()}>Appointments</button>
+               <button onClick={()=>this.cottages()}>My cottages</button>
+               <button onClick={()=>this.cottageprofile()}>Cottage profile</button>
+
+               
+               <button onClick={()=>this.Appointmets()}>Appointments</button>
+
                
                <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>
             </div>
@@ -220,8 +215,7 @@ class AddShipQuickAppointmentComponent extends Component {
                                 
                                 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Add Quick Appointment</button></div>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.SendEmail()}>Send</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Schedule</button></div>
                                 
                                 
                                 
@@ -233,4 +227,4 @@ class AddShipQuickAppointmentComponent extends Component {
     }
 }
 
-export default AddShipQuickAppointmentComponent;
+export default CottageScheduleForClientComponent;

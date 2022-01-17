@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import emailjs from "emailjs-com";
 
-class AddShipQuickAppointmentComponent extends Component {
+class ShipScheduleForClientComponent extends Component {
     constructor(props){
         super(props)
         this.state={
@@ -15,8 +14,7 @@ class AddShipQuickAppointmentComponent extends Component {
             shipId:'',
             allFreeAppointments:[],
             allScheduledAppointments:[],
-            allQuickAppointments:[],
-            toEmail:[]
+            allQuickAppointments:[]
         }
        
         this.changeStartingDateHandler = this.changeStartingDateHandler.bind(this);
@@ -71,24 +69,13 @@ class AddShipQuickAppointmentComponent extends Component {
     changeAdditionalServicesHandler = (event) => {
         this.setState({additionalServices: event.target.value});
     }
-    SendEmail(){
-        
-        
-            for (let i=0;i<this.state.toEmail.length;i++){
-                var template_params = {
-                    "email": this.state.toEmail[i].email,
-                    "message":"Blabla",
-                    "subject": "Subscription"
-                }
-                emailjs.send('service_h91s9bd', 'template_633ebld',template_params,'user_8ZDv9VEXQIiu7UptSVwB3')
-                .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                 }, function(error) {
-                    console.log('FAILED...', error);
-                 });
-                //poslati mail na res[i].email
+    SendEmail(shipId){
+
+        axios.post("http://localhost:8080/api/v1/shipsubscriptions/shipid/",shipId).then((res)=>{
+            for (let i=0;i<res.length;i++){
+                //poslati mail na res[i].email da je rezervisan termin
             };
-        
+        });
 
     }
     DateTimeIsEmpty(appointment){
@@ -168,14 +155,12 @@ class AddShipQuickAppointmentComponent extends Component {
         
 
         if (this.DateTimeIsEmpty(appointment) == true){
-            this.SendEmail();
+
         console.log('appointment => ' + JSON.stringify(appointment));
-        axios.post("http://localhost:8080/api/v1/shipquickappointments/",appointment);
-        
-        window.alert("Emails on their way.")
-        //this.props.history.push(`/shipappointments`);
-        //window.location.reload();
-       
+        axios.post("http://localhost:8080/api/v1/shipappointments/",appointment);
+        this.props.history.push(`/shipappointments`);
+        window.location.reload();
+        this.SendEmail(activeShip.id);
     }
     else{window.alert("Invalid date or date is not empty")}
     }
@@ -190,7 +175,6 @@ class AddShipQuickAppointmentComponent extends Component {
         axios.get("http://localhost:8080/api/v1/shipfreeappointments/ship/"+activeShip.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
         axios.get("http://localhost:8080/api/v1/shipappointments/ship/"+activeShip.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
         axios.get("http://localhost:8080/api/v1/shipquickappointments/ship/"+activeShip.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
-        
     }
     render() {
         return (
@@ -221,7 +205,6 @@ class AddShipQuickAppointmentComponent extends Component {
                                 
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Add Quick Appointment</button></div>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.SendEmail()}>Send</button></div>
                                 
                                 
                                 
@@ -233,4 +216,4 @@ class AddShipQuickAppointmentComponent extends Component {
     }
 }
 
-export default AddShipQuickAppointmentComponent;
+export default ShipScheduleForClientComponent;

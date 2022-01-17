@@ -52,7 +52,9 @@ class ShipAppointmentComponent extends Component {
     changePhoneNumberHandler = (event) => {
         this.setState({phoneNumber: event.target.value});
     }
-
+    ScheduleForClient(){
+        this.props.history.push(`/shipscheduleforclient`);
+    }
     AddAppointment()
     {
         
@@ -106,6 +108,8 @@ class ShipAppointmentComponent extends Component {
                                 <div className="center"><button className="loginbtn" onClick={()=>this.AddAppointment()}>Add Appointment</button></div>
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.AddQuickAppointment()}>Add Quick Appointment</button></div>
+                                <br/>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.ScheduleForClient()}>Schedule For Client</button></div>
                                 
 
                 </div>

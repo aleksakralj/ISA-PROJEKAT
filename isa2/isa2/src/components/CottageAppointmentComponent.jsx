@@ -105,6 +105,10 @@ class CottageAppointmentComponent extends Component {
     profile(){
         this.props.history.push(`/cottageownerprofile`);
     }
+    ScheduleForClient(){
+
+        this.props.history.push(`/cottagescheduleforclient`);
+    }
 
     componentDidMount(){
 
@@ -150,6 +154,8 @@ class CottageAppointmentComponent extends Component {
                                 <div className="center"><button className="loginbtn" onClick={()=>this.AddAppointment()}>Add Appointment</button></div>
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.AddQuickAppointment()}>Add Quick Appointment</button></div>
+                                <br/>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.ScheduleForClient()}>Schedule For Client</button></div>
                                 <br/>
                                 
 
