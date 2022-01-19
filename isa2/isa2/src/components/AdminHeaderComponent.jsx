@@ -34,7 +34,7 @@ class AdminHeaderComponent extends Component {
                                     <NavDropdown.Item href="/adminprofiledeletionrequests">Account deletion</NavDropdown.Item>
                                     <NavDropdown.Item href="/admingraderequests">Grade</NavDropdown.Item>                                      
                                 </NavDropdown>  
-                                <Nav.Link style={navLinkStyle} eventKey={5} href="/complaints">Complaints</Nav.Link>  
+                                <Nav.Link style={navLinkStyle} eventKey={5} href="/admincomplaints">Complaints</Nav.Link>  
                                 <Nav.Item classsname="ms-auto"><Nav.Link style={navLinkStyle} href="/login" onClick={()=>localStorage.removeItem('activeUser')}>Logout</Nav.Link></Nav.Item>
                             </Nav>
                         </Navbar.Collapse>

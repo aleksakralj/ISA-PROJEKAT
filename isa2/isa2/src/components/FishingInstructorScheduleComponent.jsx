@@ -10,7 +10,14 @@ class FishingInstructorScheduleComponent extends Component{
                 Subject: 'Paris',
                 EndTime: new Date(2022,0,20),
                 StartTime: new Date(2022,0,18)
-            }];
+            },
+            {
+                Id: 3,
+                Subject: 'London',
+                EndTime: new Date(2022,0,25),
+                StartTime: new Date(2022,0,20)  
+            }
+        ];
     }
     
     render(){

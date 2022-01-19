@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CottageService from '../services/CottageService';
 import validator from 'validator';
 
+
 class Clientschedulecottagecomponent extends Component {
     constructor(props) {
         super(props)

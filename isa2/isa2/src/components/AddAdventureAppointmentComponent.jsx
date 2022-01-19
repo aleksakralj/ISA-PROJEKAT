@@ -159,6 +159,9 @@ class AddAdventureAppointmentComponent extends Component {
                 
                 <div className="registrationdiv">
                     <br/><br/>
+                    
+                    <h2 style={{position:'absolute',top:'10px',left:'30%'}}>Apointment</h2>
+                    <br/><br/>
                                 <label> Starting date: </label>
                                 <input type="date" name="startingDate" className="form-control" value={this.state.startingDate} onChange={this.changeStartingDateHandler}/>
                                 <label> Ending Date: </label>

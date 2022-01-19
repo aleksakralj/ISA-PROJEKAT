@@ -61,13 +61,7 @@ class AddAdventureComponent extends Component {
     render() {
         return (
             <div>
-            <div className="menu">
-                <button onClick={()=>this.fishinginstructorprofile()} > Profile</button>
-                <button onClick={()=>this.adventures()}> Adventures</button>
-                
-
-                <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
-            </div>
+            
                 <div className="registrationdiv">
                     <br/><br/>
                                 <label> Name: </label>

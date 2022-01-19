@@ -15,7 +15,8 @@ class AdventureScheduleForClientComponent extends Component {
             instructorId:'',
             allFreeAppointments:[],
             allScheduledAppointments:[],
-            allQuickAppointments:[]
+            allQuickAppointments:[],
+            toEmail:[]
         }
        
         this.changeStartingDateHandler = this.changeStartingDateHandler.bind(this);
@@ -48,17 +49,23 @@ class AdventureScheduleForClientComponent extends Component {
     changeLocationHandler= (event) => {
         this.setState({location: event.target.value});
     }
-    SendEmail(shipId){
+    SendEmail(){
 
-        axios.post("http://localhost:8080/api/v1/shipsubscriptions/shipid/",shipId).then((res)=>{
-            for (let i=0;i<res.length;i++){
-                var template_params = {
-                    "to_email": res[i].email
-                }
-                //poslati mail na res[i].email da je rezervisan termin
-                emailjs.send('service_h91s9bd', 'template_633ebld',template_params)
-            };
-        });
+        for (let i=0;i<this.state.toEmail.length;i++){
+            var template_params = {
+                "email": this.state.toEmail[i].email,
+                "message":"Reservation for adventure succesfull.",
+                "subject": "Reservation"
+            }
+            emailjs.send('service_h91s9bd', 'template_633ebld',template_params,'user_8ZDv9VEXQIiu7UptSVwB3')
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+             }, function(error) {
+                console.log('FAILED...', error);
+             });
+            
+        };
+        
 
     }
     DateTimeIsEmpty(appointment){
@@ -141,10 +148,10 @@ class AdventureScheduleForClientComponent extends Component {
         
 
         if (this.DateTimeIsEmpty(appointment) == true){
-
+        this.SendEmail();
         console.log('appointment => ' + JSON.stringify(appointment));
         axios.post("http://localhost:8080/api/v1/adventureappointments/",appointment);
-        this.SendEmail(activeAdventure.id);
+        
         
         window.location.reload();
     }
@@ -161,6 +168,7 @@ class AdventureScheduleForClientComponent extends Component {
         axios.get("http://localhost:8080/api/v1/adventurefreeappointments/instructor/"+activeUser.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
         axios.get("http://localhost:8080/api/v1/adventureappointments/instructor/"+activeUser.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
         axios.get("http://localhost:8080/api/v1/adventurequickappointments/instructor/"+activeUser.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
+        axios.get("http://localhost:8080/api/v1/adventureappointments/instructor/"+ activeUser.id).then((res4)=>{this.setState({allAppointments: res4.data});});
     }
     render() {
         return (

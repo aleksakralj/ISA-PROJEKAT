@@ -13,6 +13,9 @@ class ViewAdventureComponent extends Component {
             rulesOfConduct: '',
             termsOfReservation: '',
             instructorId: '',
+            additionalServices:'',
+            prices:'',
+            fishingEquipment:'',
             clientComponents: false,
             fishingInstructorComponents: true,
             unautentifiedUserComponents: false
@@ -135,6 +138,9 @@ class ViewAdventureComponent extends Component {
             maxPeople:activeAdventure.maxPeople,
             rulesOfConduct:activeAdventure.rulesOfConduct,
             termsOfReservation:activeAdventure.termsOfReservation,
+            additionalServices:activeAdventure.additionalServices,
+            prices:activeAdventure.prices,
+            fishingEquipment:activeAdventure.fishingEquipment,
             instructorId:activeAdventure.instructorId,
 
 
@@ -146,6 +152,9 @@ class ViewAdventureComponent extends Component {
 
                 
                 <h2 className='text-center'>Adventure profile</h2>
+                <div style={{position:'absolute',top:'25px'}} className="center"><button className="transparentbtn" onClick={()=>this.addAppointment()}>Add appointment</button></div>
+                <div style={{position:'absolute',top:'25px',left:'830px'}} className="center"><button className="transparentbtn" onClick={()=>this.addQuickAppointment()}>Add Quick appointment</button></div>
+                    
 
                 <div style={{position:'absolute',top:'150px',left:'35%'}} className="registrationdiv">
                     <br /><br />
@@ -172,9 +181,7 @@ class ViewAdventureComponent extends Component {
                     <br />
 
                    
-                    <div className="center"><button className="loginbtn" onClick={()=>this.updateAdventure}>Update</button><br/></div>
-                    <div className="center"><button className="loginbtn" onClick={()=>this.addAppointment()}>Add appointment</button></div>
-                    <div className="center"><button className="loginbtn" onClick={()=>this.addQuickAppointment()}>Add Quick appointment</button></div>
+                    <div className="center"><button className="loginbtn" onClick={()=>this.updateAdventure}>Update</button><br/><br/></div>
                     
                     
                 </div>

@@ -49,7 +49,7 @@ class AddAdventureQuickAppointmentComponent extends Component {
     changeLocationHandler= (event) => {
         this.setState({location: event.target.value});
     }
-    SendEmail(shipId){
+    SendEmail(){
 
         
         for (let i=0;i<this.state.toEmail.length;i++){
@@ -178,6 +178,8 @@ class AddAdventureQuickAppointmentComponent extends Component {
                 
                 <div className="registrationdiv">
                     <br/><br/>
+                    <h2 style={{position:'absolute',top:'10px',left:'20%'}}>Quick apointment</h2>
+                    <br/><br/>
                                 <label> Starting date: </label>
                                 <input type="date" name="startingDate" className="form-control" value={this.state.startingDate} onChange={this.changeStartingDateHandler}/>
                                 <label> Ending Date: </label>
@@ -194,7 +196,7 @@ class AddAdventureQuickAppointmentComponent extends Component {
                                 
                                 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Add Quick Appointment</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Add </button></div>
                                 
                                 
                                 

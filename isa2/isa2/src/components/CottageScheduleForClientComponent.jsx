@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import emailjs from "emailjs-com";
 
 class CottageScheduleForClientComponent extends Component {
     constructor(props){
@@ -14,7 +15,8 @@ class CottageScheduleForClientComponent extends Component {
             cottageId:'',
             allFreeAppointments:[],
             allScheduledAppointments:[],
-            allQuickAppointments:[]
+            allQuickAppointments:[],
+            toEmail:[]
         }
        
         this.changeStartingDateHandler = this.changeStartingDateHandler.bind(this);
@@ -72,13 +74,26 @@ class CottageScheduleForClientComponent extends Component {
         this.setState({additionalServices: event.target.value});
     }
     
-    SendEmail(cottageId){
+    SendEmail(){
 
-        axios.post("http://localhost:8080/api/v1/cottagesubscriptions/cottageid/",cottageId).then((res)=>{
-            for (let i=0;i<res.length;i++){
-                //poslati mail na res[i].email da je rezervisan termin
-            };
-        });
+        for (let i=0;i<this.state.toEmail.length;i++){
+            var template_params = {
+                "email": this.state.toEmail[i].email,
+                "message":"Reservation for cottage is succesfull.",
+                "subject": "Reservatio"
+            }
+            emailjs.send('service_h91s9bd', 'template_633ebld',template_params,'user_8ZDv9VEXQIiu7UptSVwB3')
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+                
+               
+             }, function(error) {
+                console.log('FAILED...', error);
+             });
+             
+
+            
+        };
 
     }
 
@@ -159,12 +174,13 @@ class CottageScheduleForClientComponent extends Component {
         
         
         if (this.DateTimeIsEmpty(appointment) == true){
-
+        this.SendEmail();
         console.log('appointment => ' + JSON.stringify(appointment));
         axios.post("http://localhost:8080/api/v1/cottageappointments/",appointment);
-        this.props.history.push(`/cottageappointments`);
-        this.SendEmail(activeCottage.id);
-        window.location.reload();
+
+        window.alert("Email on his way.")
+        //this.props.history.push(`/cottageappointments`);
+        //window.location.reload();
 
         
     }
@@ -183,6 +199,7 @@ class CottageScheduleForClientComponent extends Component {
         axios.get("http://localhost:8080/api/v1/cottagefreeappointments/cottage/"+activeCottage.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
         axios.get("http://localhost:8080/api/v1/cottageappointments/cottage/"+activeCottage.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
         axios.get("http://localhost:8080/api/v1/cottagequickappointments/cottage/"+activeCottage.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
+        axios.get("http://localhost:8080/api/v1/cottageappointments/cottage/"+activeCottage.id).then((res4)=>{this.setState({allAppointments: res4.data});});
     }
     render() {
         return (
