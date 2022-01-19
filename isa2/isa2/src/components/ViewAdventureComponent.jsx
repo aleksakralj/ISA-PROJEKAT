@@ -88,6 +88,16 @@ class ViewAdventureComponent extends Component {
     {
         this.props.history.push('/addadventurequickappointment')
     }
+    History(){
+        this.props.history.push(`/adventureappointmentshistory`);
+    }
+    ScheduleForClient(){
+        this.props.history.push(`/adventurescheduleforclient`);
+    }
+
+    CurrentReservation(){
+        this.props.history.push(`/adventureappointmentsreservation`);
+    }
 
     componentDidMount() {
 
@@ -182,6 +192,14 @@ class ViewAdventureComponent extends Component {
 
                    
                     <div className="center"><button className="loginbtn" onClick={()=>this.updateAdventure}>Update</button><br/><br/></div>
+                    
+
+                    <br />
+                    <div className="center"><button className="loginbtn" onClick={()=>this.ScheduleForClient()}>Schedule for client</button><br/><br/></div>
+                    <br />
+                    <div className="center"><button className="loginbtn" onClick={()=>this.History()}>History</button><br/><br/></div>
+                    <br />
+                    <div className="center"><button className="loginbtn" onClick={()=>this.CurrentReservation()}>Current Reservation</button><br/><br/></div>
                     
                     
                 </div>

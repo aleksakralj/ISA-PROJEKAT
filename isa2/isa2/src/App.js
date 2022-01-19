@@ -117,6 +117,18 @@ import AdventureScheduleForClientComponent from './components/AdventureScheduleF
 import CottageAppointmentHistoryComponent from './components/CottageAppointmentHistoryComponent';
 import ClientReviewComponent from './components/ClientReviewComponent';
 import WriteClientReviewComponent from './components/WriteClientReviewComponent';
+import ShipAppointmentHistoryComponent from './components/ShipAppointmentHistoryComponent';
+import ClientReviewShipComponent from './components/ClientReviewShipComponent';
+import WriteClientReviewShipComponent from './components/WriteClientReviewShipComponent';
+import AdventureAppointmentHistoryComponent from './components/AdventureAppointmentHistoryComponent';
+import WriteClientReviewAdventureComponent from './components/WriteClientReviewAdventureComponent';
+import ClientReviewAdventureComponent from './components/ClientReviewAdventureComponent';
+import CottageAppointmentReservationsComponent from './components/CottageAppointmentReservationsComponent';
+import ClientReviewReservationComponent from './components/ClientReviewReservationComponent';
+import ShipAppointmentReservationComponent from './components/ShipAppointmentReservationComponent';
+import ClientReviewShipReservation from './components/ClientReviewShipReservation';
+import AdventureAppointmentReservationComponent from './components/AdventureAppointmentReservationComponent';
+import ClientReviewAdventureReservationComponent from './components/ClientReviewAdventureReservationComponent';
 
 const backStyle = {
   width: '100%',
@@ -294,7 +306,18 @@ function App() {
               <Route path="/cottageappointmentshistory" component={CottageAppointmentHistoryComponent}></Route>
               <Route path="/clientreview" component={ClientReviewComponent}></Route>
               <Route path="/writeclientreview" component={WriteClientReviewComponent}></Route>
-
+              <Route path="/shipappointmentshistory" component={ShipAppointmentHistoryComponent}></Route>
+              <Route path="/clientreviewship" component={ClientReviewShipComponent}></Route>
+              <Route path="/writeclientreviewship" component={WriteClientReviewShipComponent}></Route>
+              <Route path="/adventureappointmentshistory" component={AdventureAppointmentHistoryComponent}></Route>
+              <Route path="/clientreviewadventure" component={ClientReviewAdventureComponent}></Route>
+              <Route path="/writeclientreviewadventure" component={WriteClientReviewAdventureComponent}></Route>
+              <Route path="/cottageappointmentsreservations" component={CottageAppointmentReservationsComponent}></Route>
+              <Route path="/clientreviewreservation" component={ClientReviewReservationComponent}></Route>
+              <Route path="/shipappointmentsreservation" component={ShipAppointmentReservationComponent}></Route>
+              <Route path="/clientreviewshipreservation" component={ClientReviewShipReservation}></Route>
+              <Route path="/adventureappointmentsreservation" component={AdventureAppointmentReservationComponent}></Route>
+              <Route path="/clientreviewadventurereservation" component={ClientReviewAdventureReservationComponent}></Route>
               </Switch>
           </div>
                                 
