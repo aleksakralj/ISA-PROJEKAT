@@ -86,23 +86,23 @@ class ClientReviewComponent extends Component {
                 <div className="registrationdiv">
                     
                                 <label> Email: </label>
-                                <input name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler}/>
+                                <input name="email" className="form-control" value={this.state.email} />
                                 
 
                                 <label> First name: </label>
-                                <input name="firstName" className="form-control" value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
+                                <input name="firstName" className="form-control" value={this.state.firstName}/>
                                 <label> Last name: </label>
-                                <input name="lastName" className="form-control" value={this.state.lastName} onChange={this.changeLastNameHandler}/>
+                                <input name="lastName" className="form-control" value={this.state.lastName} />
                                 
                                 <label> Address: </label>
-                                <input name="address" className="form-control" value={this.state.address} onChange={this.changeAddressHandler}/>
+                                <input name="address" className="form-control" value={this.state.address} />
                                 <label> City: </label>
-                                <input name="city" className="form-control" value={this.state.city} onChange={this.changeCityHandler}/>   
+                                <input name="city" className="form-control" value={this.state.city}/>   
                                 <label> Country: </label>
-                                <input name="country" className="form-control" value={this.state.country} onChange={this.changeCountryHandler}/> 
+                                <input name="country" className="form-control" value={this.state.country} /> 
 
                                 <label> Phone number: </label>
-                                <input name="phoneNumber" className="form-control" value={this.state.phoneNumber} onChange={this.changePhoneNumberHandler}/>
+                                <input name="phoneNumber" className="form-control" value={this.state.phoneNumber}/>
                                 <br></br>
                                 
                                 <div className="center"><button className="loginbtn" onClick={()=>this.Review()}>Write a review</button> </div>                           

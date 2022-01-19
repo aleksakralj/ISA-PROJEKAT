@@ -34,7 +34,7 @@ class CottageAppointmentHistoryComponent extends Component {
     
     toClient(id){
         axios
-        .get("http://localhost:8080/api/v1/clients/" + id )
+        .get("http://localhost:8080/api/v1/users/" + id )
         .then(response => {
             localStorage.setItem('ClientToReview',JSON.stringify(response.data));
             this.props.history.push('/clientreview');});

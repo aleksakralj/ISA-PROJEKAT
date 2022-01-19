@@ -14,11 +14,11 @@ class WriteClientReviewComponent extends Component {
             reviewMessage:'',
             
         }
-        this.changeComHandler = this.changeComHandler.bind(this);
+        this.changeReviewMessageHandler = this.changeReviewMessageHandler.bind(this);
     }
     
-    changeComHandler = (event) => {
-        this.setState({com: event.target.value});
+    changeReviewMessageHandler = (event) => {
+        this.setState({reviewMessage: event.target.value});
     }
     logout(){
         localStorage.clear();
@@ -103,7 +103,7 @@ class WriteClientReviewComponent extends Component {
                     
                                 <label> Write your comments/suggestions: </label>
                                 <div className="col-8 form-group pt-2 mx-auto">
-                                <textarea  type="text" cols="30" rows="8" name="com" className="form-control" value={this.state.com} onChange={this.changeComHandler}/>
+                                <textarea  type="text" cols="30" rows="8" name="reviewMessage" className="form-control" value={this.state.reviewMessage} onChange={this.changeReviewMessageHandler}/>
                             
                                 </div>
                                 
