@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import emailjs from "emailjs-com";
 
 class AddAdventureQuickAppointmentComponent extends Component {
     constructor(props){
@@ -14,7 +15,8 @@ class AddAdventureQuickAppointmentComponent extends Component {
             instructorId:'',
             allFreeAppointments:[],
             allScheduledAppointments:[],
-            allQuickAppointments:[]
+            allQuickAppointments:[],
+            toEmail:[]
         }
        
         this.changeStartingDateHandler = this.changeStartingDateHandler.bind(this);
@@ -47,7 +49,26 @@ class AddAdventureQuickAppointmentComponent extends Component {
     changeLocationHandler= (event) => {
         this.setState({location: event.target.value});
     }
-    
+    SendEmail(){
+
+        
+        for (let i=0;i<this.state.toEmail.length;i++){
+            var template_params = {
+                "email": this.state.toEmail[i].email,
+                "message":"Blabla",
+                "subject": "Subscription"
+            }
+            emailjs.send('service_h91s9bd', 'template_633ebld',template_params,'user_8ZDv9VEXQIiu7UptSVwB3')
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+             }, function(error) {
+                console.log('FAILED...', error);
+             });
+            //poslati mail na res[i].email
+        };
+        
+
+    }
     DateTimeIsEmpty(appointment){
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
@@ -128,11 +149,12 @@ class AddAdventureQuickAppointmentComponent extends Component {
         
 
         if (this.DateTimeIsEmpty(appointment) == true){
-
+        this.SendEmail();
         console.log('appointment => ' + JSON.stringify(appointment));
         axios.post("http://localhost:8080/api/v1/adventurequickappointments/",appointment);
         
-        window.location.reload();
+        window.alert("Emails on their way.")
+        //window.location.reload();
     }
     else{window.alert("Invalid date or date is not empty")}
     }
@@ -147,6 +169,7 @@ class AddAdventureQuickAppointmentComponent extends Component {
         axios.get("http://localhost:8080/api/v1/adventurefreeappointments/instructor/"+activeUser.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
         axios.get("http://localhost:8080/api/v1/adventureappointments/instructor/"+activeUser.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
         axios.get("http://localhost:8080/api/v1/adventurequickappointments/instructor/"+activeUser.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
+        //axios.get("http://localhost:8080/api/v1/adventuresubscriptions/adventureid/"+activeAdventure.id).then((res4)=>{this.setState({toEmail: res4.data});});
     }
     render() {
         return (
@@ -154,6 +177,8 @@ class AddAdventureQuickAppointmentComponent extends Component {
                
                 
                 <div className="registrationdiv">
+                    <br/><br/>
+                    <h2 style={{position:'absolute',top:'10px',left:'20%'}}>Quick apointment</h2>
                     <br/><br/>
                                 <label> Starting date: </label>
                                 <input type="date" name="startingDate" className="form-control" value={this.state.startingDate} onChange={this.changeStartingDateHandler}/>
@@ -171,7 +196,7 @@ class AddAdventureQuickAppointmentComponent extends Component {
                                 
                                 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Add Quick Appointment</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Add </button></div>
                                 
                                 
                                 

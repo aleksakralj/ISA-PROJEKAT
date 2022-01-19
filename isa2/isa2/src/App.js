@@ -111,6 +111,12 @@ import FishingInstructorScheduleComponent from './components/FishingInstructorSc
 import Clientcottageprofilecomponent from './components/ClientCottageProfileComponent';
 import Clientadventureprofilecomponent from './components/ClientAdventureProfileComponent';
 import Clientshipprofilecomponent from './components/ClientShipProfileComponent';
+import CottageScheduleForClientComponent from './components/CottageScheduleForClientComponent';
+import ShipScheduleForClientComponent from './components/ShipScheduleForClientComponent';
+import AdventureScheduleForClientComponent from './components/AdventureScheduleForClientComponent';
+import CottageAppointmentHistoryComponent from './components/CottageAppointmentHistoryComponent';
+import ClientReviewComponent from './components/ClientReviewComponent';
+import WriteClientReviewComponent from './components/WriteClientReviewComponent';
 
 const backStyle = {
   width: '100%',
@@ -282,6 +288,12 @@ function App() {
               <Route path="/clientcottageprofile" component={Clientcottageprofilecomponent}></Route>
               <Route path="/clientshipprofile" component={Clientshipprofilecomponent}></Route>
               <Route path="/clientadventureprofile" component={Clientadventureprofilecomponent}></Route>
+              <Route path="/cottagescheduleforclient" component={CottageScheduleForClientComponent}></Route>
+              <Route path="/shipscheduleforclient" component={ShipScheduleForClientComponent}></Route>
+              <Route path="/adventurescheduleforclient" component={AdventureScheduleForClientComponent}></Route>
+              <Route path="/cottageappointmentshistory" component={CottageAppointmentHistoryComponent}></Route>
+              <Route path="/clientreview" component={ClientReviewComponent}></Route>
+              <Route path="/writeclientreview" component={WriteClientReviewComponent}></Route>
 
               </Switch>
           </div>

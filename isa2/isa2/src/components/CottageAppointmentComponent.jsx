@@ -42,9 +42,7 @@ class CottageAppointmentComponent extends Component {
     }
     
     logout(){
-        localStorage.removeItem('activeUser')
-        localStorage.removeItem('activeCottage')
-        localStorage.removeItem('activeRoom')
+        localStorage.clear();
         this.props.history.push(`/login`);
        
     }
@@ -105,6 +103,13 @@ class CottageAppointmentComponent extends Component {
     profile(){
         this.props.history.push(`/cottageownerprofile`);
     }
+    ScheduleForClient(){
+
+        this.props.history.push(`/cottagescheduleforclient`);
+    }
+    History(){
+        this.props.history.push(`/cottageappointmentshistory`);
+    }
 
     componentDidMount(){
 
@@ -150,6 +155,10 @@ class CottageAppointmentComponent extends Component {
                                 <div className="center"><button className="loginbtn" onClick={()=>this.AddAppointment()}>Add Appointment</button></div>
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.AddQuickAppointment()}>Add Quick Appointment</button></div>
+                                <br/>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.ScheduleForClient()}>Schedule For Client</button></div>
+                                <br/>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.History()}>History</button></div>
                                 <br/>
                                 
 

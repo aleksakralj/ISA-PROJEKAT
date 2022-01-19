@@ -26,7 +26,7 @@ class AdminComplaintsComponent extends Component {
             localStorage.setItem('activeComplaint',JSON.stringify(response.data));
             
             });
-        
+            this.props.history.push('/adminsendemailcom');
         
     }
     
@@ -48,27 +48,27 @@ class AdminComplaintsComponent extends Component {
                     <table className = "table table-striped table-borderd">
                         <thead>
                             <tr>
+                                <th>On what</th>
                                 <th>Complaint message</th>
-                                <th>Users type</th>
-                                <th>Users email</th>
-                                <th>OnWhoOrWhat</th>
-                                <th>onWhoEmail</th>
+                                <th>Recipint email</th>
+                                <th>Sender email</th>
+                                
                                 
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                this.state.profiledeletionrequests.map(
+                                this.state.complaints.map(
 
                                     complaints =>
                                     <tr key= {complaints.id}>
 
-                                        <td>{complaints.message}</td>
-                                        <td>{complaints.userType}</td>
-                                        <td>{complaints.userEmail}</td>
-                                        <td>{complaints.onWhoOrWhat}</td>
-                                        <td>{complaints.onWhoEmail}</td>
+                                        <td>{complaints.onWhat}</td>
+                                        <td>{complaints.complaintMessage}</td>
+                                        <td>{complaints.emailOfComplaintRecipient}</td>
+                                        <td>{complaints.emailOfComplaintSender}</td>
+                                        
                                         
                                         <td><button onClick={()=>this.writeResponse(complaints.id)} className="loginbtn"> Respond </button></td>
                                         

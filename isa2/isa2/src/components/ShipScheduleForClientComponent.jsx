@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import emailjs from "emailjs-com";
 
-class AddShipQuickAppointmentComponent extends Component {
+class ShipScheduleForClientComponent extends Component {
     constructor(props){
         super(props)
         this.state={
@@ -71,23 +71,23 @@ class AddShipQuickAppointmentComponent extends Component {
     changeAdditionalServicesHandler = (event) => {
         this.setState({additionalServices: event.target.value});
     }
+    
     SendEmail(){
-        
-        
-            for (let i=0;i<this.state.toEmail.length;i++){
-                var template_params = {
-                    "email": this.state.toEmail[i].email,
-                    "message":"Blabla",
-                    "subject": "Subscription"
-                }
-                emailjs.send('service_h91s9bd', 'template_633ebld',template_params,'user_8ZDv9VEXQIiu7UptSVwB3')
-                .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                 }, function(error) {
-                    console.log('FAILED...', error);
-                 });
-                //poslati mail na res[i].email
-            };
+
+        for (let i=0;i<this.state.toEmail.length;i++){
+            var template_params = {
+                "email": this.state.toEmail[i].email,
+                "message":"Reservationfor ship is sucesfull",
+                "subject": "Reservation"
+            }
+            emailjs.send('service_h91s9bd', 'template_633ebld',template_params,'user_8ZDv9VEXQIiu7UptSVwB3')
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+             }, function(error) {
+                console.log('FAILED...', error);
+             });
+            
+        };
         
 
     }
@@ -168,14 +168,15 @@ class AddShipQuickAppointmentComponent extends Component {
         
 
         if (this.DateTimeIsEmpty(appointment) == true){
-            this.SendEmail();
+        this.SendEmail();
         console.log('appointment => ' + JSON.stringify(appointment));
-        axios.post("http://localhost:8080/api/v1/shipquickappointments/",appointment);
-        
-        window.alert("Emails on their way.")
+        axios.post("http://localhost:8080/api/v1/shipappointments/",appointment);
+
+        window.alert("Email on his way.")
         //this.props.history.push(`/shipappointments`);
         //window.location.reload();
-       
+
+        
     }
     else{window.alert("Invalid date or date is not empty")}
     }
@@ -190,7 +191,7 @@ class AddShipQuickAppointmentComponent extends Component {
         axios.get("http://localhost:8080/api/v1/shipfreeappointments/ship/"+activeShip.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
         axios.get("http://localhost:8080/api/v1/shipappointments/ship/"+activeShip.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
         axios.get("http://localhost:8080/api/v1/shipquickappointments/ship/"+activeShip.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
-        
+        axios.get("http://localhost:8080/api/v1/shipappointments/shipid/"+activeShip.id).then((res4)=>{this.setState({allAppointments: res4.data});});
     }
     render() {
         return (
@@ -221,7 +222,6 @@ class AddShipQuickAppointmentComponent extends Component {
                                 
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Add Quick Appointment</button></div>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.SendEmail()}>Send</button></div>
                                 
                                 
                                 
@@ -233,4 +233,4 @@ class AddShipQuickAppointmentComponent extends Component {
     }
 }
 
-export default AddShipQuickAppointmentComponent;
+export default ShipScheduleForClientComponent;

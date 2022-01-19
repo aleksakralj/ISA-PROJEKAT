@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import emailjs from "emailjs-com";
 
 class AddQuickAppointmentComponent extends Component {
     constructor(props){
@@ -14,7 +15,8 @@ class AddQuickAppointmentComponent extends Component {
             cottageId:'',
             allFreeAppointments:[],
             allScheduledAppointments:[],
-            allQuickAppointments:[]
+            allQuickAppointments:[],
+            toEmail:[]
         }
        
         this.changeStartingDateHandler = this.changeStartingDateHandler.bind(this);
@@ -72,6 +74,33 @@ class AddQuickAppointmentComponent extends Component {
         this.setState({additionalServices: event.target.value});
     }
     
+    
+    SendEmail(){
+
+        
+        for (let i=0;i<this.state.toEmail.length;i++){
+            var template_params = {
+                "email": this.state.toEmail[i].email,
+                "message":"Blabla",
+                "subject": "Subscription"
+            }
+            emailjs.send('service_h91s9bd', 'template_633ebld',template_params,'user_8ZDv9VEXQIiu7UptSVwB3')
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+                
+               
+             }, function(error) {
+                console.log('FAILED...', error);
+             });
+             
+
+            //poslati mail na res[i].email
+        };
+       
+        
+
+    }
+
     DateTimeIsEmpty(appointment){
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
@@ -149,11 +178,15 @@ class AddQuickAppointmentComponent extends Component {
         
 
         if (this.DateTimeIsEmpty(appointment) == true){
-
+        this.SendEmail();
         console.log('appointment => ' + JSON.stringify(appointment));
         axios.post("http://localhost:8080/api/v1/cottagequickappointments/",appointment);
-        this.props.history.push(`/cottageappointments`);
-        window.location.reload();
+        window.alert("Emails on their way.")
+        
+        //this.props.history.push(`/cottageappointments`);
+        //window.location.reload();
+
+        
     }
     else{window.alert("Invalid date or date is not empty")}
     }
@@ -170,6 +203,7 @@ class AddQuickAppointmentComponent extends Component {
         axios.get("http://localhost:8080/api/v1/cottagefreeappointments/cottage/"+activeCottage.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
         axios.get("http://localhost:8080/api/v1/cottageappointments/cottage/"+activeCottage.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
         axios.get("http://localhost:8080/api/v1/cottagequickappointments/cottage/"+activeCottage.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
+        axios.get("http://localhost:8080/api/v1/cottagesubscriptions/cottageid/"+activeCottage.id).then((res4)=>{this.setState({toEmail: res4.data});});
     }
     render() {
         return (

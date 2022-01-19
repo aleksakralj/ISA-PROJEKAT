@@ -66,17 +66,17 @@ class AdventuresComponent extends Component {
                     
 
        
-                <button style={{position:'absolute', top:'100px', left:'1200px'}} onClick={() => this.addAdventure(this.props.match.params.id)} className="loginbtn">Add</button>
+                <button style={{position:'absolute', top:'150px', left:'1480px'}} onClick={() => this.addAdventure(this.props.match.params.id)} className="loginbtn">Add</button>
        
                 <br />
-                <input style={{position:'absolute',top:'100px'}} name="name" value={this.state.search} onChange={this.changeSearchHandler}></input>
-                <button style={{position:'absolute',top:'100px',left:'310px', height:'35px'}} onClick={() => this.search(this.state.search)} className="loginbtn">Search</button>
+                <input style={{position:'absolute',top:'154px'}} name="name" value={this.state.search} onChange={this.changeSearchHandler}></input>
+                <button style={{position:'absolute',top:'150px',left:'440px'}} onClick={() => this.search(this.state.search)} className="loginbtn">Search</button>
+                
 
-
-                <h2 style={{position:'absolute',top:'70px',left:'45%'}} className="text-center">Adventures</h2>
+                <h2 style={{position:'absolute',top:'100px',left:'45%'}} className="text-center">Adventures</h2>
 
                 <div className="row">
-                    <table style={{position:'absolute', left:'0px',top:'140px'}} className="table table-striped table-borderd">
+                    <table style={{position:'absolute', left:'0px',top:'200px'}} className="table table-striped table-borderd">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -102,8 +102,8 @@ class AdventuresComponent extends Component {
                                             <td>{adventures.rulesOfConduct}</td>
                                             <td>{adventures.termsOfReservation}</td>
 
-                                                <td><button onClick={() => this.viewAdventure(adventures.id)} className="loginbtn">View</button></td>
-                                                <td><button onClick={() => this.deleteAdventure(adventures.id)} className="loginbtn">Delete</button></td>
+                                                <td><button onClick={() => this.viewAdventure(adventures.id)} className="loginbtn">View</button>
+                                                <button onClick={() => this.deleteAdventure(adventures.id)} className="loginbtn">Delete</button></td>
                                         </tr>
                                 )
                             }

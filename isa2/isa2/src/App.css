@@ -116,6 +116,12 @@
   
 
 }
+.transparentbtn{
+  background-color: transparent;
+  border-top: transparent;
+  border-right: transparent;
+  border-bottom: transparent;
+}
 .changepercentagebtn{
   background-color:#318f6e;
   width: 170px;
