@@ -112,6 +112,10 @@ class CottageProfileComponent extends Component {
 
     }
     
+    Statistics(){
+        this.props.history.push(`/cottagestatistics`);
+
+    }
     componentDidMount(){
         
         
@@ -186,9 +190,11 @@ class CottageProfileComponent extends Component {
                                 <br/>
                                 { this.state.cottegeOwnerComponents?
                                 <div className="center"><button className="loginbtn" onClick={()=>this.update()}>Update</button></div>
+                                
                                 :null
                                 }
-                                
+                                <br></br>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.Statistics()}>Statistics</button></div>
                                 
 
                 </div>

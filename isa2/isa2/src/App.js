@@ -129,6 +129,9 @@ import ShipAppointmentReservationComponent from './components/ShipAppointmentRes
 import ClientReviewShipReservation from './components/ClientReviewShipReservation';
 import AdventureAppointmentReservationComponent from './components/AdventureAppointmentReservationComponent';
 import ClientReviewAdventureReservationComponent from './components/ClientReviewAdventureReservationComponent';
+import CottageStatisticsComponent from './components/CottageStatisticsComponent';
+import AdventureStatisticsComponent from './components/AdventureStatisticsComponent';
+import ShipStatisticsComponent from './components/ShipStatisticsComponent';
 
 const backStyle = {
   width: '100%',
@@ -318,6 +321,9 @@ function App() {
               <Route path="/clientreviewshipreservation" component={ClientReviewShipReservation}></Route>
               <Route path="/adventureappointmentsreservation" component={AdventureAppointmentReservationComponent}></Route>
               <Route path="/clientreviewadventurereservation" component={ClientReviewAdventureReservationComponent}></Route>
+              <Route path="/cottagestatistics" component={CottageStatisticsComponent}></Route>
+              <Route path="/adventurestatistics" component={AdventureStatisticsComponent}></Route>
+              <Route path="/shipstatistics" component={ShipStatisticsComponent}></Route>
               </Switch>
           </div>
                                 
