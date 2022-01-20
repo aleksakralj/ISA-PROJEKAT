@@ -32,9 +32,13 @@ public class ProfileDelitionRequestController {
     }
 
     //create
-    @PostMapping("/profiledeletionrequests")
-    public ProfileDelitionRequest createProfileDeletionRequest(@RequestBody ProfileDelitionRequest profileDelitionRequest) {
-        return profileDelitionRequestRepository.save(profileDelitionRequest);
+    @PostMapping("/profiledeletionrequests/{type}")
+    public ProfileDelitionRequest createProfileDeletionRequest(@PathVariable String type,@RequestBody ProfileDelitionRequest profileDelitionRequest) {
+        if(type.equals("ship_owner") || type.equals("admin")|| type.equals("cottage_owner")|| type.equals("fishing_instructor")) {
+            return profileDelitionRequestRepository.save(profileDelitionRequest);
+        }
+        else{return null;}
+
     }
 
     //get by id

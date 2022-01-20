@@ -27,9 +27,12 @@ public class CottageQuickAppointmentController {
     }
 
     //create
-    @PostMapping("/cottagequickappointments")
-    public CottageQuickAppointment createCottageQuickAppointment(@RequestBody CottageQuickAppointment cottageQuickAppointment) {
-        return cottageQuickAppointmentRepository.save(cottageQuickAppointment);
+    @PostMapping("/cottagequickappointments/{type}")
+    public CottageQuickAppointment createCottageQuickAppointment(@PathVariable String type,@RequestBody CottageQuickAppointment cottageQuickAppointment) {
+        if (type.equals("admin") || type.equals("cottage_owner") || type.equals("main_admin")) {
+            return cottageQuickAppointmentRepository.save(cottageQuickAppointment);
+        }
+        else return null;
     }
 
     //get by id
@@ -70,10 +73,13 @@ public class CottageQuickAppointmentController {
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
 
-
-    @GetMapping("/cottagequickappointments/cottage/{cottageid}")
-    public List<CottageQuickAppointment> getAppointmentByCottageId(@PathVariable Long cottageid) {
-        return cottageQuickAppointmentRepository.findByCottageId(cottageid);
+//get by cottage id
+    @GetMapping("/cottagequickappointments/cottage/{type}/{cottageid}")
+    public List<CottageQuickAppointment> getAppointmentByCottageId(@PathVariable String type,@PathVariable Long cottageid) {
+        if (type.equals("admin") || type.equals("cottage_owner") || type.equals("main_admin")) {
+            return cottageQuickAppointmentRepository.findByCottageId(cottageid);
+        }
+        else return null;
     }
 
 

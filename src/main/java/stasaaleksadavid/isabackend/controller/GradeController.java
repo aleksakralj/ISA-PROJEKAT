@@ -64,6 +64,12 @@ public class GradeController {
     }
 
     //get by type and typeid
-    @GetMapping("/grades/typeandid/{type}/{typeid}")
-    public List<Grade> getByTypeAndTypeId(@PathVariable String type, @PathVariable long typeid){return gradeRepository.findByTypeAndTypeId(type,typeid);}
+    @GetMapping("/grades/typeandid/{type}/{type1}/{typeid}")
+
+    public List<Grade> getByTypeAndTypeId(@PathVariable String type,@PathVariable String type1, @PathVariable long typeid){
+        if (type.equals("main_admin") || type.equals("admin") || type.equals("cottage_owner")|| type.equals("fishing_instructor") || type.equals("ship_owner")) {
+        return gradeRepository.findByTypeAndTypeId(type1,typeid);}
+        else return null;
+}
+
 }
