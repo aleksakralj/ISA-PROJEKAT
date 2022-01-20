@@ -24,9 +24,7 @@ class AdventureAppointmentReservationComponent extends Component {
     }
 
     componentDidMount(){
-        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
-        if (activeUser.type == "fishing_instructor" )
-        {
+       
         
         let activeAdventure =  JSON.parse(localStorage.getItem('activeAdventure'));
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
@@ -39,8 +37,9 @@ class AdventureAppointmentReservationComponent extends Component {
             this.setState({appointments: res.data});
     });
 }
+}
 
-    } 
+    
     render() {
         return (
             <div>
