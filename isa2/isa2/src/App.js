@@ -133,6 +133,9 @@ import CottageStatisticsComponent from './components/CottageStatisticsComponent'
 import AdventureStatisticsComponent from './components/AdventureStatisticsComponent';
 import ShipStatisticsComponent from './components/ShipStatisticsComponent';
 
+
+import AdminReviewRequestsComponent from './components/AdminReviewRequestsComponent';
+
 const backStyle = {
   width: '100%',
   height: '800px',
@@ -303,12 +306,14 @@ function App() {
               <Route path="/clientcottageprofile" component={Clientcottageprofilecomponent}></Route>
               <Route path="/clientshipprofile" component={Clientshipprofilecomponent}></Route>
               <Route path="/clientadventureprofile" component={Clientadventureprofilecomponent}></Route>
+
               <Route path="/cottagescheduleforclient" component={CottageScheduleForClientComponent}></Route>
               <Route path="/shipscheduleforclient" component={ShipScheduleForClientComponent}></Route>
               <Route path="/adventurescheduleforclient" component={AdventureScheduleForClientComponent}></Route>
               <Route path="/cottageappointmentshistory" component={CottageAppointmentHistoryComponent}></Route>
               <Route path="/clientreview" component={ClientReviewComponent}></Route>
               <Route path="/writeclientreview" component={WriteClientReviewComponent}></Route>
+
               <Route path="/shipappointmentshistory" component={ShipAppointmentHistoryComponent}></Route>
               <Route path="/clientreviewship" component={ClientReviewShipComponent}></Route>
               <Route path="/writeclientreviewship" component={WriteClientReviewShipComponent}></Route>
@@ -324,6 +329,9 @@ function App() {
               <Route path="/cottagestatistics" component={CottageStatisticsComponent}></Route>
               <Route path="/adventurestatistics" component={AdventureStatisticsComponent}></Route>
               <Route path="/shipstatistics" component={ShipStatisticsComponent}></Route>
+              <Route path="/adminreviewequests" component={AdminReviewRequestsComponent}></Route>
+
+
               </Switch>
           </div>
                                 

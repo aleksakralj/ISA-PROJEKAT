@@ -67,6 +67,7 @@ class MainRegistrationRequestComponent extends Component {
                 this.setState({registrationRequests: this.state.registrationRequests.filter(request=>request.id !==id)});
                 this.props.history.push("/mainregistrationrequests"); // refresh ne radi nzm zasto
         });
+        window.location.reload();
     }
     
     viewRequest(id){
