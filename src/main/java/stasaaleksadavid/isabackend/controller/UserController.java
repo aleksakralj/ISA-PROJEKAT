@@ -40,22 +40,29 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
     //update
-    @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id,@RequestBody User userDetails){
-        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User does not exist with id:"+ id));
+    @PutMapping("/users/{type}/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable String type,@PathVariable Long id,@RequestBody User userDetails){
 
-        user.setPassword(userDetails.getPassword());
-        user.setFirstName(userDetails.getFirstName());
-        user.setLastName(userDetails.getLastName());
-        user.setDateOfBirth(userDetails.getDateOfBirth());
-        user.setEmail(userDetails.getEmail());
-        user.setPhoneNumber(userDetails.getPhoneNumber());
-        user.setAddress(userDetails.getAddress());
-        user.setCity(userDetails.getCity());
-        user.setCountry(userDetails.getCountry());
+        if(type.equals("ship_owner") || type.equals("admin")|| type.equals("cottage_owner")|| type.equals("fishing_instructor")|| type.equals("main_admin")){
+            User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User does not exist with id:" + id));
 
-        User updatedUser = userRepository.save(user);
-        return ResponseEntity.ok(updatedUser);
+
+
+
+                user.setPassword(userDetails.getPassword());
+                user.setFirstName(userDetails.getFirstName());
+                user.setLastName(userDetails.getLastName());
+                user.setDateOfBirth(userDetails.getDateOfBirth());
+                user.setEmail(userDetails.getEmail());
+                user.setPhoneNumber(userDetails.getPhoneNumber());
+                user.setAddress(userDetails.getAddress());
+                user.setCity(userDetails.getCity());
+                user.setCountry(userDetails.getCountry());
+
+                User updatedUser = userRepository.save(user);
+                return ResponseEntity.ok(updatedUser);
+            }
+            else{return null;}
     }
     //delete
     @DeleteMapping("/users/{id}")
@@ -76,7 +83,7 @@ public class UserController {
     }
 
     //login
-    @PostMapping("/login/{email}/{password}")
+    @PostMapping("/login/{email}/{password}") //ALL ALLOWED
     public User loginUser(@PathVariable("email") String email, @PathVariable("password") String password)
     {
         Optional<User> user = Optional.ofNullable(userRepository.findByEmailAndPassword(email,password));

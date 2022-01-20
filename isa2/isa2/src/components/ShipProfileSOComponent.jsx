@@ -120,6 +120,10 @@ class ShipProfileSOComponent extends Component {
         this.props.history.push(`/shipownerships`);
 
     }
+
+    Statistics(){
+        this.props.history.push(`/shipstatistics`);
+    }
     
     componentDidMount(){
         
@@ -191,6 +195,8 @@ class ShipProfileSOComponent extends Component {
                                 
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.update()}>Update</button></div>
+                                <br/>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.Statistics()}>Statistics</button></div>
                                 
                                 
                                 

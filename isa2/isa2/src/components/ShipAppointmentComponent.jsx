@@ -84,6 +84,13 @@ class ShipAppointmentComponent extends Component {
 
     }
 
+    History(){
+        this.props.history.push(`/shipappointmentshistory`);
+    }
+
+    CurrnetReservation(){
+        this.props.history.push(`/shipappointmentsreservation`);
+    }
     componentDidMount(){
 
     }
@@ -110,6 +117,11 @@ class ShipAppointmentComponent extends Component {
                                 <div className="center"><button className="loginbtn" onClick={()=>this.AddQuickAppointment()}>Add Quick Appointment</button></div>
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.ScheduleForClient()}>Schedule For Client</button></div>
+                                <br></br>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.History()}>History</button></div>
+                                <br/>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.CurrnetReservation()}>Currnet Reservation</button></div>
+                                <br/>
                                 
 
                 </div>

@@ -193,7 +193,7 @@ class AdventureScheduleForClientComponent extends Component {
                                 
                                 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Add Quick Appointment</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Schedule for client</button></div>
                                 
                                 
                                 
