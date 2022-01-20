@@ -10,11 +10,9 @@ class AdventureAppointmentHistoryComponent extends Component {
         
     }
    
-    
-    
     toClient(id){
         axios
-        .get("http://localhost:8080/api/v1/users/" + id )
+        .get("http://localhost:8080/api/v1/users/id/fishing_instructor" + id )
         .then(response => {
             localStorage.setItem('ClientToReview',JSON.stringify(response.data));
             this.props.history.push('/clientreviewadventure');});
@@ -22,13 +20,17 @@ class AdventureAppointmentHistoryComponent extends Component {
     }
 
     componentDidMount(){
-        
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         
         let activeAdventure =  JSON.parse(localStorage.getItem('activeAdventure'));
-
+        if (activeUser.type == "fishing_instructor" )
+        {
         axios.get("http://localhost:8080/api/v1/adventurehistoryappointments/adventure/" + activeAdventure.id).then((res)=>{
             this.setState({appointments: res.data});
-    });
+
+         });
+        }
+    else{this.logout(); alert("Unauthorised access")} 
         
     } 
     render() {

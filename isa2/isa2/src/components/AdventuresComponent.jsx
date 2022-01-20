@@ -15,19 +15,21 @@ class AdventuresComponent extends Component {
         this.deleteAdventure = this.deleteAdventure.bind(this);
     }
     deleteAdventure(id) {
-        AdventureService.deleteAdventure(id).then(res => {
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        AdventureService.deleteAdventure(id,activeUser.type).then(res => {
             this.setState({ adventures: this.state.adventures.filter(adventure => adventure.id !== id) });
-            window.location.refresh(); //zasto ni ovkao nece da refrehuje ni sa reload nece 
+             
         });
+        window.location.refresh();
     }
     
     addAdventure() {
         this.props.history.push("/addadventure");
     }
     viewAdventure(id) {
-
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         axios
-        .get("http://localhost:8080/api/v1/adventures/" + id )
+        .get("http://localhost:8080/api/v1/adventures/" + activeUser.type + '/' + id )
         .then(response => {
             localStorage.setItem('activeAdventure',JSON.stringify(response.data));
             this.props.history.push(`/viewadventure`);
@@ -37,21 +39,23 @@ class AdventuresComponent extends Component {
     }
     
     search(search) {
-        //this.setState({seach: this.state.seach})
-        axios.get("http://localhost:8080/api/v1/adventures/name/" + search).then((res) => {
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        axios.get("http://localhost:8080/api/v1/adventures/name/" + search + '/' + activeUser.type).then((res) => {
             this.setState({ adventures: res.data });
         });
     }
     componentDidMount() {
+       
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
-        localStorage.clear();
+        if (activeUser.type == "fishing_instructor" ){
         localStorage.setItem('activeUser',JSON.stringify(activeUser));
 
        
-           axios.get("http://localhost:8080/api/v1/adventures/instructorid/" + activeUser.id).then((res) => {
+           axios.get("http://localhost:8080/api/v1/adventures/instructorid/" + activeUser.id + '/' + activeUser.type).then((res) => {
                 this.setState({ adventures: res.data });
            });
-       
+        } 
+        else{this.logout(); alert("Unauthorised access")} 
     }
 
     changeSearchHandler = (event) => {

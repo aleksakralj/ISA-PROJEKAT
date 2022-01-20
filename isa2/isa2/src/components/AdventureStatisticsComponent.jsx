@@ -19,14 +19,8 @@ class AdventureStatisticsComponent extends Component {
         this.changeStartingDateHandler = this.changeStartingDateHandler.bind(this);
         this.changeEndingDateHandler = this.changeEndingDateHandler.bind(this);
        
- 
-
-     
-       
     }
     
-
-
 
     changeStartingDateHandler = (event) => {
         this.setState({startingDate: event.target.value});
@@ -36,7 +30,6 @@ class AdventureStatisticsComponent extends Component {
     }
     
     
-   
 
     logout(){
         localStorage.clear();
@@ -70,20 +63,24 @@ class AdventureStatisticsComponent extends Component {
     }
 
     componentDidMount(){
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        if (activeUser.type == "fishing_instructor" )
+        {
         
-        
-        let activeAdventure =  JSON.parse(localStorage.getItem('activeAdventure'));
+            let activeAdventure =  JSON.parse(localStorage.getItem('activeAdventure'));
 
-        axios.get("http://localhost:8080/api/v1/adventurehistoryappointments/adventure/" + activeAdventure.id).then((res)=>{
-            this.setState({appointments: res.data});
-        }) ;
+            axios.get("http://localhost:8080/api/v1/adventurehistoryappointments/adventure/fishing_instructor/" + activeAdventure.id).then((res)=>{
+                this.setState({appointments: res.data});
+            }) ;
 
-        
-            axios.get("http://localhost:8080/api/v1/grades/typeandid/adventure/"+activeAdventure.id).then((res2)=>{
-                this.setState({grades: res2.data});
+            
+                axios.get("http://localhost:8080/api/v1/grades/typeandid/fishing_instructor/adventure/fishing_instructor/"+activeAdventure.id).then((res2)=>{
+                    this.setState({grades: res2.data});
 
-                this.CalculateGrade();
-       })
+                    this.CalculateGrade();
+                 })
+        }
+        else{this.logout(); alert("Unauthorised access")} 
     }
         
     

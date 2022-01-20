@@ -46,7 +46,7 @@ class AdminProfileComponent extends Component {
         
         console.log('activeUser => ' + JSON.stringify(activeUser));
 
-        UserService.updateUser(activeUser,id) ;
+        UserService.updateUser(activeUser,id,activeUser.type) ;
     }
     logout(){
        
