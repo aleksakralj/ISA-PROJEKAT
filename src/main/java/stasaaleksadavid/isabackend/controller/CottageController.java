@@ -22,8 +22,13 @@ public class CottageController {
     private CottageRepository cottageRepository;
 
     //get all
-    @GetMapping("/cottages")
-    public List<Cottage> getAllCottages(){return cottageRepository.findAll();}
+    @GetMapping("/cottages/{type}")
+    public List<Cottage> getAllCottages(@PathVariable String type){
+        if(type.equals("admin") || type.equals("main_admin")){
+        return cottageRepository.findAll();
+    }
+    else{return null;}
+    }
 
     //create
     @PostMapping("/cottages")
@@ -32,10 +37,13 @@ public class CottageController {
     }
 
     //get by id
-    @GetMapping("/cottages/{id}")
-    public ResponseEntity<Cottage> getCottageById(@PathVariable Long id){
+    @GetMapping("/cottages/{type}/{id}")
+    public ResponseEntity<Cottage> getCottageById(@PathVariable String type,@PathVariable Long id){
+        if(type.equals("admin") || type.equals("main_admin")){
         Cottage cottage = cottageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cottage does not exist with id:"+ id));
         return ResponseEntity.ok(cottage);
+        }
+        else{return null;}
     }
 
 
@@ -58,8 +66,9 @@ public class CottageController {
 
 
     //delete
-    @DeleteMapping("/cottages/{id}")
-    public Map<String, Boolean> deleteCottage(@PathVariable Long id){
+    @DeleteMapping("/cottages/{type}/{id}")
+    public Map<String, Boolean> deleteCottage(@PathVariable String type,@PathVariable Long id){
+        if(type.equals("admin") || type.equals("main_admin")){
 
         Cottage cottage = cottageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cottage does not exist with id:"+ id));
 
@@ -67,6 +76,9 @@ public class CottageController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
+
+        }
+        else{return null;}
     }
 
 // get by Email and Password

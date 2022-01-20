@@ -13,16 +13,29 @@ class CottageOwnersComponent extends Component {
     }
     
     deleteCottageOwner(id){
-        UserService.deleteUser(id).then(res=>{
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        UserService.deleteUser(id,activeUser.type).then(res=>{
                 this.setState({cottageOwners: this.state.cottageOwners.filter(cottageowner=>cottageowner.id !==id)});
                 this.props.history.push("/cottageowners"); 
         });
     }
+    logout(){
+       
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
+    }
     componentDidMount(){
-        axios.get("http://localhost:8080/api/v1/users/type/cottage_owner").then((res)=>{
-            this.setState({cottageOwners: res.data});
-    });
-     } 
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        if (activeUser.type == "admin" || activeUser.type == "main_admin" )
+        {
+            axios.get("http://localhost:8080/api/v1/users/type/cottage_owner").then((res)=>{
+                this.setState({cottageOwners: res.data});
+            });
+        }  
+        
+        else{this.logout(); alert("Unauthorised access")}
+    } 
     render() {
         return (
             <div>

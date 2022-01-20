@@ -23,8 +23,13 @@ public class ShipController {
 
     //get all
 
-    @GetMapping("/ships")
-    public List<Ship> getAllShips(){return shipRepository.findAll();}
+    @GetMapping("/ships/{type}")
+    public List<Ship> getAllShips(@PathVariable String type){
+        if(type.equals("admin") || type.equals("main_admin")){
+        return shipRepository.findAll();
+        }
+        else{return null;}
+    }
 
     //create
     @PostMapping("/ships")
@@ -33,8 +38,8 @@ public class ShipController {
     }
 
     //get by id
-    @GetMapping("/ships/{id}")
-    public ResponseEntity <Ship> getShipById(@PathVariable Long id){
+    @GetMapping("/ships/{type}/{id}")
+    public ResponseEntity <Ship> getShipById(@PathVariable String type,@PathVariable Long id){
         Ship ship = shipRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ship does not exist with id:"+ id));
         return ResponseEntity.ok(ship);
     }
@@ -66,8 +71,10 @@ public class ShipController {
 
 
     //delete
-    @DeleteMapping("/ships/{id}")
-    public Map<String, Boolean> deleteAdmin(@PathVariable Long id){
+    @DeleteMapping("/ships/{type}/{id}")
+    public Map<String, Boolean> deleteShip(@PathVariable String type,@PathVariable Long id){
+        if(type.equals("admin") || type.equals("main_admin")){
+
 
         Ship ship = shipRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ship does not exist with id:"+ id));
 
@@ -75,6 +82,8 @@ public class ShipController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
+        }
+        else{return null;}
     }
     @GetMapping("/ships/owner/{ownerid}")
     public List<Ship> getShipsByOwnerId(@PathVariable Long ownerid) {

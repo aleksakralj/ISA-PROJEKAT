@@ -3,9 +3,6 @@ import UserService from '../services/UserService';
 import ProfileDeletionRequestService from '../services/ProfileDeletionRequestService';
 import axios from 'axios';
 
-
-
-
 class AdminProfileDeletionsRequestsComponent extends Component {
     
     constructor(props) {
@@ -17,17 +14,18 @@ class AdminProfileDeletionsRequestsComponent extends Component {
         this.writeResponse = this.writeResponse.bind(this);
        
     }
-    
+    //check this
     writeResponse(userId,id){
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         axios
-        .get("http://localhost:8080/api/v1/users/" + userId )
+        .get("http://localhost:8080/api/v1/users/" + activeUser.type + '/'+ userId )
         .then(response => {
             localStorage.setItem('activeRecipient',JSON.stringify(response.data));
             
             });
         
         axios
-        .get( "http://localhost:8080/api/v1/profiledeletionrequests/"+ id )
+        .get( "http://localhost:8080/api/v1/profiledeletionrequests/" + activeUser.type + '/'+ id )
         .then(response => {
             localStorage.setItem('activeRequest', JSON.stringify(response.data));
             
@@ -35,41 +33,30 @@ class AdminProfileDeletionsRequestsComponent extends Component {
         this.props.history.push('/adminsendemail');
     }
     
-     /*acceptDeletion(userId,id){
-        
-        UserService.deleteUser(userId);  
-
-        axios.delete("http://localhost:8080/api/v1/profiledeletionrequests/"+id);
-        window.location.reload();
-        window.location.reload();
-
-       // ProfileDeletionRequestService.deleteProfileDeletionRequest(id).then(res=>{
-          //  this.setState({profiledeletionrequests: this.state.profiledeletionrequests.filter(request=>request.id !==id)});
-       // });
+    
+    logout(){
        
-
+        localStorage.clear();
+        this.props.history.push(`/login`);
        
-     }
-     denyDeletion(id){
-       
-        axios.delete("http://localhost:8080/api/v1/profiledeletionrequests/"+id);
-        window.location.reload();
-        window.location.reload();
+    }
 
-     }
-*/
-   
      componentDidMount(){
-        ProfileDeletionRequestService.getProfileDeletionRequests().then((res)=>{
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        if (activeUser.type == "admin" || activeUser.type == "main_admin" )
+        {
+        ProfileDeletionRequestService.getProfileDeletionRequests(activeUser.type).then((res)=>{
                  this.setState({profiledeletionrequests: res.data});
          });
+        } 
+        else{this.logout(); alert("Unauthorised access")} 
      } 
  
     render() {
         return (
             <div>
                  <br/><br/>
-            <h2 className="text-center">Profile deletion requests</h2>
+            <h2 className="text-center">Account deletion requests</h2>
 
             <br/><br/>
 

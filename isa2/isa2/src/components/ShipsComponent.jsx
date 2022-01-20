@@ -11,16 +11,29 @@ class ShipsComponent extends Component {
     }
     
     deleteShip(id){
-        ShipService.deleteShip(id).then(res=>{
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        
+        ShipService.deleteShip(id,activeUser.type).then(res=>{
                 this.setState({ships: this.state.ships.filter(ship=>ship.id !==id)});
                 
         });
         window.location.reload();
     }
+    logout(){
+       
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
+    }
     componentDidMount(){
-        ShipService.getShips().then((res)=>{
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        if (activeUser.type == "admin" || activeUser.type == "main_admin" ){
+        ShipService.getShips(activeUser.type).then((res)=>{
                  this.setState({ships: res.data});
          });
+        }  
+        
+        else{this.logout(); alert("Unauthorised access")}
      } 
     render() {
         return (

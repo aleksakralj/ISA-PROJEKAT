@@ -15,7 +15,8 @@ class RegistrationRequestComponent extends Component {
     
     
     denyRequest(id){
-        RegistrationRequestService.deleteRegistrationRequest(id).then(res=>{
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        RegistrationRequestService.deleteRegistrationRequest(id,activeUser.type).then(res=>{
                 this.setState({registrationRequests: this.state.registrationRequests.filter(request=>request.id !==id)});
                 this.props.history.push("/registrationrequests"); // refresh ne radi nzm zasto
         });
@@ -25,45 +26,23 @@ class RegistrationRequestComponent extends Component {
     viewRequest(id){
         this.props.history.push(`/viewrequests/${id}`);
     }
-    
-    
-   /* acceptRequest= (e) => {
-        //e.preventDefault();
-        //let registrationRequests = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type: this.state.type}
-        let registrationRequests = this.state.registrationRequests;
-        console.log('registrationRequests => ' + JSON.stringify(registrationRequests));
 
-        //RegistrationRequestService.createUser(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});
-
-
-        //const{type} = props
-        switch(registrationRequests.type){
-            case 'fishing_instructor':
-                RegistrationRequestService.createRegistrationRequestFI(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});
-            break;
-
-            case 'ship_owner':
-                RegistrationRequestService.createRegistrationRequestSO(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});
-            break;
-
-            case 'cottage_owner':
-                RegistrationRequestService.createRegistrationRequestCO(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});
-            break;
-
-            case 'user':
-                RegistrationRequestService.createRegistrationRequestU(registrationRequests).then((res)=>{this.props.history.push('/registrationrequest')});
-            break;
-            
-            default :
-            
-        }
-        
-    }*/
+    logout(){
+       
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
+    }
 
     componentDidMount(){
-       RegistrationRequestService.getRegistrationRequests().then((res)=>{
-                this.setState({registrationRequests: res.data});
-        });
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        if (activeUser.type == "admin" || activeUser.type == "main_admin" )
+        {
+        RegistrationRequestService.getRegistrationRequests(activeUser.type).then((res)=>{
+                    this.setState({registrationRequests: res.data});
+            });
+        } 
+        else{this.logout(); alert("Unauthorised access")}  
     } 
     render() {
         return (

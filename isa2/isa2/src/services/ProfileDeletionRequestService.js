@@ -4,8 +4,8 @@ const PROFILEDELETIONREQUESTS_API_BASE_URL = "http://localhost:8080/api/v1/profi
 
 class ProfileDeletionRequestService {
     
-    getProfileDeletionRequests(){
-        return axios.get(PROFILEDELETIONREQUESTS_API_BASE_URL);        
+    getProfileDeletionRequests(type){
+        return axios.get(PROFILEDELETIONREQUESTS_API_BASE_URL + '/' + type);        
     }
 
     createProfileDeletionRequest(profileDeletionRequest){
