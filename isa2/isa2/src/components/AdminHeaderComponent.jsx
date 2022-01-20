@@ -32,7 +32,8 @@ class AdminHeaderComponent extends Component {
                                 <NavDropdown title="Requests" id="basic-nav-dropdown">
                                     <NavDropdown.Item href="/registrationrequests">Registration</NavDropdown.Item>
                                     <NavDropdown.Item href="/adminprofiledeletionrequests">Account deletion</NavDropdown.Item>
-                                    <NavDropdown.Item href="/admingraderequests">Grade</NavDropdown.Item>                                      
+                                    <NavDropdown.Item href="/admingraderequests">Grade</NavDropdown.Item>    
+                                    <NavDropdown.Item href="/adminreviewequests">Review</NavDropdown.Item>                                   
                                 </NavDropdown>  
                                 <Nav.Link style={navLinkStyle} eventKey={5} href="/admincomplaints">Complaints</Nav.Link>  
                                 <Nav.Item classsname="ms-auto"><Nav.Link style={navLinkStyle} href="/login" onClick={()=>localStorage.removeItem('activeUser')}>Logout</Nav.Link></Nav.Item>

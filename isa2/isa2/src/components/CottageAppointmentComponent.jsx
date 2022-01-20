@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 class CottageAppointmentComponent extends Component {
     constructor(props){
@@ -35,11 +34,7 @@ class CottageAppointmentComponent extends Component {
         
     }
 
-    deleteprofile(id){
-
-        axios.delete("http://localhost:8080/api/v1/users/" + id)
-        this.logout();
-    }
+    
     
     logout(){
         localStorage.clear();
@@ -111,11 +106,20 @@ class CottageAppointmentComponent extends Component {
         this.props.history.push(`/cottageappointmentshistory`);
     }
 
+    CurrentReservations(){
+        this.props.history.push(`/cottageappointmentsreservations`);
+
+    }
+
     componentDidMount(){
 
         
         localStorage.removeItem('activeRoom');
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+        
+
+        if (activeUser.type != "cottage_owner"){this.logout(); alert("Unauthorised access")}
+        else{
 
             this.setState({
                 id:activeUser.id,
@@ -130,6 +134,7 @@ class CottageAppointmentComponent extends Component {
             type:activeUser.type
 
             });
+        }
         
     }
 
@@ -159,6 +164,8 @@ class CottageAppointmentComponent extends Component {
                                 <div className="center"><button className="loginbtn" onClick={()=>this.ScheduleForClient()}>Schedule For Client</button></div>
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.History()}>History</button></div>
+                                <br/>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.CurrentReservations()}>Current Reservations</button></div>
                                 <br/>
                                 
 

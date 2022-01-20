@@ -20,8 +20,9 @@ class AdminComplaintsComponent extends Component {
     }
     
     writeResponse(id){
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         axios
-        .get("http://localhost:8080/api/v1/complaints/" + id )
+        .get("http://localhost:8080/api/v1/complaints/" + activeUser.type +'/'+ id )
         .then(response => {
             localStorage.setItem('activeComplaint',JSON.stringify(response.data));
             
@@ -30,10 +31,22 @@ class AdminComplaintsComponent extends Component {
         
     }
     
+    logout(){
+       
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
+    }
+
      componentDidMount(){
-        ComplaintsService.getComplaints().then((res)=>{
-                 this.setState({complaints: res.data});
-         });
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        if (activeUser.type == "admin" || activeUser.type == "main_admin" )
+        {
+            ComplaintsService.getComplaints(activeUser.type).then((res)=>{
+                    this.setState({complaints: res.data});
+            });
+        } 
+        else{this.logout(); alert("Unauthorised access")} 
      } 
  
     render() {

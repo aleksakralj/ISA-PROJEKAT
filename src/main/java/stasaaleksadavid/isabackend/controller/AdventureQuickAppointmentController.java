@@ -26,9 +26,12 @@ public class AdventureQuickAppointmentController {
     }
 
     //create
-    @PostMapping("/adventurequickappointments")
-    public AdventureQuickAppointment createAdventureQuickAppointment(@RequestBody AdventureQuickAppointment adventureQuickAppointment) {
+    @PostMapping("/adventurequickappointments/{type}")
+    public AdventureQuickAppointment createAdventureQuickAppointment(@PathVariable String type,@RequestBody AdventureQuickAppointment adventureQuickAppointment) {
+        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
         return adventureQuickAppointmentRepository.save(adventureQuickAppointment);
+        }
+        else{return null;}
     }
 
     //get by id
@@ -71,9 +74,12 @@ public class AdventureQuickAppointmentController {
     }
 
 
-    @GetMapping("/adventurequickappointments/instructor/{instructorid}")
-    public List<AdventureQuickAppointment> getAppointmentByInstructorId(@PathVariable Long instructorid) {
+    @GetMapping("/adventurequickappointments/instructor/{instructorid}/{type}")
+    public List<AdventureQuickAppointment> getAppointmentByInstructorId(@PathVariable String type,@PathVariable Long instructorid) {
+        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
         return adventureQuickAppointmentRepository.findByInstructorId(instructorid);
+        }
+        else{return null;}
     }
 
     @GetMapping("/adventurequickappointments/adventure/{adventureid}")

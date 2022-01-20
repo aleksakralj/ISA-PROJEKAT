@@ -24,49 +24,68 @@ public class UserController {
 
     //get all
 
-    @GetMapping("/users")
-    public List<User> getAllUsers(){return userRepository.findAll();}
+    @GetMapping("/users/{type}")
+    public List<User> getAllUsers(@PathVariable String type){
+        if(type.equals("admin") || type.equals("main_admin")) {
+            return userRepository.findAll();
+        }
+        else{return null;}
+    }
 
     //create
-    @PostMapping("/users")
-    public  User createUser(@RequestBody User user){
+    @PostMapping("/users/{type}")
+    public  User createUser(@PathVariable String type,@RequestBody User user){
+        if(type.equals("admin") || type.equals("main_admin")) {
         return userRepository.save(user);
+        }
+        else{return null;}
     }
 
     //get by id
-    @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id){
-        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User does not exist with id:"+ id));
-        return ResponseEntity.ok(user);
+
+    @GetMapping("/users/id/{type}/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable String type,@PathVariable Long id){
+        if(type.equals("ship_owner") || type.equals("admin")|| type.equals("cottage_owner")|| type.equals("fishing_instructor")|| type.equals("main_admin")) {
+            User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User does not exist with id:" + id));
+            return ResponseEntity.ok(user);
+        }
+        else return null;
+
     }
     //update
-    @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id,@RequestBody User userDetails){
-        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User does not exist with id:"+ id));
+    @PutMapping("/users/{type}/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable String type,@PathVariable Long id,@RequestBody User userDetails){
 
-        user.setPassword(userDetails.getPassword());
-        user.setFirstName(userDetails.getFirstName());
-        user.setLastName(userDetails.getLastName());
-        user.setDateOfBirth(userDetails.getDateOfBirth());
-        user.setEmail(userDetails.getEmail());
-        user.setPhoneNumber(userDetails.getPhoneNumber());
-        user.setAddress(userDetails.getAddress());
-        user.setCity(userDetails.getCity());
-        user.setCountry(userDetails.getCountry());
+        if(type.equals("ship_owner") || type.equals("admin")|| type.equals("cottage_owner")|| type.equals("fishing_instructor")|| type.equals("main_admin")){
+            User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User does not exist with id:" + id));
 
-        User updatedUser = userRepository.save(user);
-        return ResponseEntity.ok(updatedUser);
+                user.setPassword(userDetails.getPassword());
+                user.setFirstName(userDetails.getFirstName());
+                user.setLastName(userDetails.getLastName());
+                user.setDateOfBirth(userDetails.getDateOfBirth());
+                user.setEmail(userDetails.getEmail());
+                user.setPhoneNumber(userDetails.getPhoneNumber());
+                user.setAddress(userDetails.getAddress());
+                user.setCity(userDetails.getCity());
+                user.setCountry(userDetails.getCountry());
+
+                User updatedUser = userRepository.save(user);
+                return ResponseEntity.ok(updatedUser);
+            }
+            else{return null;}
     }
     //delete
-    @DeleteMapping("/users/{id}")
-    public Map<String, Boolean> deleteUser(@PathVariable Long id){
+    @DeleteMapping("/users/{type}/{id}")
+    public Map<String, Boolean> deleteUser(@PathVariable Long id,@PathVariable String type) {
+        if ( type.equals("admin") ||  type.equals("main_admin")) {
+            User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User does not exist with id:" + id));
 
-        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User does not exist with id:"+ id));
-
-       userRepository.delete(user);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return (Map<String, Boolean>) ResponseEntity.ok(response);
+            userRepository.delete(user);
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("deleted", Boolean.TRUE);
+            return (Map<String, Boolean>) ResponseEntity.ok(response);
+        }
+        else{return null;}
     }
 
     @GetMapping("/users/{email}/{password}")
@@ -76,7 +95,7 @@ public class UserController {
     }
 
     //login
-    @PostMapping("/login/{email}/{password}")
+    @PostMapping("/login/{email}/{password}") //ALL ALLOWED
     public User loginUser(@PathVariable("email") String email, @PathVariable("password") String password)
     {
         Optional<User> user = Optional.ofNullable(userRepository.findByEmailAndPassword(email,password));

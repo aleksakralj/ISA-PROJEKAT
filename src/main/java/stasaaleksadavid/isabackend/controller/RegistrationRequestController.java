@@ -22,8 +22,14 @@ public class RegistrationRequestController {
 
     //get all
 
-    @GetMapping("/registrationrequests")
-    public List<RegistrationRequest> getAllRegistrationRequets(){return registrationRequestRepository.findAll();}
+    @GetMapping("/registrationrequests/{type}")
+    public List<RegistrationRequest> getAllRegistrationRequests(@PathVariable String type){
+        if(type.equals("admin") || type.equals("main_admin")){
+        return registrationRequestRepository.findAll();
+        }
+        else{return null;}
+
+    }
 
     //create
 
@@ -32,21 +38,27 @@ public class RegistrationRequestController {
 
     //get by id
 
-    @GetMapping("/registrationrequests/{id}")
-    public ResponseEntity <RegistrationRequest> getRegistrationRequestById(@PathVariable Long id) {
+    @GetMapping("/registrationrequests/{type}/{id}")
+    public ResponseEntity <RegistrationRequest> getRegistrationRequestById(@PathVariable String type,@PathVariable Long id) {
+        if(type.equals("admin") || type.equals("main_admin")){
         RegistrationRequest registrationRequest = registrationRequestRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Registration Request does not exist with id:" + id));
         return ResponseEntity.ok(registrationRequest);
+        }
+        else{return null;}
     }
 
     //delete
-    @DeleteMapping("/registrationrequests/{id}")
-    public Map<String, Boolean> deleteRegistrationRequest(@PathVariable Long id){
+    @DeleteMapping("/registrationrequests/{type}/{id}")
+        public Map<String, Boolean> deleteRegistrationRequest(@PathVariable String type,@PathVariable Long id){
+            if(type.equals("admin") || type.equals("main_admin")){
+                RegistrationRequest registrationRequest = registrationRequestRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Registration Request does not exist with id:" + id));
 
-        RegistrationRequest registrationRequest = registrationRequestRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Registration Request does not exist with id:" + id));
+                registrationRequestRepository.delete(registrationRequest);
+                Map<String, Boolean> response = new HashMap<>();
+                response.put("deleted", Boolean.TRUE);
+                return (Map<String, Boolean>) ResponseEntity.ok(response);
+             }
+            else{return null;}
+        }
 
-        registrationRequestRepository.delete(registrationRequest);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return (Map<String, Boolean>) ResponseEntity.ok(response);
-    }
 }

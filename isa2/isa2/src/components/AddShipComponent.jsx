@@ -97,7 +97,7 @@ class AddShipComponent extends Component {
         ownerId:activeUser.id}
 
         console.log('ship => ' + JSON.stringify(ship));
-        axios.post("http://localhost:8080/api/v1/ships/",ship);
+        axios.post("http://localhost:8080/api/v1/ships/ship_owner/",ship);
         this.props.history.push(`/shipownerships`);
         window.location.reload();
 
@@ -108,7 +108,9 @@ class AddShipComponent extends Component {
        
     }
     componentDidMount(){
-      
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+
+        if (activeUser.type != "ship_owner"){this.logout(); alert("Unauthorised access")}
     }
     render() {
         return (

@@ -29,9 +29,12 @@ public class CottageFreeAppointmentController {
     }
 
     //create
-    @PostMapping("/cottagefreeappointments")
-    public CottageFreeAppointment createCottageFreeAppointment(@RequestBody CottageFreeAppointment cottageFreeAppointment) {
-        return cottageFreeAppointmentRepository.save(cottageFreeAppointment);
+    @PostMapping("/cottagefreeappointments/{type}")
+    public CottageFreeAppointment createCottageFreeAppointment(@PathVariable String type,@RequestBody CottageFreeAppointment cottageFreeAppointment) {
+        if (type.equals("admin") || type.equals("cottage_owner") || type.equals("main_admin")) {
+            return cottageFreeAppointmentRepository.save(cottageFreeAppointment);
+        }
+        else return null;
     }
 
     //get by id
@@ -70,9 +73,12 @@ public class CottageFreeAppointmentController {
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
-
-    @GetMapping("/cottagefreeappointments/cottage/{cottageid}")
-    public List<CottageFreeAppointment> getFreeAppointmentByCottageId(@PathVariable Long cottageid) {
+    //get by cottage id
+    @GetMapping("/cottagefreeappointments/cottage/{type}/{cottageid}")
+    public List<CottageFreeAppointment> getFreeAppointmentByCottageId(@PathVariable String type,@PathVariable Long cottageid) {
+        if (type.equals("admin") || type.equals("cottage_owner") || type.equals("main_admin")) {
         return cottageFreeAppointmentRepository.findByCottageId(cottageid);
+    }
+        else return null;
     }
 }

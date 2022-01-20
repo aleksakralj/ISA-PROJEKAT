@@ -21,25 +21,37 @@ public class AdventureController {
     private AdventureRepository adventureRepository;
     //get all
 
-    @GetMapping("/adventures")
-    public List<Adventure> getAllAdmins(){return adventureRepository.findAll();}
+    @GetMapping("/adventures/{type}")
+    public List<Adventure> getAllAdventures(@PathVariable String type){
+        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
+        return adventureRepository.findAll();
+        }
+        else{return null;}
+    }
 
     //create
-    @PostMapping("/adventures")
-    public Adventure createAdventure(@RequestBody Adventure adventure){
+    @PostMapping("/adventures/{type}")
+    public Adventure createAdventure(@PathVariable String type,@RequestBody Adventure adventure){
+        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
         return adventureRepository.save(adventure);
+        }
+        else{return null;}
     }
 
     //get by id
-    @GetMapping("/adventures/{id}")
-    public ResponseEntity<Adventure> getAdventureById(@PathVariable Long id){
+    @GetMapping("/adventures/{type}/{id}")
+    public ResponseEntity<Adventure> getAdventureById(@PathVariable String type,@PathVariable Long id){
+        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
         Adventure adventure = adventureRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Adventure does not exist with id:"+ id));
         return ResponseEntity.ok(adventure);
+        }
+        else{return null;}
     }
 
     //update
-    @PutMapping("/adventures/{id}")
-    public ResponseEntity<Adventure> updateAdventure(@PathVariable Long id,@RequestBody Adventure adventureDetails){
+    @PutMapping("/adventures/{type}/{id}")
+    public ResponseEntity<Adventure> updateAdventure(@PathVariable String type,@PathVariable Long id,@RequestBody Adventure adventureDetails){
+        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
         Adventure adventure = adventureRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Adventure does not exist with id:"+ id));
 
         adventure.setAddress(adventureDetails.getAddress());
@@ -55,27 +67,41 @@ public class AdventureController {
 
         Adventure updatedAdventure = adventureRepository.save(adventure);
         return ResponseEntity.ok(updatedAdventure);
+        }
+        else{return null;}
     }
 
 
     //delete
-    @DeleteMapping("/adventures/{id}")
-    public Map<String, Boolean> deleteAdventure(@PathVariable Long id){
-
+    @DeleteMapping("/adventures/{type}/{id}")
+    public Map<String, Boolean> deleteAdventure(@PathVariable String type,@PathVariable Long id){
+        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
         Adventure adventure = adventureRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Adventure does not exist with id:"+ id));
 
         adventureRepository.delete(adventure);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
+        }
+        else{return null;}
     }
 
     //get by instructorId
-    @GetMapping("/adventures/instructorid/{instructorId}")
-    public List<Adventure> getAdventuresByInstructorId(@PathVariable Long instructorId){return adventureRepository.findByInstructorId(instructorId);}
+    @GetMapping("/adventures/instructorid/{instructorId}/{type}")
+    public List<Adventure> getAdventuresByInstructorId(@PathVariable String type,@PathVariable Long instructorId){
+        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
+        return adventureRepository.findByInstructorId(instructorId);
+        }
+        else{return null;}
+    }
 
-    //get by instructorId
-    @GetMapping("/adventures/name/{name}")
-    public List<Adventure> getAdventuresByName(@PathVariable String name){return adventureRepository.findByName(name);}
+    //get by name
+    @GetMapping("/adventures/name/{name}/{type}")
+    public List<Adventure> getAdventuresByName(@PathVariable String type,@PathVariable String name){
+            if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
+            return adventureRepository.findByName(name);
+            }
+            else{return null;}
+        }
 
 }

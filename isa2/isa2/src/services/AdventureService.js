@@ -13,11 +13,11 @@ createAdventure(adventure){
 getAdventureById(adventureId){
     return axios.get(ADVENTURE_API_BASE_URL + '/' + adventureId);
 }
-updateAdventure(adventure,adventureId){
-    return axios.put(ADVENTURE_API_BASE_URL + '/' + adventureId,adventure);
+updateAdventure(adventure,adventureId,type){
+    return axios.put(ADVENTURE_API_BASE_URL + '/' + type + '/' + adventureId,adventure);
 }
-deleteAdventure(adventureId){
-    return axios.delete(ADVENTURE_API_BASE_URL+ '/' + adventureId);
+deleteAdventure(adventureId,type){
+    return axios.delete(ADVENTURE_API_BASE_URL+ '/' + type + '/' + adventureId);
 }
 }
 export default new AdventureService();

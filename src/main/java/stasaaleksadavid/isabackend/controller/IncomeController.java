@@ -26,7 +26,7 @@ public class IncomeController {
 
     //create
     @PostMapping("/income")
-    public  Income createAdmin(@RequestBody Income income){
+    public  Income createIncome(@RequestBody Income income){
         return incomeRepository.save(income);
     }
 
@@ -38,8 +38,9 @@ public class IncomeController {
     }
 
     //update
-    @PutMapping("/income/{id}")
-    public ResponseEntity<Income> updateIncome(@PathVariable Long id,@RequestBody Income incomeDetails){
+    @PutMapping("/income/{type}/{id}")
+    public ResponseEntity<Income> updateIncome(@PathVariable Long id,@RequestBody Income incomeDetails,@PathVariable String type){
+        if(type.equals("admin")|| type.equals("main_admin")){
         Income income = incomeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Income does not exist with id:"+ id));
 
         income.setIncomeFromReservations(incomeDetails.getIncomeFromReservations());
@@ -47,7 +48,9 @@ public class IncomeController {
 
         Income updatedIncome = incomeRepository.save(income);
         return ResponseEntity.ok(updatedIncome);
-    }
+        }
+        else{return null;}
+        }
 
 
     //delete

@@ -63,13 +63,15 @@ class AddCottageComponent extends Component {
         ownerId:activeUser.id}
 
         console.log('cottage => ' + JSON.stringify(cottage));
-        axios.post("http://localhost:8080/api/v1/cottages/",cottage);
+        axios.post("http://localhost:8080/api/v1/cottages/cottage_owner",cottage);
         this.props.history.push(`/cottageownercottages`);
         window.location.reload();
 
     }
     componentDidMount(){
-      
+        let activeUser = JSON.parse(localStorage.getItem('activeUser'));
+        if (activeUser.type != "cottage_owner") { this.logout(); alert("Unauthorised access") }
+        
     }
     render() {
         return (

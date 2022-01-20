@@ -32,17 +32,29 @@ class IncomeComponent extends Component {
         this.setState({percentageOfReservations: event.target.value});
     }
     
-
-    componentDidMount(){
-       IncomeService.getIncomeById(1).then((res) => {
-            let income = res.data;
-            this.setState({
-                incomeFromReservations: income.incomeFromReservations,
-                percentageOfReservations: income.percentageOfReservations
-                
-            });
-        });
+    logout(){
+       
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
     }
+    componentDidMount(){
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+        if (activeUser.type == "admin" || activeUser.type == "main_admin" ){
+          IncomeService.getIncomeById(1).then((res) => {
+                let income = res.data;
+                this.setState({
+                    incomeFromReservations: income.incomeFromReservations,
+                    percentageOfReservations: income.percentageOfReservations
+                    
+                });
+            });
+        }  
+        
+        else{this.logout(); alert("Unauthorised access")}
+
+        }
+    
     render() {
         return (
                 <div className="container">

@@ -4,12 +4,12 @@ const PROFILEDELETIONREQUESTS_API_BASE_URL = "http://localhost:8080/api/v1/profi
 
 class ProfileDeletionRequestService {
     
-    getProfileDeletionRequests(){
-        return axios.get(PROFILEDELETIONREQUESTS_API_BASE_URL);        
+    getProfileDeletionRequests(type){
+        return axios.get(PROFILEDELETIONREQUESTS_API_BASE_URL + '/' + type);        
     }
 
-    createProfileDeletionRequest(profileDeletionRequest){
-        return axios.post(PROFILEDELETIONREQUESTS_API_BASE_URL,profileDeletionRequest);
+    createProfileDeletionRequest(profileDeletionRequest,type){
+        return axios.post(PROFILEDELETIONREQUESTS_API_BASE_URL+"/"+type,profileDeletionRequest);
     }
 
     viewProfileDeletionRequestById(requestId){

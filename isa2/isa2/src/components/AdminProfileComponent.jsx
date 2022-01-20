@@ -46,9 +46,15 @@ class AdminProfileComponent extends Component {
         
         console.log('activeUser => ' + JSON.stringify(activeUser));
 
-        UserService.updateUser(activeUser,id) ;
+        UserService.updateUser(activeUser,id,activeUser.type) ;
     }
-    
+    logout(){
+       
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
+    }
+
     changeEmailHandler = (event) => {
         this.setState({email: event.target.value});
     }
@@ -83,6 +89,8 @@ class AdminProfileComponent extends Component {
 
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
 
+        if (activeUser.type == "admin" || activeUser.type == "main_admin" ){
+
             this.setState({
             id:activeUser.id,
             email: activeUser.email,
@@ -95,6 +103,10 @@ class AdminProfileComponent extends Component {
             phoneNumber:activeUser.phoneNumber,
 
             });
+        }
+        else{this.logout(); alert("Unauthorised access")}
+
+            
         
     }
     render() {

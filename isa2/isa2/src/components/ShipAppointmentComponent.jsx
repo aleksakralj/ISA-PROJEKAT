@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 class ShipAppointmentComponent extends Component {
     constructor(props){
@@ -11,11 +10,7 @@ class ShipAppointmentComponent extends Component {
         
     }
 
-    deleteprofile(id){
-
-        axios.delete("http://localhost:8080/api/v1/users/" + id)
-        this.logout();
-    }
+   
     
     logout(){
         localStorage.clear();
@@ -84,8 +79,18 @@ class ShipAppointmentComponent extends Component {
 
     }
 
-    componentDidMount(){
+    History(){
+        this.props.history.push(`/shipappointmentshistory`);
+    }
 
+    CurrnetReservation(){
+        this.props.history.push(`/shipappointmentsreservation`);
+    }
+    componentDidMount(){
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+
+        if (activeUser.type != "ship_owner"){this.logout(); alert("Unauthorised access")}
+       
     }
 
     
@@ -110,6 +115,11 @@ class ShipAppointmentComponent extends Component {
                                 <div className="center"><button className="loginbtn" onClick={()=>this.AddQuickAppointment()}>Add Quick Appointment</button></div>
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.ScheduleForClient()}>Schedule For Client</button></div>
+                                <br></br>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.History()}>History</button></div>
+                                <br/>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.CurrnetReservation()}>Currnet Reservation</button></div>
+                                <br/>
                                 
 
                 </div>

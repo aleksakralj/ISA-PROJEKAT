@@ -21,25 +21,33 @@ public class ClientReviewController {
 
     //get all
 
-    @GetMapping("/clientreviews")
-    public List<ClientReview> getAllAdmins(){return clientReviewRepository.findAll();}
+    @GetMapping("/clientreviews/{type}")
+    public List<ClientReview> getAllClientReviews(@PathVariable String type){
+        if(type.equals("admin") || type.equals("main_admin")){
+        return clientReviewRepository.findAll();
+        }
+        else{return null;}
+    }
 
     //create
-    @PostMapping("/clientreviews")
-    public  ClientReview createClientReview(@RequestBody ClientReview clientReview){
-        return clientReviewRepository.save(clientReview);
+    @PostMapping("/clientreviews/{type}")
+    public  ClientReview createClientReview(@PathVariable String type,@RequestBody ClientReview clientReview){
+        if(type.equals("ship_owner") || type.equals("admin")|| type.equals("cottage_owner")|| type.equals("fishing_instructor")|| type.equals("main_admin")) {
+            return clientReviewRepository.save(clientReview);
+        }
+        else return null;
     }
 
     //get by id
-    @GetMapping("/clientreviews/{id}")
-    public ResponseEntity<ClientReview> getClientReviewById(@PathVariable Long id){
+    @GetMapping("/clientreviews/{type}/{id}")
+    public ResponseEntity<ClientReview> getClientReviewById(@PathVariable String type,@PathVariable Long id){
         ClientReview clientReview = clientReviewRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ClientReview does not exist with id:"+ id));
         return ResponseEntity.ok(clientReview);
     }
 
     //update
-    @PutMapping("/clientreviews/{id}")
-    public ResponseEntity<ClientReview> updateClientReview(@PathVariable Long id,@RequestBody ClientReview clientReviewDetails){
+    @PutMapping("/clientreviews/{type}/{id}")
+    public ResponseEntity<ClientReview> updateClientReview(@PathVariable String type,@PathVariable Long id,@RequestBody ClientReview clientReviewDetails){
         ClientReview clientReview = clientReviewRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ClientReview does not exist with id:"+ id));
 
         clientReview.setIdOfReceiver(clientReviewDetails.getIdOfReceiver());
@@ -54,8 +62,8 @@ public class ClientReviewController {
 
 
     //delete
-    @DeleteMapping("/clientreviews/{id}")
-    public Map<String, Boolean> deleteClientReview(@PathVariable Long id){
+    @DeleteMapping("/clientreviews/{type}/{id}")
+    public Map<String, Boolean> deleteClientReview(@PathVariable String type,@PathVariable Long id){
 
         ClientReview clientReview = clientReviewRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ClientReview does not exist with id:"+ id));
 

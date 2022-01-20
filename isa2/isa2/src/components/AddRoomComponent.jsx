@@ -72,14 +72,16 @@ class RoomProfileComponent extends Component {
         }
         
         console.log('room => ' + JSON.stringify(room));
-        axios.post("http://localhost:8080/api/v1/rooms/",room);
+        axios.post("http://localhost:8080/api/v1/rooms/cottage_owner/",room);
         this.props.history.push(`/allrooms`);
         window.location.reload();
 
     }
     
     componentDidMount(){
-       
+        let activeUser = JSON.parse(localStorage.getItem('activeUser'))
+
+        if (activeUser.type != "cottage_owner") { this.logout(); alert("Unauthorised access") }
     }
     render() {
         return (

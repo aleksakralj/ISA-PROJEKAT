@@ -81,8 +81,11 @@ public class AdventureHistoryAppointmentController {
         return adventureHistoryAppointmentRepository.findByInstructorId(instructorid);
     }
 
-    @GetMapping("/adventurehistoryappointments/adventure/{adventureid}")
-    public List<AdventureHistoryAppointment> getHistoryAppointmentByAdventureId(@PathVariable Long adventureid) {
+    @GetMapping("/adventurehistoryappointments/adventure/{type}/{adventureid}")
+    public List<AdventureHistoryAppointment> getHistoryAppointmentByAdventureId(@PathVariable String type,@PathVariable Long adventureid) {
+        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
         return adventureHistoryAppointmentRepository.findByAdventureId(adventureid);
+        }
+        else{return null;}
     }
 }

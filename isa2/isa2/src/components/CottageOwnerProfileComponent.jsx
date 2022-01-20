@@ -37,8 +37,7 @@ class CottageOwnerProfileComponent extends Component {
 
     deleteprofile(id){
 
-        axios.delete("http://localhost:8080/api/v1/users/" + id)
-        this.logout();
+        this.props.history.push(`/deleteprofile`);
     }
     
     logout(){
@@ -86,6 +85,7 @@ class CottageOwnerProfileComponent extends Component {
     }
 
     update(){
+        
 
         let cottageOwner = {
 
@@ -103,9 +103,10 @@ class CottageOwnerProfileComponent extends Component {
 
         }
         let coid = this.state.id;
-
+       
+        
         console.log('cottageOwner => ' + JSON.stringify(cottageOwner));
-        axios.put("http://localhost:8080/api/v1/users/" +coid,cottageOwner);
+        axios.put("http://localhost:8080/api/v1/users/cottage_owner/"+coid,cottageOwner);
         this.props.history.push(`/login`);
 
         
@@ -116,6 +117,9 @@ class CottageOwnerProfileComponent extends Component {
         localStorage.removeItem('activeCottage');
         localStorage.removeItem('activeRoom');
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+
+        if (activeUser.type != "cottage_owner"){this.logout(); alert("Unauthorised access")}
+        else{
 
             this.setState({
                 id:activeUser.id,
@@ -130,7 +134,7 @@ class CottageOwnerProfileComponent extends Component {
             type:activeUser.type
 
             });
-        
+        }
     }
 
     

@@ -27,9 +27,12 @@ public class ShipQuickAppointmentController {
     }
 
     //create
-    @PostMapping("/shipquickappointments")
-    public ShipQuickAppointment createShipQuickAppointment(@RequestBody ShipQuickAppointment shipQuickAppointment) {
-        return shipQuickAppointmentRepository.save(shipQuickAppointment);
+    @PostMapping("/shipquickappointments/{type}")
+    public ShipQuickAppointment createShipQuickAppointment(@PathVariable String type,@RequestBody ShipQuickAppointment shipQuickAppointment) {
+        if (type.equals("ship_owner") || type.equals("admin") || type.equals("main_admin")) {
+            return shipQuickAppointmentRepository.save(shipQuickAppointment);
+        }
+        else return null;
     }
 
     //get by id
@@ -71,8 +74,11 @@ public class ShipQuickAppointmentController {
     }
 
 
-    @GetMapping("/shipquickappointments/ship/{shipid}")
-    public List<ShipQuickAppointment> getAppointmentByShipId(@PathVariable Long shipid) {
-        return shipQuickAppointmentRepository.findByShipId(shipid);
+    @GetMapping("/shipquickappointments/ship/{type}/{shipid}")
+    public List<ShipQuickAppointment> getAppointmentByShipId(@PathVariable String type,@PathVariable Long shipid) {
+        if (type.equals("ship_owner") || type.equals("admin") || type.equals("main_admin")){
+            return shipQuickAppointmentRepository.findByShipId(shipid);
+    }
+    else return null;
     }
 }

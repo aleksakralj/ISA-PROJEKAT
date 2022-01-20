@@ -13,11 +13,11 @@ createUser(user){
 getUserById(userId){
     return axios.get(USER_API_BASE_URL + '/' + userId);
 }
-updateUser(user,userId){
-    return axios.put(USER_API_BASE_URL + '/' + userId, user);
+updateUser(user,userId,type){
+    return axios.put(USER_API_BASE_URL + '/' + type + '/'+ userId , user);
 }
-deleteUser(userId){
-    return axios.delete(USER_API_BASE_URL + '/' + userId);
+deleteUser(userId,type){
+    return axios.delete(USER_API_BASE_URL + '/'+ type +'/' + userId);
 }
 getUserByEmailAndPassword(userEmail, userPassword){
     return axios.get(USER_API_BASE_URL + '/' + userEmail + '/' + userPassword);

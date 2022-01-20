@@ -14,8 +14,7 @@ class AddAdventureComponent extends Component {
              
         }
         this.addAdventure=this.addAdventure.bind(this);
-        //this.fishinginstructorprofile=this.fishinginstructorprofile.bind(this);
-        
+       
         this.changeNameHandler=this.changeNameHandler.bind(this);
         this.changeAddressHandler=this.changeAddressHandler.bind(this);
         this.changeDescriptionHandler=this.changeDescriptionHandler.bind(this);
@@ -34,12 +33,7 @@ class AddAdventureComponent extends Component {
             this.props.history.push('/addadventure')
         });
     }
-    fishinginstructorprofile(){
-        this.props.history.push('/fishinginstructorprofile')
-    }
-    adventures(){
-        this.props.history.push('/adventures')
-    }
+   
     changeNameHandler = (event) => {
         this.setState({name: event.target.value});
     }
@@ -57,6 +51,15 @@ class AddAdventureComponent extends Component {
     }
     changeTermsOfReservationHandler = (event) => {
         this.setState({termsOfReservation: event.target.value});
+    }
+    componentDidMount(){
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        if (activeUser.type == "fishing_instructor" )
+        {
+
+        } 
+        else{this.logout(); alert("Unauthorised access")}  
+
     }
     render() {
         return (

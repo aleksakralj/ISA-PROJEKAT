@@ -23,51 +23,66 @@ public class ShipController {
 
     //get all
 
-    @GetMapping("/ships")
-    public List<Ship> getAllShips(){return shipRepository.findAll();}
+    @GetMapping("/ships/{type}")
+    public List<Ship> getAllShips(@PathVariable String type){
+        if(type.equals("admin") || type.equals("main_admin")||type.equals("ship_owner")){
+        return shipRepository.findAll();
+        }
+        else{return null;}
+    }
 
     //create
-    @PostMapping("/ships")
-    public  Ship createShip(@RequestBody Ship ship){
-        return shipRepository.save(ship);
+    @PostMapping("/ships/{type}")
+    public  Ship createShip(@PathVariable String type,@RequestBody Ship ship){
+        if(type.equals("admin") || type.equals("main_admin")||type.equals("ship_owner")) {
+            return shipRepository.save(ship);
+        }
+        else return null;
     }
 
     //get by id
-    @GetMapping("/ships/{id}")
-    public ResponseEntity <Ship> getShipById(@PathVariable Long id){
-        Ship ship = shipRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ship does not exist with id:"+ id));
-        return ResponseEntity.ok(ship);
+    @GetMapping("/ships/{type}/{id}")
+    public ResponseEntity <Ship> getShipById(@PathVariable String type,@PathVariable Long id){
+        if(type.equals("admin") || type.equals("main_admin")||type.equals("ship_owner")) {
+            Ship ship = shipRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ship does not exist with id:" + id));
+            return ResponseEntity.ok(ship);
+        }
+        else return null;
     }
 
     //update
-    @PutMapping("/ships/{id}")
-    public ResponseEntity<Ship> updateShip(@PathVariable Long id,@RequestBody Ship shipDetails){
-        Ship ship = shipRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ship does not exist with id:"+ id));
+    @PutMapping("/ships/{type}/{id}")
+    public ResponseEntity<Ship> updateShip(@PathVariable String type,@PathVariable Long id,@RequestBody Ship shipDetails){
+        if(type.equals("admin") || type.equals("main_admin")||type.equals("ship_owner")) {
+            Ship ship = shipRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ship does not exist with id:" + id));
 
-        ship.setOwnerId(shipDetails.getOwnerId());
-        ship.setName(shipDetails.getName());
-        ship.setType(shipDetails.getType());
-        ship.setLength(shipDetails.getLength());
-        ship.setNumberOfEngines(shipDetails.getNumberOfEngines());
-        ship.setHp(shipDetails.getHp());
-        ship.setTopSpeed(shipDetails.getTopSpeed());
-        ship.setNavigation(shipDetails.getNavigation());
-        ship.setAddress(shipDetails.getAddress());
-        ship.setDescription(shipDetails.getDescription());
-        ship.setCapacity(shipDetails.getCapacity());
-        ship.setRules(shipDetails.getRules());
-        ship.setFishingEquipment(shipDetails.getFishingEquipment());
+            ship.setOwnerId(shipDetails.getOwnerId());
+            ship.setName(shipDetails.getName());
+            ship.setType(shipDetails.getType());
+            ship.setLength(shipDetails.getLength());
+            ship.setNumberOfEngines(shipDetails.getNumberOfEngines());
+            ship.setHp(shipDetails.getHp());
+            ship.setTopSpeed(shipDetails.getTopSpeed());
+            ship.setNavigation(shipDetails.getNavigation());
+            ship.setAddress(shipDetails.getAddress());
+            ship.setDescription(shipDetails.getDescription());
+            ship.setCapacity(shipDetails.getCapacity());
+            ship.setRules(shipDetails.getRules());
+            ship.setFishingEquipment(shipDetails.getFishingEquipment());
 
 
-
-        Ship updatedShip = shipRepository.save(ship);
-        return ResponseEntity.ok(updatedShip);
+            Ship updatedShip = shipRepository.save(ship);
+            return ResponseEntity.ok(updatedShip);
+        }
+        else return null;
     }
 
 
     //delete
-    @DeleteMapping("/ships/{id}")
-    public Map<String, Boolean> deleteAdmin(@PathVariable Long id){
+    @DeleteMapping("/ships/{type}/{id}")
+    public Map<String, Boolean> deleteShip(@PathVariable String type,@PathVariable Long id){
+        if(type.equals("admin") || type.equals("main_admin")||type.equals("ship_owner")){
+
 
         Ship ship = shipRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ship does not exist with id:"+ id));
 
@@ -75,9 +90,14 @@ public class ShipController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
+        }
+        else{return null;}
     }
-    @GetMapping("/ships/owner/{ownerid}")
-    public List<Ship> getShipsByOwnerId(@PathVariable Long ownerid) {
-        return shipRepository.findByOwnerId(ownerid);
+    @GetMapping("/ships/owner/{type}/{ownerid}")
+    public List<Ship> getShipsByOwnerId(@PathVariable String type,@PathVariable Long ownerid) {
+        if(type.equals("admin") || type.equals("main_admin")||type.equals("ship_owner")) {
+            return shipRepository.findByOwnerId(ownerid);
+        }
+        else return null;
     }
 }

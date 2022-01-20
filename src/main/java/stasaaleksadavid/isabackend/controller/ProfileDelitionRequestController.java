@@ -22,22 +22,33 @@ public class ProfileDelitionRequestController {
     @Autowired
     private ProfileDelitionRequestRepository profileDelitionRequestRepository;
 
-    @GetMapping("/profiledeletionrequests")
-    public List<ProfileDelitionRequest> getAllRegistrationRequets() {
+    //get all
+    @GetMapping("/profiledeletionrequests/{type}")
+    public List<ProfileDelitionRequest> getAllRegistrationRequests(@PathVariable String type) {
+        if(type.equals("admin") || type.equals("main_admin")){
         return profileDelitionRequestRepository.findAll();
+        }
+        else{return null;}
     }
 
-    @PostMapping("/profiledeletionrequests")
-    public ProfileDelitionRequest createProfileDeletionRequest(@RequestBody ProfileDelitionRequest profileDelitionRequest) {
-        return profileDelitionRequestRepository.save(profileDelitionRequest);
+    //create
+    @PostMapping("/profiledeletionrequests/{type}")
+    public ProfileDelitionRequest createProfileDeletionRequest(@PathVariable String type,@RequestBody ProfileDelitionRequest profileDelitionRequest) {
+        if(type.equals("ship_owner") || type.equals("admin")|| type.equals("cottage_owner")|| type.equals("fishing_instructor")) {
+            return profileDelitionRequestRepository.save(profileDelitionRequest);
+        }
+        else{return null;}
+
     }
 
-    @GetMapping("/profiledeletionrequests/{id}")
-    public ResponseEntity<ProfileDelitionRequest> getProfileDeletionRequestById(@PathVariable Long id) {
+    //get by id
+    @GetMapping("/profiledeletionrequests/{type}/{id}")
+    public ResponseEntity<ProfileDelitionRequest> getProfileDeletionRequestById(@PathVariable String type,@PathVariable Long id) {
         ProfileDelitionRequest profileDelitionRequest = profileDelitionRequestRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Deletion request doesn not exist with id:" + id));
         return ResponseEntity.ok(profileDelitionRequest);
     }
 
+    //delete
     @DeleteMapping("profiledeletionrequests/{id}")
     public Map<String, Boolean> deleteProfileDeletionRequest(@PathVariable Long id) {
 
