@@ -22,7 +22,7 @@ class FishingInstructorProfile extends Component {
         let fishinginstructor = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address: this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type:"fishing_instructor"}
         console.log('fishinginstructor => ' + JSON.stringify(fishinginstructor));
 
-        UserService.updateUser(fishinginstructor,id);
+        UserService.updateUser(fishinginstructor,id,"fishing_instructor");
     }
     deleteprofile(){
         this.props.history.push(`/deleteprofile`);
@@ -59,9 +59,18 @@ class FishingInstructorProfile extends Component {
     changePhoneNumberHandler = (event) => {
         this.setState({phoneNumber: event.target.value});
     }
-    componentDidMount(){
 
-        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+    logout(){
+       
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
+    }
+
+    componentDidMount(){
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        if (activeUser.type == "fishing_instructor" )
+        {
 
             this.setState({
                 id:activeUser.id,
@@ -77,6 +86,8 @@ class FishingInstructorProfile extends Component {
             });
             localStorage.clear();
             localStorage.setItem('activeUser',JSON.stringify(activeUser));
+        } 
+        else{this.logout(); alert("Unauthorised access")} 
     }
     render() {
         return (

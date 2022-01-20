@@ -37,10 +37,11 @@ class ViewAdventureComponent extends Component {
     }
     updateAdventure = (e) => {
         e.preventDefault();
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         let adventure = { name: this.state.name, address: this.state.address, description: this.state.description, maxPeople: this.state.maxPeople, rulesOfConduct: this.state.rulesOfConduct, termsOfReservation: this.state.termsOfReservation, instructorId: this.state.instructorId, additionalServices: this.state.additionalServices, prices: this.state.prices, fishingEquipment: this.state.fishingEquipment }
         console.log('adventure => ' + JSON.stringify(adventure));
 
-        AdventureService.updateAdventure(adventure, this.props.match.params.id).then(res => {
+        AdventureService.updateAdventure(adventure, this.props.match.params.id,activeUser.type ).then(res => {
             this.props.history.push('/adventures');
         });
     }
@@ -104,45 +105,11 @@ class ViewAdventureComponent extends Component {
     }
 
     componentDidMount() {
-
-        /*
-        let activeUser = JSON.parse(localStorage.getItem('activeUser'));
-        if (activeUser === null) {
-            this.state.unautentifiedUserComponents = true;
-            this.state.clientComponents = false;
-            this.state.fishingInstructorComponents = false;
-        }
-        else {
-            if (activeUser.type == 'Clinet') {
-                this.state.clientComponents = true;
-                this.state.fishingInstructorComponents = false;
-                this.state.unautentifiedUserComponents = false;
-            }
-            if (activeUser.type == 'fishing_instructor') {
-                this.state.clientComponents = false;
-                this.state.fishingInstructorComponents = true;
-                this.state.unautentifiedUserComponents = false;
-            }
-        }
-        
-        AdventureService.getAdventureById(this.props.match.params.id).then((res) => {
-            let adventure = res.data;
-            this.setState({
-                name: adventure.name,
-                address: adventure.address,
-                description: adventure.description,
-                maxPeople: adventure.maxPeople,
-                rulesOfConduct: adventure.rulesOfConduct,
-                termsOfReservation: adventure.termsOfReservation,
-                additionalServices: adventure.additionalServices,
-                prices: adventure.prices,
-                fishingEquipment: adventure.fishingEquipment
-
-            });
-        });
-        */
-
         let activeAdventure =  JSON.parse(localStorage.getItem('activeAdventure'))
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        
+        if (activeUser.type == "fishing_instructor" )
+        {
 
         this.setState({
             id:activeAdventure.id,
@@ -159,6 +126,8 @@ class ViewAdventureComponent extends Component {
 
 
         });
+    } 
+    else{this.logout(); alert("Unauthorised access")} 
     }
     render() {
         return (

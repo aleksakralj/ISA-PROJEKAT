@@ -33,9 +33,9 @@ public class AdventureAppointmentController {
     }
 
     //create
-    @PostMapping("/adventureappointments")
-    public AdventureAppointment createAdventureAppointment(@RequestBody AdventureAppointment adventureAppointment) {
-
+    @PostMapping("/adventureappointments/{type}")
+    public AdventureAppointment createAdventureAppointment(@PathVariable String type,@RequestBody AdventureAppointment adventureAppointment) {
+        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
         List<AdventureFreeAppointment> adventureFreeAppointments = adventureFreeAppointmentRepository.findByAdventureId(adventureAppointment.getAdventureId());
 
         for (AdventureFreeAppointment a : adventureFreeAppointments) {
@@ -72,6 +72,8 @@ public class AdventureAppointmentController {
             }
 
         }return adventureAppointmentRepository.save(adventureAppointment);
+        }
+        else{return null;}
 
     }
     //get by id
@@ -115,13 +117,19 @@ public class AdventureAppointmentController {
     }
 
 
-    @GetMapping("/adventureappointments/instructor/{instructorid}")
-    public List<AdventureAppointment> getAppointmentByInstructorId(@PathVariable Long instructorid) {
+    @GetMapping("/adventureappointments/instructor/{type}/{instructorid}")
+    public List<AdventureAppointment> getAppointmentByInstructorId(@PathVariable String type,@PathVariable Long instructorid) {
+        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
         return adventureAppointmentRepository.findByInstructorId(instructorid);
+        }
+        else{return null;}
     }
 
-    @GetMapping("/adventureappointments/adventure/{adventureid}")
-    public List<AdventureAppointment> getAppointmentByAdventureId(@PathVariable Long adventureid) {
+    @GetMapping("/adventureappointments/adventure/{type}/{adventureid}")
+    public List<AdventureAppointment> getAppointmentByAdventureId(@PathVariable String type,@PathVariable Long adventureid) {
+        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
         return adventureAppointmentRepository.findByAdventureId(adventureid);
+        }
+        else{return null;}
     }
 }

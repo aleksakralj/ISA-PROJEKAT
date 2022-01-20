@@ -28,12 +28,12 @@ public class AdventureFreeAppointmentController {
     }
 
     //create
-    @PostMapping("/adventurefreeappointments")
-    public AdventureFreeAppointment createAdventureFreeAppointment(@RequestBody AdventureFreeAppointment adventureFreeAppointment) {
-
-
-
+    @PostMapping("/adventurefreeappointments/{type}")
+    public AdventureFreeAppointment createAdventureFreeAppointment(@PathVariable String type,@RequestBody AdventureFreeAppointment adventureFreeAppointment) {
+        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
         return adventureFreeAppointmentRepository.save(adventureFreeAppointment);
+        }
+        else{return null;}
     }
 
     //get by id
@@ -75,9 +75,12 @@ public class AdventureFreeAppointmentController {
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
 
-    @GetMapping("/adventurefreeappointments/instructor/{instructorid}")
-    public List<AdventureFreeAppointment> getFreeAppointmentByInstructorId(@PathVariable Long instructorid) {
+    @GetMapping("/adventurefreeappointments/instructor/{instructorid}/{type}")
+    public List<AdventureFreeAppointment> getFreeAppointmentByInstructorId(@PathVariable String type,@PathVariable Long instructorid) {
+        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
         return adventureFreeAppointmentRepository.findByInstructorId(instructorid);
+        }
+        else{return null;}
     }
 
     @GetMapping("/adventurefreeappointments/adventure/{adventureid}")

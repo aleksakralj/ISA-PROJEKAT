@@ -24,13 +24,9 @@ class AdventureScheduleForClientComponent extends Component {
         this.changeNumberOfPeopleHandler = this.changeNumberOfPeopleHandler.bind(this);
         this.changeAdditionalServicesHandler = this.changeAdditionalServicesHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
- 
 
-     
-       
     }
     
-
     changeStartingDateHandler = (event) => {
         this.setState({startingDate: event.target.value});
     }
@@ -150,7 +146,7 @@ class AdventureScheduleForClientComponent extends Component {
         if (this.DateTimeIsEmpty(appointment) == true){
         this.SendEmail();
         console.log('appointment => ' + JSON.stringify(appointment));
-        axios.post("http://localhost:8080/api/v1/adventureappointments/",appointment);
+        axios.post("http://localhost:8080/api/v1/adventureappointments/" + activeUser.type,appointment);
         
         
         window.location.reload();
@@ -165,10 +161,17 @@ class AdventureScheduleForClientComponent extends Component {
     
     componentDidMount(){
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
-        axios.get("http://localhost:8080/api/v1/adventurefreeappointments/instructor/"+activeUser.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
-        axios.get("http://localhost:8080/api/v1/adventureappointments/instructor/"+activeUser.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
-        axios.get("http://localhost:8080/api/v1/adventurequickappointments/instructor/"+activeUser.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
-        axios.get("http://localhost:8080/api/v1/adventureappointments/instructor/"+ activeUser.id).then((res4)=>{this.setState({allAppointments: res4.data});});
+        if (activeUser.type == "fishing_instructor" )
+        {
+
+            let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+            axios.get("http://localhost:8080/api/v1/adventurefreeappointments/instructor/fishing_instructor" + activeUser.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
+            axios.get("http://localhost:8080/api/v1/adventureappointments/instructor/fishing_instructor" + activeUser.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
+            axios.get("http://localhost:8080/api/v1/adventurequickappointments/instructor/fishing_instructor"+activeUser.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
+           
+        }
+     
+        else{this.logout(); alert("Unauthorised access")} 
     }
     render() {
         return (
