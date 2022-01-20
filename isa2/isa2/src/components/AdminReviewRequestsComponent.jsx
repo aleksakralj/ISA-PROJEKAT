@@ -17,7 +17,9 @@ class AdminReviewRequestsComponent extends Component {
     
     
     denyRequest(id){
-        ReviewService.deleteReview(id).then(res=>{
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+
+        ReviewService.deleteReview(id,activeUser.type).then(res=>{
                 this.setState({reviewRequests: this.state.reviewRequests.filter(review=>review.id !==id)});
                 this.props.history.push("/adminreviewequests"); // refresh ne radi nzm zasto
         });
@@ -36,12 +38,22 @@ class AdminReviewRequestsComponent extends Component {
     window.location.reload();
     }
     
-    
+    logout(){
+       
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
+    }
 
     componentDidMount(){
-       ReviewService.getReviews().then((res)=>{
-                this.setState({reviewRequests: res.data});
-        });
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        if (activeUser.type == "admin" || activeUser.type == "main_admin" )
+        {
+            ReviewService.getReviews(activeUser.type).then((res)=>{
+                        this.setState({reviewRequests: res.data});
+                });
+        } 
+        else{this.logout(); alert("Unauthorised access")}  
     } 
     render() {
         return (
@@ -49,7 +61,7 @@ class AdminReviewRequestsComponent extends Component {
         <div>
         
             <br/><br/><br/><br/><br/><br/>
-            <h2 className="text-center">Review requests</h2>
+            <h2 className="text-center">Client review requests</h2>
 
                
 

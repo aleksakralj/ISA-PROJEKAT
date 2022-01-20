@@ -20,8 +20,13 @@ public class GradeRequestController {
 
     //get all
 
-    @GetMapping("/graderequests")
-    public List<GradeRequest> getAllGradeRequests(){return gradeRequestRepository.findAll();}
+    @GetMapping("/graderequests/{type}")
+    public List<GradeRequest> getAllGradeRequests(@PathVariable String type){
+        if(type.equals("admin") || type.equals("main_admin")){
+        return gradeRequestRepository.findAll();
+        }
+        else{return null;}
+    }
 
     //create
     @PostMapping("/graderequests")
@@ -30,15 +35,15 @@ public class GradeRequestController {
     }
 
     //get by id
-    @GetMapping("/graderequests/{id}")
-    public ResponseEntity<GradeRequest> getGradeById(@PathVariable Long id){
+    @GetMapping("/graderequests/{type}/{id}")
+    public ResponseEntity<GradeRequest> getGradeById(@PathVariable String type,@PathVariable Long id){
         GradeRequest gradeRequest = gradeRequestRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("GradeRequest does not exist with id:"+ id));
         return ResponseEntity.ok(gradeRequest);
     }
 
     //update
-    @PutMapping("/graderequests/{id}")
-    public ResponseEntity<GradeRequest> updateGrade(@PathVariable Long id,@RequestBody GradeRequest gradeRequestDetails){
+    @PutMapping("/graderequests/type/{id}")
+    public ResponseEntity<GradeRequest> updateGrade(@PathVariable String type,@PathVariable Long id,@RequestBody GradeRequest gradeRequestDetails){
         GradeRequest gradeRequest = gradeRequestRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("GradeRequest does not exist with id:"+ id));
 
         gradeRequest.setGrade(gradeRequestDetails.getGrade());
@@ -48,18 +53,22 @@ public class GradeRequestController {
         
         GradeRequest updatedGradeRequest = gradeRequestRepository.save(gradeRequest);
         return ResponseEntity.ok(updatedGradeRequest);
+
     }
 
 
     //delete
-    @DeleteMapping("/graderequests/{id}")
-    public Map<String, Boolean> deleteGrade(@PathVariable Long id){
+    @DeleteMapping("/graderequests/{type}/{id}")
+    public Map<String, Boolean> deleteGrade(@PathVariable String type,@PathVariable Long id) {
+        if (type.equals("admin") || type.equals("main_admin")) {
+            GradeRequest gradeRequest = gradeRequestRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("GradeRequest does not exist with id:" + id));
 
-        GradeRequest gradeRequest = gradeRequestRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("GradeRequest does not exist with id:"+ id));
-
-        gradeRequestRepository.delete(gradeRequest);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return (Map<String, Boolean>) ResponseEntity.ok(response);
+            gradeRequestRepository.delete(gradeRequest);
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("deleted", Boolean.TRUE);
+            return (Map<String, Boolean>) ResponseEntity.ok(response);
+        } else {
+            return null;
+        }
     }
 }

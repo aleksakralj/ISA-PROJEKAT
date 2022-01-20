@@ -4,20 +4,20 @@ const REVIEW_API_BASE_URL = "http://localhost:8080/api/v1/clientreviews";
 
 class Review{
 
-getReviews(){
-    return axios.get(REVIEW_API_BASE_URL);
+getReviews(type){
+    return axios.get(REVIEW_API_BASE_URL + '/' + type);
 }
 createReview(review){
     return axios.post(REVIEW_API_BASE_URL, review);
 }
-getReviewById(reviewId){
-    return axios.get(REVIEW_API_BASE_URL + '/' + reviewId);
+getReviewById(reviewId,type){
+    return axios.get(REVIEW_API_BASE_URL + '/' + type + '/' + reviewId);
 }
-updateReview(review,reviewId){
-    return axios.put(REVIEW_API_BASE_URL + '/' + reviewId, review);
+updateReview(review,reviewId,type){
+    return axios.put(REVIEW_API_BASE_URL + '/' + type + '/' + reviewId, review);
 }
-deleteReview(reviewId){
-    return axios.delete(REVIEW_API_BASE_URL + '/' + reviewId);
+deleteReview(reviewId,type){
+    return axios.delete(REVIEW_API_BASE_URL + '/' + type + '/'+ reviewId);
 }
 
 

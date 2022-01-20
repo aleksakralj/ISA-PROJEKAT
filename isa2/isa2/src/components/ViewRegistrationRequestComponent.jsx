@@ -29,14 +29,16 @@ class ViewRegistrationRequestComponent extends Component {
     }
     
     denyRequest(id){
-        RegistrationRequestService.deleteRegistrationRequest(id).then(res=>{
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+
+        RegistrationRequestService.deleteRegistrationRequest(id,activeUser.type).then(res=>{
                 this.setState({registrationRequests: this.state.registrationRequests.filter(request=>request.id !==id)});
                 this.props.history.push("/adminsendemailreg"); // refresh ne radi nzm zasto
         });
     }
     acceptRequest= (e) => {
         e.preventDefault();
-
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         let usersPoints = { userPoints:this.state.userPoints,userCategory:this.state.userCategory}
         console.log('usersPoints => ' + JSON.stringify(usersPoints));
         ClientPointsService.createClientPoints(usersPoints);
@@ -44,40 +46,16 @@ class ViewRegistrationRequestComponent extends Component {
         let registrationRequests = {email:this.state.email, password:this.state.password, firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type: this.state.type, reason:this.state.reason}
         console.log('registrationRequests => ' + JSON.stringify(registrationRequests));
 
-        RegistrationRequestService.createUser(registrationRequests).then((res)=>{this.props.history.push('/adminsendemailreg')});
+        RegistrationRequestService.createUser(registrationRequests,activeUser.type).then((res)=>{this.props.history.push('/adminsendemailreg')});
 
         this.denyRequest(this.props.match.params.id);
 
-        
-        //const{type} = props
-        /*switch(registrationRequests.type){
-            case 'fishing_instructor':
-                RegistrationRequestService.createRegistrationRequestFI(registrationRequests).then((res)=>{this.props.history.push('/registrationrequests')});
-                this.denyRequest(this.props.match.params.id);
-            break;
-
-            case 'ship_owner':
-                RegistrationRequestService.createRegistrationRequestSO(registrationRequests).then((res)=>{this.props.history.push('/registrationrequests')});
-                this.denyRequest(this.props.match.params.id);
-            break;
-
-            case 'cottage_owner':
-                RegistrationRequestService.createRegistrationRequestCO(registrationRequests).then((res)=>{this.props.history.push('/registrationrequests')});
-                this.denyRequest(this.props.match.params.id);
-            break;
-
-            case 'user':
-                RegistrationRequestService.createRegistrationRequestU(registrationRequests).then((res)=>{this.props.history.push('/registrationrequests')});
-                this.denyRequest(this.props.match.params.id);
-            break;
-            
-            default :
-            
-        }
-        */
     }
     componentDidMount(){
-        RegistrationRequestService.getRegistrationRequestById(this.props.match.params.id).then((res) => {
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        if (activeUser.type == "admin" || activeUser.type == "main_admin" )
+        {
+        RegistrationRequestService.getRegistrationRequestById(this.props.match.params.id,activeUser.type).then((res) => {
             let request = res.data;
             this.setState({
                 email: request.email,
@@ -93,6 +71,8 @@ class ViewRegistrationRequestComponent extends Component {
 
             });
         });
+    } 
+        else{this.logout(); alert("Unauthorised access")}  
     }
     render() {
         return (

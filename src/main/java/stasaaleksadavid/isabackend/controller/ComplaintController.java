@@ -21,8 +21,13 @@ public class ComplaintController {
 
     //get all
 
-    @GetMapping("/complaints")
-    public List<Complaint> getAllComplaints(){return complaintRepository.findAll();}
+    @GetMapping("/complaints/{type}")
+    public List<Complaint> getAllComplaints(@PathVariable String type){
+        if(type.equals("admin") || type.equals("main_admin")) {
+            return complaintRepository.findAll();
+        }
+        else{return null;}
+    }
 
     //create
     @PostMapping("/complaints")
@@ -31,15 +36,18 @@ public class ComplaintController {
     }
 
     //get by id
-    @GetMapping("/complaints/{id}")
-    public ResponseEntity<Complaint> getAdminById(@PathVariable Long id){
+    @GetMapping("/complaints/{type}/{id}")
+    public ResponseEntity<Complaint> getAdminById(@PathVariable String type,@PathVariable Long id){
+        if(type.equals("admin") || type.equals("main_admin")) {
         Complaint complaint = complaintRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Complaint does not exist with id:"+ id));
         return ResponseEntity.ok(complaint);
+        }
+        else{return null;}
     }
 
     //update
-    @PutMapping("/complaints/{id}")
-    public ResponseEntity<Complaint> updateComplaint(@PathVariable Long id,@RequestBody Complaint complaintDetails){
+    @PutMapping("/complaints/{type}/{id}")
+    public ResponseEntity<Complaint> updateComplaint(@PathVariable String type,@PathVariable Long id,@RequestBody Complaint complaintDetails){
         Complaint complaint = complaintRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Complaint does not exist with id:"+ id));
 
         complaint.setOnWhat(complaintDetails.getOnWhat());
@@ -54,14 +62,16 @@ public class ComplaintController {
 
 
     //delete
-    @DeleteMapping("/complaints/{id}")
-    public Map<String, Boolean> deleteComplaint(@PathVariable Long id){
-
+    @DeleteMapping("/complaints/{type}/{id}")
+    public Map<String, Boolean> deleteComplaint(@PathVariable String type,@PathVariable Long id){
+        if(type.equals("admin") || type.equals("main_admin")) {
         Complaint complaint = complaintRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Complaint does not exist with id:"+ id));
 
         complaintRepository.delete(complaint);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
+        }
+        else{return null;}
     }
 }

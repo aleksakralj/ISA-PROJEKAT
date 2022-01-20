@@ -17,8 +17,8 @@ class AdminGradeRequestsComponent extends Component {
     }
     
     accept(id){
-        
-        axios.get("http://localhost:8080/api/v1/graderequests/" + id)
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        axios.get("http://localhost:8080/api/v1/graderequests/" + activeUser.type + id)
         .then(response => {
             localStorage.setItem('activeRequest', JSON.stringify(response.data));
         });
@@ -93,15 +93,27 @@ class AdminGradeRequestsComponent extends Component {
         }
     }*/
      deny(){
-        axios.delete("http://localhost:8080/api/v1/graderequests/"+ JSON.parse(localStorage.getItem('activeRequest')).id);
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        axios.delete("http://localhost:8080/api/v1/graderequests/" + activeUser.type  + '/' + JSON.parse(localStorage.getItem('activeRequest')).id);
         window.location.reload();
                                             
      }
-   
+
+     logout(){
+       
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
+    }
      componentDidMount(){
-        GradeRequestService.getGradeRequests().then((res)=>{
-                 this.setState({graderequests: res.data});
-         });
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        if (activeUser.type == "admin" || activeUser.type == "main_admin" )
+        {
+            GradeRequestService.getGradeRequests(activeUser.type).then((res)=>{
+                    this.setState({graderequests: res.data});
+            });
+        } 
+        else{this.logout(); alert("Unauthorised access")}  
          
      } 
  
