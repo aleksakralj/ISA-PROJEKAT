@@ -25,12 +25,12 @@ class DeleteProfileComponent extends Component {
         let request = {userId: activeUser.id, reason: this.state.reason, userType:activeUser.type}
         console.log('request => ' + JSON.stringify(request));
 
-        ProfileDeletionRequestService.createProfileDeletionRequest(request).then(res=>{
+        ProfileDeletionRequestService.createProfileDeletionRequest(request,activeUser.type).then(res=>{
             this.props.history.push('profiledeletionrequestwait')
         });
     }
     cancelDelition(){
-        this.props.history.push("/clientprofile");
+        this.props.history.push("/login");
     }
     render() {
         return (

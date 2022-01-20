@@ -27,9 +27,12 @@ public class ShipFreeAppointmentController {
     }
 
     //create
-    @PostMapping("/shipfreeappointments")
-    public ShipFreeAppointment createShipFreeAppointment(@RequestBody ShipFreeAppointment shipFreeAppointment) {
-        return shipFreeAppointmentRepository.save(shipFreeAppointment);
+    @PostMapping("/shipfreeappointments/{type}")
+    public ShipFreeAppointment createShipFreeAppointment(@PathVariable String type,@RequestBody ShipFreeAppointment shipFreeAppointment) {
+        if (type.equals("ship_owner") || type.equals("admin") || type.equals("main_admin")) {
+            return shipFreeAppointmentRepository.save(shipFreeAppointment);
+        }
+        else return null;
     }
 
     //get by id
@@ -69,8 +72,12 @@ public class ShipFreeAppointmentController {
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
 
-    @GetMapping("/shipfreeappointments/ship/{shipid}")
-    public List<ShipFreeAppointment> getFreeAppointmentByShipId(@PathVariable Long shipid) {
+    @GetMapping("/shipfreeappointments/ship/{type}/{shipid}")
+    public List<ShipFreeAppointment> getFreeAppointmentByShipId(@PathVariable String type,@PathVariable Long shipid) {
+        if(type.equals("ship_owner") || type.equals("admin")|| type.equals("main_admin")){
         return shipFreeAppointmentRepository.findByShipId(shipid);
     }
+    else return null;
+    }
+
 }

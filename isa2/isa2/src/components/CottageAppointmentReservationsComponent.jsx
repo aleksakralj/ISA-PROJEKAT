@@ -34,7 +34,7 @@ class CottageAppointmentReservationsComponent extends Component {
     
     toClient(id){
         axios
-        .get("http://localhost:8080/api/v1/users/" + id )
+        .get("http://localhost:8080/api/v1/users/id/cottage_owner/" + id )
         .then(response => {
             localStorage.setItem('ClientToReview',JSON.stringify(response.data));
             this.props.history.push('/clientreviewreservation');});
@@ -45,11 +45,15 @@ class CottageAppointmentReservationsComponent extends Component {
         
         
         let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'));
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
 
-        axios.get("http://localhost:8080/api/v1/cottageappointments/cottage/" + activeCottage.id).then((res)=>{
+        if (activeUser.type != "cottage_owner"){this.logout(); alert("Unauthorised access")}
+        else{
+
+        axios.get("http://localhost:8080/api/v1/cottageappointments/cottage/cottage_owner/" + activeCottage.id).then((res)=>{
             this.setState({appointments: res.data});
     });
-        
+}
     } 
     render() {
         return (

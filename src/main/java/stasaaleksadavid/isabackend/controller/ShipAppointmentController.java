@@ -29,50 +29,47 @@ public class ShipAppointmentController {
     }
 
     //create
-    @PostMapping("/shipappointments")
-    public ShipAppointment createShipAppointment(@RequestBody ShipAppointment shipAppointment) {
-        List<ShipFreeAppointment> shipFreeAppointments = shipFreeAppointmentRepository.findByShipId(shipAppointment.getShipId());
+    @PostMapping("/shipappointments/{type}")
+    public ShipAppointment createShipAppointment(@PathVariable String type,@RequestBody ShipAppointment shipAppointment) {
+        if (type.equals("ship_owner") || type.equals("admin") || type.equals("main_admin")) {
+            List<ShipFreeAppointment> shipFreeAppointments = shipFreeAppointmentRepository.findByShipId(shipAppointment.getShipId());
 
-        for (ShipFreeAppointment s:shipFreeAppointments) {
-            if(shipAppointment.getStartingDate().isAfter(s.getStartingDate()) && shipAppointment.getEndingDate().isBefore(s.getEndingDate())){
+            for (ShipFreeAppointment s : shipFreeAppointments) {
+                if (shipAppointment.getStartingDate().isAfter(s.getStartingDate()) && shipAppointment.getEndingDate().isBefore(s.getEndingDate())) {
 
-                ShipFreeAppointment freeAppointment_1 = new ShipFreeAppointment(s.getShipId(),s.getStartingDate(),shipAppointment.getStartingDate(),s.getNumberOfPeople(),s.getAdditionalServices(),s.getPrice());
-                ShipFreeAppointment freeAppointment_2 = new ShipFreeAppointment(s.getShipId(),shipAppointment.getEndingDate(),s.getEndingDate(),s.getNumberOfPeople(),s.getAdditionalServices(),s.getPrice());
-                ShipAppointment newShipAppointment = new ShipAppointment(shipAppointment.getShipId(),shipAppointment.getClientId(),shipAppointment.getStartingDate(),shipAppointment.getEndingDate(),shipAppointment.getNumberOfPeople(),shipAppointment.getAdditionalServices(),shipAppointment.getPrice());
+                    ShipFreeAppointment freeAppointment_1 = new ShipFreeAppointment(s.getShipId(), s.getStartingDate(), shipAppointment.getStartingDate(), s.getNumberOfPeople(), s.getAdditionalServices(), s.getPrice());
+                    ShipFreeAppointment freeAppointment_2 = new ShipFreeAppointment(s.getShipId(), shipAppointment.getEndingDate(), s.getEndingDate(), s.getNumberOfPeople(), s.getAdditionalServices(), s.getPrice());
+                    ShipAppointment newShipAppointment = new ShipAppointment(shipAppointment.getShipId(), shipAppointment.getClientId(), shipAppointment.getStartingDate(), shipAppointment.getEndingDate(), shipAppointment.getNumberOfPeople(), shipAppointment.getAdditionalServices(), shipAppointment.getPrice());
 
-                shipFreeAppointmentRepository.deleteById(s.getId());
-                shipFreeAppointmentRepository.save(freeAppointment_1);
-                shipFreeAppointmentRepository.save(freeAppointment_2);
+                    shipFreeAppointmentRepository.deleteById(s.getId());
+                    shipFreeAppointmentRepository.save(freeAppointment_1);
+                    shipFreeAppointmentRepository.save(freeAppointment_2);
 
-                return shipAppointmentRepository.save(newShipAppointment);
+                    return shipAppointmentRepository.save(newShipAppointment);
+                } else if (shipAppointment.getStartingDate().isAfter(s.getStartingDate()) && shipAppointment.getEndingDate().isAfter(s.getEndingDate())) {
+                    ShipFreeAppointment freeAppointment_1 = new ShipFreeAppointment(s.getShipId(), s.getStartingDate(), shipAppointment.getStartingDate(), s.getNumberOfPeople(), s.getAdditionalServices(), s.getPrice());
+                    ShipAppointment newShipAppointment = new ShipAppointment(shipAppointment.getShipId(), shipAppointment.getClientId(), shipAppointment.getStartingDate(), s.getEndingDate(), shipAppointment.getNumberOfPeople(), s.getAdditionalServices(), s.getPrice());
+                    shipFreeAppointmentRepository.deleteById(s.getId());
+                    shipFreeAppointmentRepository.save(freeAppointment_1);
+
+                    return shipAppointmentRepository.save(newShipAppointment);
+                } else if (shipAppointment.getStartingDate().isBefore(s.getStartingDate()) && shipAppointment.getEndingDate().isBefore(s.getEndingDate())) {
+                    ShipFreeAppointment freeAppointment_1 = new ShipFreeAppointment(s.getShipId(), shipAppointment.getEndingDate(), s.getEndingDate(), s.getNumberOfPeople(), s.getAdditionalServices(), s.getPrice());
+                    ShipAppointment newShipAppointment = new ShipAppointment(shipAppointment.getShipId(), shipAppointment.getClientId(), s.getStartingDate(), shipAppointment.getEndingDate(), shipAppointment.getNumberOfPeople(), shipAppointment.getAdditionalServices(), shipAppointment.getPrice());
+
+                    shipFreeAppointmentRepository.deleteById(s.getId());
+                    shipFreeAppointmentRepository.save(freeAppointment_1);
+
+                    return shipAppointmentRepository.save(newShipAppointment);
+                } else if (shipAppointment.getStartingDate().isBefore(s.getStartingDate()) && shipAppointment.getEndingDate().isAfter(s.getEndingDate())) {
+
+                    return null;
+                }
             }
 
-            else if(shipAppointment.getStartingDate().isAfter(s.getStartingDate()) && shipAppointment.getEndingDate().isAfter(s.getEndingDate())){
-                ShipFreeAppointment freeAppointment_1 = new ShipFreeAppointment(s.getShipId(),s.getStartingDate(),shipAppointment.getStartingDate(),s.getNumberOfPeople(),s.getAdditionalServices(),s.getPrice());
-                ShipAppointment newShipAppointment = new ShipAppointment(shipAppointment.getShipId(),shipAppointment.getClientId(), shipAppointment.getStartingDate(), s.getEndingDate(),shipAppointment.getNumberOfPeople(),s.getAdditionalServices(),s.getPrice());
-                shipFreeAppointmentRepository.deleteById(s.getId());
-                shipFreeAppointmentRepository.save(freeAppointment_1);
-
-                return shipAppointmentRepository.save(newShipAppointment);
-            }
-
-            else if(shipAppointment.getStartingDate().isBefore(s.getStartingDate()) && shipAppointment.getEndingDate().isBefore(s.getEndingDate())) {
-                ShipFreeAppointment freeAppointment_1 = new ShipFreeAppointment(s.getShipId(),shipAppointment.getEndingDate(),s.getEndingDate(),s.getNumberOfPeople(),s.getAdditionalServices(),s.getPrice());
-                ShipAppointment newShipAppointment = new ShipAppointment(shipAppointment.getShipId(),shipAppointment.getClientId(),s.getStartingDate(),shipAppointment.getEndingDate(),shipAppointment.getNumberOfPeople(),shipAppointment.getAdditionalServices(),shipAppointment.getPrice());
-
-                shipFreeAppointmentRepository.deleteById(s.getId());
-                shipFreeAppointmentRepository.save(freeAppointment_1);
-
-                return shipAppointmentRepository.save(newShipAppointment);
-            }
-
-            else if(shipAppointment.getStartingDate().isBefore(s.getStartingDate()) && shipAppointment.getEndingDate().isAfter(s.getEndingDate())){
-
-                return null;
-            }
+            return shipAppointmentRepository.save(shipAppointment);
         }
-
-        return shipAppointmentRepository.save(shipAppointment);
+        else return null;
     }
 
     //get by id
@@ -114,9 +111,11 @@ public class ShipAppointmentController {
     }
 
 
-    @GetMapping("/shipappointments/ship/{shipid}")
-    public List<ShipAppointment> getAppointmentByShipId(@PathVariable Long shipid) {
-        return shipAppointmentRepository.findByShipId(shipid);
+    @GetMapping("/shipappointments/ship/{type}/{shipid}")
+    public List<ShipAppointment> getAppointmentByShipId(@PathVariable String type,@PathVariable Long shipid) {
+        if (type.equals("ship_owner") || type.equals("admin") || type.equals("main_admin")) {
+            return shipAppointmentRepository.findByShipId(shipid);
+        }
+        else return null;
     }
-
 }

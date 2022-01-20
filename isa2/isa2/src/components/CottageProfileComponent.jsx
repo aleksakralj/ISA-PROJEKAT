@@ -2,205 +2,185 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class CottageProfileComponent extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state={
-            name:'',
-            address:'',
-            description:'',
-            rating:'',
-            numberOfRooms:'',
-            rules:'',
-            ownerId:'',
-            clientComponents: false ,
-            cottegeOwnerComponents: true ,
-            unautentifiedUserComponents: false
+        this.state = {
+            name: '',
+            address: '',
+            description: '',
+            rating: '',
+            numberOfRooms: '',
+            rules: '',
+            ownerId: '',
 
         }
-       
+
         this.changeNameHandler = this.changeNameHandler.bind(this);
         this.changeAddressHandler = this.changeAddressHandler.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRatingHandler = this.changeRatingHandler.bind(this);
         this.changeNumberOfRoomsHandler = this.changeNumberOfRoomsHandler.bind(this);
         this.changeRulesHandler = this.changeRulesHandler.bind(this);
-        
-        
-       
-   
-        this.logout= this.logout.bind(this); 
-       
+
+
+
+
+        this.logout = this.logout.bind(this);
+
     }
-    
-    
-    logout(){
+
+
+    logout() {
         localStorage.removeItem('activeUser')
         localStorage.removeItem('activeCottage')
         localStorage.removeItem('activeRoom')
         this.props.history.push(`/login`);
-       
+
     }
 
-    Appointments(){}
+    Appointments() { }
 
     changeNameHandler = (event) => {
-        this.setState({name: event.target.value});
+        this.setState({ name: event.target.value });
     }
     changeAddressHandler = (event) => {
-        this.setState({address: event.target.value});
+        this.setState({ address: event.target.value });
     }
     changeDescriptionHandler = (event) => {
-        this.setState({description: event.target.value});
+        this.setState({ description: event.target.value });
     }
 
     changeRatingHandler = (event) => {
-        this.setState({rating: event.target.value});
+        this.setState({ rating: event.target.value });
     }
     changeNumberOfRoomsHandler = (event) => {
-        this.setState({numberOfRooms: event.target.value});
+        this.setState({ numberOfRooms: event.target.value });
     }
 
     changeRulesHandler = (event) => {
-        this.setState({rules: event.target.value});
+        this.setState({ rules: event.target.value });
     }
 
-    viewRooms(id){
+    viewRooms(id) {
         this.props.history.push(`/allrooms`);
     }
 
-    viewAppointmets(){
+    viewAppointmets() {
 
         this.props.history.push(`/cottageappointments`);
     }
 
-    update(){
+    update() {
 
-        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        let activeUser = JSON.parse(localStorage.getItem('activeUser'));
 
 
         let cottage = {
 
-            id:this.state.id,
-            name:this.state.name,
-            address:this.state.address,
-            description:this.state.description,
-            rating:this.state.rating,
-            numberOfRooms:this.state.numberOfRooms,
-            rules:this.state.rules,
-            ownerId:activeUser.id,
+            id: this.state.id,
+            name: this.state.name,
+            address: this.state.address,
+            description: this.state.description,
+            rating: this.state.rating,
+            numberOfRooms: this.state.numberOfRooms,
+            rules: this.state.rules,
+            ownerId: activeUser.id,
 
         }
         let coid = this.state.id;
 
         console.log('cottage => ' + JSON.stringify(cottage));
-        axios.put("http://localhost:8080/api/v1/cottages/"+ coid,cottage);
+        axios.put("http://localhost:8080/api/v1/cottages/cottage_owner/" + coid, cottage);
         this.props.history.push(`/cottageownercottages`);
         window.location.reload();
 
-        
+
     }
-    profile()
-    {
-        
+    profile() {
+
         this.props.history.push(`/cottageownerprofile`);
 
     }
-    cottages()
-    {
-        
+    cottages() {
+
         this.props.history.push(`/cottageownercottages`);
 
     }
-    
-    Statistics(){
+
+    Statistics() {
         this.props.history.push(`/cottagestatistics`);
 
     }
-    componentDidMount(){
-        
-        
+    componentDidMount() {
+
+
         let activeUser = JSON.parse(localStorage.getItem('activeUser'));
-        if(activeUser===null){
-            this.state.unautentifiedUserComponents = true;
-            this.state.clientComponents=false;
-            this.state.cottegeOwnerComponents=false;
-        }
-        else{
-        if(activeUser.type=='Client'){
-            this.state.clientComponents=true;
-            this.state.cottegeOwnerComponents=false;
-            this.state.unautentifiedUserComponents = false;
-        }
-        if(activeUser.type=='cottage_owner'){
-            this.state.clientComponents=false;
-            this.state.cottegeOwnerComponents=true;  
-            this.state.unautentifiedUserComponents = false;      
-        }}
 
         localStorage.removeItem('activeRoom');
-        let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'))
+        let activeCottage = JSON.parse(localStorage.getItem('activeCottage'))
+
+        if (activeUser.type != "cottage_owner") { this.logout(); alert("Unauthorised access") }
+
+        else {
 
             this.setState({
-                id:activeCottage.id,
-                name:activeCottage.name,
-            address:activeCottage.address,
-            description:activeCottage.description,
-            rating:activeCottage.rating,
-            numberOfRooms:activeCottage.numberOfRooms,
-            rules:activeCottage.rules,
-                
-            
+                id: activeCottage.id,
+                name: activeCottage.name,
+                address: activeCottage.address,
+                description: activeCottage.description,
+                rating: activeCottage.rating,
+                numberOfRooms: activeCottage.numberOfRooms,
+                rules: activeCottage.rules,
 
             });
+        }
     }
     render() {
         return (
-            
-            <div>
-                { this.state.cottegeOwnerComponents?
-               <div className="menu">
-               <button onClick={()=>this.profile()}>Profile</button>
-               <button onClick={()=>this.cottages()}>My cottages</button>
-               <button>Cottage profile</button>
-               <button onClick={()=>this.viewRooms(this.state.id)}>Rooms</button>
-               <button onClick={()=>this.viewAppointmets(this.state.id)}>Appointments</button>
-               <button className="menubtnLog"  onClick={()=>this.logout()}>Logout</button>
-            </div>
-            :null
-            } 
-                <div style={{position:'absolute',top:'100px',left:'35%',height:'600px'}} className="registrationdiv">
-                    <br/><br/>
-                    <h2 className='text-center'>Cottage Profile</h2>
-                    <br/><br/>
-                                <label> Name: </label>
-                                <input name="name" className="form-control" value={this.state.name} onChange={this.changeNameHandler}/>
-                                <label> Address: </label>
-                                <input name="address" className="form-control" value={this.state.address} onChange={this.changeAddressHandler}/>
-                                <label> Description: </label>
-                                <input name="description" className="form-control" value={this.state.description} onChange={this.changeDescriptionHandler}/>
 
-                                <label> Rating: </label>
-                                <input name="rating" className="form-control" value={this.state.rating} onChange={this.changeRatingHandler}/>
-                                <label> Number of rooms: </label>
-                                <input name="numberOfRooms" className="form-control" value={this.state.numberOfRooms} onChange={this.changeNumberOfRoomsHandler}/>
-                                
-                                <label> Rules: </label>
-                                <input name="rules" className="form-control" value={this.state.rules} onChange={this.changeRulesHandler}/>
-                                
-                                <br/>
-                                { this.state.cottegeOwnerComponents?
-                                <div className="center"><button className="loginbtn" onClick={()=>this.update()}>Update</button></div>
-                                
-                                :null
-                                }
-                                <br></br>
-                                <div className="center"><button className="loginbtn" onClick={()=>this.Statistics()}>Statistics</button></div>
-                                
+            <div>
+                
+                    <div className="menu">
+                        <button onClick={() => this.profile()}>Profile</button>
+                        <button onClick={() => this.cottages()}>My cottages</button>
+                        <button>Cottage profile</button>
+                        <button onClick={() => this.viewRooms(this.state.id)}>Rooms</button>
+                        <button onClick={() => this.viewAppointmets(this.state.id)}>Appointments</button>
+                        <button className="menubtnLog" onClick={() => this.logout()}>Logout</button>
+                    </div>
+                  
+                
+                <div style={{ position: 'absolute', top: '100px', left: '35%', height: '600px' }} className="registrationdiv">
+                    <br /><br />
+                    <h2 className='text-center'>Cottage Profile</h2>
+                    <br /><br />
+                    <label> Name: </label>
+                    <input name="name" className="form-control" value={this.state.name} onChange={this.changeNameHandler} />
+                    <label> Address: </label>
+                    <input name="address" className="form-control" value={this.state.address} onChange={this.changeAddressHandler} />
+                    <label> Description: </label>
+                    <input name="description" className="form-control" value={this.state.description} onChange={this.changeDescriptionHandler} />
+
+                    <label> Rating: </label>
+                    <input name="rating" className="form-control" value={this.state.rating} onChange={this.changeRatingHandler} />
+                    <label> Number of rooms: </label>
+                    <input name="numberOfRooms" className="form-control" value={this.state.numberOfRooms} onChange={this.changeNumberOfRoomsHandler} />
+
+                    <label> Rules: </label>
+                    <input name="rules" className="form-control" value={this.state.rules} onChange={this.changeRulesHandler} />
+
+                    <br />
+                   
+                        <div className="center"><button className="loginbtn" onClick={() => this.update()}>Update</button></div>
+
+                    <br></br>
+                    <div className="center"><button className="loginbtn" onClick={() => this.Statistics()}>Statistics</button></div>
+
 
                 </div>
             </div>
 
-        )   ;
+        );
     }
 }
 

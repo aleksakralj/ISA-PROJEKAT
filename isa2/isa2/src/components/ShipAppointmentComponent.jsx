@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 class ShipAppointmentComponent extends Component {
     constructor(props){
@@ -11,11 +10,7 @@ class ShipAppointmentComponent extends Component {
         
     }
 
-    deleteprofile(id){
-
-        axios.delete("http://localhost:8080/api/v1/users/" + id)
-        this.logout();
-    }
+   
     
     logout(){
         localStorage.clear();
@@ -92,7 +87,10 @@ class ShipAppointmentComponent extends Component {
         this.props.history.push(`/shipappointmentsreservation`);
     }
     componentDidMount(){
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
 
+        if (activeUser.type != "ship_owner"){this.logout(); alert("Unauthorised access")}
+       
     }
 
     

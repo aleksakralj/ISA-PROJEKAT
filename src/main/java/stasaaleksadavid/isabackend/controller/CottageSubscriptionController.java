@@ -66,10 +66,14 @@ public class CottageSubscriptionController {
     }
 
 // get by Email and Password
-    @GetMapping("/cottagesubscriptions/cottageid/{cottageid}")
-    public List<CottageSubscription> getCottageSubsByCottageId(@PathVariable Long cottageid){
-    return cottageSubscriptionRepository.findByCottageId(cottageid);
+    @GetMapping("/cottagesubscriptions/cottageid/{type}/{cottageid}")
+    public List<CottageSubscription> getCottageSubsByCottageId(@PathVariable String type,@PathVariable Long cottageid) {
+        if (type.equals("admin") || type.equals("cottage_owner") || type.equals("main_admin")) {
+            return cottageSubscriptionRepository.findByCottageId(cottageid);
+        }
+        else return null;
     }
+
 
     
 }

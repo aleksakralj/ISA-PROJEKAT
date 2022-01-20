@@ -170,7 +170,7 @@ class ShipScheduleForClientComponent extends Component {
         if (this.DateTimeIsEmpty(appointment) == true){
         this.SendEmail();
         console.log('appointment => ' + JSON.stringify(appointment));
-        axios.post("http://localhost:8080/api/v1/shipappointments/",appointment);
+        axios.post("http://localhost:8080/api/v1/shipappointments/ship_owner/",appointment);
 
         window.alert("Email on his way.")
         //this.props.history.push(`/shipappointments`);
@@ -188,10 +188,14 @@ class ShipScheduleForClientComponent extends Component {
     
     componentDidMount(){
         let activeShip =  JSON.parse(localStorage.getItem('activeShip'));
-        axios.get("http://localhost:8080/api/v1/shipfreeappointments/ship/"+activeShip.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
-        axios.get("http://localhost:8080/api/v1/shipappointments/ship/"+activeShip.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
-        axios.get("http://localhost:8080/api/v1/shipquickappointments/ship/"+activeShip.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
-        axios.get("http://localhost:8080/api/v1/shipappointments/shipid/"+activeShip.id).then((res4)=>{this.setState({allAppointments: res4.data});});
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+
+        if (activeUser.type != "ship_owner"){this.logout(); alert("Unauthorised access")}
+        else{
+        axios.get("http://localhost:8080/api/v1/shipfreeappointments/ship/ship_owner/"+activeShip.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
+        axios.get("http://localhost:8080/api/v1/shipappointments/ship/ship_owner/"+activeShip.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
+        axios.get("http://localhost:8080/api/v1/shipquickappointments/ship/ship_owner/"+activeShip.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
+        }
     }
     render() {
         return (

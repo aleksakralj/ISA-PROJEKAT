@@ -59,7 +59,7 @@ class RoomProfileComponent extends Component {
         let roid = this.state.id;
 
         console.log('room => ' + JSON.stringify(room));
-        axios.put("http://localhost:8080/api/v1/rooms/"+ roid,room);
+        axios.put("http://localhost:8080/api/v1/rooms/cottage_owner/"+ roid,room);
         this.props.history.push(`/allrooms`);
         window.location.reload();
 
@@ -89,6 +89,10 @@ class RoomProfileComponent extends Component {
     
     componentDidMount(){
         let activeRoom =  JSON.parse(localStorage.getItem('activeRoom'))
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+
+        if (activeUser.type != "cottage_owner"){this.logout(); alert("Unauthorised access")}
+        else{
 
         this.setState({
             id:activeRoom.id,
@@ -97,6 +101,7 @@ class RoomProfileComponent extends Component {
             description:activeRoom.description
 
         });
+    }
         
     }
     render() {

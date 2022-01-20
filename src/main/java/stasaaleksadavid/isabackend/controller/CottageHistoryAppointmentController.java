@@ -70,9 +70,12 @@ public class CottageHistoryAppointmentController {
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
-
-    @GetMapping("/cottagehistoryappointments/cottage/{cottageid}")
-    public List<CottageHistoryAppointment> getHistoryAppointmentByCottageId(@PathVariable Long cottageid) {
+//get by cottage id
+    @GetMapping("/cottagehistoryappointments/cottage/{type}/{cottageid}")
+    public List<CottageHistoryAppointment> getHistoryAppointmentByCottageId(@PathVariable String type,@PathVariable Long cottageid) {
+        if (type.equals("main_admin") || type.equals("admin") || type.equals("cottage_owner")) {
         return cottageHistoryAppointmentRepository.findByCottageId(cottageid);
+            }
+        else {return null;}
     }
 }
