@@ -102,7 +102,7 @@ class ShipProfileSOComponent extends Component {
         let shid = this.state.id;
 
         console.log('ship => ' + JSON.stringify(ship));
-        axios.put("http://localhost:8080/api/v1/ships/"+ shid,ship);
+        axios.put("http://localhost:8080/api/v1/ships/ship_owner/"+ shid,ship);
         this.props.history.push(`/shipownerships`);
         window.location.reload();
 
@@ -127,9 +127,13 @@ class ShipProfileSOComponent extends Component {
     
     componentDidMount(){
         
-        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        
 
         let activeShip =  JSON.parse(localStorage.getItem('activeShip'))
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+
+        if (activeUser.type != "ship_owner"){this.logout(); alert("Unauthorised access")}
+        else{
 
             this.setState({
                 id:activeShip.id,
@@ -152,7 +156,7 @@ class ShipProfileSOComponent extends Component {
         localStorage.clear();
         localStorage.setItem('activeUser',JSON.stringify(activeUser));
         localStorage.setItem('activeShip',JSON.stringify(activeShip));
-
+        }
         
     }
     render() {

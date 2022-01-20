@@ -70,8 +70,11 @@ public class ShipHistoryAppointmentController {
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
 
-    @GetMapping("/shiphistoryappointments/ship/{shipid}")
-    public List<ShipHistoryAppointment> getHistoryAppointmentByShipId(@PathVariable Long shipid) {
-        return shipHistoryAppointmentRepository.findByShipId(shipid);
+    @GetMapping("/shiphistoryappointments/ship/{type}/{shipid}")
+    public List<ShipHistoryAppointment> getHistoryAppointmentByShipId(@PathVariable String type,@PathVariable Long shipid) {
+        if(type.equals("admin") || type.equals("main_admin")||type.equals("ship_owner")) {
+            return shipHistoryAppointmentRepository.findByShipId(shipid);
+        }
+        else return null;
     }
 }

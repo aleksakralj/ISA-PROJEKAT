@@ -34,7 +34,7 @@ class ShipAppointmentHistoryComponent extends Component {
     
     toClient(id){
         axios
-        .get("http://localhost:8080/api/v1/users/" + id )
+        .get("http://localhost:8080/api/v1/users/id/ship_owner/" + id )
         .then(response => {
             localStorage.setItem('ClientToReview',JSON.stringify(response.data));
             this.props.history.push('/clientreviewship');});
@@ -45,11 +45,15 @@ class ShipAppointmentHistoryComponent extends Component {
         
         
         let activeShip =  JSON.parse(localStorage.getItem('activeShip'));
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
 
-        axios.get("http://localhost:8080/api/v1/shiphistoryappointments/ship/" + activeShip.id).then((res)=>{
+        if (activeUser.type != "ship_owner"){this.logout(); alert("Unauthorised access")}
+        else{
+
+        axios.get("http://localhost:8080/api/v1/shiphistoryappointments/ship/ship_owner/" + activeShip.id).then((res)=>{
             this.setState({appointments: res.data});
     });
-        
+}
     } 
     render() {
         return (

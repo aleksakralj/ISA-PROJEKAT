@@ -38,8 +38,7 @@ class ShipOwnerProfileComponent extends Component {
 
     deleteprofile(id){
 
-        axios.delete("http://localhost:8080/api/v1/users/" + id)
-        this.logout();
+        this.props.history.push(`/deleteprofile`);
     }
     
     logout(){
@@ -103,7 +102,7 @@ class ShipOwnerProfileComponent extends Component {
         let coid = this.state.id;
 
         console.log('shipOwner => ' + JSON.stringify(shipOwner));
-        axios.put("http://localhost:8080/api/v1/users/" +coid,shipOwner);
+        axios.put("http://localhost:8080/api/v1/users/ship_owner/" +coid,shipOwner);
         this.props.history.push(`/login`);
 
         
@@ -111,8 +110,10 @@ class ShipOwnerProfileComponent extends Component {
     
     componentDidMount(){
 
-        
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+
+        if (activeUser.type != "ship_owner"){this.logout(); alert("Unauthorised access")}
+        else{
 
             this.setState({
                 id:activeUser.id,
@@ -129,7 +130,7 @@ class ShipOwnerProfileComponent extends Component {
             });
             localStorage.clear();
             localStorage.setItem('activeUser',JSON.stringify(activeUser));
-        
+        }
     }
 
     
