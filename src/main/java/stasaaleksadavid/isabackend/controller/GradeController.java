@@ -44,6 +44,7 @@ public class GradeController {
         grade.setGrade(gradeDetails.getGrade());
         grade.setType(gradeDetails.getType());
         grade.setMessage(gradeDetails.getMessage());
+        grade.setEmail(gradeDetails.getEmail());
 
         Grade updatedGrade = gradeRepository.save(grade);
         return ResponseEntity.ok(updatedGrade);

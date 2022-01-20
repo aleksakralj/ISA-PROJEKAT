@@ -18,6 +18,8 @@ public class GradeRequest {
     @Column(name = "TypeId")
     private long typeId;
 
+    @Column(name = "Email")
+    private String email;
 
     @Column(name = "Message")
     private String message;
@@ -25,12 +27,21 @@ public class GradeRequest {
     public GradeRequest() {
     }
 
-    public GradeRequest(String grade, String type, long typeId, String message) {
+    public GradeRequest(String grade, String type, long typeId, String message, String email) {
         super();
         this.grade = grade;
         this.type = type;
         this.typeId = typeId;
         this.message = message;
+        this.email=email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public long getId() {

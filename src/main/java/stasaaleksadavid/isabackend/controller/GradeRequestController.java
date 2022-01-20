@@ -44,7 +44,8 @@ public class GradeRequestController {
         gradeRequest.setGrade(gradeRequestDetails.getGrade());
         gradeRequest.setType(gradeRequestDetails.getType());
         gradeRequest.setMessage(gradeRequestDetails.getMessage());
-
+        gradeRequest.setEmail(gradeRequestDetails.getEmail());
+        
         GradeRequest updatedGradeRequest = gradeRequestRepository.save(gradeRequest);
         return ResponseEntity.ok(updatedGradeRequest);
     }

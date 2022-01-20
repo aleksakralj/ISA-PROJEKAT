@@ -26,16 +26,18 @@ class AdminGradeRequestsComponent extends Component {
         let activeRequest=JSON.parse(localStorage.getItem('activeRequest'));
         this.sendEmail(activeRequest.type);
 
-        //axios.post("http://localhost:8080/api/v1/grades" , id);
+        //deny da ga izbrise iz tabele
+        this.deny();
+        window.location.reloade();
+
+
         
-        
-        //accept and send email
     }
     sendEmail(type){
         let activeRequest=JSON.parse(localStorage.getItem('activeRequest'));
 
             var template_params = {
-                "email": this.findEmail(),
+                "email": activeRequest.email,
                 "message":"Your grade for " +  activeRequest.type  + " is accepted.",
                 "subject": "Grade"
             }
@@ -53,39 +55,46 @@ class AdminGradeRequestsComponent extends Component {
             
       
     }
+    /*
     findEmail(){
         let activeRequest=JSON.parse(localStorage.getItem('activeRequest'));
-        var email;
-        var cottageOwnerId;
+        var email1;
+        //var cottageOwner;
+        //var cottageOwnerId;
         var shipOwnerId;
         
         switch(activeRequest.type){
             
-            case 'cottage_owner':  email = (axios.get("http://localhost:8080/api/v1/users/" + activeRequest.typeId)).email ; return email;
+            case 'cottage_owner':  email1 = (axios.get("http://localhost:8080/api/v1/users/" + activeRequest.typeId)).email ; return email1;
 
-            case 'ship_owner': email = (axios.get("http://localhost:8080/api/v1/users/" + activeRequest.typeId)).email ; return email;
+            case 'ship_owner': email1 = (axios.get("http://localhost:8080/api/v1/users/" + activeRequest.typeId)).email ; return email1;
 
             case 'cottage': {
-
-               cottageOwnerId= axios.get("http://localhost:8080/api/v1/cottages/"+ activeRequest.typeId).ownerId ;
-                email = (axios.get("http://localhost:8080/api/v1/users/" + cottageOwnerId)).email;
-                return email;
+                
+                axios.get("http://localhost:8080/api/v1/cottages/"+ activeRequest.typeId)
+                .then((response)=> {
+                   let cottageOwner = response.data;
+                   let cottageOwnerId= cottageOwner.ownerId;
+                   axios.get("http://localhost:8080/api/v1/users/" + cottageOwnerId).then((response=>{let email=response.data; return email;}));
+                   
+                });
+                
+               
             }
-           
-
             case 'ship': {
                  shipOwnerId= axios.get("http://localhost:8080/api/v1/ships/"+ activeRequest.typeId).ownerId ;
-                 email = (axios.get("http://localhost:8080/api/v1/users/" + shipOwnerId)).email;
-                return email;
+                 email1 = (axios.get("http://localhost:8080/api/v1/users/" + shipOwnerId)).email1;
+                return email1;
             }
 
-            case 'fishing_instructor':  email= (axios.get("http://localhost:8080/api/v1/users/" + activeRequest.typeId)).email ; return email;
+            case 'fishing_instructor':  email1= (axios.get("http://localhost:8080/api/v1/users/" + activeRequest.typeId)).email ; return email1;
 
             default: return "EmailNotFound";
         }
-    }
+    }*/
      deny(){
-        axios.delete("http://localhost:8080/api/v1/graderequests/"+ JSON.parse(localStorage.getItem('activeRequest')).id)
+        axios.delete("http://localhost:8080/api/v1/graderequests/"+ JSON.parse(localStorage.getItem('activeRequest')).id);
+        window.location.reload();
                                             
      }
    

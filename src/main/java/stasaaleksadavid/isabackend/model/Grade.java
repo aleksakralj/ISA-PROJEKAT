@@ -18,6 +18,9 @@ public class Grade {
     @Column(name = "TypeId")
     private long typeId;
 
+    @Column(name = "Email")
+    private String email;
+
 
     @Column(name = "Message")
     private String message;
@@ -25,12 +28,21 @@ public class Grade {
     public Grade() {
     }
 
-    public Grade(String grade, String type, String message,long typeId ) {
+    public Grade(String grade, String type, String message,long typeId, String email ) {
         super();
         this.grade = grade;
         this.type = type;
         this.message = message;
         this.typeId=typeId;
+        this.email=email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public long getId() {
