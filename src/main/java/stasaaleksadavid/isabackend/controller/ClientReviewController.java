@@ -25,9 +25,12 @@ public class ClientReviewController {
     public List<ClientReview> getAllAdmins(){return clientReviewRepository.findAll();}
 
     //create
-    @PostMapping("/clientreviews")
-    public  ClientReview createClientReview(@RequestBody ClientReview clientReview){
-        return clientReviewRepository.save(clientReview);
+    @PostMapping("/clientreviews/{type}")
+    public  ClientReview createClientReview(@PathVariable String type,@RequestBody ClientReview clientReview){
+        if(type.equals("ship_owner") || type.equals("admin")|| type.equals("cottage_owner")|| type.equals("fishing_instructor")|| type.equals("main_admin")) {
+            return clientReviewRepository.save(clientReview);
+        }
+        else return null;
     }
 
     //get by id

@@ -34,10 +34,13 @@ public class UserController {
     }
 
     //get by id
-    @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id){
-        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User does not exist with id:"+ id));
-        return ResponseEntity.ok(user);
+    @GetMapping("/users/id/{type}/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable String type,@PathVariable Long id){
+        if(type.equals("ship_owner") || type.equals("admin")|| type.equals("cottage_owner")|| type.equals("fishing_instructor")|| type.equals("main_admin")) {
+            User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User does not exist with id:" + id));
+            return ResponseEntity.ok(user);
+        }
+        else return null;
     }
     //update
     @PutMapping("/users/{type}/{id}")
@@ -45,9 +48,6 @@ public class UserController {
 
         if(type.equals("ship_owner") || type.equals("admin")|| type.equals("cottage_owner")|| type.equals("fishing_instructor")|| type.equals("main_admin")){
             User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User does not exist with id:" + id));
-
-
-
 
                 user.setPassword(userDetails.getPassword());
                 user.setFirstName(userDetails.getFirstName());

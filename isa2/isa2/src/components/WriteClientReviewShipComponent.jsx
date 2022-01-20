@@ -51,7 +51,7 @@ class WriteClientReviewShipComponent extends Component {
             emailOfSender:this.state.emailOfSender,
             reviewMessage:this.state.reviewMessage,
         }
-        axios.post("http://localhost:8080/api/v1/clientreviews",review)
+        axios.post("http://localhost:8080/api/v1/clientreviews/ship_owner",review)
         this.props.history.push(`/clientreviewship`);
 
     }
@@ -67,7 +67,10 @@ class WriteClientReviewShipComponent extends Component {
     }
     componentDidMount() {
         let ClientToReview = JSON.parse(localStorage.getItem('ClientToReview'))
-        let activeUser = JSON.parse(localStorage.getItem('activeUser'))
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+
+        if (activeUser.type != "ship_owner"){this.logout(); alert("Unauthorised access")}
+        else{
         
         
         this.setState({
@@ -78,7 +81,7 @@ class WriteClientReviewShipComponent extends Component {
 
            
         });
-
+    }
     }
 
 

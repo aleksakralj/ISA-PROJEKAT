@@ -37,8 +37,7 @@ class CottageOwnerProfileComponent extends Component {
 
     deleteprofile(id){
 
-        axios.delete("http://localhost:8080/api/v1/users/" + id)
-        this.logout();
+        this.props.history.push(`/deleteprofile`);
     }
     
     logout(){

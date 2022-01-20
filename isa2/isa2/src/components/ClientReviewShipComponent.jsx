@@ -48,6 +48,10 @@ class ClientReviewShipComponent extends Component {
     }
     componentDidMount() {
         let ClientToReview = JSON.parse(localStorage.getItem('ClientToReview'))
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'))
+
+        if (activeUser.type != "ship_owner"){this.logout(); alert("Unauthorised access")}
+        else{
         
         
         this.setState({
@@ -62,6 +66,7 @@ class ClientReviewShipComponent extends Component {
             phoneNumber: ClientToReview.phoneNumber,
            
         });
+    }
 
     }
 

@@ -180,7 +180,7 @@ class AddQuickAppointmentComponent extends Component {
         if (this.DateTimeIsEmpty(appointment) == true){
         this.SendEmail();
         console.log('appointment => ' + JSON.stringify(appointment));
-        axios.post("http://localhost:8080/api/v1/cottagequickappointments/",appointment);
+        axios.post("http://localhost:8080/api/v1/cottagequickappointments/cottage_owner/",appointment);
         window.alert("Emails on their way.")
         
         //this.props.history.push(`/cottageappointments`);
@@ -200,10 +200,15 @@ class AddQuickAppointmentComponent extends Component {
     
     componentDidMount(){
         let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'));
-        axios.get("http://localhost:8080/api/v1/cottagefreeappointments/cottage/"+activeCottage.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
-        axios.get("http://localhost:8080/api/v1/cottageappointments/cottage/"+activeCottage.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
-        axios.get("http://localhost:8080/api/v1/cottagequickappointments/cottage/"+activeCottage.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
-        axios.get("http://localhost:8080/api/v1/cottagesubscriptions/cottageid/"+activeCottage.id).then((res4)=>{this.setState({toEmail: res4.data});});
+        let activeUser = JSON.parse(localStorage.getItem('activeUser'))
+
+        if (activeUser.type != "cottage_owner") { this.logout(); alert("Unauthorised access") }
+        else {
+        axios.get("http://localhost:8080/api/v1/cottagefreeappointments/cottage/cottage_owner/"+activeCottage.id).then((res)=>{this.setState({allFreeAppointments: res.data});});
+        axios.get("http://localhost:8080/api/v1/cottageappointments/cottage/cottage_owner/"+activeCottage.id).then((res2)=>{this.setState({allScheduledAppointments: res2.data});});
+        axios.get("http://localhost:8080/api/v1/cottagequickappointments/cottage/cottage_owner/"+activeCottage.id).then((res3)=>{this.setState({allQuickAppointments: res3.data});});
+        axios.get("http://localhost:8080/api/v1/cottagesubscriptions/cottageid/cottage_owner/"+activeCottage.id).then((res4)=>{this.setState({toEmail: res4.data});});
+        }
     }
     render() {
         return (
