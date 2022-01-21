@@ -2,45 +2,28 @@ import React, { useState } from "react";
 import axios from 'axios';
 
 export default function UploadImage() {
-  const [baseImage, setBaseImage] = useState("");
+  const [baseImage1, setBaseImage1] = useState("");
+  const [baseImage2, setBaseImage2] = useState("");
+  const [baseImage3, setBaseImage3] = useState("");
+  const [baseImage4, setBaseImage4] = useState("");
+  const [baseImage5, setBaseImage5] = useState("");
 
-  const uploadImage = async (e) => {
-    const file = e.target.files[0];
-    const base64 = await convertBase64(file);
-    setBaseImage(base64);
-  };
-
-
-  function Add(){
-    
-      
-    axios.get("http://localhost:8080/api/v1/images/id/cottage_owner/2").then(response =>{setBaseImage(response.data.image64)})
-
-  }
-
-
-  const convertBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
+ 
 
   return (
     <div className="App">
-      <input type="file"onChange={(e) => {uploadImage(e);}}/>
-      <br/>
-      <div className="center"><button className="loginbtn" onClick={()=>Add()}>Add</button></div>
+      
+      
       <br></br>
-      <img src={baseImage} height="200px" />
+      <img src={axios.get("http://localhost:8080/api/v1/images/type/cottage_owner/cottage/2").then(response =>{setBaseImage1(response.data.image1)}),baseImage1} height="200px" />
+      <br></br>
+      <img src={axios.get("http://localhost:8080/api/v1/images/type/cottage_owner/cottage/2").then(response =>{setBaseImage2(response.data.image2)}),baseImage2} height="200px" />
+      <br></br>
+      <img src={axios.get("http://localhost:8080/api/v1/images/type/cottage_owner/cottage/2").then(response =>{setBaseImage3(response.data.image3)}),baseImage3} height="200px" />
+      <br></br>
+      <img src={axios.get("http://localhost:8080/api/v1/images/type/cottage_owner/cottage/2").then(response =>{setBaseImage4(response.data.image4)}),baseImage4} height="200px" />
+      <br></br>
+      <img src={axios.get("http://localhost:8080/api/v1/images/type/cottage_owner/cottage/2").then(response =>{setBaseImage5(response.data.image5)}),baseImage5} height="200px" />
       
     </div>
   );

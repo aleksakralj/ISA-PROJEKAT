@@ -58,7 +58,11 @@ public class ImageController {
             Image image = imageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Image does not exist with id:" + id));
 
 
-                image.setImage64(imageDetails.getImage64());
+                image.setImage1(imageDetails.getImage1());
+            image.setImage2(imageDetails.getImage2());
+            image.setImage3(imageDetails.getImage3());
+            image.setImage4(imageDetails.getImage4());
+            image.setImage5(imageDetails.getImage5());
                 image.setType(imageDetails.getType());
                 image.setIdOfType(imageDetails.getIdOfType());
 
@@ -86,7 +90,7 @@ public class ImageController {
 
     //get by type and type id
     @GetMapping("/images/type/{type}/{type2}/{typeId}")
-    public List<Image> getAllImagesByType(@PathVariable String type,@PathVariable String type2,@PathVariable Long typeId){
+    public Image getAllImagesByType(@PathVariable String type,@PathVariable String type2,@PathVariable Long typeId){
         if(type.equals("ship_owner") || type.equals("admin")|| type.equals("cottage_owner")|| type.equals("fishing_instructor")|| type.equals("main_admin")) {
             return imageRepository.findByTypeAndIdOfType(type2,typeId);
         }
