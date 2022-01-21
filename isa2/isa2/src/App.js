@@ -146,7 +146,7 @@ const backStyle = {
 
 function headerDefinition(){
 
-  if(localStorage.getItem('activeUser')===null){
+  if(localStorage.getItem('activeUser')==null){
     return(<Unautentifieduserheader/>)
   }
 else{
@@ -225,7 +225,7 @@ function App() {
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
 
-              <Route path = "/viewrequests/:id" component={ViewRegistrationRequestComponent}></Route>
+              <Route path = "/viewrequest" component={ViewRegistrationRequestComponent}></Route>
               <Route path = "/cottageownerprofile" component={CottageOwnerProfileComponent}></Route>
               <Route path = "/cottageprofile" component={CottageProfileComponent}></Route>
               <Route path = "/roomprofile" component={RoomProfileComponent}></Route>

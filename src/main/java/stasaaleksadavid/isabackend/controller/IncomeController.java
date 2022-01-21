@@ -31,11 +31,14 @@ public class IncomeController {
     }
 
     //get by id
-    @GetMapping("/income/{id}")
-    public ResponseEntity<Income> getIncomeById(@PathVariable Long id){
+    @GetMapping("/income/{type}/{id}")
+    public ResponseEntity<Income> getIncomeById(@PathVariable String type,@PathVariable Long id){
+        if(type.equals("admin")|| type.equals("main_admin")){
         Income income = incomeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Income does not exist with id:"+ id));
         return ResponseEntity.ok(income);
-    }
+        }
+        else{return null;}
+        }
 
     //update
     @PutMapping("/income/{type}/{id}")

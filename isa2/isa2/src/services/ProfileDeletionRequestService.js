@@ -9,7 +9,7 @@ class ProfileDeletionRequestService {
     }
 
     createProfileDeletionRequest(profileDeletionRequest,type){
-        return axios.post(PROFILEDELETIONREQUESTS_API_BASE_URL+"/"+type,profileDeletionRequest);
+        return axios.post(PROFILEDELETIONREQUESTS_API_BASE_URL + "/" + type ,profileDeletionRequest);
     }
 
     viewProfileDeletionRequestById(requestId){

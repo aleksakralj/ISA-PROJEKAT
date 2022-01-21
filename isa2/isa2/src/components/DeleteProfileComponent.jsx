@@ -7,7 +7,8 @@ class DeleteProfileComponent extends Component {
         this.state = {
             userId:'',
             userType: '',
-            reason:''
+            reason:'',
+            user_email:''
         }
 
         this.cancelDelition=this.cancelDelition.bind(this)
@@ -22,11 +23,11 @@ class DeleteProfileComponent extends Component {
     requestDeletion = (e) => {
         e.preventDefault();
         let activeUser = JSON.parse(localStorage.getItem('activeUser'))
-        let request = {userId: activeUser.id, reason: this.state.reason, userType:activeUser.type}
+        let request = {userId: activeUser.id, reason: this.state.reason, userType:activeUser.type,userEmail:activeUser.email}
         console.log('request => ' + JSON.stringify(request));
 
         ProfileDeletionRequestService.createProfileDeletionRequest(request,activeUser.type).then(res=>{
-            this.props.history.push('profiledeletionrequestwait')
+            this.props.history.push('/profiledeletionrequestwait')
         });
     }
     cancelDelition(){

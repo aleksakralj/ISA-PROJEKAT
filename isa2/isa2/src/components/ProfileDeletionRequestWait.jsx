@@ -10,6 +10,11 @@ class Profiledeletionrequestwait extends Component {
     returnHome(){
         this.props.history.push('/homepage')
     }
+    proceed(){ 
+        localStorage.clear();
+        this.props.history.push('/login')
+    }
+   
     render() {
         return (
             <div>
@@ -24,7 +29,7 @@ class Profiledeletionrequestwait extends Component {
                         <div style={{ height: '400px' }} className="form-group">
 
                             <h3 style={{ position: 'absolute', top: '150px' }}>Wait for administrator to confirm your deletion.</h3><br />
-                            <button style={{ position: 'absolute', top: '300px' }} className="proceedbtn" onClick={this.proceed}><h3>Proceed to login page.</h3></button>
+                            <button style={{ position: 'absolute', top: '300px' }} className="proceedbtn" onClick={this.proceed()}><h3>Proceed to login page.</h3></button>
 
                         </div>
                     </div>

@@ -16,20 +16,21 @@ class CottagesComponent extends Component {
     
 
 
-    cottageProfile(id){
+    /*cottageProfile(id){
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         CottageService.getCottageById(id,activeUser.type).then(res=>{
             localStorage.setItem('activeCottage', JSON.stringify(res.data));
         })
         this.props.history.push('/cottageprofile')
         
-    }
+    }*/
     deleteCottage(id) {
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         CottageService.deleteCottage(id,activeUser.type).then(res => {
             this.setState({ cottages: this.state.cottages.filter(cottage => cottage.id !== id) });
-            this.props.history.push("/cottages"); // refresh ne radi nzm zasto
+          
         });
+        window.location.reload();
     }
     logout(){
        
@@ -91,7 +92,7 @@ class CottagesComponent extends Component {
                                             <td>{cottages.rating} </td>
                                             <td>{cottages.rules} </td>
 
-                                            <td><button onClick={() => this.cottageProfile(cottages.id)} className="loginbtn">SEE</button></td>
+                                            <td><button onClick={() => this.deleteCottage(cottages.id)} className="loginbtn">Delete</button></td>
                              
                                     </tr>
                                 )

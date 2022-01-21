@@ -73,7 +73,7 @@ class FishingInstructorProfile extends Component {
         {
 
             this.setState({
-                id:activeUser.id,
+            id:activeUser.id,
             email: activeUser.email,
             password: activeUser.password,
             firstName:activeUser.firstName,

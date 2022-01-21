@@ -29,7 +29,7 @@ getRegistrationRequestById(requestId,type){
 }
 
 deleteRegistrationRequest(requestId,type){
-    return axios.delete(REGISTRATIONREQUESTS_API_BASE_URL + '/' + type + '/'+ requestId);
+    return axios.delete(REGISTRATIONREQUESTS_API_BASE_URL + '/delete/' + type + '/'+ requestId);
 }
 
 }

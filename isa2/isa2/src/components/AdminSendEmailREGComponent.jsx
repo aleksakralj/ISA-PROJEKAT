@@ -36,7 +36,7 @@ export default function AdminSendEmail() {
                     <div className="row pt-5 mx-auto">
                     
                         <div className="col-8 form-group pt-2 mx-auto">
-                            <input type="email" className="form-control" placeholder="Email Address" name="email" value={JSON.parse(localStorage.getItem('activeRecipient')).email}/>
+                            <input type="email" className="form-control" placeholder="Email Address" name="email" value={JSON.parse(localStorage.getItem('activeRequest')).email}/>
                         </div>
                         <div className="col-8 form-group pt-2 mx-auto">
                             <input type="text" className="form-control" placeholder="Subject" name="subject" value="Account registration"/>

@@ -48,7 +48,7 @@ public class RegistrationRequestController {
     }
 
     //delete
-    @DeleteMapping("/registrationrequests/{type}/{id}")
+    @DeleteMapping("/registrationrequests/delete/{type}/{id}")
         public Map<String, Boolean> deleteRegistrationRequest(@PathVariable String type,@PathVariable Long id){
             if(type.equals("admin") || type.equals("main_admin")){
                 RegistrationRequest registrationRequest = registrationRequestRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Registration Request does not exist with id:" + id));
