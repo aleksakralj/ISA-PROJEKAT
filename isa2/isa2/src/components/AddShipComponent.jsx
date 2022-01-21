@@ -97,7 +97,7 @@ class AddShipComponent extends Component {
         ownerId:activeUser.id}
 
         console.log('ship => ' + JSON.stringify(ship));
-        axios.post("http://localhost:8080/api/v1/ships/ship_owner/",ship);
+        axios.post("http://localhost:8080/api/v1/ships/ship_owner",ship);
         this.props.history.push(`/shipownerships`);
         window.location.reload();
 

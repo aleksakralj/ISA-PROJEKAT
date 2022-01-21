@@ -31,10 +31,13 @@ public class Cottage {
     @Column(name = "Owner_Id")
     private long ownerId;
 
+    @Column(name = "Photos", length = 64)
+    private String photos;
+
 
     public Cottage() {}
 
-    public Cottage(String name, String address, String description, double rating, int numberOfRooms, String rules, long ownerId) {
+    public Cottage(String name, String address, String description, double rating, int numberOfRooms, String rules, long ownerId, String photos) {
         super();
         this.name = name;
         this.address = address;
@@ -43,6 +46,15 @@ public class Cottage {
         this.numberOfRooms = numberOfRooms;
         this.rules = rules;
         this.ownerId = ownerId;
+        this.photos = photos;
+    }
+
+    public String getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(String photos) {
+        this.photos = photos;
     }
 
     public String getRules() {

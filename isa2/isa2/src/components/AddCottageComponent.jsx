@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import axios from 'axios';
 
 class AddCottageComponent extends Component {
     constructor(props){
+        
+        
         super(props)
         this.state={
             name:'',
@@ -12,6 +14,7 @@ class AddCottageComponent extends Component {
             numberOfRooms:'',
             rules:'',
             ownerId:'',
+            baseImage:''
 
         }
        
@@ -42,17 +45,23 @@ class AddCottageComponent extends Component {
     changeRulesHandler = (event) => {
         this.setState({rules: event.target.value});
     }
-    
+    changeImageHandler = (event) => {
+        this.setState({image: event.target.value});
+    }
+
     profile()
     {
         
         this.props.history.push(`/cottageownerprofile`);
 
     }
+    
 
     Add(){
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
 
+        let image=this.state.image
+       
         let cottage = {           
             name:this.state.name,
         address:this.state.address,
@@ -63,11 +72,39 @@ class AddCottageComponent extends Component {
         ownerId:activeUser.id}
 
         console.log('cottage => ' + JSON.stringify(cottage));
+
         axios.post("http://localhost:8080/api/v1/cottages/cottage_owner",cottage);
+        axios.post("http://localhost:8080/api/v1/cottages/save/cottage_owner",image);
+
+
         this.props.history.push(`/cottageownercottages`);
         window.location.reload();
 
     }
+
+
+    uploadImage = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await this.convertBase64(file);
+        this.state.baseImage=base64.src;
+    }
+
+    convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+          const fileReader = new FileReader();
+          fileReader.readAsDataURL(file);
+    
+          fileReader.onload = () => {
+            resolve(fileReader.result);
+          };
+    
+          fileReader.onerror = (error) => {
+            reject(error);
+          };
+        });
+      };
+
+
     componentDidMount(){
         let activeUser = JSON.parse(localStorage.getItem('activeUser'));
         if (activeUser.type != "cottage_owner") { this.logout(); alert("Unauthorised access") }
@@ -101,6 +138,13 @@ class AddCottageComponent extends Component {
                                 
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Add</button></div>
+                                <br></br>
+                                <label>Photos: </label>
+                                <input type="file" name="image" accept="image/png, image/jpeg" onChange={(e) => {this.uploadImage(e);}}/>    
+                                <br></br>
+                                <img src={this.state.baseImage}  height="200px"/>   
+                               
+
                                 
 
                 </div>

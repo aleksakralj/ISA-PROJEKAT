@@ -135,6 +135,8 @@ import ShipStatisticsComponent from './components/ShipStatisticsComponent';
 
 
 import AdminReviewRequestsComponent from './components/AdminReviewRequestsComponent';
+import UploadImageComponent from './components/UploadImageComponent';
+import DisplayPictureComponent from './components/DisplayPictureComponent';
 
 const backStyle = {
   width: '100%',
@@ -330,6 +332,8 @@ function App() {
               <Route path="/adventurestatistics" component={AdventureStatisticsComponent}></Route>
               <Route path="/shipstatistics" component={ShipStatisticsComponent}></Route>
               <Route path="/adminreviewequests" component={AdminReviewRequestsComponent}></Route>
+              <Route path="/uploadimage" component={UploadImageComponent}></Route>
+              <Route path="/displaypicture" component={DisplayPictureComponent}></Route>
 
 
               </Switch>

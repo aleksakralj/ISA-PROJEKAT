@@ -104,6 +104,11 @@ class ViewAdventureComponent extends Component {
         this.props.history.push(`/adventurestatistics`);
     }
 
+    Maps(){
+        const words = this.state.address.split(" ");
+        window.location.href=("https://www.google.com/maps/place/"+words[0]+"+"+words[1]+"+"+words[2]);
+
+    }
     componentDidMount() {
         let activeAdventure =  JSON.parse(localStorage.getItem('activeAdventure'))
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
@@ -175,6 +180,9 @@ class ViewAdventureComponent extends Component {
                     <div className="center"><button className="loginbtn" onClick={()=>this.CurrentReservation()}>Current Reservation</button><br/><br/></div>
                     <br />
                     <div className="center"><button className="loginbtn" onClick={()=>this.Statistics()}>Statistics</button><br/><br/></div>
+                    <br></br>
+                    <div className="center"><button className="loginbtn" onClick={() => this.Maps()}>View on map</button></div>
+                              
                     
                     
                 </div>
