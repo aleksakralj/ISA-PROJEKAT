@@ -72,7 +72,7 @@ class RoomProfileComponent extends Component {
         }
         
         console.log('room => ' + JSON.stringify(room));
-        axios.post("http://localhost:8080/api/v1/rooms/cottage_owner/",room);
+        axios.post("http://localhost:8080/api/v1/rooms/cottage_owner",room);
         this.props.history.push(`/allrooms`);
         window.location.reload();
 

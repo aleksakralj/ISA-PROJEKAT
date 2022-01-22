@@ -124,7 +124,21 @@ class ShipProfileSOComponent extends Component {
     Statistics(){
         this.props.history.push(`/shipstatistics`);
     }
-    
+    Maps(){
+        const words = this.state.address.split(" ");
+        window.location.href=("https://www.google.com/maps/place/"+words[0]+"+"+words[1]+"+"+words[2]);
+
+    }
+    UploadPhotos(){
+
+        this.props.history.push(`/uploadimageship`);
+    }
+
+    ViewPhotos(){
+        this.props.history.push(`/displaypictureship`);
+        
+
+    }
     componentDidMount(){
         
         
@@ -201,6 +215,12 @@ class ShipProfileSOComponent extends Component {
                                 <div className="center"><button className="loginbtn" onClick={()=>this.update()}>Update</button></div>
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.Statistics()}>Statistics</button></div>
+                                <br></br>
+                                <div className="center"><button className="loginbtn" onClick={() => this.Maps()}>View on map</button></div>
+                                <br></br>
+                                <div className="center"><button className="loginbtn" onClick={() => this.ViewPhotos()}>View photos</button></div>
+                                <br></br>
+                                <div className="center"><button className="loginbtn" onClick={() => this.UploadPhotos()}>Upload photos</button></div>
                                 
                                 
                                 

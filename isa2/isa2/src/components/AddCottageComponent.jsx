@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import axios from 'axios';
 
 class AddCottageComponent extends Component {
     constructor(props){
+        
+        
         super(props)
         this.state={
             name:'',
@@ -12,6 +14,8 @@ class AddCottageComponent extends Component {
             numberOfRooms:'',
             rules:'',
             ownerId:'',
+            baseImage:'',
+            cottages:[]
 
         }
        
@@ -42,17 +46,42 @@ class AddCottageComponent extends Component {
     changeRulesHandler = (event) => {
         this.setState({rules: event.target.value});
     }
-    
+    changeImageHandler = (event) => {
+        this.setState({image: event.target.value});
+    }
+
     profile()
     {
         
         this.props.history.push(`/cottageownerprofile`);
 
     }
+    
+    createImageFolder(i){
+        
+        let images={
+            idOfType: this.state.cottages[i].id,
+            type:"cottage",
+            image1:'',
+            image2:'',
+            image3:'',
+            image4:'',
+            image5:'',
+        }
 
-    Add(){
+        axios.post("http://localhost:8080/api/v1/images/cottage_owner",images);
+    
+
+    this.props.history.push(`/cottageownercottages`);
+    window.location.reload();
+    }
+   
+
+    async Add (){
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
 
+        
+       
         let cottage = {           
             name:this.state.name,
         address:this.state.address,
@@ -63,16 +92,34 @@ class AddCottageComponent extends Component {
         ownerId:activeUser.id}
 
         console.log('cottage => ' + JSON.stringify(cottage));
+
         axios.post("http://localhost:8080/api/v1/cottages/cottage_owner",cottage);
-        this.props.history.push(`/cottageownercottages`);
-        window.location.reload();
+
+
+        await axios.get("http://localhost:8080/api/v1/cottages/owner/cottage_owner/" + activeUser.id).then((res) => {
+            this.setState({ cottages: res.data });
+            
+            });
+            
+            let i = this.state.cottages.length-1
+            this.createImageFolder(i);
+            
+        
+        
 
     }
+
+
+    
+
+
     componentDidMount(){
         let activeUser = JSON.parse(localStorage.getItem('activeUser'));
         if (activeUser.type != "cottage_owner") { this.logout(); alert("Unauthorised access") }
         
     }
+        
+    
     render() {
         return (
             <div>
@@ -101,6 +148,9 @@ class AddCottageComponent extends Component {
                                 
                                 <br/>
                                 <div className="center"><button className="loginbtn" onClick={()=>this.Add()}>Add</button></div>
+                                 
+                               
+
                                 
 
                 </div>
