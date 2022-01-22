@@ -54,3 +54,47 @@ INSERT INTO `isa2021_database`.`ship_subscription` (`id`, `email`, `ship_id`) VA
 
 --ships
 INSERT INTO `isa2021_database`.`ships` (`id`, `address`, `description`, `name`, `owner_id`, `rating`, `rules_of_conduct`, `terms_of_reservation`, `capacity`, `fishing_equipment`, `hp`, `length`, `navigation`, `number_of_engines`, `rules`, `top_speed`, `type`) VALUES ('1', 'Panonska 6 Futog', 'Lep brod', 'Brodic', '3', '9', 'Nema pravila', 'free', '5', 'none', '200', '13', 'GPS', '2', 'Nema pravila', '55', '1');
+
+
+
+
+--adventure_appointment 
+INSERT INTO `isa2021_database`.`adventure_appointments` (`id`, `additional_services`, `client_id`, `ending_date`, `instructor_id`, `numer_of_people`, `price`, `starting_date`, `adventure_id`, `location`) VALUES ('1', 'Dodatna1', '6', '2022-02-05', '5', '4', '50', '2022-02-01', '1', 'Panonska 10 Futog');
+INSERT INTO `isa2021_database`.`adventure_appointments` (`id`, `additional_services`, `client_id`, `ending_date`, `instructor_id`, `numer_of_people`, `price`, `starting_date`, `adventure_id`, `location`) VALUES ('2', 'Dodatna2,Dodatna3', '6', '2022-02-18', '5', '3', '45', '2022-02-15', '2', 'Panonska 11 Futog');
+INSERT INTO `isa2021_database`.`adventure_appointments` (`id`, `additional_services`, `client_id`, `ending_date`, `instructor_id`, `numer_of_people`, `price`, `starting_date`, `adventure_id`, `location`) VALUES ('3', 'Dodatna3', '6', '2022-02-25', '5', '2', '20', '2022-02-22', '3', 'Panonska 12 Futog');
+--adventure_free_appointment
+INSERT INTO `isa2021_database`.`adventure_free_appointments` (`id`, `additional_services`, `ending_date`, `instructor_id`, `numer_of_people`, `price`, `starting_date`, `adventure_id`, `location`) VALUES ('1', 'Dodatna1', '2022-06-01', '5', '15', '20', '2022-02-01', '1', 'Panonska 10 Futog');
+--adventure_history_appointment
+INSERT INTO `isa2021_database`.`adventure_history_appointments` (`id`, `additional_services`, `adventure_id`, `client_id`, `ending_date`, `instructor_id`, `location`, `numer_of_people`, `price`, `starting_date`) VALUES ('1', 'Dodatna2', '1', '6', '2022-01-03', '5', 'Panonska 10 Futog', '2', '20', '2022-01-02');
+--adventure_quick_appointment
+INSERT INTO `isa2021_database`.`adventure_quick_appointments` (`id`, `additional_services`, `ending_date`, `instructor_id`, `numer_of_people`, `price`, `starting_date`, `adventure_id`, `location`) VALUES ('1', 'Dodatna1', '2022-09-01', '20', '2', '70', '2022-09-15', '1', 'Panonska 10 Futog');
+--adventure_subscription
+INSERT INTO `isa2021_database`.`adventure_subscription` (`id`, `adventure_id`, `email`) VALUES ('1', '1', 'stasa.nastasja@gmail.com');
+INSERT INTO `isa2021_database`.`adventure_subscription` (`id`, `adventure_id`, `email`) VALUES ('2', '1', 'stasa.nastasja@gmail.com');
+INSERT INTO `isa2021_database`.`adventure_subscription` (`id`, `adventure_id`, `email`) VALUES ('3', '2', 'stasa.nastasja@gmail.com');
+INSERT INTO `isa2021_database`.`adventure_subscription` (`id`, `adventure_id`, `email`) VALUES ('4', '2', 'stasa.nastasja@gmail.com');
+INSERT INTO `isa2021_database`.`adventure_subscription` (`id`, `adventure_id`, `email`) VALUES ('5', '3', 'stasa.nastasja@gmail.com');
+--adventures
+INSERT INTO `isa2021_database`.`adventures` (`id`, `address`, `description`, `instructor_id`, `max_people`, `name`, `rules_of_conduct`, `terms_of_reservation`, `additional_services`, `fishing_equipment`, `prices`) VALUES ('3', 'Panonska 12 Futog', 'opis3', '5', '2', 'Avantura3', 'Pravilo2,Pravilo4,Pravilo5', 'Uslov3,Uslov4', 'Dodatna3', 'Oprema1,Oprema3', '20');
+INSERT INTO `isa2021_database`.`adventures` (`id`, `address`, `description`, `instructor_id`, `max_people`, `name`, `rules_of_conduct`, `terms_of_reservation`, `additional_services`, `fishing_equipment`, `prices`) VALUES ('2', 'Panonska 11 Futog', 'opis2', '5', '3', 'Avantura2', 'Pravilo3,Pravilo4', 'Uslov2,Uslov3', 'Dodatna1, Dodatna2', 'Oprema2, Oprema2', '20');
+INSERT INTO `isa2021_database`.`adventures` (`id`, `address`, `description`, `instructor_id`, `max_people`, `name`, `rules_of_conduct`, `terms_of_reservation`, `additional_services`, `fishing_equipment`, `prices`) VALUES ('1', 'Panonska 10 Futog', 'opis1', '5', '12', 'Avantura1', 'Pravilo1,Pravilo2', 'Uslov1', 'Dodatna1', 'Oprema1', '20');
+-- complaints
+INSERT INTO `isa2021_database`.`complaints` (`id`, `complaint_message`, `email_of_complaint_recipient`, `email_of_complaint_sender`, `on_what`) VALUES ('1', 'Nije cista', 'gedgedfor@gmail.com', 'stasa.nastasja@gmail.com', 'cottage');
+INSERT INTO `isa2021_database`.`complaints` (`id`, `complaint_message`, `email_of_complaint_recipient`, `email_of_complaint_sender`, `on_what`) VALUES ('2', 'Bezobrazan', 'gedgedfor@gmail.com', 'stasa.nastasja@gmail.com', 'ship_owner');
+--grade_requests
+INSERT INTO `isa2021_database`.`grade_requests` (`id`, `grade`, `message`, `type`, `type_id`) VALUES ('2', '5', 'Sve odlicno', 'ship', '1' , 'stasa.nastasja@gmail.com');
+INSERT INTO `isa2021_database`.`grade_requests` (`id`, `grade`, `message`, `type`, `type_id`, `email`) VALUES ('1', '2', 'Smestaj bezveze', 'cottage', '1', 'stasa.nastasja@gmail.com');
+--income
+INSERT INTO `isa2021_database`.`income` (`id`, `percentage_of_reservations`) VALUES ('1', '5');
+--profile_deletion_request
+INSERT INTO `isa2021_database`.`profile_deletion_requests` (`id`, `reason`, `user_id`, `user_type`, `user_email`) VALUES ('1', 'Zamrzeo pecanje', '6', 'client', 'stasa.nastasja@gmail.com');
+INSERT INTO `isa2021_database`.`profile_deletion_requests` (`id`, `reason`, `user_id`, `user_type`, `user_email`) VALUES ('2', 'Ne bavim se vise ovime', '3', 'ship_owner', 'stasa.nastasja@gmail.com');
+--registration_request
+INSERT INTO `isa2021_database`.`registration_reguest` (`id`, `address`, `city`, `country`, `email`, `first_name`, `last_name`, `password`, `phone_number`, `type`, `reason`) VALUES ('1', 'Radnicka', 'Novi Sad', 'Srbija', 'gedgedfor@gmail.com', 'Milos', 'Milosevic', 'miki', '061', 'client', 'Volim da pecam');
+INSERT INTO `isa2021_database`.`registration_reguest` (`id`, `address`, `city`, `country`, `email`, `first_name`, `last_name`, `password`, `phone_number`, `type`, `reason`) VALUES ('2', 'Zeleznicka', 'Novi Sad', 'Srbija', 'stasa.nastasja@gmail.com', 'Stasa', 'Stasic', 'stasa', '062', 'ship_owner', 'Imam brod');
+--client_review
+INSERT INTO `isa2021_database`.`client_reviews` (`id`, `email_of_receiver`, `email_of_sender`, `id_of_receiver`, `id_of_sender`, `review_message`) VALUES ('1', 'stasa.nastasja@gmail.com', 'gedgedfor@gmail.com', '6', '3', 'Bio bezobrazan');
+INSERT INTO `isa2021_database`.`client_reviews` (`id`, `email_of_receiver`, `email_of_sender`, `id_of_receiver`, `id_of_sender`, `review_message`) VALUES ('2', 'stasa.nastasja@gmail.com', 'gedgedfor@gmail.com', '6', '5', 'Nije se drzao dogovora');
+--profile_deletion_request
+INSERT INTO `isa2021_database`.`profile_deletion_requests` (`id`, `reason`, `user_id`, `user_type`, `user_email`) VALUES ('1', 'ne svidja mi se', '6', 'client', 'stasa.nastasja@gmail.com');
+
