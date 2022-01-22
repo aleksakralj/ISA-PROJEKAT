@@ -1,4 +1,9 @@
 # ISA-PROJEKAT
+David Egelja IN47-2018
+
+Nastasja Dostanic IN18-2018
+
+
 Projekat je radjen u razvojnom okruzenju IntelliJ (backend), Visual Studio Code (front) dok je baza podataka radjena u MySql programu.
 
 Pokretanje projekta se zapocinje kreiranjem, pokretanjem i popunjavanjem baze za koju su prilozene skripte (u folderu skripte). Zatim se pokrece (runuje) Backend deo te se pokrece Front. Front se pokrece iz Visual Studio Code-a komandom "npm start" u terminalu.
