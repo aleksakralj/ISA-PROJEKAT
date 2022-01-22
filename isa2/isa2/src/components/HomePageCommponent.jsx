@@ -21,7 +21,7 @@ class HomePageCommponent extends Component {
 
                 <div style={{  display:'flex', height:'18rem', flexDirection: "row", gap:"40px", alignItems:'baseline',justifyContent:'space-evenly', position:'relative', top:'200px' }}>
                     <div class="card text-center" style={{ width: "18rem", height: "18rem", backgroundColor: 'transparent', border: '3px solid #111111',borderRadius:'5%' }}>
-                        <img class="card-img-top" style={{ height: "11rem" }} src="https://cdn-icons.flaticon.com/png/512/2118/premium/2118218.png?token=exp=1641505120~hmac=48682acdfba5fe02627da866f7d5ed5e" />
+                        <img class="card-img-top" style={{ height: "11rem" }} src="https://canary.contestimg.wish.com/api/webimage/5b15352ca309e469b826391d-large.jpg?cache_buster=36f19fa8a1cf6d50c7186334519ccc60" />
                         <div class="card-body">
                             <h5 align='center' class="card-title">Adventures</h5>
                             <a href="/adventures" class="btn btn-primary">See adventures</a>
