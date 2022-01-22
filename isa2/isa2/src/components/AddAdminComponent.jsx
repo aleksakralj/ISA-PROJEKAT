@@ -29,72 +29,25 @@ class AddAdminComponent extends Component {
         this.changePhoneNumberHandler = this.changePhoneNumberHandler.bind(this);
         
        this.addAdmin=this.addAdmin.bind(this);
-       this.adminprofile = this.adminprofile.bind(this);
-       this.logout= this.logout.bind(this); 
-       this.income= this.income.bind(this);
-      
-       this.addadmin= this.addadmin.bind(this);
-       this.regreq= this.regreq.bind(this);
-       this.cottageowners=this.cottageowners.bind(this);
-        this.cottages=this.cottages.bind(this);
-        this.shipowners=this.shipowners.bind(this);
-        this.ships=this.ships.bind(this);
-        this.fishinginstructors=this.fishinginstructors.bind(this);
-        this.clients=this.clients.bind(this);
-        this.admins=this.admins.bind(this);
+       
     }
 
-    addAdmin= (e) => {
-        e.preventDefault();
+    addAdmin(){
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         let admin = {email:this.state.email, password:"password", firstName:this.state.firstName, lastName:this.state.lastName, address:this.state.address, city:this.state.city, country:this.state.country, phoneNumber:this.state.phoneNumber, type: "admin"}
         console.log('admin => ' + JSON.stringify(admin));
 
-        UserService.createUser(admin).then(res=> {
+        UserService.createUser(admin,activeUser.type).then(res=> {
             this.props.history.push('/addadmin')
         });
     }
 
-
-    
-    adminprofile(){
-        this.props.history.push('/adminprofile');
-    }
-    addadmin(){
-        this.props.history.push('/addadmin');
-    }
-    regreq(){
-        this.props.history.push('/registrationrequests');
-    }
-    income(){
-        this.props.history.push('/income');
-    }
-    
-    cottageowners(){
-        this.props.history.push('/maincottageowners');
-    }
-    cottages(){
-        this.props.history.push('/maincottages');
-    }
-    shipowners(){
-        this.props.history.push('/mainshipowners');
-    }
-    ships(){
-        this.props.history.push('/mainships');
-    }
-    fishinginstructors(){
-        this.props.history.push('/mainfishinginstructors');
-    }
-    clients(){
-        this.props.history.push('/mainclients');
-    }
-    admins(){
-        this.props.history.push('/alladmins');
-    }
     logout(){
-        localStorage.removeItem('activeUser')
+       
+        localStorage.clear();
         this.props.history.push(`/login`);
+       
     }
-    
     changeEmailHandler = (event) => {
         this.setState({email: event.target.value});
     }
@@ -119,25 +72,17 @@ class AddAdminComponent extends Component {
     changePhoneNumberHandler = (event) => {
         this.setState({phoneNumber: event.target.value});
     }
+    componentDidMount(){
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        
+        if (activeUser.type == "main_admin" )
+        {
+        } 
+        else{this.logout(); alert("Unauthorised access")} 
+    }
     render() {
         return (
             <div>
-                
-                <div className="menu">
-                <button onClick={this.adminprofile} > Profile</button>
-                
-                <button onClick={this.regreq}> Registration requests</button>
-                <button onClick={this.income}> Income </button>
-                <button onClick={this.cottageowners}> Cottage owners </button>
-                    <button onClick={this.cottages}> Cottages </button>
-                    <button onClick={this.shipowners}> Ship owners </button>
-                    <button onClick={this.ships}> Ships </button>
-                    <button onClick={this.fishinginstructors}> Fishing instructors </button>
-                    <button onClick={this.clients}> Clients </button>
-                    <button onClick={this.alladmins}> Admins </button>
-
-                <button className="menubtnLog" onClick={()=>this.logout()} >Logout</button>
-                </div>
                 
                 <div className="registrationdiv">
                     <br/><br/>
@@ -161,7 +106,7 @@ class AddAdminComponent extends Component {
                                 <input name="phoneNumber" className="form-control" value={this.state.phoneNumber} onChange={this.changePhoneNumberHandler}/>
 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.addAdmin}>Add</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.addAdmin()}>Add</button></div>
 
                 </div>
             </div>

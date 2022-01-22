@@ -111,6 +111,22 @@ class CottageProfileComponent extends Component {
         this.props.history.push(`/cottagestatistics`);
 
     }
+
+    Maps(){
+        const words = this.state.address.split(" ");
+        window.location.href=("https://www.google.com/maps/place/"+words[0]+"+"+words[1]+"+"+words[2]);
+
+    }
+    UploadPhotos(){
+
+        this.props.history.push(`/uploadimage`);
+    }
+
+    ViewPhotos(){
+        this.props.history.push(`/displaypicture`);
+        
+
+    }
     componentDidMount() {
 
 
@@ -119,7 +135,7 @@ class CottageProfileComponent extends Component {
         localStorage.removeItem('activeRoom');
         let activeCottage = JSON.parse(localStorage.getItem('activeCottage'))
 
-        if (activeUser.type != "cottage_owner") { this.logout(); alert("Unauthorised access") }
+        if (activeUser.type = "cottage_owner") { this.logout(); alert("Unauthorised access") }
 
         else {
 
@@ -175,6 +191,12 @@ class CottageProfileComponent extends Component {
 
                     <br></br>
                     <div className="center"><button className="loginbtn" onClick={() => this.Statistics()}>Statistics</button></div>
+                    <br></br>
+                    <div className="center"><button className="loginbtn" onClick={() => this.Maps()}>View on map</button></div>
+                    <br></br>
+                    <div className="center"><button className="loginbtn" onClick={() => this.ViewPhotos()}>View photos</button></div>
+                    <br></br>
+                    <div className="center"><button className="loginbtn" onClick={() => this.UploadPhotos()}>Upload photos</button></div>
 
 
                 </div>

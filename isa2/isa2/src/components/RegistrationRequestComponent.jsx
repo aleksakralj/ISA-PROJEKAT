@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import RegistrationRequestService from '../services/RegistrationRequestService';
-
+import axios from 'axios';
 class RegistrationRequestComponent extends Component {
     constructor(props){
         super(props)
@@ -18,13 +18,21 @@ class RegistrationRequestComponent extends Component {
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         RegistrationRequestService.deleteRegistrationRequest(id,activeUser.type).then(res=>{
                 this.setState({registrationRequests: this.state.registrationRequests.filter(request=>request.id !==id)});
-                this.props.history.push("/registrationrequests"); // refresh ne radi nzm zasto
+                
         });
         window.location.reload();
+        
     }
     
     viewRequest(id){
-        this.props.history.push(`/viewrequests/${id}`);
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        axios
+        .get("http://localhost:8080/api/v1/registrationrequests/" + activeUser.type + '/' + id )
+        .then(response => {
+            localStorage.setItem('activeRequest',JSON.stringify(response.data));
+            this.props.history.push(`/viewrequest`);
+        });
+        
     }
 
     logout(){

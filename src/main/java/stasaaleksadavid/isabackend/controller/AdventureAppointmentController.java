@@ -27,9 +27,13 @@ public class AdventureAppointmentController {
     private AdventureFreeAppointmentRepository adventureFreeAppointmentRepository;
     //get all
 
-    @GetMapping("/adventureappointments")
-    public List<AdventureAppointment> getAllAdventureAppointments() {
-        return adventureAppointmentRepository.findAll();
+    @GetMapping("/adventureappointments/{type}")
+  public List<AdventureAppointment> getAllAdventureAppointments(@PathVariable String type) {
+        if(type.equals("admin")|| type.equals("main_admin")) {
+            return adventureAppointmentRepository.findAll();
+        }
+        else{return null;}
+
     }
 
     //create

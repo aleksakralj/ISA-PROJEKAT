@@ -10,8 +10,8 @@ getIncome(){
 createIncome(income){
     return axios.post(INCOME_API_BASE_URL, income);
 }
-getIncomeById(incomeId){
-    return axios.get(INCOME_API_BASE_URL + '/' + incomeId);
+getIncomeById(incomeId,type){
+    return axios.get(INCOME_API_BASE_URL + '/' + type + '/' + incomeId);
 }
 updateIncome(income,incomeId){
     return axios.put(INCOME_API_BASE_URL + '/' + incomeId, income);

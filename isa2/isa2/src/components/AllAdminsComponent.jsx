@@ -14,22 +14,34 @@ class AllAdminsComponent extends Component {
         
         
     }
-   
+    logout(){
+       
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
+    }
 
     addadmin(){
         this.props.history.push('/addadmin');
     }
     deleteAdmin(id){
-       UserService.deleteUser(id).then(res=>{
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+       UserService.deleteUser(id,activeUser.type).then(res=>{
                 this.setState({admins: this.state.admins.filter(admin=>admin.id !==id)});
-                this.props.history.push("/alladmins"); // refresh ne radi nzm zasto
+               
         });
+        window.location.reload();
     }
     componentDidMount(){
-
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        
+        if (activeUser.type == "main_admin" )
+        {
         axios.get("http://localhost:8080/api/v1/users/type/admin" ).then((res)=>{
                 this.setState({admins: res.data});
         });
+    } 
+    else{this.logout(); alert("Unauthorised access")} 
     } 
     render() {
         return (
@@ -37,7 +49,7 @@ class AllAdminsComponent extends Component {
                
 
                 <div> <br/><br/><br/><br/><br/><br/><br/><br/>
-                    <button onClick={this.addadmin} className="loginbtn" > Add admin </button>
+                    <button onClick={()=>this.addadmin()} className="loginbtn" > Add admin </button>
          
                     <h2 className="text-center">Admins</h2>
 
@@ -73,7 +85,6 @@ class AllAdminsComponent extends Component {
                                             <td>{admins.country}</td>
                                             <td>{admins.phoneNumber}</td>
                                             <td>
-                                                <button onClick={()=>this.editAdmin(admins.id)} className="loginbtn">Update</button> 
                                                 <button style={{marginLeft:"10px"}} onClick={()=>this.deleteAdmin(admins.id)} className="loginbtn">Delete</button>
                                             </td>
                                         </tr>

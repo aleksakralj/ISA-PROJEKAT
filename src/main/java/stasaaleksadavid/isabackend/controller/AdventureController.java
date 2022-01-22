@@ -87,7 +87,7 @@ public class AdventureController {
     }
 
     //get by instructorId
-    @GetMapping("/adventures/instructorid/{instructorId}/{type}")
+    @GetMapping("/adventures/instructorid/{type}/{instructorId}")
     public List<Adventure> getAdventuresByInstructorId(@PathVariable String type,@PathVariable Long instructorId){
         if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
         return adventureRepository.findByInstructorId(instructorId);

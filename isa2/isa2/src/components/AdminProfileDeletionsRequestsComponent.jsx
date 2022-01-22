@@ -18,7 +18,7 @@ class AdminProfileDeletionsRequestsComponent extends Component {
     writeResponse(userId,id){
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         axios
-        .get("http://localhost:8080/api/v1/users/" + activeUser.type + '/'+ userId )
+        .get("http://localhost:8080/api/v1/users/id/" + activeUser.type + '/'+ userId )
         .then(response => {
             localStorage.setItem('activeRecipient',JSON.stringify(response.data));
             

@@ -49,14 +49,16 @@ public class ProfileDelitionRequestController {
     }
 
     //delete
-    @DeleteMapping("profiledeletionrequests/{id}")
-    public Map<String, Boolean> deleteProfileDeletionRequest(@PathVariable Long id) {
-
+    @DeleteMapping("profiledeletionrequests/delete/{type}/{id}")
+    public Map<String, Boolean> deleteProfileDeletionRequest(@PathVariable String type,@PathVariable Long id) {
+        if(type.equals("admin")|| type.equals("main_admin")) {
         ProfileDelitionRequest profileDelitionRequest = profileDelitionRequestRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Deletion request doesn not exist with id:" + id));
 
         profileDelitionRequestRepository.delete(profileDelitionRequest);
         Map<String,Boolean> response = new HashMap<>();
         response.put("deleted",Boolean.TRUE);
         return  (Map<String,Boolean>) ResponseEntity.ok(response);
+        }
+        else{return null;}
     }
 }

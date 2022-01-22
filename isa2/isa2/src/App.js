@@ -135,6 +135,14 @@ import ShipStatisticsComponent from './components/ShipStatisticsComponent';
 
 
 import AdminReviewRequestsComponent from './components/AdminReviewRequestsComponent';
+import UploadImageComponent from './components/UploadImageComponent';
+import DisplayPictureComponent from './components/DisplayPictureComponent';
+
+import UploadImageShipComponent from './components/UploadImageShipComponent';
+import DisplayPictureShipComponent from './components/DisplayPictureShipComponent';
+
+import UploadImageAdventureComponent from './components/UploadImageAdventureComponent';
+import DisplayPictureAdventureComponent from './components/DisplayPictureAdventureComponent';
 
 const backStyle = {
   width: '100%',
@@ -146,7 +154,7 @@ const backStyle = {
 
 function headerDefinition(){
 
-  if(localStorage.getItem('activeUser')===null){
+  if(localStorage.getItem('activeUser')==null){
     return(<Unautentifieduserheader/>)
   }
 else{
@@ -225,7 +233,7 @@ function App() {
               <Route path = "/alladmins" component={AllAdminsComponent}></Route>
               <Route path = "/updateadmin/:id" component={UpdateAdminComponent}></Route>
 
-              <Route path = "/viewrequests/:id" component={ViewRegistrationRequestComponent}></Route>
+              <Route path = "/viewrequest" component={ViewRegistrationRequestComponent}></Route>
               <Route path = "/cottageownerprofile" component={CottageOwnerProfileComponent}></Route>
               <Route path = "/cottageprofile" component={CottageProfileComponent}></Route>
               <Route path = "/roomprofile" component={RoomProfileComponent}></Route>
@@ -330,6 +338,12 @@ function App() {
               <Route path="/adventurestatistics" component={AdventureStatisticsComponent}></Route>
               <Route path="/shipstatistics" component={ShipStatisticsComponent}></Route>
               <Route path="/adminreviewequests" component={AdminReviewRequestsComponent}></Route>
+              <Route path="/uploadimage" component={UploadImageComponent}></Route>
+              <Route path="/displaypicture" component={DisplayPictureComponent}></Route>
+              <Route path="/uploadimageship" component={UploadImageShipComponent}></Route>
+              <Route path="/displaypictureship" component={DisplayPictureShipComponent}></Route>
+              <Route path="/uploadimageadventure" component={UploadImageAdventureComponent}></Route>
+              <Route path="/displaypictureadventure" component={DisplayPictureAdventureComponent}></Route>
 
 
               </Switch>

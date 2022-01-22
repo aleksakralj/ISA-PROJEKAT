@@ -7,8 +7,8 @@ class AdventureService{
 getAdventures(){
     return axios.get(ADVENTURE_API_BASE_URL);
 }
-createAdventure(adventure){
-    return axios.post(ADVENTURE_API_BASE_URL, adventure);
+createAdventure(adventure,type){
+    return axios.post(ADVENTURE_API_BASE_URL + '/' + type, adventure);
 }
 getAdventureById(adventureId){
     return axios.get(ADVENTURE_API_BASE_URL + '/' + adventureId);

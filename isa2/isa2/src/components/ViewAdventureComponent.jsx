@@ -35,13 +35,14 @@ class ViewAdventureComponent extends Component {
         this.changePricesHandler = this.changePricesHandler.bind(this);
         this.changeFishingEquipmentHandler = this.changeFishingEquipmentHandler.bind(this);
     }
-    updateAdventure = (e) => {
-        e.preventDefault();
+    updateAdventure (id)  {
+        //e.preventDefault();
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        //let activeAdventure =  JSON.parse(localStorage.getItem('activeAdventure'));
         let adventure = { name: this.state.name, address: this.state.address, description: this.state.description, maxPeople: this.state.maxPeople, rulesOfConduct: this.state.rulesOfConduct, termsOfReservation: this.state.termsOfReservation, instructorId: this.state.instructorId, additionalServices: this.state.additionalServices, prices: this.state.prices, fishingEquipment: this.state.fishingEquipment }
         console.log('adventure => ' + JSON.stringify(adventure));
 
-        AdventureService.updateAdventure(adventure, this.props.match.params.id,activeUser.type ).then(res => {
+        AdventureService.updateAdventure(adventure,id,activeUser.type ).then(res => {
             this.props.history.push('/adventures');
         });
     }
@@ -103,7 +104,29 @@ class ViewAdventureComponent extends Component {
     Statistics(){
         this.props.history.push(`/adventurestatistics`);
     }
+    logout(){
+       
+        localStorage.clear();
+        this.props.history.push(`/login`);
+       
+    }
 
+    Maps(){
+        const words = this.state.address.split(" ");
+        window.location.href=("https://www.google.com/maps/place/"+words[0]+"+"+words[1]+"+"+words[2]);
+
+    }
+
+    UploadPhotos(){
+
+        this.props.history.push(`/uploadimageadventure`);
+    }
+
+    ViewPhotos(){
+        this.props.history.push(`/displaypictureadventure`);
+        
+
+    }
     componentDidMount() {
         let activeAdventure =  JSON.parse(localStorage.getItem('activeAdventure'))
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
@@ -164,7 +187,7 @@ class ViewAdventureComponent extends Component {
                     <br />
 
                    
-                    <div className="center"><button className="loginbtn" onClick={()=>this.updateAdventure}>Update</button><br/><br/></div>
+                    <div className="center"><button className="loginbtn" onClick={()=>this.updateAdventure(this.state.id)}>Update</button><br/><br/></div>
                     
 
                     <br />
@@ -175,6 +198,13 @@ class ViewAdventureComponent extends Component {
                     <div className="center"><button className="loginbtn" onClick={()=>this.CurrentReservation()}>Current Reservation</button><br/><br/></div>
                     <br />
                     <div className="center"><button className="loginbtn" onClick={()=>this.Statistics()}>Statistics</button><br/><br/></div>
+                    <br></br>
+                    <div className="center"><button className="loginbtn" onClick={() => this.Maps()}>View on map</button></div>
+                    <br></br>
+                    <div className="center"><button className="loginbtn" onClick={() => this.ViewPhotos()}>View photos</button></div>
+                    <br></br>
+                    <div className="center"><button className="loginbtn" onClick={() => this.UploadPhotos()}>Upload photos</button></div>
+                              
                     
                     
                 </div>

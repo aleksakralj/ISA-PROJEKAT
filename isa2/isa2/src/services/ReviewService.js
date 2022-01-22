@@ -17,7 +17,7 @@ updateReview(review,reviewId,type){
     return axios.put(REVIEW_API_BASE_URL + '/' + type + '/' + reviewId, review);
 }
 deleteReview(reviewId,type){
-    return axios.delete(REVIEW_API_BASE_URL + '/' + type + '/'+ reviewId);
+    return axios.delete(REVIEW_API_BASE_URL + '/delete/' + type + '/'+ reviewId);
 }
 
 

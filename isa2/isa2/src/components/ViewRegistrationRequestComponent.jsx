@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import RegistrationRequestService from '../services/RegistrationRequestService';
 import ClientPointsService from '../services/ClientPointsService';
+import axios from 'axios';
+
+
 
 class ViewRegistrationRequestComponent extends Component {
     constructor(props){
@@ -25,19 +28,29 @@ class ViewRegistrationRequestComponent extends Component {
         }
        
     
-        this.acceptRequest= this.acceptRequest.bind(this);
+        //this.acceptRequest= this.acceptRequest.bind(this);
+        //this.denyRequest= this.denyRequest.bind(this);
     }
-    
-    denyRequest(id){
-        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+
+    denyRequest(){
+        /*let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
 
         RegistrationRequestService.deleteRegistrationRequest(id,activeUser.type).then(res=>{
                 this.setState({registrationRequests: this.state.registrationRequests.filter(request=>request.id !==id)});
-                this.props.history.push("/adminsendemailreg"); // refresh ne radi nzm zasto
+                this.props.history.push("/adminsendemailreg"); 
+                
+        });*/
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        let activeRequest =  JSON.parse(localStorage.getItem('activeRequest'));
+        RegistrationRequestService.deleteRegistrationRequest(activeRequest.id,activeUser.type).then(res=>{
+         this.props.history.push(`/adminsendemailreg`);   
         });
+
+        
     }
-    acceptRequest= (e) => {
-        e.preventDefault();
+    
+    acceptRequest () {
+        
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         let usersPoints = { userPoints:this.state.userPoints,userCategory:this.state.userCategory}
         console.log('usersPoints => ' + JSON.stringify(usersPoints));
@@ -53,25 +66,27 @@ class ViewRegistrationRequestComponent extends Component {
     }
     componentDidMount(){
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        let activeRequest = JSON.parse(localStorage.getItem('activeRequest'));
         if (activeUser.type == "admin" || activeUser.type == "main_admin" )
         {
-        RegistrationRequestService.getRegistrationRequestById(this.props.match.params.id,activeUser.type).then((res) => {
-            let request = res.data;
+        
+            
             this.setState({
-                email: request.email,
-                password: request.password,
-                firstName: request.firstName,
-                lastName: request.lastName, 
-                address: request.address,
-                city: request.city,
-                country: request.country,
-                phoneNumber: request.phoneNumber,
-                type:request.type,
-                reason:request.reason
+                id:activeRequest.id,
+                email: activeRequest.email,
+                password: activeRequest.password,
+                firstName: activeRequest.firstName,
+                lastName: activeRequest.lastName, 
+                address: activeRequest.address,
+                city: activeRequest.city,
+                country: activeRequest.country,
+                phoneNumber: activeRequest.phoneNumber,
+                type:activeRequest.type,
+                reason:activeRequest.reason
 
             });
-        });
-    } 
+        }
+     
         else{this.logout(); alert("Unauthorised access")}  
     }
     render() {
@@ -81,36 +96,36 @@ class ViewRegistrationRequestComponent extends Component {
                 <div className="registrationdiv">
                     <br/><br/>
                                 <label> Email: </label>
-                                <input name="email" className="form-control" value={this.state.email} />
+                                <input name="email" className="form-control" defaultValue={this.state.email} />
                                 <label> Password: </label>
-                                <input name="password" className="form-control" value={this.state.password} />
+                                <input name="password" className="form-control" defaultValue={this.state.password} />
                                 
 
                                 <label> First name: </label>
-                                <input name="firstname" className="form-control" value={this.state.firstName} />
+                                <input name="firstname" className="form-control" defaultValue={this.state.firstName} />
                                 <label> Last name: </label>
-                                <input name="lastname" className="form-control" value={this.state.lastName} />
+                                <input name="lastname" className="form-control" defaultValue={this.state.lastName} />
                                 
                                 <label> Address: </label>
-                                <input name="address" className="form-control" value={this.state.address}/>
+                                <input name="address" className="form-control" defaultValue={this.state.address}/>
                                 <label> City: </label>
-                                <input name="city" className="form-control" value={this.state.city} />   
+                                <input name="city" className="form-control" defaultValue={this.state.city} />   
                                 <label> Country: </label>
-                                <input name="country" className="form-control" value={this.state.country}/> 
+                                <input name="country" className="form-control" defaultValue={this.state.country}/> 
 
                                 <label> Phone number: </label>
-                                <input name="phonenumber" className="form-control" value={this.state.phoneNumber}/>
+                                <input name="phonenumber" className="form-control" defaultValue={this.state.phoneNumber}/>
 
                                 <label> Type: </label>
-                                <input name="type" className="form-control" value={this.state.type}/>
+                                <input name="type" className="form-control" defaultValue={this.state.type}/>
 
                                 <label> Reason: </label>
-                                <input name="reason" className="form-control" value={this.state.reason}/>
+                                <input name="reason" className="form-control" defaultValue={this.state.reason}/>
 
 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.acceptRequest}>Accept</button></div>
-                                <div className="center"><button className="loginbtn" onClick={this.denyRequest}>Deny</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.acceptRequest()}>Accept</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.denyRequest()}>Deny</button></div>
 
                 </div>
             </div>

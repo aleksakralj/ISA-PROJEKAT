@@ -24,9 +24,12 @@ public class GradeController {
     public List<Grade> getAllGrades(){return gradeRepository.findAll();}
 
     //create
-    @PostMapping("/grades")
-    public  Grade createGrade(@RequestBody Grade grade){
+    @PostMapping("/grades/create/{type}")
+    public  Grade createGrade(@PathVariable String type,@RequestBody Grade grade){
+        if(type.equals("admin") || type.equals("main_admin")){
         return gradeRepository.save(grade);
+        }
+        else{return null;}
     }
 
     //get by id

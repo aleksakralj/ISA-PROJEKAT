@@ -5,11 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.Cottage;
-import stasaaleksadavid.isabackend.model.CottageOwner;
 import stasaaleksadavid.isabackend.repository.CottageRepository;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,14 +28,17 @@ public class CottageController {
     else{return null;}
     }
 
+
     //create
     @PostMapping("/cottages/{type}")
-    public Cottage createCottage(@PathVariable String type,@RequestBody Cottage cottage){
-        if (type.equals("main_admin") || type.equals("admin") || type.equals("cottage_owner")) {
+    public Cottage createCottage(@PathVariable String type, @RequestBody Cottage cottage){
+        if(type.equals("admin") || type.equals("main_admin")||type.equals("cottage_owner")) {
             return cottageRepository.save(cottage);
         }
-        else {return null;}
+        else return null;
     }
+
+
 
     //get by id
     @GetMapping("/cottages/{type}/{id}")

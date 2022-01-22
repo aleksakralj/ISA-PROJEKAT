@@ -81,7 +81,7 @@ class AddQuickAppointmentComponent extends Component {
         for (let i=0;i<this.state.toEmail.length;i++){
             var template_params = {
                 "email": this.state.toEmail[i].email,
-                "message":"Blabla",
+                "message":"QuickAppointment",
                 "subject": "Subscription"
             }
             emailjs.send('service_h91s9bd', 'template_633ebld',template_params,'user_8ZDv9VEXQIiu7UptSVwB3')

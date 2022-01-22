@@ -22,9 +22,12 @@ public class AdventureHistoryAppointmentController {
 
     //get all
 
-    @GetMapping("/adventurehistoryappointments")
-    public List<AdventureHistoryAppointment> getAllAdventureHistoryAppointments() {
+    @GetMapping("/adventurehistoryappointments/type/{type}")
+    public List<AdventureHistoryAppointment> getAllAdventureHistoryAppointments(@PathVariable String type) {
+        if(type.equals("admin")|| type.equals("main_admin")) {
         return adventureHistoryAppointmentRepository.findAll();
+        }
+        else{return null;}
     }
 
     //create
