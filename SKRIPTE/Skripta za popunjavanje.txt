@@ -1,0 +1,56 @@
+
+--user
+INSERT INTO `isa2021_database`.`user` (`id`, `address`, `city`, `country`, `email`, `first_name`, `last_name`, `password`, `phone_number`, `type`) VALUES ('1', 'Panonska 6', 'Futog', 'Serbia', 'gedgedfor@gmail.com', 'David', 'Egelja', '123', '069', 'cottage_owner');
+INSERT INTO `isa2021_database`.`user` (`id`, `address`, `city`, `country`, `email`, `first_name`, `last_name`, `password`, `phone_number`, `type`) VALUES ('2', 'Panonska 6', 'Futog', 'Serbia', 'stasa.nastasja@gmail.com', 'Nastasja', 'Dostanic', '123', '069', 'main_admin');
+INSERT INTO `isa2021_database`.`user` (`id`, `address`, `city`, `country`, `email`, `first_name`, `last_name`, `password`, `phone_number`, `type`) VALUES ('3', 'Panonska 6', 'Futog', 'Serbia', 'gedgedfor@gmail.com', 'David', 'Egelja', '456', '069', 'ship_owner');
+INSERT INTO `isa2021_database`.`user` (`id`, `address`, `city`, `country`, `email`, `first_name`, `last_name`, `password`, `phone_number`, `type`) VALUES ('4', 'Panonska 6', 'Futog', 'Serbia', 'stasa.nastasja@gmail.com', 'Nastasja', 'Dostanic', '456', '069', 'admin');
+INSERT INTO `isa2021_database`.`user` (`id`, `address`, `city`, `country`, `email`, `first_name`, `last_name`, `password`, `phone_number`, `type`) VALUES ('5', 'Panonska 6', 'Futog', 'Serbia', 'stasa.nastasja@gmail.com', 'Nastasja', 'Dostanic', '789', '069', 'fishing_instructor');
+INSERT INTO `isa2021_database`.`user` (`id`, `address`, `city`, `country`, `email`, `first_name`, `last_name`, `password`, `phone_number`, `type`) VALUES ('6', 'Panonska 6', 'Futog', 'Serbia', 'gedgedfor@gmail.com', 'David', 'Egelja', '999', '069', 'Client');
+
+--cottage
+INSERT INTO `isa2021_database`.`cottages` (`id`, `address`, `description`, `name`, `number_of_rooms`, `rating`, `rules_of_conduct`, `owner_id`, `rules`) VALUES ('1', 'Panonska 6 Futog', 'Opis', 'Vikendica 1', '1', '5', '', '1', 'Nema pravila');
+ 
+--rooms
+INSERT INTO `isa2021_database`.`rooms` (`id`, `cottage_id`, `description`, `number`, `number_of_beds`) VALUES ('1', '1', 'Opis Sobe', '1', '4');
+
+--image - mislim da je jako losa ideja da ovde stoji uploadovana slika od vise miliona karaktera
+INSERT INTO `isa2021_database`.`images` (`id`, `id_of_type`, `type`, `image1`, `image2`, `image3`, `image4`, `image5`) VALUES ('1', '1', 'cottage', '', '', '', '', '');
+INSERT INTO `isa2021_database`.`images` (`id`, `id_of_type`, `type`) VALUES ('2', '1', 'ship');
+INSERT INTO `isa2021_database`.`images` (`id`, `id_of_type`, `type`) VALUES ('3', '1', 'adventure');
+INSERT INTO `isa2021_database`.`images` (`id`, `id_of_type`, `type`) VALUES ('4', '2', 'adventure');
+INSERT INTO `isa2021_database`.`images` (`id`, `id_of_type`, `type`) VALUES ('5', '3', 'adventure');
+
+
+--cottage_subscription
+INSERT INTO `isa2021_database`.`cottage_subscription` (`id`, `cottage_id`, `email`) VALUES ('1', '1', 'gedgedfor@gmail.com');
+INSERT INTO `isa2021_database`.`cottage_subscription` (`id`, `cottage_id`, `email`) VALUES ('2', '1', 'stasa.nastasja@gmail.com');
+
+--cottage_free_appointment
+INSERT INTO `isa2021_database`.`cottage_free_appointments` (`id`, `additional_services`, `ending_date`, `numer_of_people`, `price`, `starting_date`, `cottage_id`) VALUES ('1', 'Dodatak', '2022-01-29', '4', '1000', '2022-01-28', '1');
+
+--cottage_quick_appointment
+INSERT INTO `isa2021_database`.`cottage_quick_appointments` (`id`, `additional_services`, `cottage_id`, `ending_date`, `numer_of_people`, `price`, `starting_date`) VALUES ('1', 'Dodatak', '1', '2022-02-02', '4', '1000', '2022-02-03');
+
+--cottage_appointment
+INSERT INTO `isa2021_database`.`cottage_appointments` (`id`, `additional_services`, `ending_date`, `numer_of_people`, `price`, `starting_date`, `cottage_id`, `client_id`) VALUES ('1', 'Dodatak', '2022-01-26', '2', '200', '2022-05-11', '1', '6');
+
+--cottage_history_appointment
+INSERT INTO `isa2021_database`.`cottage_history_appointments` (`id`, `additional_services`, `client_id`, `cottage_id`, `ending_date`, `numer_of_people`, `price`, `starting_date`) VALUES ('1', 'Dodatak', '6', '1', '2022-01-15', '1', '500', '2022-01-08');
+
+--ship_appointments
+INSERT INTO `isa2021_database`.`ship_appointments` (`id`, `additional_services`, `client_id`, `ending_date`, `numer_of_people`, `price`, `ship_id`, `starting_date`) VALUES ('1', 'Dodatak', '6', '2022-01-28', '2', '200', '1', '2022-01-27');
+
+--ship_free_appointments
+INSERT INTO `isa2021_database`.`ship_free_appointments` (`id`, `additional_services`, `ending_date`, `numer_of_people`, `price`, `ship_id`, `starting_date`) VALUES ('1', 'Dodatak', '2022-02-05', '4', '555', '1', '2022-02-01');
+
+--ship_history_appointments
+INSERT INTO `isa2021_database`.`ship_history_appointments` (`id`, `additional_services`, `client_id`, `ending_date`, `numer_of_people`, `price`, `ship_id`, `starting_date`) VALUES ('1', 'Dodatak', '6', '2022-01-16', '1', '123', '1', '2022-01-15');
+
+--ship_quick_appointments
+INSERT INTO `isa2021_database`.`ship_quick_appointments` (`id`, `additional_services`, `ending_date`, `numer_of_people`, `price`, `ship_id`, `starting_date`) VALUES ('1', 'Dodatak', '2022-02-6', '1', '111', '1', '2022-02-7');
+
+--ship_subscriptions
+INSERT INTO `isa2021_database`.`ship_subscription` (`id`, `email`, `ship_id`) VALUES ('2', 'gedgedfor@gmail.com', '1');
+
+--ships
+INSERT INTO `isa2021_database`.`ships` (`id`, `address`, `description`, `name`, `owner_id`, `rating`, `rules_of_conduct`, `terms_of_reservation`, `capacity`, `fishing_equipment`, `hp`, `length`, `navigation`, `number_of_engines`, `rules`, `top_speed`, `type`) VALUES ('1', 'Panonska 6 Futog', 'Lep brod', 'Brodic', '3', '9', 'Nema pravila', 'free', '5', 'none', '200', '13', 'GPS', '2', 'Nema pravila', '55', '1');
