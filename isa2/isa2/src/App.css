@@ -36,6 +36,17 @@
   color: white;
 }
 
+.menu2 {
+  position: absolute;
+  left: 0px;
+  top:50px;
+  width: 280px;
+  height: 100%;
+  background-color:#318f6e;
+  text-align: center;
+  color: white;
+}
+
 .menu button{
   background-color:#318f6e;  
   width: 100%;
@@ -134,6 +145,13 @@
 .loginbtn{
   background-color:#318f6e;
   width: 100px;
+  height:40px;
+  border: none;
+  display: inline-block;  
+}
+.loginbtn2{
+  background-color:#318f6e;
+  width: 170px;
   height:40px;
   border: none;
   display: inline-block;  

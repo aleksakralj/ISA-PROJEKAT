@@ -158,11 +158,10 @@ class ViewAdventureComponent extends Component {
 
                 
                 <h2 className='text-center'>Adventure profile</h2>
-                <div style={{position:'absolute',top:'25px'}} className="center"><button className="transparentbtn" onClick={()=>this.addAppointment()}>Add appointment</button></div>
-                <div style={{position:'absolute',top:'25px',left:'830px'}} className="center"><button className="transparentbtn" onClick={()=>this.addQuickAppointment()}>Add Quick appointment</button></div>
+                
                     
 
-                <div style={{position:'absolute',top:'150px',left:'35%'}} className="registrationdiv">
+                <div style={{position:'absolute',top:'100px',left:'35%'}} className="registrationdiv">
                     <br /><br />
                     <label> Name: </label>
                     <input name="name" className="form-control" value={this.state.name} onChange={this.changeNameHandler} />
@@ -187,27 +186,29 @@ class ViewAdventureComponent extends Component {
                     <br />
 
                    
-                    <div className="center"><button className="loginbtn" onClick={()=>this.updateAdventure(this.state.id)}>Update</button><br/><br/></div>
-                    
-
-                    <br />
-                    <div className="center"><button className="loginbtn" onClick={()=>this.ScheduleForClient()}>Schedule for client</button><br/><br/></div>
-                    <br />
-                    <div className="center"><button className="loginbtn" onClick={()=>this.History()}>History</button><br/><br/></div>
-                    <br />
-                    <div className="center"><button className="loginbtn" onClick={()=>this.CurrentReservation()}>Current Reservation</button><br/><br/></div>
-                    <br />
-                    <div className="center"><button className="loginbtn" onClick={()=>this.Statistics()}>Statistics</button><br/><br/></div>
-                    <br></br>
-                    <div className="center"><button className="loginbtn" onClick={() => this.Maps()}>View on map</button></div>
-                    <br></br>
-                    <div className="center"><button className="loginbtn" onClick={() => this.ViewPhotos()}>View photos</button></div>
-                    <br></br>
-                    <div className="center"><button className="loginbtn" onClick={() => this.UploadPhotos()}>Upload photos</button></div>
-                              
-                    
-                    
+                    <div className="center"><button className="loginbtn" onClick={()=>this.updateAdventure(this.state.id)}>Update</button></div>
+                       
                 </div>
+                <div className="menu2">
+                    <button className="loginbtn2" onClick={()=>this.ScheduleForClient()}>Schedule for client</button>
+                    
+                    <button className="loginbtn2" onClick={()=>this.History()}>History</button>
+                    
+                    <button className="loginbtn2" onClick={()=>this.CurrentReservation()}>Current Reservation</button>
+                    
+                    <button className="loginbtn2" onClick={()=>this.Statistics()}>Statistics</button>
+                    
+                    <button className="loginbtn2" onClick={() => this.Maps()}>View on map</button>
+                    
+                    <button className="loginbtn2" onClick={() => this.ViewPhotos()}>View photos</button>
+                    
+                    <button className="loginbtn2" onClick={() => this.UploadPhotos()}>Upload photos</button>
+
+                    <button className="loginbtn2" onClick={()=>this.addAppointment()}>Add appointment</button>
+                    
+                    <button className="loginbtn2" onClick={()=>this.addQuickAppointment()}>Add Quick appointment</button>
+                   
+                   </div>     
             </div>
         );
     }
