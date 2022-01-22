@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ClientService from '../services/ClientService';
+import axios from 'axios';
 
 class ClientsComponent extends Component {
     constructor(props){
@@ -16,10 +17,19 @@ class ClientsComponent extends Component {
                 this.props.history.push("/clients"); 
         });
     }
+    
+        
     componentDidMount(){
-        ClientService.getClients().then((res)=>{
-                 this.setState({clients: res.data});
-         });
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        if (activeUser.type == "admin" || activeUser.type == "main_admin" )
+        {
+            axios.get("http://localhost:8080/api/v1/users/type/client").then((res)=>{
+                this.setState({clients: res.data});
+            });
+        }  
+        
+        else{this.logout(); alert("Unauthorised access")}
+        
      } 
     render() {
         return (
