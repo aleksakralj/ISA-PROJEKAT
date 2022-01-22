@@ -135,7 +135,7 @@ class CottageProfileComponent extends Component {
         localStorage.removeItem('activeRoom');
         let activeCottage = JSON.parse(localStorage.getItem('activeCottage'))
 
-        if (activeUser.type = "cottage_owner") { this.logout(); alert("Unauthorised access") }
+        if (activeUser.type != "cottage_owner") { this.logout(); alert("Unauthorised access") }
 
         else {
 
