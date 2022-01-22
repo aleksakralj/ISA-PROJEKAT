@@ -21,6 +21,7 @@ class RegistrationRequestComponent extends Component {
                 
         });
         window.location.reload();
+        
     }
     
     viewRequest(id){

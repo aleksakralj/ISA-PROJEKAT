@@ -62,15 +62,18 @@ public class ClientReviewController {
 
 
     //delete
-    @DeleteMapping("/clientreviews/{type}/{id}")
+    @DeleteMapping("/clientreviews/delete/{type}/{id}")
     public Map<String, Boolean> deleteClientReview(@PathVariable String type,@PathVariable Long id){
+        if(type.equals("ship_owner") || type.equals("admin")|| type.equals("cottage_owner")|| type.equals("fishing_instructor")|| type.equals("main_admin")) {
 
-        ClientReview clientReview = clientReviewRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ClientReview does not exist with id:"+ id));
+            ClientReview clientReview = clientReviewRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ClientReview does not exist with id:"+ id));
 
         clientReviewRepository.delete(clientReview);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
+        }
+        else return null;
     }
 
 }

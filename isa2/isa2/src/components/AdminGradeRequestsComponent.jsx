@@ -9,7 +9,12 @@ class AdminGradeRequestsComponent extends Component {
     constructor(props) {
         super(props);
         this.state= {
-            graderequests:[]
+            graderequests:[],
+            grade: '',
+            message: '',
+            type:'',
+            typeId:''
+           
         }
         
         this.accept = this.accept.bind(this);
@@ -18,18 +23,28 @@ class AdminGradeRequestsComponent extends Component {
     
     accept(id){
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
-        axios.get("http://localhost:8080/api/v1/graderequests/" + activeUser.type + id)
+        axios.get("http://localhost:8080/api/v1/graderequests/getid/" + activeUser.type +'/'+ id)
         .then(response => {
             localStorage.setItem('activeRequest', JSON.stringify(response.data));
         });
         
+        // dodavanje u tabelu grade
+        
         let activeRequest=JSON.parse(localStorage.getItem('activeRequest'));
+        let request = {
+            grade: activeRequest.grade,
+            message: activeRequest.message,
+            type: activeRequest.type,
+            typeId: activeRequest.typeId
+        } 
+        axios.post("http://localhost:8080/api/v1/grades/create/"+ activeUser.type, request);
+
         this.sendEmail(activeRequest.type);
 
-        //deny da ga izbrise iz tabele
-        this.deny();
-        window.location.reloade();
 
+        //deny da ga izbrise iz tabele requesta
+         this.deny(id);
+        //window.location.reloade();
 
         
     }
@@ -92,7 +107,7 @@ class AdminGradeRequestsComponent extends Component {
             default: return "EmailNotFound";
         }
     }*/
-     deny(){
+     deny(id){
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         axios.delete("http://localhost:8080/api/v1/graderequests/" + activeUser.type  + '/' + JSON.parse(localStorage.getItem('activeRequest')).id);
         window.location.reload();

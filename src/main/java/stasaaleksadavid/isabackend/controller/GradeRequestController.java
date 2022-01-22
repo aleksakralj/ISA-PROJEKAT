@@ -35,10 +35,14 @@ public class GradeRequestController {
     }
 
     //get by id
-    @GetMapping("/graderequests/{type}/{id}")
+    @GetMapping("/graderequests/getid/{type}/{id}")
+
     public ResponseEntity<GradeRequest> getGradeById(@PathVariable String type,@PathVariable Long id){
+        if(type.equals("admin") || type.equals("main_admin")){
         GradeRequest gradeRequest = gradeRequestRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("GradeRequest does not exist with id:"+ id));
         return ResponseEntity.ok(gradeRequest);
+        }
+        else{return null;}
     }
 
     //update

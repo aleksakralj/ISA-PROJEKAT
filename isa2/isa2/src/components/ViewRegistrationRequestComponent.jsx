@@ -32,7 +32,7 @@ class ViewRegistrationRequestComponent extends Component {
         //this.denyRequest= this.denyRequest.bind(this);
     }
 
-    denyRequest(id){
+    denyRequest(){
         /*let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
 
         RegistrationRequestService.deleteRegistrationRequest(id,activeUser.type).then(res=>{
@@ -40,11 +40,17 @@ class ViewRegistrationRequestComponent extends Component {
                 this.props.history.push("/adminsendemailreg"); 
                 
         });*/
-        this.props.history.push(`/adminsendemailreg`);
+        let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
+        let activeRequest =  JSON.parse(localStorage.getItem('activeRequest'));
+        RegistrationRequestService.deleteRegistrationRequest(activeRequest.id,activeUser.type).then(res=>{
+         this.props.history.push(`/adminsendemailreg`);   
+        });
+
+        
     }
     
-    acceptRequest= (e) => {
-        e.preventDefault();
+    acceptRequest () {
+        
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         let usersPoints = { userPoints:this.state.userPoints,userCategory:this.state.userCategory}
         console.log('usersPoints => ' + JSON.stringify(usersPoints));
@@ -66,6 +72,7 @@ class ViewRegistrationRequestComponent extends Component {
         
             
             this.setState({
+                id:activeRequest.id,
                 email: activeRequest.email,
                 password: activeRequest.password,
                 firstName: activeRequest.firstName,
@@ -117,8 +124,8 @@ class ViewRegistrationRequestComponent extends Component {
 
 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.acceptRequest}>Accept</button></div>
-                                <div className="center"><button className="loginbtn" onClick={this.denyRequest}>Deny</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.acceptRequest()}>Accept</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=>this.denyRequest()}>Deny</button></div>
 
                 </div>
             </div>

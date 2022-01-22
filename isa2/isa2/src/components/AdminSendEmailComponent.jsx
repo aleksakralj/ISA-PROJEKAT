@@ -36,7 +36,7 @@ export default function AdminSendEmail() {
                     <div className="row pt-5 mx-auto">
                     
                         <div className="col-8 form-group pt-2 mx-auto">
-                            <input type="email" className="form-control" placeholder="Email Address" name="email" value={JSON.parse(localStorage.getItem('activeRecipient')).email}/>
+                            <input type="email" className="form-control" placeholder="Email Address" name="email" value={JSON.parse(localStorage.getItem('activeRequest')).userEmail}/>
                         </div>
                         <div className="col-8 form-group pt-2 mx-auto">
                             <input type="text" className="form-control" placeholder="Subject" name="subject" value="Account deletion request"/>
@@ -52,13 +52,13 @@ export default function AdminSendEmail() {
 
 
                         <div className="col-8 pt-3 mx-auto">
-                            <input type="button" className="btn btn-info" value="Accept deletion" onClick={
-                                axios.delete("http://localhost:8080/api/v1/users/"+ JSON.parse(localStorage.getItem('activeRecipient')).id),
-                                axios.delete("http://localhost:8080/api/v1/profiledeletionrequests/"+ JSON.parse(localStorage.getItem('activeRequest')).id)
-                            }></input>
+                            <input type="button" className="btn btn-info" value="Accept deletion" onClick={()=>(
+                                axios.delete("http://localhost:8080/api/v1/users/admin/"+ JSON.parse(localStorage.getItem('activeRecipient')).id),
+                                axios.delete("http://localhost:8080/api/v1/profiledeletionrequests/delete/admin/"+ JSON.parse(localStorage.getItem('activeRequest')).id)
+                            )}></input>
                         </div>
                         <div className="col-8 pt-3 mx-auto">
-                            <input type="button" className="btn btn-info" value="Deny deletion" onClick={axios.delete("http://localhost:8080/api/v1/profiledeletionrequests/"+ JSON.parse(localStorage.getItem('activeRequest')).id)}></input>
+                            <input type="button" className="btn btn-info" value="Deny deletion" onClick={()=>axios.delete("http://localhost:8080/api/v1/profiledeletionrequests/delete/admin/"+ JSON.parse(localStorage.getItem('activeRequest')).id)}></input>
                         </div>
                     </div>
                 </form>
