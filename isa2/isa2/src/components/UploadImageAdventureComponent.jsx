@@ -40,21 +40,21 @@ export default function UploadImage() {
 
 
   function Add(){
-    let activeCottage =  JSON.parse(localStorage.getItem('activeCottage'));
-    axios.get("http://localhost:8080/api/v1/images/type/cottage_owner/cottage/"+activeCottage.id).then(response =>{let imageId =response.data.id
+    let activeAdventure =  JSON.parse(localStorage.getItem('activeAdventure'));
+    axios.get("http://localhost:8080/api/v1/images/type/fishing_instructor/adventure/"+activeAdventure.id).then(response =>{let imageId =response.data.id
 
     
       let images={
           id:imageId,
-          type:"cottage",
-          idOfType:activeCottage.id,
+          type:"adventure",
+          idOfType:activeAdventure.id,
           image1:baseImage1,
           image2:baseImage2,
           image3:baseImage3,
           image4:baseImage4,
           image5:baseImage5,
       }
-    axios.put("http://localhost:8080/api/v1/images/cottage_owner/"+imageId,images);
+    axios.put("http://localhost:8080/api/v1/images/fishing_instructor/"+imageId,images);
     window.alert("Suecessfull upload")
   })
   }

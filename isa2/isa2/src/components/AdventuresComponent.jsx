@@ -51,7 +51,7 @@ class AdventuresComponent extends Component {
         localStorage.setItem('activeUser',JSON.stringify(activeUser));
 
        
-           axios.get("http://localhost:8080/api/v1/adventures/instructorid/" + activeUser.id + '/' + activeUser.type).then((res) => {
+           axios.get("http://localhost:8080/api/v1/adventures/instructorid/" + activeUser.type  + '/'+ activeUser.id).then((res) => {
                 this.setState({ adventures: res.data });
            });
         } 

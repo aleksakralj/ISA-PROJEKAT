@@ -18,6 +18,7 @@ class AddShipComponent extends Component {
             rules:'',
             fishingEquipment:'', 
             ownerId:'',
+            ships:[],
 
         }
        
@@ -76,8 +77,26 @@ class AddShipComponent extends Component {
         this.props.history.push(`/shipownerprofile`);
 
     }
+    createImageFolder(i){
+        
+        let images={
+            idOfType: this.state.ships[i].id,
+            type:"ship",
+            image1:'',
+            image2:'',
+            image3:'',
+            image4:'',
+            image5:'',
+        }
 
-    Add(){
+        axios.post("http://localhost:8080/api/v1/images/ship_owner",images);
+    
+
+    this.props.history.push(`/shipownerships`);
+    window.location.reload();
+    }
+
+   async Add(){
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
 
         let ship = {           
@@ -98,8 +117,16 @@ class AddShipComponent extends Component {
 
         console.log('ship => ' + JSON.stringify(ship));
         axios.post("http://localhost:8080/api/v1/ships/ship_owner",ship);
-        this.props.history.push(`/shipownerships`);
-        window.location.reload();
+
+        await axios.get("http://localhost:8080/api/v1/ships/owner/ship_owner/" + activeUser.id).then((res) => {
+            this.setState({ ships: res.data });
+            
+            });
+            
+            
+            let i = this.state.ships.length-1  //kada radi bez debugera preskace za 1
+            this.createImageFolder(i);
+        
 
     }
     logout(){

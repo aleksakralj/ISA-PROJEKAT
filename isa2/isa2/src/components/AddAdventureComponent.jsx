@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import AdventureService from '../services/AdventureService';
 class AddAdventureComponent extends Component {
     constructor(props){
@@ -10,7 +11,8 @@ class AddAdventureComponent extends Component {
             maxPeople:'',
             rulesOfConduct: '',
             termsOfReservation:'',
-            instructorId:''
+            instructorId:'',
+            adventures:[],
              
         }
         this.addAdventure=this.addAdventure.bind(this);
@@ -22,16 +24,58 @@ class AddAdventureComponent extends Component {
         this.changeRulesOfConductHandler=this.changeRulesOfConductHandler.bind(this);
         this.changeTermsOfReservationHandler=this.changeTermsOfReservationHandler.bind(this);
     }
-    addAdventure= (e) => {
-        e.preventDefault();
+
+    createImageFolder(i){
+        
+        let images={
+            idOfType: this.state.adventures[i].id,
+            type:"adventure",
+            image1:'',
+            image2:'',
+            image3:'',
+            image4:'',
+            image5:'',
+        }
+
+        axios.post("http://localhost:8080/api/v1/images/fishing_instructor",images);
+    
+
+    
+    }
+
+
+     async addAdventure(){
+         
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
         
-        let adventure = {name:this.state.name, address:this.state.address, description:this.state.description, maxPeople:this.state.maxPeople, rulesOfConduct:this.state.rulesOfConduct, termsOfReservation:this.state.termsOfReservation, instructorId:activeUser.id, additionalServices:this.state.additionalServices, prices: this.state.prices, fishingEquipment:this.state.fishingEquipment}
+        let adventure = {
+            name:this.state.name,
+             address:this.state.address, 
+             description:this.state.description,
+              maxPeople:this.state.maxPeople,
+               rulesOfConduct:this.state.rulesOfConduct, 
+               termsOfReservation:this.state.termsOfReservation, 
+               instructorId:activeUser.id, 
+               additionalServices:this.state.additionalServices, 
+               prices: this.state.prices,
+                fishingEquipment:this.state.fishingEquipment}
+
         console.log('adventure => ' + JSON.stringify(adventure));
 
-        AdventureService.createAdventure(adventure).then(res=> {
+        axios.post("http://localhost:8080/api/v1/adventures/fishing_instructor",adventure);
+
+        await axios.get("http://localhost:8080/api/v1/adventures/instructorid/fishing_instructor/" + activeUser.id).then((res) => {
+            this.setState({ adventures: res.data });
+            
+            });
+            let i = this.state.adventures.length-1
+        this.createImageFolder(i);
+           
+
+        
             this.props.history.push('/addadventure')
-        });
+        
+
     }
    
     changeNameHandler = (event) => {
@@ -82,7 +126,7 @@ class AddAdventureComponent extends Component {
                                 <input name="termsOfReservation" className="form-control" value={this.state.termsOfReservation} onChange={this.changeTermsOfReservationHandler}/>
                                 
                                 <br/>
-                                <div className="center"><button className="loginbtn" onClick={this.addAdventure}>Add</button></div>
+                                <div className="center"><button className="loginbtn" onClick={()=> this.addAdventure()}>Add</button></div>
 
                 </div>
             </div>

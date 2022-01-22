@@ -138,6 +138,12 @@ import AdminReviewRequestsComponent from './components/AdminReviewRequestsCompon
 import UploadImageComponent from './components/UploadImageComponent';
 import DisplayPictureComponent from './components/DisplayPictureComponent';
 
+import UploadImageShipComponent from './components/UploadImageShipComponent';
+import DisplayPictureShipComponent from './components/DisplayPictureShipComponent';
+
+import UploadImageAdventureComponent from './components/UploadImageAdventureComponent';
+import DisplayPictureAdventureComponent from './components/DisplayPictureAdventureComponent';
+
 const backStyle = {
   width: '100%',
   height: '800px',
@@ -334,6 +340,10 @@ function App() {
               <Route path="/adminreviewequests" component={AdminReviewRequestsComponent}></Route>
               <Route path="/uploadimage" component={UploadImageComponent}></Route>
               <Route path="/displaypicture" component={DisplayPictureComponent}></Route>
+              <Route path="/uploadimageship" component={UploadImageShipComponent}></Route>
+              <Route path="/displaypictureship" component={DisplayPictureShipComponent}></Route>
+              <Route path="/uploadimageadventure" component={UploadImageAdventureComponent}></Route>
+              <Route path="/displaypictureadventure" component={DisplayPictureAdventureComponent}></Route>
 
 
               </Switch>

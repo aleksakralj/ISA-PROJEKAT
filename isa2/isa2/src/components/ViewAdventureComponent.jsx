@@ -109,6 +109,17 @@ class ViewAdventureComponent extends Component {
         window.location.href=("https://www.google.com/maps/place/"+words[0]+"+"+words[1]+"+"+words[2]);
 
     }
+
+    UploadPhotos(){
+
+        this.props.history.push(`/uploadimageadventure`);
+    }
+
+    ViewPhotos(){
+        this.props.history.push(`/displaypictureadventure`);
+        
+
+    }
     componentDidMount() {
         let activeAdventure =  JSON.parse(localStorage.getItem('activeAdventure'))
         let activeUser =  JSON.parse(localStorage.getItem('activeUser'));
@@ -182,6 +193,10 @@ class ViewAdventureComponent extends Component {
                     <div className="center"><button className="loginbtn" onClick={()=>this.Statistics()}>Statistics</button><br/><br/></div>
                     <br></br>
                     <div className="center"><button className="loginbtn" onClick={() => this.Maps()}>View on map</button></div>
+                    <br></br>
+                    <div className="center"><button className="loginbtn" onClick={() => this.ViewPhotos()}>View photos</button></div>
+                    <br></br>
+                    <div className="center"><button className="loginbtn" onClick={() => this.UploadPhotos()}>Upload photos</button></div>
                               
                     
                     
