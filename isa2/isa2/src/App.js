@@ -36,7 +36,6 @@ import AdventuresComponent from './components/AdventuresComponent';
 import AddAdventureComponent from './components/AddAdventureComponent';
 import ViewAdventureComponent from './components/ViewAdventureComponent';
 import FishingInstructorProfileComponent from './components/FishingInstructorProfileComponent';
-import localhost from './components/localhost.jsx';
 
 import CottageOwnerCottages from './components/CottageOwnerCottages';
 import AddCottage from './components/AddCottageComponent';
@@ -53,10 +52,6 @@ import MainCottagesComponent from './components/MainCottagesComponent';
 import MainShipOwnersComponent from './components/MainShipOwnersComponent';
 import MainShipsComponent from './components/MainShipsComponent';
 import MainViewRegistrationRequestComponent from './components/MainViewRegistrationRequestComponent';
-
-//import MainClientsComponent from './components/MainClientsComponent'; <Route path = "/mainclients" component={MainClientsComponent}></Route>
-
-import background from './images/stephen-crowley-eh3kB7wAJgs-unsplash.jpg';
 import ClientProfileComponent from './components/ClientProfileComponent';
 import ShipProfileComponent from './components/ShipProfileComponent';
 import ClientsComponent from './components/ClientsComponent';
@@ -66,8 +61,6 @@ import ClientCottageHistoryComponent from './components/ClientCottageHistoryComp
 import Clientadvenutreshistorycomponent from './components/ClientAdvenutresHistoryComponent';
 import Clientshipshistorycomponent from './components/ClientShipsHistoryComponent';
 import Clientschedulecottagecomponent from './components/ClientScheduleCottageComponent';
-
-
 import CottageAppointmentComponent from './components/CottageAppointmentComponent';
 import AddAppointmentComponent from './components/AddAppointmentComponent';
 import AddQuickAppointmentComponent from './components/AddQuickAppointmentComponent';
@@ -96,7 +89,6 @@ import AdminSendEmailGRAComponent from './components/AdminSendEmailGRAComponent'
 import AdminComplaintsComponent from './components/AdminComplaintsComponent';
 import AdminGradeRequestsComponent from './components/AdminGradeRequestsComponent';
 
-import CottageOwnerHeaderComponent from './components/CottageOwnerHeaderComponent';
 
 import AddAdventureAppointmentComponent from './components/AddAdventureAppointmentComponent';
 import AddAdventureQuickAppointmentComponent from './components/AddAdventureQuickAppointmentComponent';
@@ -143,15 +135,19 @@ import DisplayPictureShipComponent from './components/DisplayPictureShipComponen
 
 import UploadImageAdventureComponent from './components/UploadImageAdventureComponent';
 import DisplayPictureAdventureComponent from './components/DisplayPictureAdventureComponent';
+import Homepageclient from './Pages/HomePageClient';
+import Navbar from './Conponents/Navbar';
 
+
+/*
 const backStyle = {
   width: '100%',
   height: '800px',
   backgroundImage: `url(${background})`,
   backgroundSize: 'cover' 
 };
-
-
+*/
+/*
 function headerDefinition(){
 
   if(localStorage.getItem('activeUser')==null){
@@ -183,25 +179,25 @@ else{
 
   
 }
-
+*/
 
 function App() {
   
   return (
 
-    <div style={backStyle}> 
+    <div> 
+      
+      <Navbar/>
       
         <Router>
           
-         {headerDefinition() } 
-          <div className="container">
+          
+          <div className="main-content">
             <Switch> 
         
-            <Route path = "/" exact component={HomePageCommponent}></Route>
+              <Route path = "/" exact component={Homepageclient}></Route> 
               <Route path = "/login" exact component={LoginComponent}></Route>
-
               <Route path = "/TODO" exact component={HomePageCommponent}></Route>
-
               <Route path = "/registrationrequests" component={RegistrationRequestComponent}></Route>
               <Route path = "/adminprofile" component={AdminProfileComponent}></Route>
               <Route path = "/register" component={RegistrationComponent}></Route>

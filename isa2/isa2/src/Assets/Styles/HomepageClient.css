@@ -1,0 +1,48 @@
+.homepage-container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    align-items: center;
+    gap: 20%;
+}
+.homepage-welcoming-text-message{
+    position: relative;
+}
+.entity-cards-container{
+    display: flex;  
+    flex-direction: row;
+    justify-content: center;
+    gap: 17%;
+    position: relative;
+    width: 70%;
+    height: 20%; 
+}
+.entity-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 230px;
+    height: 350px;
+    border-radius: 5%;
+    background-color: gray;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+   }
+.entity-card:hover{
+    box-shadow: 0 8px 16px 0;
+}
+.entity-card-image{
+    width: 100px;
+    height: 100px;
+}
+.entity-card-data{
+    text-align: center;
+}
+.entity-card-button{
+    border-radius: 10%;
+    background-color: lightblue;
+}

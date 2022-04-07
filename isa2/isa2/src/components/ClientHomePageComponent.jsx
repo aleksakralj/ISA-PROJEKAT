@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import background from './try/pexels-ron-lach-10412889.jpg';
+
+import Sitewelcomingmessage from '../Conponents/SiteWelcomingMessage';
 
 
 class ClientHomePageCommponent extends Component {
@@ -15,8 +16,7 @@ class ClientHomePageCommponent extends Component {
             <div>
 
                 <div style={{position:'absolute',top:'150px', left:'670px'}}>
-                    <h1 align="center"> WELCOME </h1>
-                    <h3 align="center"> Look at our </h3>
+                    <Sitewelcomingmessage/>
                 </div>
 
                 <div style={{  display:'flex', height:'18rem', flexDirection: "row", gap:"40px", alignItems:'baseline',justifyContent:'space-evenly', position:'relative', top:'200px' }}>
