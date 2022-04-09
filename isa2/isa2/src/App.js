@@ -139,6 +139,7 @@ import DisplayPictureAdventureComponent from './components/DisplayPictureAdventu
 import Homepageclient from './Pages/HomePageClient';
 import Navbar from './Conponents/Navbar';
 import LogInPage from './Pages/LogInPage';
+import UserRegistrationPage from './Pages/UserRegistrationPage';
 
 
 /*
@@ -200,7 +201,7 @@ function App() {
               <Route path = "/registrationrequests" component={RegistrationRequestComponent}></Route>
               <Route path = "/adminprofile" component={AdminProfileComponent}></Route>
               <Route path = "/register" component={RegistrationComponent}></Route>
-              <Route path = "/registeruser" component={RegistrationUserComponent}></Route>
+              <Route path = "/registeruser" component={UserRegistrationPage}></Route>
               <Route path = "/registrationwait" component={RegistrationWaitComponent}></Route>
               <Route path = "/addadmin" component={AddAdminComponent}></Route>
               <Route path = "/changepassword" component={ChangePasswordComponent}></Route>
