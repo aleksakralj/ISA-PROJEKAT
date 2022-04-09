@@ -1,4 +1,5 @@
 import './App.css';
+ 
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import RegistrationRequestComponent from './components/RegistrationRequestComponent';
 import HeaderComponent from './components/HeaderComponent';
@@ -137,6 +138,7 @@ import UploadImageAdventureComponent from './components/UploadImageAdventureComp
 import DisplayPictureAdventureComponent from './components/DisplayPictureAdventureComponent';
 import Homepageclient from './Pages/HomePageClient';
 import Navbar from './Conponents/Navbar';
+import LogInPage from './Pages/LogInPage';
 
 
 /*
@@ -185,18 +187,15 @@ function App() {
   
   return (
 
-    <div> 
-      
-      <Navbar/>
-      
+    <div className='main-content'> 
         <Router>
+        <Navbar/>
           
-          
-          <div className="main-content">
             <Switch> 
         
               <Route path = "/" exact component={Homepageclient}></Route> 
-              <Route path = "/login" exact component={LoginComponent}></Route>
+              <Route path = "/homepage" exact component= {Homepageclient}></Route>
+              <Route path = "/login" exact component={LogInPage}></Route>
               <Route path = "/TODO" exact component={HomePageCommponent}></Route>
               <Route path = "/registrationrequests" component={RegistrationRequestComponent}></Route>
               <Route path = "/adminprofile" component={AdminProfileComponent}></Route>
@@ -214,15 +213,12 @@ function App() {
 
 
               
-              <Route path = "/homepage" component={HomePageCommponent} ></Route>
-
               <Route path = "/serviceprice" component={ServicePriceComponent}></Route>
               <Route path = "/homepageclient" component={HomePageCommponent} ></Route>
 
               <Route path = "/login" component={LoginComponent}></Route>
 
              
-              <Route path = "/homepage" component={HomePageCommponent} ></Route>
               
 
 
@@ -342,8 +338,9 @@ function App() {
               <Route path="/displaypictureadventure" component={DisplayPictureAdventureComponent}></Route>
 
 
+              <Route path="/loginproba" component={LoginComponent}></Route>
               </Switch>
-          </div>
+          
                                 
         </Router>
      
