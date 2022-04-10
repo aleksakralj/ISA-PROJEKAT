@@ -1,0 +1,21 @@
+.navbar{
+    display: flex;
+    justify-content: space-around;
+    min-height: 8vh;
+    position: absolute;
+    background-color: rgba(115, 115, 141, 0.616);
+    align-items: center;
+} 
+.primary-navbar{
+    display: flex;
+    color: rgb(255,255,255,);
+}
+.registration-links-navbar{
+    display: flex;
+    list-style: none;
+    justify-content: space-around; 
+    width: 20%;
+}
+a{
+    text-decoration: none;
+}
