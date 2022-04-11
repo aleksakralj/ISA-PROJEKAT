@@ -1,119 +1,80 @@
 .registration-page-container{
-    background: transparent;
-    position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100vh;
-    display: flex;
-    flex-direction: column; 
     align-items: center;
 }
 .registration-page-caption{
-    color: white
+    color: white;
 }
 .registration-form-container{
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;    
+    flex-direction: column;
+    height: 80%;
     align-items: center;
-    position: relative;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    background: rgba(255,255,255,.5);
+    width: 80%;
+    border-radius: 5%;
 }
 .registration-data-container{
     display: flex;
-    position: relative;
     flex-direction: row;
-    height: 520px;
-    width: 37%;
-    justify-content: space-between; 
-    background: rgba(255,255,255,.5);
-    
-}
-.registration-lables-container{
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    align-items: baseline;
-    justify-content: space-evenly;
-    margin-left: 10%;
-}
-.registration-input-container{
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    height: 100%;
-    align-items: baseline;
-    justify-content: space-evenly;
-    margin-right: 10%;
-}
-.registration-inputs{
-    text-align: center;
-    width: 200px;
-}
-.registration-button-container{
-    display: flex;
-    flex-direction: column-reverse;
-    height: 520px;
-    width: 28%;
     justify-content: space-between;
+    height: 80%;    
+    width: 90%;
+}
+.registration-main-data-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 50%;
+    margin-top: 20px;
+}
+.registration-main-data-labels{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+.registration-main-data-inputs{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+.registration-side-data-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 50%;
+    margin-top: 20px;
+}
+.registration-side-data-labels{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;   
+    height: 100%;
+}
+.registration-side-data-inputs{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 .registration-buttons{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-}
-.privilages-registration-container{
-    display: flex;
-    flex-direction: column;
-    border: solid;
-    height: 550px;
-    background: rgba(255,255,255,.5);
-    border-radius: 5%;
+    justify-content: space-evenly;
+    width: 40%;
+    height: 20%;
     align-items: center;
-}
-.privilages-registration-caption{
-    font-size: 25px;
-}
-.privilages-registration-choosing-form{
-    display: flex;
-    flex-direction: column;
-    height: 90%;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-}
-.privilages-registration-role-choosing-container{
-    height: 70%;
-    width: 90%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-.privilages-registration-radio-buttons{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-.privilages-registration-labels{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-.privilages-registration-buttons{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    width: 100%;
 }
 .registration-button{
     width: 150px;
     height: 60px;
     background-color: lightblue;
 }
-.privilages-registration-reason-input{
-    position: relative;
-    width: 100%;
-    text-align: center;
-}
-
-

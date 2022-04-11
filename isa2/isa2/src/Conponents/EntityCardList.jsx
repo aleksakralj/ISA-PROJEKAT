@@ -25,7 +25,12 @@ const EntityCardList = () => {
     return (
         <div  className='entity-cards-container'>
             {cards.map(card=>(
-                <EntityCardComponent title={card.title} imageAddress={card.imageAddress} buttonText={card.buttonText} buttonClickLink={card.buttonClickLink} />
+                <EntityCardComponent 
+                    title={card.title} 
+                    imageAddress={card.imageAddress} 
+                    buttonText={card.buttonText} 
+                    buttonClickLink={card.buttonClickLink} 
+                />
             ))}     
         </div>
     );

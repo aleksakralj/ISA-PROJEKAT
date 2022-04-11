@@ -1,7 +1,7 @@
 import React, {useState, useCallback} from 'react';
 
-const PrivilagesRegistrationComponent = ({parentCallback}) => {
-    const [showRegistrationButtons, setShowRegistrationButtons] = useState(false);
+const PrivilagesRegistrationComponent = () => {
+    
     const [userType, setUserType] = useState('Client')
 
     return (
@@ -12,26 +12,40 @@ const PrivilagesRegistrationComponent = ({parentCallback}) => {
             <div className='privilages-registration-choosing-form'>
                 <div className='privilages-registration-role-choosing-container'>
                     <div className='privilages-registration-radio-buttons'>
-                        <input name='roleRadioButton' value='admin' type='radio' onClick={e=>{setUserType(e.target.value)}} ></input>
-                        <input name='roleRadioButton' value='fishing_instructor' type='radio' onClick={e=>{setUserType(e.target.value)}}></input>
-                        <input name='roleRadioButton' value='ship_owner' type='radio' onClick={e=>{setUserType(e.target.value)}}></input>
-                        <input name='roleRadioButton' value='cottage_owner' type='radio' onClick={e=>{setUserType(e.target.value)}}></input>
+                        <input name='roleRadioButton' 
+                            value='admin' 
+                            type='radio' 
+                            onClick={e=>{setUserType(e.target.value)}} 
+                        />
+                        <input name='roleRadioButton' 
+                            value='fishing_instructor' 
+                            type='radio' 
+                            onClick={e=>{setUserType(e.target.value)}}
+                        />
+                        <input name='roleRadioButton' 
+                            value='ship_owner' 
+                            type='radio' 
+                            onClick={e=>{setUserType(e.target.value)}}
+                        />
+                        <input name='roleRadioButton' 
+                            value='cottage_owner' 
+                            type='radio' 
+                            onClick={e=>{setUserType(e.target.value)}}
+                        />
                     </div>
                     <div className='privilages-registration-labels'>
                         <label>Admin</label>
                         <label>Fishing Instructor</label>
                         <label>Ship Owner</label>
-                        <label>Cottage Owner</label>
+                        <label>Cottage Owner</label>    
                     </div>
                 </div>
-                <input className='privilages-registration-reason-input' placeholder='Reason for privilages'></input>
+                <input className='privilages-registration-reason-input' 
+                    placeholder='Reason for privilages'
+                />
                 <div className='privilages-registration-buttons'>
                     <button className='registration-button'>Register</button>
-                    <button className='registration-button' onClick={()=>{
-                        setShowRegistrationButtons(true);
-                        setUserType('Client');
-                        parentCallback(true);
-                    }}>Cancel</button>
+                    <button className='registration-button'>Cancel</button>
                 </div>
             </div>
         </div>

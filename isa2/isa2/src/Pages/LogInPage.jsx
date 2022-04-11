@@ -22,7 +22,9 @@ const LogInPage = () => {
     return (
         <div className='login-page-container'>
             <div className='login-text-and-picture-container'>
-                <img className='login-picture' src={logInPicture}></img>
+                <img className='login-picture' 
+                    src={logInPicture}>
+                </img>
                 <div className='login-text-message-container'>
                     <h2 className='login-text-message'>We are best in the business</h2>
                 </div>
@@ -35,16 +37,24 @@ const LogInPage = () => {
                         <label className='login-data-label' > Password: </label>                  
                     </div>
                     <div className='data-input-container'>
-                        <input className='login-data-input' placeholder='email' value={
-                            emailInput} onInput={e=>setEmailInput(e.target.value)
+                        <input className='login-data-input' 
+                            placeholder='email' 
+                            value={emailInput} 
+                            onInput={e=>setEmailInput(e.target.value)
                         }/>
-                        <input className='login-data-input' placeholder='password' type='password' value={
-                            passwordInput} onInput={e=>setPasswprdInput(e.target.value)}
+                        <input className='login-data-input' 
+                            placeholder='password' 
+                            type='password' 
+                            value={passwordInput} 
+                            onInput={e=>setPasswprdInput(e.target.value)}
                         />                
                     </div>
                 </div>
                 <div>
-                    <button className="login-button" onClick={login}>Login</button>
+                    <button className="login-button" 
+                        onClick={login}>
+                        Login
+                    </button>
                 </div>
             </div>
         </div>
