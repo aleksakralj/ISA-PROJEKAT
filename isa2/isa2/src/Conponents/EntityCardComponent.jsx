@@ -12,7 +12,9 @@ const EntityCardComponent = ({imageAddress, title, buttonText, buttonClickLink})
     return (
         <div>
             <div className='entity-card'>
-                <img className='entity-card-image' src={imageAddress} />
+                <img className='entity-card-image' 
+                    src={imageAddress} 
+                />
                 <div className='entity-card-data'>
                     <h3>{title}</h3>
                     <button onClick={entityButtonClick} 
