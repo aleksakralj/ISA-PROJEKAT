@@ -75,7 +75,8 @@ const RegistrationFormComponent = () => {
                             placeholder='last name' 
                             value={newUserData.lastName} 
                             onChange={(e) => setNewUserData({
-                                 ...newUserData, lastName: e.target.value     
+                                 ...newUserData, lastName: e.target.value 
+                                
                             })}></input>
                     </div>
                 </div>

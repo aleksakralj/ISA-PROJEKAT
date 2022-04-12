@@ -15,21 +15,17 @@ public class Adventure {
     @Column(name = "Name")
     private String name;
 
-
     @Column(name = "Address")
     private String address;
 
     @Column(name = "Description")
     private String description;
 
-
     @Column(name = "maxPeople")
     private int maxPeople;
 
-
     @Column(name = "RulesOfConduct")
     private String rulesOfConduct;
-
 
     @Column(name = "TermsOfReservation")
     private String termsOfReservation;

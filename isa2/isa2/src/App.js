@@ -2,13 +2,10 @@ import './App.css';
  
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import RegistrationRequestComponent from './components/RegistrationRequestComponent';
-import HeaderComponent from './components/HeaderComponent';
-import FooterComponent from './components/FooterComponent';
 import AdminProfileComponent from './components/AdminProfileComponent';
 //import MenuComponent from './components/MenuComponent';
 import LoginComponent from './components/LoginComponent';
 import RegistrationComponent from './components/RegistrationComponent';
-import RegistrationUserComponent from './components/RegistrationUserComponent';
 import RegistrationWaitComponent from './components/RegistrationWaitComponent';
 import AddAdminComponent from './components/AddAdminComponent';
 import ChangePasswordComponent from './components/ChangePasswordComponent';
@@ -44,7 +41,6 @@ import AddRoom from './components/AddRoomComponent';
 
 import MainAdminProfileComponent from './components/MainAdminProfileComponent';
 import AdminChangePasswordComponent from './components/AdminChangePasswordComponent';
-import DeleteRequestComponent from './components/DeleteRequestComponent';
 
 import MainRegistrationRequestComponent from './components/MainRegistrationRequestComponent';
 import MainIncomeComponent from './components/MainIncomeComponent';
@@ -79,10 +75,6 @@ import Clientupdateprofile from './components/ClientUpdateProfile';
 import DeleteProfileComponent from './components/DeleteProfileComponent';
 import Profiledeletionrequestwait from './components/ProfileDeletionRequestWait';
 import AdminProfileDeletionsRequestsComponent from './components/AdminProfileDeletionsRequestsComponent';
-import Unautentifieduserheader from './components/UnautentifiedUserHeader';
-import AdminHeaderComponent from './components/AdminHeaderComponent';
-import MainAdminHeaderComponent from './components/MainAdminHeaderComponent';
-import FishingInstructorHeaderComponent from './components/FishingInstructorHeaderComponent';
 import AdminSendEmailComponent from './components/AdminSendEmailComponent';
 import AdminSendEmailREGComponent from './components/AdminSendEmailREGComponent';
 import AdminSendEmailCOMComponent from './components/AdminSendEmailCOMComponent';
@@ -140,6 +132,9 @@ import Homepageclient from './Pages/HomePageClient';
 import Navbar from './Conponents/Navbar';
 import LogInPage from './Pages/LogInPage';
 import UserRegistrationPage from './Pages/UserRegistrationPage';
+import AdventuresListPage from './Pages/AdventuresListPage';
+import ShipsListPage from './Pages/ShipsListPage';
+import CottagesListPage from './Pages/CottagesListPage';
 
 
 /*
@@ -234,9 +229,10 @@ function App() {
               <Route path = "/cottageowners" component={CottageOwnersComponent}></Route>
               <Route path = "/shipowners" component={ShipOwnersComponent}></Route>
               <Route path = "/fishinginstructors" component={FishingInstructorsComponent}></Route>
-              <Route path = "/ships" component={ShipsComponent}></Route>
-              <Route path = "/cottages" component={CottagesComponent}></Route>
-              <Route path = "/adventures" component={AdventuresComponent}></Route>  
+              <Route path = "/ships" component={ShipsListPage}></Route>
+              <Route path = "/cottages" component={CottagesListPage}></Route>
+              <Route path = "/adventuress" component={AdventuresComponent}></Route>  
+              <Route path = "/adventures" component={AdventuresListPage}></Route>
               <Route path = "/addadventure" component={AddAdventureComponent}></Route> 
               <Route path = "/viewadventure" component={ViewAdventureComponent}></Route>
               <Route path = "/fishinginstructorprofile" component={FishingInstructorProfileComponent}></Route>  

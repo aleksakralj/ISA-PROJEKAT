@@ -4,8 +4,8 @@ const SHIP_API_BASE_URL = "http://localhost:8080/api/v1/ships";
 
 class ShipService{
 
-getShips(type){
-    return axios.get( SHIP_API_BASE_URL + '/' + type);
+getShips(){
+    return axios.get( SHIP_API_BASE_URL);
 }
 createShip(ship){
     return axios.post(SHIP_API_BASE_URL, ship);
