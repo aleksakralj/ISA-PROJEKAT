@@ -23,12 +23,9 @@ public class ShipController {
 
     //get all
 
-    @GetMapping("/ships/{type}")
-    public List<Ship> getAllShips(@PathVariable String type){
-        if(type.equals("admin") || type.equals("main_admin")||type.equals("ship_owner")){
+    @GetMapping("/ships")
+    public List<Ship> getAllShips(){
         return shipRepository.findAll();
-        }
-        else{return null;}
     }
 
     //create

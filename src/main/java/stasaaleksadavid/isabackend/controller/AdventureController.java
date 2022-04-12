@@ -8,7 +8,9 @@ import stasaaleksadavid.isabackend.model.Admin;
 import stasaaleksadavid.isabackend.model.Adventure;
 import stasaaleksadavid.isabackend.model.User;
 import stasaaleksadavid.isabackend.repository.AdventureRepository;
+import stasaaleksadavid.isabackend.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,12 +23,11 @@ public class AdventureController {
     private AdventureRepository adventureRepository;
     //get all
 
-    @GetMapping("/adventures/{type}")
-    public List<Adventure> getAllAdventures(@PathVariable String type){
-        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
+
+
+    @GetMapping("/adventures")
+    public List<Adventure> getAllAdventures(){
         return adventureRepository.findAll();
-        }
-        else{return null;}
     }
 
     //create
@@ -96,12 +97,19 @@ public class AdventureController {
     }
 
     //get by name
-    @GetMapping("/adventures/name/{name}/{type}")
-    public List<Adventure> getAdventuresByName(@PathVariable String type,@PathVariable String name){
-            if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
-            return adventureRepository.findByName(name);
-            }
-            else{return null;}
-        }
+    @GetMapping("/adventures/{name}")
+    public List<Adventure> getAdventuresByName(@PathVariable String name){
+        return adventureRepository.findByName(name);
+    }
+
+    @GetMapping("/adventures/{instructorNameSearch}")
+    public  List<Adventure> getAdventuresByInstructorNameSearch(@PathVariable String instructorNameSearch ){
+
+        List<Adventure> adventures = new ArrayList<>();
+
+        return adventures;
+    }
+
+
 
 }

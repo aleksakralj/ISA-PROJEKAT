@@ -4,8 +4,8 @@ const COTTAGE_API_BASE_URL = "http://localhost:8080/api/v1/cottages";
 
 class Cottage{
 
-getCottages(type){
-    return axios.get( COTTAGE_API_BASE_URL + '/' + type );
+getCottages(){
+    return axios.get( COTTAGE_API_BASE_URL);
 }
 createCottage(cottage){
     return axios.post(COTTAGE_API_BASE_URL, cottage);

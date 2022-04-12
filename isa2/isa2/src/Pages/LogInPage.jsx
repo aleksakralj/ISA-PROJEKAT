@@ -10,8 +10,7 @@ const LogInPage = () => {
     const history = useHistory();
 
     const login = async () => {
-        console.log(emailInput);
-        console.log(passwordInput);
+
         let activeUser = await axios.get
             ("http://localhost:8080/api/v1/users/"+ emailInput + "/" + passwordInput) 
     

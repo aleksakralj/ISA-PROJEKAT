@@ -20,12 +20,10 @@ public class CottageController {
     private CottageRepository cottageRepository;
 
     //get all
-    @GetMapping("/cottages/{type}")
-    public List<Cottage> getAllCottages(@PathVariable String type){
-        if(type.equals("admin") || type.equals("main_admin")){
+    @GetMapping("/cottages")
+    public List<Cottage> getAllCottages(){
+
         return cottageRepository.findAll();
-    }
-    else{return null;}
     }
 
 

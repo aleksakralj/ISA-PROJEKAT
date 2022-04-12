@@ -2,22 +2,32 @@ import axios from 'axios';
 
 const ADVENTURE_API_BASE_URL = "http://localhost:8080/api/v1/adventures";
 
-class AdventureService{
+class AdventureService {
 
-getAdventures(){
-    return axios.get(ADVENTURE_API_BASE_URL);
-}
-createAdventure(adventure,type){
-    return axios.post(ADVENTURE_API_BASE_URL + '/' + type, adventure);
-}
-getAdventureById(adventureId){
-    return axios.get(ADVENTURE_API_BASE_URL + '/' + adventureId);
-}
-updateAdventure(adventure,adventureId,type){
-    return axios.put(ADVENTURE_API_BASE_URL + '/' + type + '/' + adventureId,adventure);
-}
-deleteAdventure(adventureId,type){
-    return axios.delete(ADVENTURE_API_BASE_URL+ '/' + type + '/' + adventureId);
-}
+    getAdventures() {
+        return axios.get(ADVENTURE_API_BASE_URL);
+    }
+    createAdventure(adventure, type) {
+        return axios.post(ADVENTURE_API_BASE_URL + '/' + type, adventure);
+    }
+    getAdventureById(adventureId) {
+        return axios.get(ADVENTURE_API_BASE_URL + '/' + adventureId);
+    }
+    updateAdventure(adventure, adventureId, type) {
+        return axios.put(ADVENTURE_API_BASE_URL + '/' + type + '/' + adventureId, adventure);
+    }
+    deleteAdventure(adventureId, type) {
+        return axios.delete(ADVENTURE_API_BASE_URL + '/' + type + '/' + adventureId);
+    }
+    getAdventuresByNameSearch(nameSearch) {
+        return axios.get(ADVENTURE_API_BASE_URL+ '/' + nameSearch)
+    }
+    getAdventuresByOwnerId(instructorNameSearch) {
+        return axios.get(ADVENTURE_API_BASE_URL + '/' + instructorNameSearch);
+    }
+    getAdventuresByAddress(addressSearch){
+        return axios.get(ADVENTURE_API_BASE_URL + '/' + addressSearch);
+    }
+
 }
 export default new AdventureService();
