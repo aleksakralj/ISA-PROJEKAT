@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useHistory} from 'react-router-dom';
 import '../Assets/Styles/AdventuresListPage.css';
 import AdventureService from '../services/AdventureService';
 import UserService from '../services/UserService';
@@ -8,6 +9,7 @@ const AdventuresListPage = () => {
 
     const [adventures, setAdventures] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const history = useHistory();
 
     const getAdventures = async () => {
         const allAdventures = await AdventureService.getAdventures();
@@ -21,6 +23,10 @@ const AdventuresListPage = () => {
 
     const findInstructorNameById = async (instructorId) => {
         const response = await UserService.getUserById(instructorId);
+    }
+
+    const openAdventureProfile = (event) => {
+        history.push('/adventureprofile');
     }
 
     useEffect(() => {
@@ -60,7 +66,7 @@ const AdventuresListPage = () => {
                             <img className='card-image' src='https://slatefallsoutposts.com/wp-content/uploads/2019/11/slid1450.jpg' alt="" />
                             <h5>{ }</h5>
                             <h5>Rating: 5</h5>
-                            <button className='card-button'>See this adventure</button>
+                            <button className='card-button' onClick={openAdventureProfile}>See this adventure</button>
                         </li>
                     )
 
