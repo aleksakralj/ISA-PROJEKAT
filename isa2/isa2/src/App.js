@@ -135,6 +135,7 @@ import UserRegistrationPage from './Pages/UserRegistrationPage';
 import AdventuresListPage from './Pages/AdventuresListPage';
 import ShipsListPage from './Pages/ShipsListPage';
 import CottagesListPage from './Pages/CottagesListPage';
+import AdventureProfilePage from './Pages/AdventureProfilePage';
 
 
 /*
@@ -302,7 +303,7 @@ function App() {
               <Route path="/schedule" component={FishingInstructorScheduleComponent}></Route>
               <Route path="/clientcottageprofile" component={Clientcottageprofilecomponent}></Route>
               <Route path="/clientshipprofile" component={Clientshipprofilecomponent}></Route>
-              <Route path="/clientadventureprofile" component={Clientadventureprofilecomponent}></Route>
+              <Route path="/adventureprofile" component={AdventureProfilePage}></Route>
 
               <Route path="/cottagescheduleforclient" component={CottageScheduleForClientComponent}></Route>
               <Route path="/shipscheduleforclient" component={ShipScheduleForClientComponent}></Route>

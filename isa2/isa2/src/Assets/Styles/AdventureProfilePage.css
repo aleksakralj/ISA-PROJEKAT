@@ -1,0 +1,102 @@
+.adventure-profile-container{
+ width: 100%;
+ height: 100vh;   
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ position: relative;
+background-color: rgba(255, 255, 255, 0.592) ;
+}
+.adventure-caption-content{
+    width: 100%;
+    height: 25%;
+    position: relative;
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: center;
+}
+.adventure-properties{
+    background-color: rgba(0, 0, 0, 0.592);
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: white;
+    align-items: center;    
+    position: relative;
+
+}
+.basic-adventure-info{
+    display: flex;
+    flex-direction: column;
+    margin-left: 60px;
+    justify-content: space-evenly;
+}
+.instructor-data{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.adventure-image{
+    height: 100%;
+    width: 50%;
+}
+.adventure-content-container{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: row;
+    background-color: whitesmoke;
+}
+.adventure-description-prices-container{
+    margin-top: 10px;
+    width: 33%;
+    height: 93%;
+    background-color: rgb(160, 160, 160);
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.adventure-description{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50%;
+    width: 100%;
+    gap: 10px;
+    margin-top: 10px;
+}
+.adventure-prices{
+    text-align: center;
+}
+
+.adventure-itmes-container{
+    width: 33%;
+    height: 100%;   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.adventure-additional-info-box{
+    width: 80%;
+    height: 40%;
+    background-color: gray;
+    border-radius: 5%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.adventure-rules-container{
+    width: 33%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
