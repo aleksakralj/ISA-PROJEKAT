@@ -38,13 +38,11 @@ public class ShipController {
     }
 
     //get by id
-    @GetMapping("/ships/{type}/{id}")
-    public ResponseEntity <Ship> getShipById(@PathVariable String type,@PathVariable Long id){
-        if(type.equals("admin") || type.equals("main_admin")||type.equals("ship_owner")) {
+    @GetMapping("/ships/{id}")
+    public ResponseEntity <Ship> getShipById(@PathVariable Long id){
             Ship ship = shipRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ship does not exist with id:" + id));
             return ResponseEntity.ok(ship);
-        }
-        else return null;
+
     }
 
     //update
@@ -60,7 +58,7 @@ public class ShipController {
             ship.setNumberOfEngines(shipDetails.getNumberOfEngines());
             ship.setHp(shipDetails.getHp());
             ship.setTopSpeed(shipDetails.getTopSpeed());
-            ship.setNavigation(shipDetails.getNavigation());
+            ship.setAddtiioonalServices(shipDetails.getAddtiioonalServices());
             ship.setAddress(shipDetails.getAddress());
             ship.setDescription(shipDetails.getDescription());
             ship.setCapacity(shipDetails.getCapacity());
