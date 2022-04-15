@@ -1,19 +1,31 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import '../Assets/Styles/AdventureProfilePage.css'
 
 const AdventureProfilePage = () => {
+
+    const [adventure, setAdventure] = useState({});
+
+    const getAdventureInfo = () => {
+        setAdventure( JSON.parse(localStorage.getItem('activeAdventure')));
+        console.log(adventure);
+        console.log(adventure);
+    }
+
+    useEffect(() => {
+        getAdventureInfo();
+    },[]);
     return (
         <div className='adventure-profile-container'>
             <div className='adventure-caption-content'>               
                 <div className='adventure-properties'>
                     <div className='basic-adventure-info'>
-                        <h2>ACINA AVANTURA</h2>
-                        <p>adresa je moja realno</p>
+                        <h2>{adventure.name}</h2>
+                        <p>{adventure.address}</p>
                         <div className='instructor-data'>
                             <h5>Aca faca</h5>
                             <button>Look profile</button>
                         </div>
-                        <p>max 5 people</p>
+                        <p>{adventure.maxPeople}</p>
                     </div>
                 <img className='adventure-image' src='https://slatefallsoutposts.com/wp-content/uploads/2019/11/slid1450.jpg'></img>
                 </div>
@@ -23,43 +35,31 @@ const AdventureProfilePage = () => {
                 <div className='adventure-itmes-container'>
                     <div className='adventure-additional-info-box'>
                         <h5>Fishing equipment</h5>
-                        <ul>
-                            <li>prvi</li>
-                            <li>drugi</li>
-                            <li>treci</li>
-                            <li>cetvrti</li>
-                            <li>prvi</li>
-                        </ul>
+                        <p>{adventure.fishingEquipment}</p>
                     </div>
                     <div className='adventure-additional-info-box'>
                         <h5>Additional services</h5>
-                        <ul>
-                            <li>prvi</li>
-                            <li>drugi</li>
-                            <li>treci</li>
-                            <li>cetvrti</li>
-                            <li>prvi</li>
-                        </ul>
+                        <p>{adventure.additionalServices}</p>    
                     </div>
                 </div>
                 <div className='adventure-description-prices-container'>
                     <div className='adventure-description'>
                         <h5>Description</h5>
-                        <p>Opis je stvarno super majke mi moje top kul uvauOpis je stvarno super majke mi moje top kul uvauOpis je stvarno super majke mi moje top kul uvauOpis je stvarno super majke mi moje top kul uvau</p>
+                        <p>{adventure.description}</p>
                     </div>
                     <div className='adventure-prices'>
-                        <p1>sadsadasdasdjasdjaskdjaskdjaskjdksajdkashdasd</p1>
+                        <p>sadsadasdasdjasdjaskdjaskdjaskjdksajdkashdasd</p>
                     </div>
                 </div>
 
                 <div className='adventure-rules-container'>
                     <div className='adventure-additional-info-box'>
                         <h5>Rules of conduct</h5>
-                        <p>None</p>
+                        <p>{adventure.rulesOfConduct}</p>
                     </div>
                     <div className='adventure-additional-info-box'>
                         <h5>Terms of reservation</h5>
-                        <p>None</p>
+                        <p>{adventure.termsOfReservation}</p>
                     </div>
                 </div>
             </div>

@@ -39,14 +39,11 @@ public class CottageController {
 
 
     //get by id
-    @GetMapping("/cottages/{type}/{id}")
-    public ResponseEntity<Cottage> getCottageById(@PathVariable String type,@PathVariable Long id){
+    @GetMapping("/cottages/{id}")
+    public ResponseEntity<Cottage> getCottageById(@PathVariable Long id){
 
-        if (type.equals("main_admin") || type.equals("admin") || type.equals("cottage_owner")) {
             Cottage cottage = cottageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cottage does not exist with id:" + id));
             return ResponseEntity.ok(cottage);
-        }
-        else {return null;}
 
     }
 

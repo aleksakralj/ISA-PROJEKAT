@@ -21,10 +21,8 @@ import java.util.Map;
 public class AdventureController {
     @Autowired
     private AdventureRepository adventureRepository;
+
     //get all
-
-
-
     @GetMapping("/adventures")
     public List<Adventure> getAllAdventures(){
         return adventureRepository.findAll();
@@ -34,19 +32,17 @@ public class AdventureController {
     @PostMapping("/adventures/{type}")
     public Adventure createAdventure(@PathVariable String type,@RequestBody Adventure adventure){
         if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
-        return adventureRepository.save(adventure);
+            return adventureRepository.save(adventure);
         }
         else{return null;}
     }
 
     //get by id
-    @GetMapping("/adventures/{type}/{id}")
-    public ResponseEntity<Adventure> getAdventureById(@PathVariable String type,@PathVariable Long id){
-        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
+    @GetMapping("/adventures/{id}")
+    public ResponseEntity<Adventure> getAdventureById(@PathVariable Long id){
+
         Adventure adventure = adventureRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Adventure does not exist with id:"+ id));
         return ResponseEntity.ok(adventure);
-        }
-        else{return null;}
     }
 
     //update
@@ -63,7 +59,6 @@ public class AdventureController {
         adventure.setTermsOfReservation(adventureDetails.getTermsOfReservation());
 
         adventure.setFishingEquipment(adventureDetails.getFishingEquipment());
-        adventure.setAdditionalServices(adventureDetails.getAdditionalServices());
         adventure.setPrices(adventureDetails.getPrices());
 
         Adventure updatedAdventure = adventureRepository.save(adventure);
@@ -73,19 +68,19 @@ public class AdventureController {
     }
 
 
-    //delete
     @DeleteMapping("/adventures/{type}/{id}")
     public Map<String, Boolean> deleteAdventure(@PathVariable String type,@PathVariable Long id){
         if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
-        Adventure adventure = adventureRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Adventure does not exist with id:"+ id));
+            Adventure adventure = adventureRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Adventure does not exist with id:"+ id));
 
-        adventureRepository.delete(adventure);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return (Map<String, Boolean>) ResponseEntity.ok(response);
+            adventureRepository.delete(adventure);
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("deleted", Boolean.TRUE);
+            return (Map<String, Boolean>) ResponseEntity.ok(response);
         }
         else{return null;}
     }
+    //delete
 
     //get by instructorId
     @GetMapping("/adventures/instructorid/{type}/{instructorId}")
@@ -95,7 +90,7 @@ public class AdventureController {
         }
         else{return null;}
     }
-
+/*
     //get by name
     @GetMapping("/adventures/{name}")
     public List<Adventure> getAdventuresByName(@PathVariable String name){
@@ -109,7 +104,7 @@ public class AdventureController {
 
         return adventures;
     }
-
+*/
 
 
 }

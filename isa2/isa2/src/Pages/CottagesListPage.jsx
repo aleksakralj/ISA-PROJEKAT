@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../Assets/Styles/CottagesListPage.css';
 import CottageService from '../services/CottageService';
+import {useHistory} from 'react-router-dom';
 
 import UserService from '../services/UserService';
 
@@ -9,6 +10,7 @@ const CottagesListPage = () => {
 
     const [cottages, setCottages] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const history = useHistory();
 
     const getCottages = async () => {
         const allCottages = await CottageService.getCottages();
@@ -23,6 +25,17 @@ const CottagesListPage = () => {
     const findOwnerNameById = async (ownerId) => {
         const response = await UserService.getUserById(ownerId);
     }
+
+    const openCottageProfile = async(id) => {
+        
+        let choosenCottage = await CottageService.getCottageById(id);
+        console.log(choosenCottage.data);
+        localStorage.setItem('activeCottage', JSON.stringify(choosenCottage.data));
+
+        history.push('/cottageprofile');
+    }
+
+
 
     useEffect(() => {
         getCottages();
@@ -63,7 +76,7 @@ const CottagesListPage = () => {
                             <img className='card-image' src='https://slatefallsoutposts.com/wp-content/uploads/2019/11/slid1450.jpg' alt="" />
                             <h5>{ }</h5>
                             <h5>Rating: 5</h5>
-                            <button className='card-button'>See this cottage</button>
+                            <button className='card-button' onClick={() => openCottageProfile(id)} >See this cottage</button>
                         </li>
                     )
 

@@ -31,8 +31,8 @@ public class Ship {
     @Column(name = "Top_Speed")
     private float topSpeed;
 
-    @Column(name = "Navigation")
-    private String navigation;
+    @Column(name = "additiona_services")
+    private String addtiioonalServices;
 
     @Column(name = "Address")
     private String address;
@@ -58,7 +58,7 @@ public class Ship {
     public Ship() {
     }
 
-    public Ship(long ownerId, String name, String type, float length, int numberOfEngines, float hp, float topSpeed, String navigation, String address, String description, int capacity, String rules, String fishingEquipment) {
+    public Ship(long ownerId, String name, String type, float length, int numberOfEngines, float hp, float topSpeed, String addtiioonalServices, String address, String description, int capacity, String rules, String fishingEquipment) {
        super();
         this.ownerId = ownerId;
         this.name = name;
@@ -67,7 +67,7 @@ public class Ship {
         this.numberOfEngines = numberOfEngines;
         this.hp = hp;
         this.topSpeed = topSpeed;
-        this.navigation = navigation;
+        this.addtiioonalServices = addtiioonalServices;
         this.address = address;
         this.description = description;
         this.capacity = capacity;
@@ -139,12 +139,12 @@ public class Ship {
         this.topSpeed = topSpeed;
     }
 
-    public String getNavigation() {
-        return navigation;
+    public String getAddtiioonalServices() {
+        return addtiioonalServices;
     }
 
-    public void setNavigation(String navigation) {
-        this.navigation = navigation;
+    public void setAddtiioonalServices(String addtiioonalServices) {
+        this.addtiioonalServices = addtiioonalServices;
     }
 
     public String getAddress() {

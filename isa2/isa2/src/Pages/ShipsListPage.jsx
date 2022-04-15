@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../Assets/Styles/ShipListPage.css';
 import ShipService from '../services/ShipService';
-
+import {useHistory} from 'react-router-dom'
 import UserService from '../services/UserService';
 
 
@@ -9,6 +9,8 @@ const ShipsListPage = () => {
 
     const [ships, setShips] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const history = useHistory();
+
 
     const getShips = async () => {
         const allShips = await ShipService.getShips();
@@ -23,7 +25,17 @@ const ShipsListPage = () => {
 
 
     const findOwnerNameById = async (ownerId) => {
-        const response = await UserService.getUserById(ownerId);
+        const response = await 
+        UserService.getUserById(ownerId);
+    }
+
+
+    const openShipProfile = async(id) => {
+        
+        let choosenShip = await ShipService.getShipById(id);
+        localStorage.setItem('activeShip', JSON.stringify(choosenShip.data));
+
+        history.push('/shipprofile');
     }
 
     useEffect(() => {
@@ -65,7 +77,7 @@ const ShipsListPage = () => {
                             <img className='card-image' src='https://slatefallsoutposts.com/wp-content/uploads/2019/11/slid1450.jpg' alt="" />
                             <h5>{ }</h5>
                             <h5>Rating: 5</h5>
-                            <button className='card-button'>See this ship</button>
+                            <button className='card-button' onClick={() => openShipProfile(id)}>See this ship</button>
                         </li>
                     )
 

@@ -4,7 +4,6 @@ import '../Assets/Styles/AdventuresListPage.css';
 import AdventureService from '../services/AdventureService';
 import UserService from '../services/UserService';
 
-
 const AdventuresListPage = () => {
 
     const [adventures, setAdventures] = useState([]);
@@ -20,12 +19,16 @@ const AdventuresListPage = () => {
         setSearchTerm(event.target.value);
     }
 
-
     const findInstructorNameById = async (instructorId) => {
         const response = await UserService.getUserById(instructorId);
     }
 
-    const openAdventureProfile = (event) => {
+    const openAdventureProfile = async(id) => {
+        
+        let choosenAdventue = await AdventureService.getAdventureById(id);
+        console.log(choosenAdventue.data);
+        localStorage.setItem('activeAdventure', JSON.stringify(choosenAdventue.data));
+
         history.push('/adventureprofile');
     }
 
@@ -66,7 +69,7 @@ const AdventuresListPage = () => {
                             <img className='card-image' src='https://slatefallsoutposts.com/wp-content/uploads/2019/11/slid1450.jpg' alt="" />
                             <h5>{ }</h5>
                             <h5>Rating: 5</h5>
-                            <button className='card-button' onClick={openAdventureProfile}>See this adventure</button>
+                            <button className='card-button' onClick={() => openAdventureProfile(id)}>See this adventure</button>
                         </li>
                     )
 

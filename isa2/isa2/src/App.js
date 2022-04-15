@@ -136,6 +136,8 @@ import AdventuresListPage from './Pages/AdventuresListPage';
 import ShipsListPage from './Pages/ShipsListPage';
 import CottagesListPage from './Pages/CottagesListPage';
 import AdventureProfilePage from './Pages/AdventureProfilePage';
+import CottageProfilePage from './Pages/CottagesProfilePage';
+import ShipProfilePage from './Pages/ShipProfilePage';
 
 
 /*
@@ -224,7 +226,7 @@ function App() {
 
               <Route path = "/viewrequest" component={ViewRegistrationRequestComponent}></Route>
               <Route path = "/cottageownerprofile" component={CottageOwnerProfileComponent}></Route>
-              <Route path = "/cottageprofile" component={CottageProfileComponent}></Route>
+              <Route path = "/cottageprofilenesto" component={CottageProfileComponent}></Route>
               <Route path = "/roomprofile" component={RoomProfileComponent}></Route>
               <Route path = "/allrooms" component={AllRoomsComponent}></Route>
               <Route path = "/cottageowners" component={CottageOwnersComponent}></Route>
@@ -256,8 +258,8 @@ function App() {
               
 
               <Route path = "/clientprofile" component={ClientProfileComponent}></Route>
-
-              <Route path = "/shipprofile" component={ShipProfileComponent}></Route>
+              <Route path = "/shipprofile" component={ShipProfilePage}></Route>
+              <Route path = "/shipprofilenes" component={ShipProfileComponent}></Route>
               <Route path = "/clients" component={ClientsComponent}></Route>
               <Route path = "/mainclients" component={MainClientsComponent}></Route>
               <Route path = "/fishinginstructors" component={FishingInstructorsComponent}></Route>
@@ -301,7 +303,7 @@ function App() {
               <Route path="/clientships" component={ClientShipsComponent}></Route>
               <Route path="/homepageclient" component={ClientHomePageCommponent}></Route>
               <Route path="/schedule" component={FishingInstructorScheduleComponent}></Route>
-              <Route path="/clientcottageprofile" component={Clientcottageprofilecomponent}></Route>
+              <Route path="/cottageprofile" component={CottageProfilePage}></Route>
               <Route path="/clientshipprofile" component={Clientshipprofilecomponent}></Route>
               <Route path="/adventureprofile" component={AdventureProfilePage}></Route>
 
