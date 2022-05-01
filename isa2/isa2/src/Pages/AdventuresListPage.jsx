@@ -7,7 +7,7 @@ const AdventuresListPage = () => {
 
     const [adventures, setAdventures] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [searchCriteria, setSearchCriteria] = useState('');
+    const [searchCriteria, setSearchCriteria] = useState('Name');
     const history = useHistory();  
     const [adventuresInitalState, setAdventuresInitialState] = useState([]);
 
@@ -27,7 +27,6 @@ const AdventuresListPage = () => {
         
         let newAdventures = [];
         
-
         if(searchCriteria==='Name'){
 
             if(searchTerm.length===0){

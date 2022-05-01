@@ -9,24 +9,51 @@ const ShipsListPage = () => {
 
     const [ships, setShips] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [searchCriteria, setSearchCriteria] = useState('Name');
     const history = useHistory();
-
+    const [shipsInitialState, setShipsInitialState] = useState([]);
 
     const getShips = async () => {
-        const allShips = await ShipService.getShips();
-        console.log(allShips);
+        const allShips = await ShipService.getShips();      
         setShips(allShips.data);
-        console.log(ships);
+        setShipsInitialState(allShips.data);      
     }
 
-    const searchHandler = (event) => {
-        setSearchTerm(event.target.value);
+    const shipsChangeOnSearch = () => {
+        
+        let newShips = [];
+        
+        
+        if(searchCriteria==='Name'){
+
+            if(searchTerm.length===0){
+                setShips(shipsInitialState);
+            } else{
+                ships.forEach(ship => {
+                    if(ship.name.toLowerCase().includes(searchTerm.toLowerCase())){
+                        newShips.push(ship);
+                    }
+                })
+                setShips(newShips);
+            }        
+        }
+        else if (searchCriteria ==='Address') {
+            if(searchTerm.length===0){
+                setShips(shipsInitialState);
+            } else{
+                ships.forEach(ship => {
+                    if(ship.address.toLowerCase().includes(searchTerm.toLowerCase())){
+                        newShips.push(ship);
+                    }
+                })
+                setShips(newShips);
+            }      
+        }
     }
 
 
     const findOwnerNameById = async (ownerId) => {
-        const response = await 
-        UserService.getUserById(ownerId);
+        const response = await UserService.getUserById(ownerId);
     }
 
 
@@ -42,6 +69,10 @@ const ShipsListPage = () => {
         getShips();
     }, []);
 
+    useEffect(() => {
+        shipsChangeOnSearch();
+    },[searchTerm])
+
     return (
         <div className='ship-list-container'>
             <div className='ship-list-caption-search'>
@@ -51,16 +82,20 @@ const ShipsListPage = () => {
                 </h2>
                 <div className='ship-search'>
                     <label>Search by</label>
-                    <select name='searchBy'>
-                        <option>Name</option>
-                        <option>Address</option>
-                        <option>Owner name</option>
+                    <select name='searchBy'
+                    value ={searchCriteria}
+                    onChange={(e)=>
+                        setSearchCriteria(e.target.value)
+                    }>
+                        <option value='Name'>Name</option>
+                        <option value='Address'>Address</option>
+                        <option value='Owner name'>Owner name</option>
                     </select>
                     <input 
                         type='text'
                         placeholder='Search'
                         value={searchTerm}
-                        onChange={searchHandler}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
             </div>
