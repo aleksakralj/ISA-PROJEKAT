@@ -10,36 +10,65 @@ const CottagesListPage = () => {
 
     const [cottages, setCottages] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [searchCriteria, setSearchCriteria] = useState('Name');
     const history = useHistory();
+    const [cottagesInitalState, setCottagesInitialState] = useState([]);
+
 
     const getCottages = async () => {
         const allCottages = await CottageService.getCottages();
         setCottages(allCottages.data);
+        setCottagesInitialState(allCottages.data);
     }
 
-    const searchHandler = (event) => {
-        setSearchTerm(event.target.value);
-    }
+    const cottagesOnSearchChange = () => {
+        let newCottages = [];
 
+        if(searchCriteria==='Name'){
+
+            if(searchTerm.length===0){
+                setCottages(cottagesInitalState);
+            } else{
+                cottages.forEach(cottage => {
+                    if(cottage.name.toLowerCase().includes(searchTerm.toLowerCase())){
+                        newCottages.push(cottage);
+                    }
+                })
+                setCottages(newCottages);
+            }        
+        }
+        else if (searchCriteria ==='Address') {
+            if(searchTerm.length===0){
+                setCottages(cottagesInitalState);
+            } else{
+                cottages.forEach(cottage => {
+                    if(cottage.address.toLowerCase().includes(searchTerm.toLowerCase())){
+                        newCottages.push(cottage);
+                    }
+                })
+                setCottages(newCottages);
+            }      
+        }
+    }
 
     const findOwnerNameById = async (ownerId) => {
         const response = await UserService.getUserById(ownerId);
     }
 
-    const openCottageProfile = async(id) => {
-        
+    const openCottageProfile = async(id) => { 
         let choosenCottage = await CottageService.getCottageById(id);
-        console.log(choosenCottage.data);
         localStorage.setItem('activeCottage', JSON.stringify(choosenCottage.data));
-
         history.push('/cottageprofile');
     }
-
-
 
     useEffect(() => {
         getCottages();
     }, []);
+
+
+    useEffect(()=> {
+        cottagesOnSearchChange();
+    },[searchTerm])
 
     return (
         <div className='cottages-list-container'>
@@ -50,16 +79,20 @@ const CottagesListPage = () => {
                 </h2>
                 <div className='cottages-search'>
                     <label>Search by</label>
-                    <select name='searchBy'>
-                        <option>Name</option>
-                        <option>Address</option>
-                        <option>Owner name</option>
+                    <select name='searchBy' 
+                        value={searchCriteria}
+                        onChange={(e)=>
+                            setSearchCriteria(e.target.value)
+                    }>
+                        <option value="Name">Name</option>
+                        <option value="Address">Address</option>
+                        <option value="Owner name">Owner name</option>
                     </select>
                     <input 
                         type='text'
                         placeholder='Search'
                         value={searchTerm}
-                        onChange={searchHandler}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
             </div>
