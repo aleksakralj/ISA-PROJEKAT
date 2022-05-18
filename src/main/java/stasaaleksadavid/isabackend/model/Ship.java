@@ -58,7 +58,9 @@ public class Ship {
     public Ship() {
     }
 
-    public Ship(long ownerId, String name, String type, float length, int numberOfEngines, float hp, float topSpeed, String addtiioonalServices, String address, String description, int capacity, String rules, String fishingEquipment) {
+    public Ship(long ownerId, String name, String type, float length, int numberOfEngines, float hp,
+                float topSpeed, String addtiioonalServices, String address, String description, int capacity,
+                String rules, String fishingEquipment) {
        super();
         this.ownerId = ownerId;
         this.name = name;

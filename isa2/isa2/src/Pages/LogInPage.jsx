@@ -14,7 +14,7 @@ const LogInPage = () => {
         let activeUser = await axios.get
             ("http://localhost:8080/api/v1/users/"+ emailInput + "/" + passwordInput) 
     
-        localStorage.setItem('activeUser', JSON.stringify(activeUser));
+        localStorage.setItem('activeUser', JSON.stringify(activeUser.data));
         history.push('/homepage');
     }
 

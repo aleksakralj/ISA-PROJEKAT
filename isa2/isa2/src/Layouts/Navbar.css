@@ -2,17 +2,49 @@
     display: flex;
     justify-content: space-around;
     min-height: 8vh;
-    position: absolute;
-    background-color: rgba(115, 115, 141, 0.616);
     align-items: center;
 } 
 .primary-navbar{
     display: flex;
-    color: rgb(255,255,255,);
+    width: 50%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
 }
 .registration-links-navbar{
     display: flex;
+    flex-direction: row;
     list-style: none;
-    justify-content: space-around; 
+    justify-content: space-evenly;
+    align-items: center; 
     width: 20%;
+    text-decoration: none;
+}
+.select-appointments{
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    align-content: center;
+}
+.navbar-unlogged{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    height: 8vh;
+}
+.primary-navbar-unlogged{
+    margin-left: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+.registration-links-navbar-unlogged{
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+    justify-content: space-evenly;
+    list-style: none;
 }
