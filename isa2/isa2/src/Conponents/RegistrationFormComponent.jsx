@@ -49,14 +49,16 @@ const RegistrationFormComponent = () => {
                             placeholder='email' 
                             value={newUserData.email} 
                             onChange={(e) => setNewUserData({ 
-                                ...newUserData, email: e.target.value 
+                                ...newUserData, 
+                                email: e.target.value 
                             })}>
                         </input>
                         <input className='registration-input' 
                             placeholder='password' 
                             value={newUserData.password} 
                             onChange={(e) => setNewUserData({ 
-                                ...newUserData, password: e.target.value 
+                                ...newUserData, 
+                                password: e.target.value 
                             })}>
                         </input>
                         <input className='registration-input' 
@@ -68,14 +70,16 @@ const RegistrationFormComponent = () => {
                             placeholder='first name' 
                             value={newUserData.firstName} 
                             onChange={(e) => setNewUserData({ 
-                                ...newUserData, firstName: e.target.value 
+                                ...newUserData, 
+                                firstName: e.target.value 
                             })}> 
                         </input>
                         <input className='registration-input' 
                             placeholder='last name' 
                             value={newUserData.lastName} 
                             onChange={(e) => setNewUserData({
-                                 ...newUserData, lastName: e.target.value 
+                                 ...newUserData, 
+                                 lastName: e.target.value 
                                 
                             })}></input>
                     </div>
@@ -89,11 +93,45 @@ const RegistrationFormComponent = () => {
                         <label> Date of birth:</label>
                     </div>
                     <div className='registration-side-data-inputs'>
-                        <input className='registration-input' placeholder='address' value={newUserData.address} onChange={(e) => setNewUserData({ ...newUserData, address: e.target.value })}></input>
-                        <input className='registration-input' placeholder='city' value={newUserData.city} onChange={(e) => setNewUserData({ ...newUserData, city: e.target.value })}></input>
-                        <input className='registration-input' placeholder='country' value={newUserData.country} onChange={(e) => setNewUserData({ ...newUserData, country: e.target.value })} ></input>
-                        <input className='registration-input' type='number' placeholder='phone number' value={newUserData.phoneNumber} onChange={(e) => setNewUserData({ ...newUserData, phoneNumber: e.target.value })}></input>
-                        <input className='registration-input' type='date' placeholder='date of birth' value={newUserData.dateOfBirth} onChange={(e) => setNewUserData({ ...newUserData, dateOfBirth: e.target.value })}></input>
+                        <input className='registration-input' 
+                            placeholder='address' 
+                            value={newUserData.address} 
+                            onChange={(e) => setNewUserData({ 
+                                ...newUserData, 
+                                address: e.target.value 
+                            })}
+                        />
+                        <input className='registration-input' 
+                            placeholder='city' 
+                            value={newUserData.city} 
+                            onChange={(e) => setNewUserData({
+                                 ...newUserData, 
+                                 city: e.target.value 
+                            })}
+                        />
+                        <input className='registration-input' 
+                            placeholder='country' 
+                            value={newUserData.country} 
+                            onChange={(e) => setNewUserData({ 
+                                ...newUserData, country: e.target.value 
+                            })}
+                        />
+                        <input className='registration-input' 
+                            type='number'
+                            placeholder='phone number' 
+                            value={newUserData.phoneNumber} 
+                            onChange={(e) => setNewUserData({ 
+                                ...newUserData, phoneNumber: e.target.value 
+                            })}
+                        />
+                        <input className='registration-input' 
+                            type='date' 
+                            placeholder='date of birth' 
+                            value={newUserData.dateOfBirth} 
+                            onChange={(e) => setNewUserData({ 
+                                ...newUserData, dateOfBirth: e.target.value
+                            })}
+                        />
                     </div>
                 </div>
             </div>

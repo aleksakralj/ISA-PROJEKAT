@@ -27,6 +27,7 @@ const AdventuresListPage = () => {
         
         let newAdventures = [];
         
+        
         if(searchCriteria==='Name'){
 
             if(searchTerm.length===0){
@@ -70,10 +71,21 @@ const AdventuresListPage = () => {
                 </h2>
                 <div className='adventure-search'>
                     <label>Search by</label>
-                    <select name='searchBy' value={searchCriteria} onChange={(e) => setSearchCriteria(e.target.value)} >
-                        <option value="Name">Name</option>
-                        <option value="Address">Address</option>
-                        <option value="Instructor name">Instructor name</option>
+                    <select name='searchBy' 
+                        value={searchCriteria} 
+                        onChange={(e) => 
+                            setSearchCriteria(e.target.value)
+                        }>
+                        
+                        <option value="Name">
+                            Name
+                        </option>
+                        <option value="Address">
+                            Address
+                        </option>
+                        <option value="Instructor name">
+                            Instructor name
+                        </option>
                     </select>
                     <input 
                         type='text'

@@ -138,6 +138,7 @@ import CottagesListPage from './Pages/CottagesListPage';
 import AdventureProfilePage from './Pages/AdventureProfilePage';
 import CottageProfilePage from './Pages/CottagesProfilePage';
 import ShipProfilePage from './Pages/ShipProfilePage';
+import ClientProfilePage from './Pages/ClientProfilePage';
 
 
 /*
@@ -257,7 +258,7 @@ function App() {
               <Route path = "/mainviewrequests/:id" component={MainViewRegistrationRequestComponent}></Route>
               
 
-              <Route path = "/clientprofile" component={ClientProfileComponent}></Route>
+              <Route path = "/clientprofile" component={ClientProfilePage}></Route>
               <Route path = "/shipprofile" component={ShipProfilePage}></Route>
               <Route path = "/shipprofilenes" component={ShipProfileComponent}></Route>
               <Route path = "/clients" component={ClientsComponent}></Route>
