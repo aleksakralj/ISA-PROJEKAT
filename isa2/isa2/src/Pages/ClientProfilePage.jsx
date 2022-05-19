@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-
 import ProfileInfoBox from '../Conponents/ProfileInfoBox';
 import UpdateUserForm from '../Conponents/UpdateUserForm';
 import UserService from '../services/UserService';
@@ -22,8 +21,8 @@ const ClientProfilePage = () => {
     const confirmUpdate = (newUserData) => {
         setActiveUser(newUserData);
         localStorage.removeItem('activeUser');
-        localStorage.setItem('activeUser', JSON.stringify(activeUser));
-        UserService.updateUser(activeUser,activeUser.id);
+        localStorage.setItem('activeUser', JSON.stringify(newUserData));
+        UserService.updateUser(newUserData,activeUser.id);
         setWantToUpdate(false);
     }
 
@@ -31,10 +30,13 @@ const ClientProfilePage = () => {
         getUserData();
     }, []);
     
-
     return (
         <div className='container-box'>
-            {!wantToUpdate ? <ProfileInfoBox updateProfile={updateProfile} activeUser={activeUser} /> : <UpdateUserForm confirmUpdate={confirmUpdate} activeUser={activeUser}/>}
+            {
+            !wantToUpdate 
+                ? <ProfileInfoBox updateProfile={updateProfile} activeUser={activeUser} /> 
+                : <UpdateUserForm confirmUpdate={confirmUpdate} activeUser={activeUser}/>
+            }
         </div>
     );
 }
