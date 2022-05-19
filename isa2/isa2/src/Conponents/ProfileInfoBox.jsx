@@ -2,7 +2,7 @@ import React from 'react';
 import '../Assets/Styles/ClientProfilePage.css'
 import { useEffect, useState } from 'react';
 
-const ProfileInfoBox = ({updateProfile , activeUser}) => {
+const ProfileInfoBox = ({updateProfile , activeUser, deleteProfile}) => {
     
     return (
         <div className='profile-container'>
@@ -44,6 +44,7 @@ const ProfileInfoBox = ({updateProfile , activeUser}) => {
                         </button>
                         <button 
                             className='manipulation-button'
+                            onClick={() => deleteProfile()}
                             >
                                 Delete account
                         </button>
