@@ -31,14 +31,14 @@ class DeleteProfileComponent extends Component {
         });
     }
     cancelDelition(){
-        this.props.history.push("/login");
+        this.props.history.push("/homepage");
     }
     render() {
         return (
             <div>
                 <text style={{ position: 'absolute', fontSize: '45px', top: '100px', left: '42%' }}> Delete Account </text>
-                <text style={{position:'absolute',top:'200px', fontSize:'20px'}}>Please tell us why do you want to delete account: </text>
-                <textarea onChange={this.changeReqsonHendler} style={{position:'absolute', width:'800px', height:'400px', top:'250px'}}></textarea>
+                <text style={{position:'absolute',top:'200px', fontSize:'20px', left:'100px'}}>Reason for deletion: </text>
+                <textarea onChange={this.changeReqsonHendler} style={{left: '100px', position:'absolute', width:'800px', height:'400px', top:'250px'}}></textarea>
 
                 <div style={{position: 'absolute', top: '400px', left: '850px'}}>
                         <button onClick={this.requestDeletion} style={{width:'150px',height:'60px', position: 'absolute',  left: '200px' ,backgroundColor:'peachpuff'}}>Delete</button>
