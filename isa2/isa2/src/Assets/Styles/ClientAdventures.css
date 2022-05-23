@@ -1,0 +1,42 @@
+.adventures-container{
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    gap: 50px;
+    align-items: center;
+}
+.head-search-container{
+    margin-top: 70px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.header{
+    margin-left: 150px;
+}
+.search-container{
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+.button{
+    background-color: lightblue;
+    height: 50px;
+    width: 100px;
+}
+.table-of-adventures{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.adventures-table{
+    width: 90%;
+}

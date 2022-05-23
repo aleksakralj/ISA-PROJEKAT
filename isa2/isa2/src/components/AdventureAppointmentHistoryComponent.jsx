@@ -30,7 +30,7 @@ class AdventureAppointmentHistoryComponent extends Component {
 
          });
         }
-    else{this.logout(); alert("Unauthorised access")} 
+    else{ alert("Unauthorised access")} 
         
     } 
     render() {

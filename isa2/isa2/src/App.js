@@ -139,6 +139,9 @@ import AdventureProfilePage from './Pages/AdventureProfilePage';
 import CottageProfilePage from './Pages/CottagesProfilePage';
 import ShipProfilePage from './Pages/ShipProfilePage';
 import ClientProfilePage from './Pages/ClientProfilePage';
+import ClientAdventures from './Pages/ClientAdventures';
+import PastAdventures from './Pages/PastAdventures';
+import PastCottages from './Pages/PastCottages';
 
 
 /*
@@ -271,6 +274,7 @@ function App() {
               <Route path= "/clientschedulecottage" component={Clientschedulecottagecomponent}></Route>
 
 
+
               <Route path= "/cottageappointments" component={CottageAppointmentComponent}></Route>
               <Route path= "/cottageaddappointment" component={AddAppointmentComponent}></Route>
               <Route path= "/cottageaddquickappointment" component={AddQuickAppointmentComponent}></Route>
@@ -298,16 +302,16 @@ function App() {
               <Route path="/addadventureappointment" component={AddAdventureAppointmentComponent}></Route>
               <Route path="/addadventurequickappointment" component={AddAdventureQuickAppointmentComponent}></Route>
 
- 
+              <Route path="/clientadventure" component= {ClientAdventures}></Route>
+              <Route path="/clientpastadventures" component={PastAdventures}></Route>
               <Route path="/clientcottages" component={ClientCottagesComponent}></Route> 
-              <Route path="/clientadventures" component={ClientAdventuresComponent}></Route>
               <Route path="/clientships" component={ClientShipsComponent}></Route>
               <Route path="/homepageclient" component={ClientHomePageCommponent}></Route>
               <Route path="/schedule" component={FishingInstructorScheduleComponent}></Route>
               <Route path="/cottageprofile" component={CottageProfilePage}></Route>
               <Route path="/clientshipprofile" component={Clientshipprofilecomponent}></Route>
               <Route path="/adventureprofile" component={AdventureProfilePage}></Route>
-
+              <Route path="/clientpastcottages" component={PastCottages}></Route>
               <Route path="/cottagescheduleforclient" component={CottageScheduleForClientComponent}></Route>
               <Route path="/shipscheduleforclient" component={ShipScheduleForClientComponent}></Route>
               <Route path="/adventurescheduleforclient" component={AdventureScheduleForClientComponent}></Route>

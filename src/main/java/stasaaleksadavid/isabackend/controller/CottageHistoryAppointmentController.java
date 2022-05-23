@@ -33,11 +33,17 @@ public class CottageHistoryAppointmentController {
         return cottageHistoryAppointmentRepository.save(cottageHistoryAppointment);
     }
 
-    //get by id
+/*    //get by id
     @GetMapping("/cottagehistoryappointments/{id}")
     public ResponseEntity<CottageHistoryAppointment> getCottageHistoryAppointmentById(@PathVariable Long id) {
         CottageHistoryAppointment cottageHistoryAppointment = cottageHistoryAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageHistoryAppointment does not exist with id:" + id));
         return ResponseEntity.ok(cottageHistoryAppointment);
+    }
+*/
+    @GetMapping("/cottagehistoryappointments/{clientId}")
+    public List<CottageHistoryAppointment> getCottagesForSpecificUserById(@PathVariable Long clientId){
+
+        return cottageHistoryAppointmentRepository.findByClientId(clientId);
     }
 
     //update
