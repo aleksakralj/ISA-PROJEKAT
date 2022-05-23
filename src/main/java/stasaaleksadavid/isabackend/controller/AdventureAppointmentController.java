@@ -27,6 +27,8 @@ public class AdventureAppointmentController {
     private AdventureFreeAppointmentRepository adventureFreeAppointmentRepository;
     //get all
 
+
+    /*
     @GetMapping("/adventureappointments/{type}")
   public List<AdventureAppointment> getAllAdventureAppointments(@PathVariable String type) {
         if(type.equals("admin")|| type.equals("main_admin")) {
@@ -35,6 +37,7 @@ public class AdventureAppointmentController {
         else{return null;}
 
     }
+*/
 
     //create
     @PostMapping("/adventureappointments/{type}")
@@ -80,13 +83,14 @@ public class AdventureAppointmentController {
         else{return null;}
 
     }
+  /*
     //get by id
     @GetMapping("/adventureappointments/{id}")
     public ResponseEntity<AdventureAppointment> getAdventureAppointmentById(@PathVariable Long id) {
         AdventureAppointment adventureAppointment = adventureAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("AdventureAppointment does not exist with id:" + id));
         return ResponseEntity.ok(adventureAppointment);
     }
-
+*/
     //update
     @PutMapping("/adventureappointments/{id}")
     public ResponseEntity<AdventureAppointment> updateAdventureAppointment(@PathVariable Long id, @RequestBody AdventureAppointment adventureAppointmentDetails) {
@@ -124,7 +128,8 @@ public class AdventureAppointmentController {
     @GetMapping("/adventureappointments/instructor/{type}/{instructorid}")
     public List<AdventureAppointment> getAppointmentByInstructorId(@PathVariable String type,@PathVariable Long instructorid) {
         if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
-        return adventureAppointmentRepository.findByInstructorId(instructorid);
+        //return adventureAppointmentRepository.findByInstructorId(instructorid);
+            return null;
         }
         else{return null;}
     }
@@ -132,8 +137,17 @@ public class AdventureAppointmentController {
     @GetMapping("/adventureappointments/adventure/{type}/{adventureid}")
     public List<AdventureAppointment> getAppointmentByAdventureId(@PathVariable String type,@PathVariable Long adventureid) {
         if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
-        return adventureAppointmentRepository.findByAdventureId(adventureid);
+     //   return adventureAppointmentRepository.findByAdventureId(adventureid);
+            return null;
         }
         else{return null;}
     }
+
+    @GetMapping("/adventureappointments/{clientId}")
+    public List<AdventureAppointment> getAdventureAppointmentsForSpecificUser(@PathVariable Long clientId ){
+
+            return adventureAppointmentRepository.findByClientId(clientId);
+       }
+
+
 }

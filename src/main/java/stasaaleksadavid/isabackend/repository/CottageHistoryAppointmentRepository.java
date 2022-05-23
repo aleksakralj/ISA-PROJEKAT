@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface CottageHistoryAppointmentRepository extends JpaRepository<CottageHistoryAppointment, Long> {
     List<CottageHistoryAppointment> findByCottageId(Long cottageId );
+    List<CottageHistoryAppointment> findByClientId(Long clientId);
 
 }

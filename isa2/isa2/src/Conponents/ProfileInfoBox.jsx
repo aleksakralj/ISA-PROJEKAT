@@ -1,6 +1,5 @@
 import React from 'react';
 import '../Assets/Styles/ClientProfilePage.css'
-import { useEffect, useState } from 'react';
 
 const ProfileInfoBox = ({updateProfile , activeUser, deleteProfile}) => {
     

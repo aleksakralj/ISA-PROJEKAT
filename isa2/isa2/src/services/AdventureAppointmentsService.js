@@ -9,6 +9,10 @@ class AdventureAppointmenrsService {
         return axios.get(ADVENTURE_APPOINTMENTS_API_BASE_URL);
     }
 
+    getAdventureAppointmentsForSpecificUser(clientId ){
+        return axios.get(ADVENTURE_APPOINTMENTS_API_BASE_URL + '/' + clientId);
+    }
+
     createAdventureAppointment(adventureAppointment){
         return axios.post(ADVENTURE_APPOINTMENTS_API_BASE_URL,adventureAppointment);
     }

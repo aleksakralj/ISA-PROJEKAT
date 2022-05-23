@@ -1,0 +1,35 @@
+.past-adventures-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background-color: whitesmoke;
+    align-items: center;
+    gap: 40px;
+}
+.head-search-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+.search-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 35%;
+    justify-content: space-evenly;
+}
+.button{
+    background-color: lightblue;
+}
+.table-of-adventures{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.adventures-table{
+    width: 90%;
+}

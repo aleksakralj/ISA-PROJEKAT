@@ -6,6 +6,8 @@ import {useHistory} from 'react-router-dom'
 const Navbar = () => {
     const [activeUser, setActiveUser] = useState({});
     const history = useHistory();
+    const [appointmentsSelectValue, setAppointmentsSelectValue] = useState('appointmemts');
+    const [historyAppointmentsSelectValue, setHistoryAppointmentsSelectValue] = useState('history-appointments');
 
     useEffect(() => {
         setInterval(() => {
@@ -13,6 +15,32 @@ const Navbar = () => {
             setActiveUser(user);
         }, []);
     }, 5000);
+
+    const onAppointmentSelectChange = () => {
+        if (appointmentsSelectValue === 'adventures') 
+            history.push('/clientadventure');
+        else if (appointmentsSelectValue === 'cottages')
+            history.push('clientcottages');
+        else if (appointmentsSelectValue === 'ships')
+            history.push('clientships');
+    }
+
+    const onHistoryAppointmentsSelectChange = () => {
+        if( historyAppointmentsSelectValue === 'history-adventures') 
+            history.push('/clientpastadventures')
+        else if (historyAppointmentsSelectValue === 'history-ships')
+            history.push('/clientpastships')
+        else if (historyAppointmentsSelectValue === 'history-cottages')
+            history.push('/clientpastcottages')
+    }
+
+    useEffect(() => {
+        onAppointmentSelectChange();
+    }, [appointmentsSelectValue]);
+
+    useEffect(() => {
+        onHistoryAppointmentsSelectChange();
+    }, [historyAppointmentsSelectValue])
 
     const homeIconClick = () => {
         let path = '/homepage';
@@ -24,6 +52,7 @@ const Navbar = () => {
         let path = '/homepage';
         history.push(path);
     }
+
 
     if (activeUser) {
         if (activeUser.type === "Client") {
@@ -38,32 +67,56 @@ const Navbar = () => {
                             FISHING BOOKER
                         </a>
 
-                        <select className="select-appointments">
-                            <option disabled selected hidden className="select-option">
+                        <select 
+                            className="select-appointments"
+                            value={appointmentsSelectValue}
+                            onChange={(e) => 
+                                setAppointmentsSelectValue(e.target.value)
+                            }
+                        >
+                            <option 
+                                className="select-option"
+                                value='appointmemts'
+                                disabled 
+                                selected 
+                                hidden 
+                            >
                                 Appointments
                             </option>
-                            <option className="select-option">
+                            <option 
+                                className="select-option"
+                                value='cottages'
+                            >
                                 Cottage appointments
                             </option>
-                            <option className="select-option">
+                            <option 
+                                className="select-option"
+                                value='ships'
+                            >
                                 Ships appointments
                             </option>
-                            <option className="select-option">
-                                Adventure appointments
+                            <option 
+                                className="select-option"
+                                value='adventures'
+                            >
+                                    Adventure appointments
                             </option>
                         </select>
 
-                        <select className="select-appointments">
-                            <option disabled selected hidden className="select-option">
+                        <select className="select-appointments"
+                            value={historyAppointmentsSelectValue}
+                            onChange={(e) => setHistoryAppointmentsSelectValue(e.target.value)}
+                        >
+                            <option disabled selected hidden className="select-option" value='history-appointments'>
                                 Appointments history
                             </option>
-                            <option className="select-option">
+                            <option className="select-option" value='history-cottages'>
                                 Past cottages
                             </option>
-                            <option className="select-option">
+                            <option className="select-option" value='history-ships'>
                                 Past ships
                             </option>
-                            <option className="select-option">
+                            <option className="select-option" value='history-adventures'>
                                 Past adventures
                             </option>
                         </select>
@@ -84,14 +137,6 @@ const Navbar = () => {
                                 onClick={logout}
                             >
                                 Log out
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                style={{ color: "black", textDecoration: "none" }}
-                                href="/registeruser"
-                            >
-                                Register account
                             </a>
                         </li>
                     </ul>
