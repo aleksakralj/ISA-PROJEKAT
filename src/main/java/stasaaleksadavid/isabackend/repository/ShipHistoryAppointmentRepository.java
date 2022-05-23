@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface ShipHistoryAppointmentRepository extends JpaRepository<ShipHistoryAppointment, Long> {
     List<ShipHistoryAppointment> findByShipId(Long shipId );
+    List<ShipHistoryAppointment> findByClientId(Long clientId);
 
 }

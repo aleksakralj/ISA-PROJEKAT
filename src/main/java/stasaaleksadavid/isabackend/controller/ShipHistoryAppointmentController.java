@@ -33,13 +33,24 @@ public class ShipHistoryAppointmentController {
     }
 
     //get by id
+    /*
     @GetMapping("/shiphistoryappointments/{id}")
     public ResponseEntity<ShipHistoryAppointment> getShipHistoryAppointmentById(@PathVariable Long id) {
         ShipHistoryAppointment shipHistoryAppointment = shipHistoryAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ShipHistoryAppointment does not exist with id:" + id));
         return ResponseEntity.ok(shipHistoryAppointment);
     }
+*/
+    @GetMapping("/shiphistoryappointments/{clientId}")
+    public List<ShipHistoryAppointment> getShipsHistoryAppointmentsForSpecificUser(@PathVariable Long clientId){
+        return shipHistoryAppointmentRepository.findByClientId(clientId);
+    }
+
+
 
     //update
+
+
+
     @PutMapping("/shiphistoryappointments/{id}")
     public ResponseEntity<ShipHistoryAppointment> updateShipHistoryAppointment(@PathVariable Long id, @RequestBody ShipHistoryAppointment shipHistoryAppointmentDetails) {
         ShipHistoryAppointment shipHistoryAppointment = shipHistoryAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ShipHistoryAppointment does not exist with id:" + id));

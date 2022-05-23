@@ -9,13 +9,8 @@ const PastCottages = () => {
     const loadCottages = async() => {
 
         let loggedUser = JSON.parse(localStorage.getItem('activeUser'));
-
         let allCottages = await CottagesHistoryAppointmentsAPI.getCottageHistoryAppointmentByUserId(loggedUser.id)
-       
-
         setCottages(allCottages.data);
-
-        console.log(cottages);
     }
 
     useEffect(() =>{
