@@ -142,6 +142,7 @@ import ClientProfilePage from './Pages/ClientProfilePage';
 import ClientAdventures from './Pages/ClientAdventures';
 import PastAdventures from './Pages/PastAdventures';
 import PastCottages from './Pages/PastCottages';
+import PastShips from './Pages/PastShips';
 
 
 /*
@@ -301,7 +302,7 @@ function App() {
               <Route path="/admingraderequests" component={AdminGradeRequestsComponent}></Route>
               <Route path="/addadventureappointment" component={AddAdventureAppointmentComponent}></Route>
               <Route path="/addadventurequickappointment" component={AddAdventureQuickAppointmentComponent}></Route>
-
+              <Route path="/clientpastships" component={PastShips}></Route>
               <Route path="/clientadventure" component= {ClientAdventures}></Route>
               <Route path="/clientpastadventures" component={PastAdventures}></Route>
               <Route path="/clientcottages" component={ClientCottagesComponent}></Route> 

@@ -18,6 +18,9 @@ public class ShipHistoryAppointment {
     @Column(name = "Client_ID")
     private long clientId;
 
+    @Column(name = "Owner_ID")
+    private long ownerId;
+
     @Column(name = "Starting_Date")
     private LocalDate startingDate;
 
@@ -36,7 +39,7 @@ public class ShipHistoryAppointment {
     public ShipHistoryAppointment() {
     }
 
-    public ShipHistoryAppointment(long shipId, long clientId, LocalDate startingDate, LocalDate endingDate, int numberOfPeople, String additionalServices, double price) {
+    public ShipHistoryAppointment(long shipId, long clientId, LocalDate startingDate, LocalDate endingDate, int numberOfPeople, String additionalServices, double price, long ownerId) {
         super();
         this.shipId = shipId;
         this.clientId = clientId;
@@ -45,6 +48,7 @@ public class ShipHistoryAppointment {
         this.numberOfPeople = numberOfPeople;
         this.additionalServices = additionalServices;
         this.price = price;
+        this.ownerId = ownerId;
     }
 
     public long getShipId() {
@@ -77,6 +81,14 @@ public class ShipHistoryAppointment {
 
     public void setStartingDate(LocalDate startingDate) {
         this.startingDate = startingDate;
+    }
+
+    public long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(long ownerId) {
+        this.ownerId = ownerId;
     }
 
     public LocalDate getEndingDate() {
