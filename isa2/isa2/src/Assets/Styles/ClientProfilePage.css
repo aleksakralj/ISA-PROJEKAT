@@ -14,8 +14,16 @@
     height: 100vh;
     background-color: whitesmoke;
 }
-.user-credentials{
-    margin-top: 25px;
+.user-name-and-points-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+.user-credentials{    
+    width: 250px;
 }
 .user-info{
     display: flex;
@@ -24,6 +32,7 @@
     height: 80vh;
     align-items: center;
     justify-content: space-evenly;
+    margin-top: 40px;
 }
 .user-generated-info{
     display: flex;
@@ -76,7 +85,8 @@
     width: 50%;
     align-items: center;
     justify-content: space-evenly;    
-    margin-bottom: 210px;
+    margin-bottom: 190px;
+
 }
 .manipulation-button{
     background-color: lightblue;    
@@ -135,3 +145,45 @@
     width: 100px;
     height: 50px;
 }
+.loyalty-container{
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.loyalty-labels{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.loyalty-inputs{    
+    display: flex;
+    flex-direction: column;
+    width: 70px;
+    background-color: transparent;
+}
+.user-rank-container{
+    width: 250px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    margin-left: 15px;
+}
+.rank-complex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.triangle{
+    width: 0px;
+    height: 0px;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 50px solid #555;
+}
+
+
+
