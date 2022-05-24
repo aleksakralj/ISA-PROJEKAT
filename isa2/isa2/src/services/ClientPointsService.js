@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const CLIENTPOINTS_API_BASE_URL = "http://localhost:8080/api/v1/clientPoints";
+const CLIENT_PENALTIES_API_BASE_URL = "http://localhost:8080/api/v1/clientPenalties";
 
 class ClientPointsService {
     
@@ -19,6 +20,23 @@ class ClientPointsService {
     deleteClientPoints(clientPointsId){
         return axios.delete(CLIENTPOINTS_API_BASE_URL, + "/" + clientPointsId);
     }
+
+    getClientPenalties() {
+        return axios.get(CLIENT_PENALTIES_API_BASE_URL);
+    }
+
+    createClientPenalties(clientPenalties){
+            return axios.post(CLIENT_PENALTIES_API_BASE_URL,clientPenalties);
+    }
+
+    getClientPenaltiesByUserId(clientPenaltiesId){
+        return axios.get(CLIENT_PENALTIES_API_BASE_URL + "/" + clientPenaltiesId);
+    }
+
+    deleteClientPenalties(clientPenaltiesId){
+        return axios.delete(CLIENT_PENALTIES_API_BASE_URL, + "/" + clientPenaltiesId);
+    }
+
 
 }
 export default new ClientPointsService();

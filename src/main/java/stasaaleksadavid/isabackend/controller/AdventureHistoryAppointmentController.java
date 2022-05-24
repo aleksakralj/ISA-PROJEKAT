@@ -4,13 +4,18 @@ package stasaaleksadavid.isabackend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import stasaaleksadavid.isabackend.DTO.AdventureAppointmentsDTO;
+import stasaaleksadavid.isabackend.DTO.Mapper;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.AdventureHistoryAppointment;
 import stasaaleksadavid.isabackend.repository.AdventureHistoryAppointmentRepository;
+import stasaaleksadavid.isabackend.repository.AdventureRepository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.stream.Collectors.toList;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -20,6 +25,10 @@ public class AdventureHistoryAppointmentController {
     @Autowired
     private AdventureHistoryAppointmentRepository adventureHistoryAppointmentRepository;
 
+    @Autowired
+    private AdventureRepository adventureRepository;
+
+    private Mapper mapper;
     //get all
 
     @GetMapping("/adventurehistoryappointments/type/{type}")
@@ -52,6 +61,7 @@ public class AdventureHistoryAppointmentController {
     public List<AdventureHistoryAppointment> getAdventureHistoryAppointmentByUserId(@PathVariable Long clientId) {
 
         return adventureHistoryAppointmentRepository.findByClientId(clientId);
+
     }
 
 

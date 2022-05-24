@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "react-pro-sidebar": "^0.7.1",
-    "react-select": "^5.3.2"
+    "react-select": "^5.3.2",
+    "react-triangle": "^0.3.0"
   }
 }

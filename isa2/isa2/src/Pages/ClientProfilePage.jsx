@@ -9,11 +9,15 @@ const ClientProfilePage = () => {
     
     const [wantToUpdate, setWantToUpdate] = useState(false);
     const [activeUser, setActiveUser] = useState({});
+    const [userPoints, setUserPoints] = useState({});
     const history = useHistory();
 
     const getUserData = () => {
+        
         let user = JSON.parse(localStorage.getItem('activeUser'));
+        
         setActiveUser(user);
+    
     }
 
     const updateProfile = () => {
@@ -44,7 +48,7 @@ const ClientProfilePage = () => {
         <div className='container-box'>
             {
                 !wantToUpdate ? 
-                    <ProfileInfoBox updateProfile={updateProfile} activeUser={activeUser} deleteProfile={deleteProfile} /> 
+                    <ProfileInfoBox updateProfile={updateProfile} activeUser={activeUser} deleteProfile={deleteProfile} userPoints={userPoints} /> 
                     : <UpdateUserForm confirmUpdate={confirmUpdate} activeUser={activeUser} cancelUpdate={cancelUpdate}/>
             }
         </div>

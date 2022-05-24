@@ -3,6 +3,7 @@ import {useHistory} from 'react-router-dom'
 import logInPicture from '../picture.jpg'
 import '../Assets/Styles/LogInPage.css'
 import axios from 'axios';
+import ClientPointsService from '../services/ClientPointsService';
 
 const LogInPage = () => {
     const [emailInput, setEmailInput] = useState('');
@@ -15,7 +16,24 @@ const LogInPage = () => {
             ("http://localhost:8080/api/v1/users/"+ emailInput + "/" + passwordInput) 
     
         localStorage.setItem('activeUser', JSON.stringify(activeUser.data));
+
+        getUsersPoints(activeUser.data.id)
+
+
+
         history.push('/homepage');
+    }
+
+    const getUsersPoints = async(userId) => {
+
+        let [userPoints, userPenalties] = await Promise.all([
+            ClientPointsService.getClientPointsById(userId),
+            ClientPointsService.getClientPenaltiesByUserId(userId)
+        ]);
+        
+        localStorage.setItem('usersPoints', JSON.stringify(userPoints.data));        
+        localStorage.setItem('usersPenalties', JSON.stringify(userPenalties.data));    
+
     }
 
     return (

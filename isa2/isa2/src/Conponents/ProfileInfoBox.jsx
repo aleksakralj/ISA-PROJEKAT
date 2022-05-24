@@ -1,11 +1,18 @@
 import React from 'react';
 import '../Assets/Styles/ClientProfilePage.css'
+import UserRank from './UserRank';
+import LoyaltyComponent from './LoyaltyComponent';
 
 const ProfileInfoBox = ({updateProfile , activeUser, deleteProfile}) => {
     
     return (
         <div className='profile-container'>
-            <h1 className='user-credentials'>{activeUser.firstName} {activeUser.lastName}</h1>
+
+            <div className='user-name-and-points-container'>
+                <UserRank />
+                <h1 className='user-credentials'>{activeUser.firstName} {activeUser.lastName}</h1>
+                <LoyaltyComponent/>
+            </div>
 
             <div className='user-info'>
                 <div className='user-generated-info'>
