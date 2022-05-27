@@ -1,6 +1,10 @@
 import axios from "axios";
 
 const COMPLAINTS_API_BASE_URL = "http://localhost:8080/api/v1/complaints";
+const ADVENTURE_COMPLAINTS_API_BASE_URL = '';
+const SHIP_COMPLAINTS_API_BASE_URL = '';
+const COTTAGE_COMPLAINTS_API_BASE_URL = '';
+
 
 class ComplaintsService {
     
@@ -19,6 +23,14 @@ class ComplaintsService {
     deleteComplaint(complaintId,type){
         return axios.delete(COMPLAINTS_API_BASE_URL + '/' + type + '/' + complaintId);
     }
+
+
+    createEntityComplaint(complaint) {
+
+    }
+
+    
+
 
 }
 export default new ComplaintsService();

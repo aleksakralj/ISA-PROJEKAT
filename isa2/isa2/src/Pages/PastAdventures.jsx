@@ -2,22 +2,28 @@ import React from 'react';
 import '../Assets/Styles/PastAdventures.css'
 import { useState, useEffect } from 'react';
 import AdventuresHistoryServiceAPI from '../services/AdventuresHistoryServiceAPI';
-
+import {useHistory} from 'react-router-dom'
 
 const PastAdventures = () => {
 
     const [adventures, setAdventures] = useState([]);
+    const history = useHistory();
+    const [adventureChoosenForFeedback, setAdventureChoosenForFeedback] = useState({});
 
     const loadAdventures = async() => {
 
         let loggedUser = JSON.parse(localStorage.getItem('activeUser'));
-
         let allAdventures = await AdventuresHistoryServiceAPI.getAdventureHistoryAppointmentByUserId(loggedUser.id)
        
-
         setAdventures(allAdventures.data);
+    }
 
-        console.log(adventures);
+    const openFeedbackPage = (adventure) => {
+        
+        setAdventureChoosenForFeedback(adventure)
+        localStorage.setItem('activeEntity', JSON.stringify(adventure))
+        history.push('/adventure-write-feedback/' + adventure.id);
+   
     }
 
     useEffect(() =>{
@@ -44,8 +50,7 @@ const PastAdventures = () => {
                             <th>Address</th>
                             <th>Fishing instructor</th>
                             <th>Price</th>
-
-                            <th>Action</th>
+                            <th>Feedback</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,7 +65,7 @@ const PastAdventures = () => {
                             <td>{null}</td>
                             <td>{null}</td>
                             <td>{adventure.price}</td>                            
-                            <td><button> AA</button></td>
+                            <td><button onClick={() => openFeedbackPage(adventure)}> Send your feedback</button></td>
                         </tr>
 
                         )}
