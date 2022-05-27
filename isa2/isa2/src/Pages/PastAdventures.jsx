@@ -22,6 +22,7 @@ const PastAdventures = () => {
         
         setAdventureChoosenForFeedback(adventure)
         localStorage.setItem('activeEntity', JSON.stringify(adventure))
+        localStorage.setItem('isAdventure', true);
         history.push('/adventure-write-feedback/' + adventure.id);
    
     }

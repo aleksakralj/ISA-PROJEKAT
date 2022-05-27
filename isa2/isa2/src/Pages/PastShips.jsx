@@ -2,10 +2,14 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import '../Assets/Styles/PastShipsAppointment.css'
 import PastShipsAppointmentAPI from '../services/PastShipsAppointmentAPI';
+import {useHistory} from 'react-router-dom';
 
 const PastShips = () => {
 
     const [ships, setShips] = useState([]);
+    const [shipChoosenForFeedback, setShipChoosenForFeedback] = useState({});
+    const history = useHistory();
+    
 
     const loadShips = async() => {
 
@@ -13,6 +17,15 @@ const PastShips = () => {
         let thisUserShipsAppointmentsHistory = await PastShipsAppointmentAPI.getShipHistoryAppointmentByUserId(loggedUser.id);
         setShips(thisUserShipsAppointmentsHistory.data);
     }
+
+    const openFeedbackPage = (ship) => {
+        
+        setShipChoosenForFeedback(ship)
+        localStorage.setItem('activeEntity', JSON.stringify(ship))
+        localStorage.setItem('isShip', true);
+        history.push('/ship-write-feedback/' + ship.id);
+    }
+
 
     useEffect(() => {
         loadShips();
@@ -55,7 +68,7 @@ const PastShips = () => {
                         <td></td>
                         <td></td>
                         <td>{ship.price}</td>                            
-                        <td><button> AA</button></td>
+                        <td><button onClick={() => openFeedbackPage(ship)}> Send your feedback</button></td>
                     </tr>
                     )}  
                 </tbody>

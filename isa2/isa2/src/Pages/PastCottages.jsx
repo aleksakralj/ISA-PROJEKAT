@@ -1,16 +1,29 @@
 import React from 'react';
 import CottagesHistoryAppointmentsAPI from '../services/CottagesHistoryAppointmentsAPI';
 import { useState, useEffect } from 'react';
-import '../Assets/Styles/PastCottages.css'
+import '../Assets/Styles/PastCottages.css';
+import {useHistory} from 'react-router-dom'
 
 const PastCottages = () => {
     const [cottages, setCottages] = useState([]);
+    const [cottageChoosenForFeedback, setCottageChoosenForFeedback] = useState({});
+    const history = useHistory();
+   
 
     const loadCottages = async() => {
 
         let loggedUser = JSON.parse(localStorage.getItem('activeUser'));
         let allCottages = await CottagesHistoryAppointmentsAPI.getCottageHistoryAppointmentByUserId(loggedUser.id)
         setCottages(allCottages.data);
+    }
+
+    const openFeedbackPage = (cottage) => {
+        
+        setCottageChoosenForFeedback(cottage)
+        localStorage.setItem('activeEntity', JSON.stringify(cottage))
+        localStorage.setItem('isCottage', true);
+        history.push('/cottage-write-feedback/' + cottage.id);
+   
     }
 
     useEffect(() =>{
@@ -53,7 +66,7 @@ const PastCottages = () => {
                             <td>{null}</td>
                             <td>{null}</td>
                             <td>{cottage.price}</td>                            
-                            <td><button> AA</button></td>
+                            <td><button onClick={() => openFeedbackPage(cottage)}> Send your feedback</button></td>
                         </tr>
 
                         )}

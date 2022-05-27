@@ -3,13 +3,16 @@ import '../Assets/Styles/AdventureWriteFeedbackPage.css';
 import ComplaintsService from '../services/ComplaintsService';
 import { useEffect , useState} from 'react';
 
-const Feedback = ({activeEntityId}) => {
+const Feedback = ({activeEntityId, whichEntity}) => {
     
     const [activeUser, setActiveUser] = useState({});
     const [message, setMessage] = useState('');
 
     const load = () => {
+        
         setActiveUser(JSON.parse(localStorage.getItem('activeUser')));
+
+        console.log(whichEntity)
     }
 
     useEffect(() => {
@@ -18,13 +21,23 @@ const Feedback = ({activeEntityId}) => {
 
     const sendFeedback = () => {
 
-        let complenit = {
-            clientId: activeUser.id, 
-            adventureId: activeEntityId, 
-            messaage: message
+        if(whichEntity === 'adventure') {
+            
+            let complaint = {clientId : activeUser.id, adventureId: activeEntityId, message: message}
+
+            ComplaintsService.createAdventureComplaint(complaint);
+        }
+        else if(whichEntity === 'ship') {
+            let complaint = {clientId: activeUser.id, shipId: activeEntityId, message: message}
+            
+            ComplaintsService.createShipComplaint(complaint)
+        }
+        else if(whichEntity === 'cottage') {
+            let complaint = {clientId: activeUser.id, cottageId: activeEntityId, message: message}
+            
+            ComplaintsService.createCottageComplaint(complaint);
         }
 
-        ComplaintsService.createEntityComplaint(complenit);
     }
     
     return (
