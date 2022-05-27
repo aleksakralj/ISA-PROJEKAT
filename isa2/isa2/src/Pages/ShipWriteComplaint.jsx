@@ -2,10 +2,8 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import Feedback from '../Conponents/Feedback';
 import BasicEntityInfo from '../Conponents/BasicEntityInfo';
-import '../Assets/Styles/AdventureWriteFeedbackPage.css';
 
-const AdventureWriteFeedbackPage = () => {
-
+const ShipWriteComplaint = () => {
     const [activeEntity, setActiveEntity] = useState({});
     const [whichEntity, setWhichEntity] = useState('');
 
@@ -18,13 +16,11 @@ const AdventureWriteFeedbackPage = () => {
         else if(!(localStorage.getItem('isCottage')=== null)){
             setWhichEntity('cottage');
         }
-        else if(!(localStorage.getItem('ship')===null)){
+        else if(!(localStorage.getItem('isShip')===null)){
             setWhichEntity('ship');
         }
 
-        
     }
-
 
     useEffect(() => {
 
@@ -34,13 +30,14 @@ const AdventureWriteFeedbackPage = () => {
 
 
     return (
-
+            
         <div className='adventure-feedback-page-container'>
             <h1 style={{marginTop: '30px'}}>Write your feedback</h1>
             <BasicEntityInfo activeEntity={activeEntity}/>
             <Feedback activeEntityId={activeEntity.id} whichEntity={whichEntity}/>
         </div>
     );
+
 }
 
-export default AdventureWriteFeedbackPage;
+export default ShipWriteComplaint;

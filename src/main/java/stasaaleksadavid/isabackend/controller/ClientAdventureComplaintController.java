@@ -16,7 +16,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1")
 public class ClientAdventureComplaintController {
-
+    
     @Autowired
     private ClientAdventureComplaintRepository clientAdventureComplaintRepository;
 

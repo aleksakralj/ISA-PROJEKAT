@@ -144,6 +144,8 @@ import PastAdventures from './Pages/PastAdventures';
 import PastCottages from './Pages/PastCottages';
 import PastShips from './Pages/PastShips';
 import AdventureWriteFeedbackPage from './Pages/AdventureWriteFeedbackPage';
+import CottageWriteComplaint from './Pages/CottageWriteComplaint';
+import ShipWriteComplaint from './Pages/ShipWriteComplaint';
 
 
 /*
@@ -344,7 +346,8 @@ function App() {
               <Route path="/uploadimageadventure" component={UploadImageAdventureComponent}></Route>
               <Route path="/displaypictureadventure" component={DisplayPictureAdventureComponent}></Route>
               <Route path="/adventure-write-feedback" component={AdventureWriteFeedbackPage}></Route>
-
+              <Route path="/cottage-write-feedback" component={CottageWriteComplaint}></Route>
+              <Route path="/ship-write-feedback" component={ShipWriteComplaint}></Route>
 
               <Route path="/loginproba" component={LoginComponent}></Route>
               </Switch>
