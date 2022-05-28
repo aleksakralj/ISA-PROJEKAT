@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
+import stasaaleksadavid.isabackend.model.AdventureSubscription;
 import stasaaleksadavid.isabackend.model.ShipSubscription;
 import stasaaleksadavid.isabackend.repository.ShipSubscriptionRepository;
 
@@ -44,7 +45,7 @@ public class ShipSubscriptionController {
         ShipSubscription shipSubscription = shipSubscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ShipSubscription does not exist with id:"+ id));
 
         shipSubscription.setShipId(shipSubscriptionDetails.getShipId());
-        shipSubscription.setEmail(shipSubscriptionDetails.getEmail());
+        shipSubscription.setUserId(shipSubscriptionDetails.getUserId());
 
 
         ShipSubscription updatedShipSubscription = shipSubscriptionRepository.save(shipSubscription);
@@ -59,6 +60,16 @@ public class ShipSubscriptionController {
         ShipSubscription shipSubscription = shipSubscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ShipSubscription does not exist with id:"+ id));
 
         shipSubscriptionRepository.delete(shipSubscription);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return (Map<String, Boolean>) ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/shipsubscriptions/{userId}/{shipId}")
+    public Map<String, Boolean> deleteShipSubscriptionByUserIdAndShipId(@PathVariable Long userId, @PathVariable Long shipId){
+
+        ShipSubscription subscription = shipSubscriptionRepository.findByUserIdAndShipId(userId, shipId);
+        shipSubscriptionRepository.delete(subscription);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);

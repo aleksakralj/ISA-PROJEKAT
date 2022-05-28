@@ -3,52 +3,49 @@ package stasaaleksadavid.isabackend.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Ship_Subscription")
+@Table(name = "Ship_Subscription", uniqueConstraints = {@UniqueConstraint(name = "UniqueUserAndShip", columnNames = {"User_Id", "ShipId"})})
 public class ShipSubscription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "ShipId")
-    private long shipId;
-
-    @Column(name = "Email")
-    private String email;
+    private Long shipId;
 
     @Column(name = "User_Id")
     private Long userId;
 
-    public ShipSubscription(long shipId,String email, Long userId) {
+    public ShipSubscription(Long shipId,Long userId) {
         super();
         this.shipId = shipId;
-        this.email = email;
+        this.userId = userId;
     }
 
     public ShipSubscription() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getShipId() {
+    public Long getShipId() {
         return shipId;
     }
 
-    public void setShipId(long shipId) {
+    public void setShipId(Long shipId) {
         this.shipId = shipId;
     }
 
-    public String getEmail() {
-        return email;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

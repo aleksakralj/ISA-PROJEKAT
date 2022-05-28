@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
+import stasaaleksadavid.isabackend.model.AdventureSubscription;
 import stasaaleksadavid.isabackend.model.CottageSubscription;
 
 import stasaaleksadavid.isabackend.repository.CottageSubscriptionRepository;
@@ -45,7 +46,7 @@ public class CottageSubscriptionController {
         CottageSubscription cottageSubscription = cottageSubscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageSubscription does not exist with id:"+ id));
 
         cottageSubscription.setCottageId(cottageSubscriptionDetails.getCottageId());
-        cottageSubscription.setEmail(cottageSubscriptionDetails.getEmail());
+        cottageSubscription.setUserId(cottageSubscriptionDetails.getUserId());
         
 
         CottageSubscription updatedCottageSubscription = cottageSubscriptionRepository.save(cottageSubscription);
@@ -65,7 +66,18 @@ public class CottageSubscriptionController {
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
 
-// get by Email and Password
+    @DeleteMapping("/cottagesubscriptions/{userId}/{cottageId}")
+    public Map<String, Boolean> deleteCottageSubscriptionByUserIdAndCottageId(@PathVariable Long userId, @PathVariable Long cottageId){
+
+        CottageSubscription cottageSubscription = cottageSubscriptionRepository.findByUserIdAndCottageId(userId, cottageId);
+        cottageSubscriptionRepository.delete(cottageSubscription);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return (Map<String, Boolean>) ResponseEntity.ok(response);
+    }
+
+
+    // get by Email and Password
     @GetMapping("/cottagesubscriptions/cottageid/{type}/{cottageid}")
     public List<CottageSubscription> getCottageSubsByCottageId(@PathVariable String type,@PathVariable Long cottageid) {
         if (type.equals("admin") || type.equals("cottage_owner") || type.equals("main_admin")) {
