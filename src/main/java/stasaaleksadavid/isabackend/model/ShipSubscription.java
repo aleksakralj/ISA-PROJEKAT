@@ -16,7 +16,10 @@ public class ShipSubscription {
     @Column(name = "Email")
     private String email;
 
-    public ShipSubscription(long shipId,String email) {
+    @Column(name = "User_Id")
+    private Long userId;
+
+    public ShipSubscription(long shipId,String email, Long userId) {
         super();
         this.shipId = shipId;
         this.email = email;

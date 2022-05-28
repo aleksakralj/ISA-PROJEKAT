@@ -3,49 +3,50 @@ package stasaaleksadavid.isabackend.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Adventure_Subscription")
+@Table(name = "Adventure_Subscription", uniqueConstraints = {@UniqueConstraint(name ="UniqueUserAndAdventure", columnNames = {"User_Id", "AdventureId"})})
 public class AdventureSubscription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "AdventureId")
-    private long adventureId;
+    private Long adventureId;
 
-    @Column(name = "Email")
-    private String email;
+    @Column(name = "User_Id")
+    private Long userId;
 
-    public AdventureSubscription(long adventureId, String email) {
+
+    public AdventureSubscription(Long adventureId, Long userId) {
         super();
         this.adventureId = adventureId;
-        this.email = email;
+        this.userId = userId;
     }
 
     public AdventureSubscription() {
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getAdventureId() {
+    public Long getAdventureId() {
         return adventureId;
     }
 
-    public void setAdventureId(long adventureId) {
+    public void setAdventureId(Long adventureId) {
         this.adventureId = adventureId;
     }
 
-    public String getEmail() {
-        return email;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public Long getId() {
+        return id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
