@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import AdventureRatingCalculatorAPI from '../services/AdventureRatingCalculatorAPI';
+import CottageRatingCalculatorAPI from '../services/CottageRatingCalculatorAPI';
 import EntityRatingAPI from '../services/EntityRatingAPI';
 
 
@@ -21,6 +22,15 @@ const RateEntity = ({activeEntityId, whichEntity}) => {
             console.log('Rating completed');
         }
 
+        else if( whichEntity === 'cottage') {
+            let userRatesEntity = {cottageId: activeEntityId, userId: activeUser.id, rating: grade}
+  
+            EntityRatingAPI.createCottageRatings(userRatesEntity);
+            CottageRatingCalculatorAPI.updateCottageRating(userRatesEntity);
+        }
+
+
+        
     }
 
     const getActiveUser = () => {
