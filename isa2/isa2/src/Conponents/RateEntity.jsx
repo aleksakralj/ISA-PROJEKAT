@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import AdventureRatingCalculatorAPI from '../services/AdventureRatingCalculatorAPI';
 import CottageRatingCalculatorAPI from '../services/CottageRatingCalculatorAPI';
 import EntityRatingAPI from '../services/EntityRatingAPI';
+import ShipsRatingCalculatorAPI from '../services/ShipsRatingCalculatorAPI';
 
 
 const RateEntity = ({activeEntityId, whichEntity}) => {
@@ -28,9 +29,19 @@ const RateEntity = ({activeEntityId, whichEntity}) => {
             EntityRatingAPI.createCottageRatings(userRatesEntity);
             CottageRatingCalculatorAPI.updateCottageRating(userRatesEntity);
         }
-
-
         
+        else if (whichEntity === 'ship') {
+            let userRatesEntity = {shipId: activeEntityId, userId: activeUser.id, rating: grade}
+  
+            console.log('aaaa')
+
+            EntityRatingAPI.createShipRatings(userRatesEntity);
+            ShipsRatingCalculatorAPI.updateShipRating(userRatesEntity);
+            
+        }
+
+
+
     }
 
     const getActiveUser = () => {
