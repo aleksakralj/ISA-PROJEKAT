@@ -12,7 +12,6 @@ const Feedback = ({activeEntityId, whichEntity}) => {
         
         setActiveUser(JSON.parse(localStorage.getItem('activeUser')));
 
-        console.log(whichEntity)
     }
 
     useEffect(() => {

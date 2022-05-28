@@ -20,12 +20,13 @@ const AdventureProfilePage = () => {
                 <div className='adventure-properties'>
                     <div className='basic-adventure-info'>
                         <h2>{adventure.name}</h2>
-                        <p>{adventure.address}</p>
+                        <p>Address: {adventure.address}</p>
+                        <p>Rating: </p>
                         <div className='instructor-data'>
                             <h5>Aca faca</h5>
                             <button>Look profile</button>
                         </div>
-                        <p>{adventure.maxPeople}</p>
+                        <p>Max people: {adventure.maxPeople}</p>
                     </div>
                 <img className='adventure-image' src='https://slatefallsoutposts.com/wp-content/uploads/2019/11/slid1450.jpg'></img>
                 </div>

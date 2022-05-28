@@ -1,48 +1,90 @@
 .adventure-feedback-page-container{
-    display: flex;
-    flex-direction: column;
     width: 100%;
     height: 100vh;
-    align-items: center;
-    gap: 50px;
     background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+.type-of-feedback-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
 }
 .entity-info-container{
     display: flex;
     flex-direction: column;
-    width: 100%;
     align-items: center;
-    height: 80px;
-    justify-content: space-between;
+    width: 100%;
 }
 .entity-navigator{
 
 }
 .entity-info{
-    width: 100%;
     display: flex;
+    width: 100%;
+    align-items: center;
     flex-direction: row;
     justify-content: space-evenly;
 }
 .info-box{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    width: 25%;
+    width: 250px;
+    align-items: center;
+    justify-content: space-evenly;
 }
 .feedback-container{
+    width: 50%;
     display: flex;
     flex-direction: column;
-    width: 100%;
     align-items: center;
-    height: 300px;
+    height: 400px;
     justify-content: space-evenly;
 }
 .feedback{
     width: 90%;
+    height: 30%;
 }
 .feedback-text{
     width: 100%;
-    height: 250px;
+    height: 100%;
 }
-.feedback-send-button{}
+.feedback-send-button{
+    width: 100px;
+    height: 50px;
+    background-color: lightblue;
+
+}
+.grade-container{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.grade-data{
+    width: 40%;
+    height: 30%;
+    align-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    align-self: center;
+}
+.rating-label{
+
+}
+.rating-input{
+
+}
+.submit-grade{
+    width: 100px;
+    height: 50px;
+    background-color: lightblue;
+}

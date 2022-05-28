@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Feedback from '../Conponents/Feedback';
 import BasicEntityInfo from '../Conponents/BasicEntityInfo';
 import '../Assets/Styles/AdventureWriteFeedbackPage.css';
+import RateEntity from '../Conponents/RateEntity';
 
 const AdventureWriteFeedbackPage = () => {
 
@@ -20,9 +21,7 @@ const AdventureWriteFeedbackPage = () => {
         }
         else if(!(localStorage.getItem('ship')===null)){
             setWhichEntity('ship');
-        }
-
-        
+        }        
     }
 
 
@@ -38,7 +37,10 @@ const AdventureWriteFeedbackPage = () => {
         <div className='adventure-feedback-page-container'>
             <h1 style={{marginTop: '30px'}}>Write your feedback</h1>
             <BasicEntityInfo activeEntity={activeEntity}/>
-            <Feedback activeEntityId={activeEntity.id} whichEntity={whichEntity}/>
+            <div className='type-of-feedback-container'>
+                <Feedback activeEntityId={activeEntity.id} whichEntity={whichEntity}/>       
+                <RateEntity activeEntityId={activeEntity.id} whichEntity={whichEntity}/>
+            </div>
         </div>
     );
 }

@@ -42,6 +42,7 @@ public class Adventure {
     @Column(name = "Prices")
     private String prices;
 
+
     public  Adventure() {}
 
     public Adventure(String name, String address, String description, int maxPeople, String rulesOfConduct, String termsOfReservation, long instructorId, String fishingEquipment, String additionalServices, String prices) {
@@ -113,7 +114,6 @@ public class Adventure {
     public void setRulesOfConduct(String rulesOfConduct) {
         this.rulesOfConduct = rulesOfConduct;
     }
-
 
     public String getTermsOfReservation() {
         return termsOfReservation;
