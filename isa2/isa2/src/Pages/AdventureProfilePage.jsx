@@ -1,19 +1,75 @@
 import React, {useState, useEffect} from 'react';
 import '../Assets/Styles/AdventureProfilePage.css'
+import EntitySubscriptionsAPI from '../services/EntitySubscriptionsAPI';
 
 const AdventureProfilePage = () => {
 
     const [adventure, setAdventure] = useState({});
-
+    const [activeUser, setActiveUser] = useState({});
+    const [subscribed, setSubscribed] = useState(null);
+    const [buttonCaption, setButtonCaption] = useState('Subscribe');
+    
     const getAdventureInfo = () => {
-        setAdventure( JSON.parse(localStorage.getItem('activeAdventure')));
-        console.log(adventure);
-        console.log(adventure);
+        
+        let adv = JSON.parse(localStorage.getItem('activeAdventure'))
+        setAdventure(adv);
     }
 
+    const getUserInfo = () => {
+
+        let usr = JSON.parse(localStorage.getItem('activeUser'))
+        setActiveUser(usr);
+    }
+
+    const subscribeToAdventure = () => {
+    
+        if(subscribed === false) {
+            let subscription = {userId: activeUser.id, adventureId: adventure.id}
+            EntitySubscriptionsAPI.createAdventureSubscription(subscription)
+            setSubscribed(true);
+        }
+
+        else if (subscribed === true) {
+            EntitySubscriptionsAPI.deleteAdventureSubscriptionByUserIdAndAdventureId(activeUser.id, adventure.id)
+            setSubscribed(false);
+        }
+    }
+
+    const checkIfSubbed = async() => {
+        
+        let response = await EntitySubscriptionsAPI.getAdventureSubscriptionByIds(activeUser.id, adventure.id);
+        let nesto = response.data;
+        
+        if(!Object.keys(nesto).length){
+            setSubscribed(false);
+        }
+        else{
+            setSubscribed(true)
+        }
+    }
+
+
+    const buttonCaptionChange = () => {
+        
+        if(subscribed === true) {
+            setButtonCaption('Unsubscribe')
+        }
+        else{
+            setButtonCaption('Subscribe')
+        }
+    }
+
+    
     useEffect(() => {
         getAdventureInfo();
+        getUserInfo();
+        checkIfSubbed();
     },[]);
+
+    useEffect(() => {
+        buttonCaptionChange();
+    }, [subscribed])
+
     return (
         <div className='adventure-profile-container'>
             <div className='adventure-caption-content'>               
@@ -24,7 +80,9 @@ const AdventureProfilePage = () => {
                         <p>Rating: </p>
                         <div className='instructor-data'>
                             <h5>Aca faca</h5>
-                            <button>Look profile</button>
+                            <button 
+                                onClick={() => subscribeToAdventure()}
+                            >{buttonCaption}</button>
                         </div>
                         <p>Max people: {adventure.maxPeople}</p>
                     </div>

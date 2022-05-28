@@ -29,6 +29,13 @@ public class AdventureSubscriptionController {
         return adventureSubscriptionRepository.save(adventureSubscription);
     }
 
+    @GetMapping("/adventuresubscriptions/{userId}/{adventureId}")
+    public ResponseEntity<AdventureSubscription> isUserSubscribedForSpecificAdventure(@PathVariable Long userId, @PathVariable Long adventureId){
+        AdventureSubscription adventureSubscription = adventureSubscriptionRepository.findByUserIdAndAdventureId(userId, adventureId);
+
+        return ResponseEntity.ok(adventureSubscription);
+    }
+
     //get by id
     @GetMapping("/adventuresubscriptions/{id}")
     public ResponseEntity<AdventureSubscription> getAdventureSubscriptionById(@PathVariable Long id){
@@ -43,7 +50,7 @@ public class AdventureSubscriptionController {
         AdventureSubscription adventureSubscription = adventureSubscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("AdventureSubscription does not exist with id:"+ id));
 
         adventureSubscription.setAdventureId(adventureSubscriptionDetails.getAdventureId());
-        adventureSubscription.setEmail(adventureSubscriptionDetails.getEmail());
+        adventureSubscription.setUserId(adventureSubscriptionDetails.getUserId());
         
 
         AdventureSubscription updatedAdventureSubscription = adventureSubscriptionRepository.save(adventureSubscription);
@@ -57,6 +64,16 @@ public class AdventureSubscriptionController {
 
         AdventureSubscription adventureSubscription = adventureSubscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("AdventureSubscription does not exist with id:"+ id));
 
+        adventureSubscriptionRepository.delete(adventureSubscription);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return (Map<String, Boolean>) ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/adventuresubscriptions/{userId}/{adventureId}")
+    public Map<String, Boolean> deleteAdventureSubscriptionByUserIdAndAdventureId(@PathVariable Long userId, @PathVariable Long adventureId){
+
+        AdventureSubscription adventureSubscription = adventureSubscriptionRepository.findByUserIdAndAdventureId(userId, adventureId);
         adventureSubscriptionRepository.delete(adventureSubscription);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
