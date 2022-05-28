@@ -1,17 +1,74 @@
 import React, {useState, useEffect} from 'react';
 import '../Assets/Styles/CottageProfilePage.css'
+import EntitySubscriptionsAPI from '../services/EntitySubscriptionsAPI';
 
 const CottageProfilePage = () => {
 
     const [cottage, setCottage] = useState({});
+    const [activeUser, setActiveUser] = useState({});
+    const [subscribed, setSubscribed] = useState(false);
+    const [buttonCaption, setButtonCaption] = useState('Subscribe');
 
     const getCottageInfo = () => {
-        setCottage( JSON.parse(localStorage.getItem('activeCottage')));        
+        let cott = JSON.parse(localStorage.getItem('activeCottage'))
+        console.log(cott)
+        setCottage(cott);        
     }
+
+    const getUserInfo = () => {
+        let user = JSON.parse(localStorage.getItem('activeUser'));
+        setActiveUser(user);
+    }
+
+    const subscribeToCottage = () => {
+
+        if(subscribed === false) {
+            let subscriptiom = {userId: activeUser.id, cottageId : cottage.id }
+            EntitySubscriptionsAPI.createCottageSubscription(subscriptiom);
+            alert('You subscribed successfully')
+            setSubscribed(true);
+            
+        }
+        else if(subscribed === true) {
+            EntitySubscriptionsAPI.deleteCottageSubscriptionByUserIdAndCottageId(activeUser.id, cottage.id)
+            setSubscribed(false);
+        }
+    }
+
+    const checkIfSubbed = async() => {
+        
+        let response = await EntitySubscriptionsAPI.getCottagesSubscriptionByIds(activeUser.id, cottage.id);
+        let nesto = response.data;
+
+    
+        if(!Object.keys(nesto).length){
+            setSubscribed(false);
+        }
+        else{
+            setSubscribed(true)
+        }
+    }
+
+
+    const buttonCaptionChange = () => {
+        if(subscribed === true ) {
+            setButtonCaption('Unsubscribe') 
+        }
+        else {
+            setButtonCaption('Subscribe')
+        }
+    }
+
 
     useEffect(() => {
         getCottageInfo();
+        getUserInfo();
+        checkIfSubbed();
     },[]);
+
+    useEffect(() => {
+        buttonCaptionChange();
+    },[subscribed])
 
     return (
         <div className='cottage-profile-page-container'>
@@ -22,7 +79,9 @@ const CottageProfilePage = () => {
                         <p>{cottage.address}</p>
                         <div className='owner-data'>
                             <h5>Aca faca</h5>
-                            <button>Look profile</button>
+                            <button
+                                onClick={()=> subscribeToCottage()}
+                            >{buttonCaption}</button>
                         </div>
                         <p>{cottage.numberOfRooms}</p>
                     </div>

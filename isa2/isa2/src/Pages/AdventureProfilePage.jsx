@@ -12,6 +12,7 @@ const AdventureProfilePage = () => {
     const getAdventureInfo = () => {
         
         let adv = JSON.parse(localStorage.getItem('activeAdventure'))
+        
         setAdventure(adv);
     }
 
@@ -26,6 +27,7 @@ const AdventureProfilePage = () => {
         if(subscribed === false) {
             let subscription = {userId: activeUser.id, adventureId: adventure.id}
             EntitySubscriptionsAPI.createAdventureSubscription(subscription)
+            alert('You subscribed successfully')
             setSubscribed(true);
         }
 

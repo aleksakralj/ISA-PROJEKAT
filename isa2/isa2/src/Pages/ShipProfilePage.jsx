@@ -1,18 +1,69 @@
 import React, {useState, useEffect} from 'react';
 import '../Assets/Styles/ShipProfilePage.css'
+import EntitySubscriptionsAPI from '../services/EntitySubscriptionsAPI';
 
 const ShipProfilePage = () => {
 
     const [ship, setShip] = useState({});
+    const [activeUser, setActiveUser] = useState({});
+    const [subscribed, setSubscribed] = useState(false);
+    const [buttonCaption, setButtonCaption] = useState('Subscribe');
 
     const getShipInfo = () => {
-        setShip( JSON.parse(localStorage.getItem('activeShip')));
+        let s = JSON.parse(localStorage.getItem('activeShip'))
+
+        setShip(s);
         
+    }
+
+    const getUserInfo = () => {
+        let user = JSON.parse(localStorage.getItem('activeUser'));
+        setActiveUser(user);
+    }
+
+    const subscribeToShip = () => {
+
+        if(subscribed === false) {
+            let subscription = {userId: activeUser.id, shipId : ship.id}
+
+            EntitySubscriptionsAPI.createShipSubscription(subscription);
+            alert('You subscribed successfully')
+            setSubscribed(true)
+        }
+        else if (subscribed === true) {
+            EntitySubscriptionsAPI.deleteShipSubscriptionByUserIdAndShipId(activeUser.id, ship.id);
+            setSubscribed(false);
+        }
+    }
+
+    const checkIfSubbed = async() => {
+        let response = await EntitySubscriptionsAPI.getAdventureSubscriptionByIds(activeUser.id, ship.id)
+        let nesto = response.data;
+
+        if(!Object.keys(nesto).length){
+            setSubscribed(false);
+        }
+        else(setSubscribed(true))
+    }
+
+    const buttonCaptionChange = () => {
+        if(subscribed === true) {
+            setButtonCaption('Unsubscribe')
+        }
+        else {
+            setButtonCaption('Subscribe') 
+        }
     }
 
     useEffect(() => {
         getShipInfo();
+        getUserInfo();
+        checkIfSubbed();
     },[]);
+
+    useEffect(() => {
+        buttonCaptionChange();
+    },[subscribed])
 
     return (
         <div className='ship-profile-container'>
@@ -23,7 +74,9 @@ const ShipProfilePage = () => {
                         <p>{ship.address}</p>
                         <div className='owner-data'>
                             <h5>Aca faca</h5>
-                            <button>Look profile</button>
+                            <button
+                                onClick={()=> subscribeToShip()}
+                            >{buttonCaption}</button>
                         </div>
                         <p>{ship.capacity}</p>
                     </div>

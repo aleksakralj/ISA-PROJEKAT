@@ -3,49 +3,49 @@ package stasaaleksadavid.isabackend.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Cottage_Subscription")
+@Table(name = "Cottage_Subscription", uniqueConstraints = {@UniqueConstraint(name ="UniqueUserAndCottage", columnNames = {"User_Id", "CottageId"})})
 public class CottageSubscription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "CottageId")
-    private long cottageId;
+    private Long cottageId;
 
-    @Column(name = "Email")
-    private String email;
+    @Column(name = "User_Id")
+    private Long userId;
 
-    public CottageSubscription(long cottageId, String email) {
+    public CottageSubscription(Long cottageId, Long userId) {
         super();
         this.cottageId = cottageId;
-        this.email = email;
+        this.userId = userId;
     }
 
     public CottageSubscription() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getCottageId() {
+    public Long getCottageId() {
         return cottageId;
     }
 
-    public void setCottageId(long cottageId) {
+    public void setCottageId(Long cottageId) {
         this.cottageId = cottageId;
     }
 
-    public String getEmail() {
-        return email;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
