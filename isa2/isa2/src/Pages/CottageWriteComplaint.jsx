@@ -37,7 +37,8 @@ const CottageWriteComplaint = () => {
             <div className='type-of-feedback-container'>
                 <Feedback activeEntityId={activeEntity.id} whichEntity={whichEntity}/>       
                 <RateEntity activeEntityId={activeEntity.id} whichEntity={whichEntity}/>
-            </div>   </div>
+            </div>   
+        </div>
     );
 
 

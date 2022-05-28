@@ -120,7 +120,12 @@ const Navbar = () => {
                                 Past adventures
                             </option>
                         </select>
-
+                        <a 
+                            style={{color:'black', textDecoration: 'none'}}
+                            href="/client-subscriptions"
+                        >
+                            Subscriptions
+                        </a>
                         <a
                             style={{ color: "black", textDecoration: "none" }}
                             href="/clientprofile"

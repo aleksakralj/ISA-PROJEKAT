@@ -7,7 +7,7 @@ const SHIP_RATING_API_BASE_URL = "http://localhost:8080/api/v1/user-rate-ship";
 class EntityRatingAPI {
 
     getAdventureRatings(){
-        return axios.get();
+        return axios.get(ADVENTURE_RATING_API_BASE_URL);
     }
     createAdventureRatings(adventureRating){
         return axios.post(ADVENTURE_RATING_API_BASE_URL, adventureRating);
@@ -18,7 +18,7 @@ class EntityRatingAPI {
     
     
     getCottageRatings(){
-        return axios.get();
+        return axios.get(COTTAGE_RATING_API_BASE_URL);
     }
     createCottageRatings(cottageRating){
         return axios.post(COTTAGE_RATING_API_BASE_URL, cottageRating);
@@ -29,7 +29,7 @@ class EntityRatingAPI {
     
     
     getShipRatings(){
-        return axios.get();
+        return axios.get(SHIP_RATING_API_BASE_URL);
     }
     createShipRatings(shipRating){
         return axios.post(SHIP_RATING_API_BASE_URL, shipRating);
