@@ -20,9 +20,9 @@ const Navbar = () => {
         if (appointmentsSelectValue === 'adventures') 
             history.push('/clientadventure');
         else if (appointmentsSelectValue === 'cottages')
-            history.push('clientcottages');
+            history.push('/clientcottages');
         else if (appointmentsSelectValue === 'ships')
-            history.push('clientships');
+            history.push('/clientships');
     }
 
     const onHistoryAppointmentsSelectChange = () => {
@@ -122,7 +122,7 @@ const Navbar = () => {
                         </select>
                         <a 
                             style={{color:'black', textDecoration: 'none'}}
-                            href="/client-subscriptions"
+                            href="/subscription-navigator"
                         >
                             Subscriptions
                         </a>

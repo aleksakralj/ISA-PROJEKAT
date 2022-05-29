@@ -14,5 +14,8 @@ public interface ShipSubscriptionRepository extends JpaRepository<ShipSubscripti
 
     @Query("select ShipSub from ShipSubscription ShipSub where ShipSub.userId=?1 and ShipSub.shipId=?2")
     ShipSubscription findByUserIdAndShipId(Long userId, Long shipId);
+
+    @Query("select ShipSub from ShipSubscription ShipSub where ShipSub.userId = ?1")
+    List<ShipSubscription> findAllByUserId(Long userId);
 }
 

@@ -7,7 +7,7 @@ const COTTAGE_SUBSCRIPTIONS_API_BASE_URL = 'http://localhost:8080/api/v1/cottage
 class EntitySubscriptionsAPI {
 
     getAllAdventuresSubscriptionsForSpecificUser(userId) {
-        return axios.get(ADVENTURE_SUBSCRIPTIONS_API_BASE_URL + userId);
+        return axios.get(ADVENTURE_SUBSCRIPTIONS_API_BASE_URL + '/user/'+ userId);
     }
     createAdventureSubscription(subscription){
         return axios.post(ADVENTURE_SUBSCRIPTIONS_API_BASE_URL, subscription);
@@ -24,7 +24,7 @@ class EntitySubscriptionsAPI {
 
 
     getAllCottagesSubscriptionsForSpecificUser(userId){
-        return axios.get(COTTAGE_SUBSCRIPTIONS_API_BASE_URL + userId);
+        return axios.get(COTTAGE_SUBSCRIPTIONS_API_BASE_URL  + '/user/'+ userId);
     }
     createCottageSubscription(subscription){
         return axios.post(COTTAGE_SUBSCRIPTIONS_API_BASE_URL, subscription);
@@ -41,7 +41,7 @@ class EntitySubscriptionsAPI {
 
 
     getAllShipsSubscriptionsForSpecificUser(userId){
-        return axios.get(SHIPS_SUBSCRIPTIONS_API_BASE_URL + userId);
+        return axios.get(SHIPS_SUBSCRIPTIONS_API_BASE_URL  + '/user/' + userId);
     }
     createShipSubscription(subscription){
         return axios.post(SHIPS_SUBSCRIPTIONS_API_BASE_URL, subscription)

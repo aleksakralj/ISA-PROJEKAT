@@ -26,6 +26,11 @@ public class CottageSubscriptionController {
     @GetMapping("/cottagesubscriptions")
     public List<CottageSubscription> getAllCottageSubscriptions(){return cottageSubscriptionRepository.findAll();}
 
+    @GetMapping("/cottagesubscriptions/user/{userId}")
+    public List<CottageSubscription> getAllCottageSubscriptionsForSpecificUser(@PathVariable Long userId) {
+        return cottageSubscriptionRepository.findAllByUserId(userId);
+    }
+
     //create
     @PostMapping("/cottagesubscriptions")
     public CottageSubscription createCottageSubscription(@RequestBody CottageSubscription cottageSubscription){

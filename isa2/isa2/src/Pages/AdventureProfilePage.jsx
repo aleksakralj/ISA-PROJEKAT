@@ -7,7 +7,7 @@ const AdventureProfilePage = () => {
 
     const [adventure, setAdventure] = useState({});
     const [activeUser, setActiveUser] = useState({});
-    const [subscribed, setSubscribed] = useState(null);
+    const [subscribed, setSubscribed] = useState(false);
     const [buttonCaption, setButtonCaption] = useState('Subscribe');
     const history = useHistory();  
    

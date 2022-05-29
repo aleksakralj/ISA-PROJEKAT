@@ -25,6 +25,11 @@ public class ShipSubscriptionController {
     @GetMapping("/shipsubscriptions")
     public List<ShipSubscription> getAllShipSubscriptions(){return shipSubscriptionRepository.findAll();}
 
+    @GetMapping("/shipsubscriptions/user/{userId}")
+    public List<ShipSubscription> gettAllShipSubscriptionsForrSpecificUser(@PathVariable Long userId) {
+        return shipSubscriptionRepository.findAllByUserId(userId);
+    }
+
     //create
     @PostMapping("/shipsubscriptions")
     public ShipSubscription createShipSubscription(@RequestBody ShipSubscription shipSubscription){
