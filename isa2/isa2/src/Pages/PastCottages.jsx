@@ -50,7 +50,6 @@ const PastCottages = () => {
                             <th>Address</th>
                             <th>Fishing instructor</th>
                             <th>Price</th>
-
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -62,9 +61,9 @@ const PastCottages = () => {
                         <tr key={cottage.id}>
                             <td>{cottage.startingDate}</td>
                             <td>{cottage.endingDate}</td>
-                            <td>{null}</td>
-                            <td>{null}</td>
-                            <td>{null}</td>
+                            <td>aaaa</td>
+                            <td>aaaa</td>
+                            <td>aaaa</td>
                             <td>{cottage.price}</td>                            
                             <td><button onClick={() => openFeedbackPage(cottage)}> Send your feedback</button></td>
                         </tr>
