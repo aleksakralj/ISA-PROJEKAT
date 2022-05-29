@@ -14,4 +14,7 @@ public interface AdventureSubscriptionRepository extends JpaRepository<Adventure
     @Query ("select AdvSub from AdventureSubscription AdvSub where AdvSub.userId=?1 and AdvSub.adventureId=?2")
     AdventureSubscription findByUserIdAndAdventureId(Long userId, Long adventureId);
 
+    @Query("select AdvSub from AdventureSubscription AdvSub where AdvSub.userId=?1")
+    List<AdventureSubscription> findAllByUserId(Long userId);
+
 }

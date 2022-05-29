@@ -14,4 +14,7 @@ public interface CottageSubscriptionRepository extends JpaRepository<CottageSubs
 
     @Query("select CottSub from CottageSubscription CottSub where CottSub.userId = ?1 and CottSub.cottageId =?2")
     CottageSubscription findByUserIdAndCottageId(Long userId, Long cottageId);
+
+    @Query("select CottSub from CottageSubscription CottSub where CottSub.userId=?1")
+    List<CottageSubscription> findAllByUserId(Long userId);
 }

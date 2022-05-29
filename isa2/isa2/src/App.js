@@ -150,6 +150,8 @@ import AdventureQuickAppointmentsPage from './Pages/AdventureQuickAppointmentsPa
 import AdventureFreeTermsPage from './Pages/AdventureFreeTermsPage';
 import CottagesQuickAppointmentsPage from './Pages/CottagesQuickAppointmentsPage';
 import ShipQuickAppointmentsPage from './Pages/ShipQuickAppointmentsPage';
+import AdventureSubscriptionsPage from './Pages/SubscriptionView/AdventureSubscriptionsPage';
+import SubscriptionNavigatorPage from './Pages/SubscriptionView/SubscriptionNavigatorPage';
 
 
 /*
@@ -356,6 +358,8 @@ function App() {
               <Route path="/adventure-free-terms" component={AdventureFreeTermsPage}></Route>
               <Route path="/cottage-quick-appointment" component={CottagesQuickAppointmentsPage}></Route>
               <Route path="/ship-quick-appointment" component={ShipQuickAppointmentsPage}></Route>
+              <Route path="/adventure-subscriptions" component={AdventureSubscriptionsPage}></Route>
+              <Route path="/subscription-navigator" component={SubscriptionNavigatorPage}></Route>
 
               <Route path="/loginproba" component={LoginComponent}></Route>
               </Switch>

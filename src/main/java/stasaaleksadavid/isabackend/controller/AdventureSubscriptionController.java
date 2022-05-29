@@ -23,6 +23,11 @@ public class AdventureSubscriptionController {
     @GetMapping("/adventuresubscriptions")
     public List<AdventureSubscription> getAllAdventureSubscriptions(){return adventureSubscriptionRepository.findAll();}
 
+    @GetMapping("/adventuresubscriptions/user/{userId}")
+    public List<AdventureSubscription> getAllAdventureSubscriptionsForSpecificUser(@PathVariable Long userId) {
+        return adventureSubscriptionRepository.findAllByUserId(userId);
+    }
+
     //create
     @PostMapping("/adventuresubscriptions")
     public AdventureSubscription createAdventureSubscription(@RequestBody AdventureSubscription adventureSubscription){
