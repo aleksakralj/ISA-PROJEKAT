@@ -40,49 +40,54 @@ public class AdventureAppointmentController {
 */
 
     //create
-    @PostMapping("/adventureappointments/{type}")
-    public AdventureAppointment createAdventureAppointment(@PathVariable String type,@RequestBody AdventureAppointment adventureAppointment) {
-        if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
+    @PostMapping("/adventureappointments")
+    public AdventureAppointment createAdventureAppointment(@RequestBody AdventureAppointment adventureAppointment) {
+
         List<AdventureFreeAppointment> adventureFreeAppointments = adventureFreeAppointmentRepository.findByAdventureId(adventureAppointment.getAdventureId());
+        timePartition(adventureFreeAppointments, adventureAppointment);
 
-        for (AdventureFreeAppointment a : adventureFreeAppointments) {
-            if (adventureAppointment.getStartingDate().isAfter(a.getStartingDate()) && adventureAppointment.getEndingDate().isBefore(a.getEndingDate())) {
+        return adventureAppointmentRepository.save(adventureAppointment);
+    }
 
+    public void timePartition(List<AdventureFreeAppointment> freeAppointments, AdventureAppointment newAppointment){
 
-                AdventureFreeAppointment freeAppointment_1 = new AdventureFreeAppointment(adventureAppointment.getInstructorId(), a.getAdventureId(), a.getLocation(), a.getStartingDate(), adventureAppointment.getStartingDate(), a.getNumberOfPeople(), a.getAdditionalServices(), a.getPrice());
-                AdventureFreeAppointment freeAppointment_2 = new AdventureFreeAppointment(adventureAppointment.getInstructorId(), a.getAdventureId(), a.getLocation(), adventureAppointment.getEndingDate(), a.getEndingDate(), a.getNumberOfPeople(), a.getAdditionalServices(), a.getPrice());
-                AdventureAppointment newAdventureAppointment = new AdventureAppointment(adventureAppointment.getAdventureId(), adventureAppointment.getInstructorId(), adventureAppointment.getClientId(), adventureAppointment.getLocation(), adventureAppointment.getStartingDate(), adventureAppointment.getEndingDate(), adventureAppointment.getNumberOfPeople(), adventureAppointment.getAdditionalServices(), adventureAppointment.getPrice());
+        for (AdventureFreeAppointment appointment:freeAppointments) {
+            if(appointment.getStartingDate().isBefore(newAppointment.getStartingDate()) && appointment.getEndingDate().isAfter(newAppointment.getEndingDate())){
 
-                adventureFreeAppointmentRepository.deleteById(a.getId());
-                adventureFreeAppointmentRepository.save(freeAppointment_1);
-                adventureFreeAppointmentRepository.save(freeAppointment_2);
+                AdventureFreeAppointment firstAppointment = new AdventureFreeAppointment(
+                        appointment.getInstructorId(),
+                        appointment.getAdventureId(),
+                        appointment.getLocation(),
+                        appointment.getStartingDate(),
+                        newAppointment.getStartingDate(),
+                        appointment.getNumberOfPeople(),
+                        appointment.getAdditionalServices(),
+                        appointment.getPrice()
+                );
 
-                return adventureAppointmentRepository.save(newAdventureAppointment);
-            } else if (adventureAppointment.getStartingDate().isAfter(a.getStartingDate()) && adventureAppointment.getEndingDate().isAfter(a.getEndingDate())) {
-                AdventureFreeAppointment freeAppointment_1 = new AdventureFreeAppointment(a.getInstructorId(), a.getAdventureId(), a.getLocation(), a.getStartingDate(), adventureAppointment.getStartingDate(), a.getNumberOfPeople(), a.getAdditionalServices(), a.getPrice());
-                AdventureAppointment newAdventureAppointment = new AdventureAppointment(adventureAppointment.getAdventureId(), adventureAppointment.getInstructorId(), adventureAppointment.getClientId(), adventureAppointment.getLocation(), adventureAppointment.getStartingDate(), a.getEndingDate(), adventureAppointment.getNumberOfPeople(), a.getAdditionalServices(), a.getPrice());
-                adventureFreeAppointmentRepository.deleteById(a.getId());
-                adventureFreeAppointmentRepository.save(freeAppointment_1);
+                AdventureFreeAppointment secondAppointment = new AdventureFreeAppointment(
+                        appointment.getInstructorId(),
+                        appointment.getAdventureId(),
+                        appointment.getLocation(),
+                        newAppointment.getEndingDate(),
+                        appointment.getEndingDate(),
+                        appointment.getNumberOfPeople(),
+                        appointment.getAdditionalServices(),
+                        appointment.getPrice()
+                );
 
-                return adventureAppointmentRepository.save(newAdventureAppointment);
-            } else if (adventureAppointment.getStartingDate().isBefore(a.getStartingDate()) && adventureAppointment.getEndingDate().isBefore(a.getEndingDate())) {
-                AdventureFreeAppointment freeAppointment_1 = new AdventureFreeAppointment(a.getInstructorId(), a.getAdventureId(), a.getLocation(), adventureAppointment.getEndingDate(), a.getEndingDate(), a.getNumberOfPeople(), a.getAdditionalServices(), a.getPrice());
-                AdventureAppointment newAdventureAppointment = new AdventureAppointment(adventureAppointment.getAdventureId(), adventureAppointment.getInstructorId(), adventureAppointment.getClientId(), adventureAppointment.getLocation(), a.getStartingDate(), adventureAppointment.getEndingDate(), adventureAppointment.getNumberOfPeople(), adventureAppointment.getAdditionalServices(), adventureAppointment.getPrice());
+                adventureFreeAppointmentRepository.delete(appointment);
+                adventureFreeAppointmentRepository.save(firstAppointment);
+                adventureFreeAppointmentRepository.save(secondAppointment);
 
-                adventureFreeAppointmentRepository.deleteById(a.getId());
-                adventureFreeAppointmentRepository.save(freeAppointment_1);
-
-                return adventureAppointmentRepository.save(newAdventureAppointment);
-            } else if (adventureAppointment.getStartingDate().isBefore(a.getStartingDate()) && adventureAppointment.getEndingDate().isAfter(a.getEndingDate())) {
-
-                return null;
             }
-
-        }return adventureAppointmentRepository.save(adventureAppointment);
         }
-        else{return null;}
+
+
 
     }
+
+
   /*
     //get by id
     @GetMapping("/adventureappointments/{id}")

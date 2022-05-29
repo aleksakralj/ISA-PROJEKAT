@@ -13,7 +13,9 @@ background-color: rgba(255, 255, 255, 0.592) ;
     position: relative;
     background-color: whitesmoke;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    align-items: center;
 }
 .adventure-properties{
     background-color: rgba(0, 0, 0, 0.592);
@@ -90,7 +92,6 @@ background-color: rgba(255, 255, 255, 0.592) ;
     flex-direction: column;
     gap: 10px;
 }
-
 .adventure-rules-container{
     width: 33%;
     height: 100%;
@@ -98,5 +99,8 @@ background-color: rgba(255, 255, 255, 0.592) ;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-
+}
+.appointments-button{
+    width: 200px;
+    height: 70px;
 }

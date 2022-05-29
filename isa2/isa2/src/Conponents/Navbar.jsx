@@ -48,7 +48,7 @@ const Navbar = () => {
     }
 
     const logout = () => {
-        localStorage.removeItem('activeUser');
+        localStorage.clear();
         let path = '/homepage';
         history.push(path);
     }
