@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import '../Assets/Styles/AdventureProfilePage.css'
 import EntitySubscriptionsAPI from '../services/EntitySubscriptionsAPI';
+import {useHistory} from 'react-router-dom'
 
 const AdventureProfilePage = () => {
 
@@ -8,6 +9,8 @@ const AdventureProfilePage = () => {
     const [activeUser, setActiveUser] = useState({});
     const [subscribed, setSubscribed] = useState(null);
     const [buttonCaption, setButtonCaption] = useState('Subscribe');
+    const history = useHistory();  
+   
     
     const getAdventureInfo = () => {
         
@@ -72,9 +75,20 @@ const AdventureProfilePage = () => {
         buttonCaptionChange();
     }, [subscribed])
 
+    const checkFreeTerms = () => {
+        history.push('/adventure-free-terms/' + adventure.id);
+    }
+
+    const checkQuickAppointments = () => {
+        history.push('adventure-quick-appointment/' + adventure.id);
+    }
+
     return (
         <div className='adventure-profile-container'>
             <div className='adventure-caption-content'>               
+                <button className='appointments-button' onClick={() => checkFreeTerms()}>
+                    Check Free terms
+                </button>
                 <div className='adventure-properties'>
                     <div className='basic-adventure-info'>
                         <h2>{adventure.name}</h2>
@@ -90,6 +104,9 @@ const AdventureProfilePage = () => {
                     </div>
                 <img className='adventure-image' src='https://slatefallsoutposts.com/wp-content/uploads/2019/11/slid1450.jpg'></img>
                 </div>
+                <button className='appointments-button' onClick={() => checkQuickAppointments()}>
+                    Check Quick appointments
+                </button>
             </div>
 
             <div className='adventure-content-container'>

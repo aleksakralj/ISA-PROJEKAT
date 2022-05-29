@@ -1,9 +1,7 @@
 package stasaaleksadavid.isabackend.model;
 
-
 import javax.persistence.*;
 import java.time.LocalDate;
-
 
 @Entity
 @Table(name = "Adventure_Quick_Appointments")

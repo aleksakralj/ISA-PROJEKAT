@@ -146,6 +146,8 @@ import PastShips from './Pages/PastShips';
 import AdventureWriteFeedbackPage from './Pages/AdventureWriteFeedbackPage';
 import CottageWriteComplaint from './Pages/CottageWriteComplaint';
 import ShipWriteComplaint from './Pages/ShipWriteComplaint';
+import AdventureQuickAppointmentsPage from './Pages/AdventureQuickAppointmentsPage';
+import AdventureFreeTermsPage from './Pages/AdventureFreeTermsPage';
 
 
 /*
@@ -348,6 +350,8 @@ function App() {
               <Route path="/adventure-write-feedback" component={AdventureWriteFeedbackPage}></Route>
               <Route path="/cottage-write-feedback" component={CottageWriteComplaint}></Route>
               <Route path="/ship-write-feedback" component={ShipWriteComplaint}></Route>
+              <Route path="/adventure-quick-appointment" component={AdventureQuickAppointmentsPage}></Route>
+              <Route path="/adventure-free-terms" component={AdventureFreeTermsPage}></Route>
 
               <Route path="/loginproba" component={LoginComponent}></Route>
               </Switch>
