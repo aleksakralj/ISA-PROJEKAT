@@ -29,47 +29,48 @@ public class ShipAppointmentController {
     }
 
     //create
-    @PostMapping("/shipappointments/{type}")
-    public ShipAppointment createShipAppointment(@PathVariable String type,@RequestBody ShipAppointment shipAppointment) {
-        if (type.equals("ship_owner") || type.equals("admin") || type.equals("main_admin")) {
-            List<ShipFreeAppointment> shipFreeAppointments = shipFreeAppointmentRepository.findByShipId(shipAppointment.getShipId());
+    @PostMapping("/shipappointments")
+    public ShipAppointment createShipAppointment(@RequestBody ShipAppointment shipAppointment) {
 
-            for (ShipFreeAppointment s : shipFreeAppointments) {
-                if (shipAppointment.getStartingDate().isAfter(s.getStartingDate()) && shipAppointment.getEndingDate().isBefore(s.getEndingDate())) {
+        List<ShipFreeAppointment> shipFreeAppointments = shipFreeAppointmentRepository.findByShipId(shipAppointment.getShipId());
+        timePartition(shipFreeAppointments, shipAppointment);
 
-                    ShipFreeAppointment freeAppointment_1 = new ShipFreeAppointment(s.getShipId(), s.getStartingDate(), shipAppointment.getStartingDate(), s.getNumberOfPeople(), s.getAdditionalServices(), s.getPrice());
-                    ShipFreeAppointment freeAppointment_2 = new ShipFreeAppointment(s.getShipId(), shipAppointment.getEndingDate(), s.getEndingDate(), s.getNumberOfPeople(), s.getAdditionalServices(), s.getPrice());
-                    ShipAppointment newShipAppointment = new ShipAppointment(shipAppointment.getShipId(), shipAppointment.getClientId(), shipAppointment.getStartingDate(), shipAppointment.getEndingDate(), shipAppointment.getNumberOfPeople(), shipAppointment.getAdditionalServices(), shipAppointment.getPrice());
+        return shipAppointmentRepository.save(shipAppointment);
+    }
 
-                    shipFreeAppointmentRepository.deleteById(s.getId());
-                    shipFreeAppointmentRepository.save(freeAppointment_1);
-                    shipFreeAppointmentRepository.save(freeAppointment_2);
+    public void timePartition(List<ShipFreeAppointment> freeAppointments, ShipAppointment newAppointment){
+        for (ShipFreeAppointment appointment:freeAppointments) {
+            if(appointment.getStartingDate().isBefore(newAppointment.getStartingDate()) && appointment.getEndingDate().isAfter(newAppointment.getEndingDate())){
 
-                    return shipAppointmentRepository.save(newShipAppointment);
-                } else if (shipAppointment.getStartingDate().isAfter(s.getStartingDate()) && shipAppointment.getEndingDate().isAfter(s.getEndingDate())) {
-                    ShipFreeAppointment freeAppointment_1 = new ShipFreeAppointment(s.getShipId(), s.getStartingDate(), shipAppointment.getStartingDate(), s.getNumberOfPeople(), s.getAdditionalServices(), s.getPrice());
-                    ShipAppointment newShipAppointment = new ShipAppointment(shipAppointment.getShipId(), shipAppointment.getClientId(), shipAppointment.getStartingDate(), s.getEndingDate(), shipAppointment.getNumberOfPeople(), s.getAdditionalServices(), s.getPrice());
-                    shipFreeAppointmentRepository.deleteById(s.getId());
-                    shipFreeAppointmentRepository.save(freeAppointment_1);
+                ShipFreeAppointment firstAppointment = new ShipFreeAppointment(
+                        appointment.getShipOwner(),
+                        appointment.getShipId(),
+                        appointment.getLocation(),
+                        appointment.getStartingDate(),
+                        newAppointment.getStartingDate(),
+                        appointment.getNumberOfPeople(),
+                        appointment.getAdditionalServices(),
+                        appointment.getPrice()
+                );
 
-                    return shipAppointmentRepository.save(newShipAppointment);
-                } else if (shipAppointment.getStartingDate().isBefore(s.getStartingDate()) && shipAppointment.getEndingDate().isBefore(s.getEndingDate())) {
-                    ShipFreeAppointment freeAppointment_1 = new ShipFreeAppointment(s.getShipId(), shipAppointment.getEndingDate(), s.getEndingDate(), s.getNumberOfPeople(), s.getAdditionalServices(), s.getPrice());
-                    ShipAppointment newShipAppointment = new ShipAppointment(shipAppointment.getShipId(), shipAppointment.getClientId(), s.getStartingDate(), shipAppointment.getEndingDate(), shipAppointment.getNumberOfPeople(), shipAppointment.getAdditionalServices(), shipAppointment.getPrice());
+                ShipFreeAppointment secondAppointment = new ShipFreeAppointment(
+                        appointment.getShipOwner(),
+                        appointment.getShipId(),
+                        appointment.getLocation(),
+                        newAppointment.getEndingDate(),
+                        appointment.getEndingDate(),
+                        appointment.getNumberOfPeople(),
+                        appointment.getAdditionalServices(),
+                        appointment.getPrice()
+                );
 
-                    shipFreeAppointmentRepository.deleteById(s.getId());
-                    shipFreeAppointmentRepository.save(freeAppointment_1);
+                shipFreeAppointmentRepository.delete(appointment);
+                shipFreeAppointmentRepository.save(firstAppointment);
+                shipFreeAppointmentRepository.save(secondAppointment);
 
-                    return shipAppointmentRepository.save(newShipAppointment);
-                } else if (shipAppointment.getStartingDate().isBefore(s.getStartingDate()) && shipAppointment.getEndingDate().isAfter(s.getEndingDate())) {
-
-                    return null;
-                }
             }
-
-            return shipAppointmentRepository.save(shipAppointment);
         }
-        else return null;
+
     }
 
     //get by id

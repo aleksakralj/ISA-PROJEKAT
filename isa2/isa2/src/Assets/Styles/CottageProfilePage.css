@@ -13,7 +13,9 @@
     position: relative;
     background-color: whitesmoke;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    align-items: center;
 }
 .cottage-properties{
     background-color: rgba(0, 0, 0, 0.592);
@@ -59,4 +61,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.appointments-button{
+    width: 200px;
+    height: 70px;
 }

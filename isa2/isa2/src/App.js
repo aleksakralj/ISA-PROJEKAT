@@ -148,6 +148,8 @@ import CottageWriteComplaint from './Pages/CottageWriteComplaint';
 import ShipWriteComplaint from './Pages/ShipWriteComplaint';
 import AdventureQuickAppointmentsPage from './Pages/AdventureQuickAppointmentsPage';
 import AdventureFreeTermsPage from './Pages/AdventureFreeTermsPage';
+import CottagesQuickAppointmentsPage from './Pages/CottagesQuickAppointmentsPage';
+import ShipQuickAppointmentsPage from './Pages/ShipQuickAppointmentsPage';
 
 
 /*
@@ -352,6 +354,8 @@ function App() {
               <Route path="/ship-write-feedback" component={ShipWriteComplaint}></Route>
               <Route path="/adventure-quick-appointment" component={AdventureQuickAppointmentsPage}></Route>
               <Route path="/adventure-free-terms" component={AdventureFreeTermsPage}></Route>
+              <Route path="/cottage-quick-appointment" component={CottagesQuickAppointmentsPage}></Route>
+              <Route path="/ship-quick-appointment" component={ShipQuickAppointmentsPage}></Route>
 
               <Route path="/loginproba" component={LoginComponent}></Route>
               </Switch>

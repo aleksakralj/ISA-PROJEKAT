@@ -33,10 +33,16 @@ public class ShipAppointment {
     @Column(name = "Price")
     private double price;
 
+    @Column(name = "Location")
+    private String location;
+
+    @Column(name = "Ship_Ownr")
+    private Long shipOwner;
+
     public ShipAppointment() {
     }
 
-    public ShipAppointment(long shipId, long clientId, LocalDate startingDate, LocalDate endingDate, int numberOfPeople, String additionalServices, double price) {
+    public ShipAppointment(long shipId, long clientId, Long shipOwner, String location, LocalDate startingDate, LocalDate endingDate, int numberOfPeople, String additionalServices, double price) {
         super();
         this.shipId = shipId;
         this.clientId = clientId;
@@ -45,6 +51,24 @@ public class ShipAppointment {
         this.numberOfPeople = numberOfPeople;
         this.additionalServices = additionalServices;
         this.price = price;
+        this.shipOwner = shipOwner;
+        this.location = location;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Long getShipOwner() {
+        return shipOwner;
+    }
+
+    public void setShipOwner(Long shipOwner) {
+        this.shipOwner = shipOwner;
     }
 
     public long getShipId() {
