@@ -74,11 +74,9 @@ public class ShipQuickAppointmentController {
     }
 
 
-    @GetMapping("/shipquickappointments/ship/{type}/{shipid}")
-    public List<ShipQuickAppointment> getAppointmentByShipId(@PathVariable String type,@PathVariable Long shipid) {
-        if (type.equals("ship_owner") || type.equals("admin") || type.equals("main_admin")){
+    @GetMapping("/shipquickappointments/ship/{shipid}")
+    public List<ShipQuickAppointment> getAppointmentByShipId(@PathVariable Long shipid) {
+
             return shipQuickAppointmentRepository.findByShipId(shipid);
-    }
-    else return null;
     }
 }

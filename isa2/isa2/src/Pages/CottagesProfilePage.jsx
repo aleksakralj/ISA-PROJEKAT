@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import '../Assets/Styles/CottageProfilePage.css'
 import EntitySubscriptionsAPI from '../services/EntitySubscriptionsAPI';
+import {useHistory} from 'react-router-dom';
 
 const CottageProfilePage = () => {
 
@@ -8,10 +9,10 @@ const CottageProfilePage = () => {
     const [activeUser, setActiveUser] = useState({});
     const [subscribed, setSubscribed] = useState(false);
     const [buttonCaption, setButtonCaption] = useState('Subscribe');
+    const history = useHistory();
 
     const getCottageInfo = () => {
         let cott = JSON.parse(localStorage.getItem('activeCottage'))
-        console.log(cott)
         setCottage(cott);        
     }
 
@@ -59,6 +60,9 @@ const CottageProfilePage = () => {
         }
     }
 
+    const checkQuickAppointments = () => {
+        history.push('/cottage-quick-appointment/' + cottage.id)
+    }
 
     useEffect(() => {
         getCottageInfo();
@@ -73,6 +77,9 @@ const CottageProfilePage = () => {
     return (
         <div className='cottage-profile-page-container'>
              <div className='cottage-caption-content'>               
+                <button className='appointments-button'>
+                    Check Free Terms
+                </button>
                 <div className='cottage-properties'>
                     <div className='basic-cottage-info'>
                         <h2>{cottage.name}</h2>
@@ -87,6 +94,11 @@ const CottageProfilePage = () => {
                     </div>
                 <img className='cottage-image' src='https://slatefallsoutposts.com/wp-content/uploads/2019/11/slid1450.jpg'></img>
                 </div>
+                <button 
+                    className='appointments-button'
+                    onClick={() => checkQuickAppointments()}>
+                        Check Quick Appointments
+                </button>
             </div>
             
             <div className='cottage-content-container'>

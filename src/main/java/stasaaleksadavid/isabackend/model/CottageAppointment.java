@@ -16,6 +16,9 @@ public class CottageAppointment {
     @Column(name = "Cottage_ID")
     private long cottageId;
 
+    @Column(name = "Owner_Id")
+    private Long ownerId;
+
     @Column(name = "Client_ID")
     private long clientId;
 
@@ -24,6 +27,9 @@ public class CottageAppointment {
 
     @Column(name = "Ending_Date")
     private LocalDate endingDate;
+
+    @Column(name = "Location")
+    private String location;
 
     @Column(name = "Numer_Of_People")
     private int numberOfPeople ;
@@ -37,15 +43,33 @@ public class CottageAppointment {
     public CottageAppointment() {
     }
 
-    public CottageAppointment(long cottageId, long clientId, LocalDate startingDate, LocalDate endingDate, int numberOfPeople, String additionalServices, double price) {
+    public CottageAppointment(long cottageId, Long ownerId, long clientId, String location, LocalDate startingDate, LocalDate endingDate, int numberOfPeople, String additionalServices, double price) {
         super();
         this.cottageId = cottageId;
+        this.ownerId = ownerId;
         this.clientId = clientId;
         this.startingDate = startingDate;
         this.endingDate = endingDate;
         this.numberOfPeople = numberOfPeople;
         this.additionalServices = additionalServices;
         this.price = price;
+        this.location = location;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public long getCottageId() {

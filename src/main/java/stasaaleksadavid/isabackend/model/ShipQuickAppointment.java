@@ -31,10 +31,17 @@ public class ShipQuickAppointment {
     @Column(name = "Price")
     private double price;
 
+    @Column(name = "Location")
+    private String location;
+
+    @Column(name = "Ship_Ownr")
+    private Long shipOwner;
+
+
     public ShipQuickAppointment() {
     }
 
-    public ShipQuickAppointment(long shipId, LocalDate startingDate, LocalDate endingDate, int numberOfPeople, String additionalServices, double price) {
+    public ShipQuickAppointment(long shipId, LocalDate startingDate, Long shipOwner, String location, LocalDate endingDate, int numberOfPeople, String additionalServices, double price) {
         super();
         this.shipId = shipId;
         this.startingDate = startingDate;
@@ -42,6 +49,8 @@ public class ShipQuickAppointment {
         this.numberOfPeople = numberOfPeople;
         this.additionalServices = additionalServices;
         this.price = price;
+        this.shipOwner = shipOwner;
+        this.location = location;
     }
 
     public long getId() {
@@ -50,6 +59,22 @@ public class ShipQuickAppointment {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Long getShipOwner() {
+        return shipOwner;
+    }
+
+    public void setShipOwner(Long shipOwner) {
+        this.shipOwner = shipOwner;
     }
 
     public long getShipId() {

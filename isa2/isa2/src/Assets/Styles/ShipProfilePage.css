@@ -13,7 +13,9 @@
        position: relative;
        background-color: whitesmoke;
        display: flex;
-       justify-content: center;
+       justify-content: space-evenly;
+       flex-direction: row;
+       align-items: center;
    }
    .ship-properties{
        background-color: rgba(0, 0, 0, 0.592);
@@ -97,5 +99,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-
+}
+.appointments-button{
+    width: 200px;
+    height: 70px;
 }

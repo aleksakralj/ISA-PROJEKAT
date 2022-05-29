@@ -74,13 +74,10 @@ public class CottageQuickAppointmentController {
     }
 
 //get by cottage id
-    @GetMapping("/cottagequickappointments/cottage/{type}/{cottageid}")
-    public List<CottageQuickAppointment> getAppointmentByCottageId(@PathVariable String type,@PathVariable Long cottageid) {
-        if (type.equals("admin") || type.equals("cottage_owner") || type.equals("main_admin")) {
+    @GetMapping("/cottagequickappointments/cottage/{cottageid}")
+    public List<CottageQuickAppointment> getAppointmentByCottageId(@PathVariable Long cottageid) {
             return cottageQuickAppointmentRepository.findByCottageId(cottageid);
-        }
-        else return null;
-    }
+       }
 
 
 }

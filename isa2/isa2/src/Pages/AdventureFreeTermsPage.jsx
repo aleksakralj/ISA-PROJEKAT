@@ -3,7 +3,7 @@ import React from 'react';
 const AdventureFreeTermsPage = () => {
     return (
         <div>
-            aaa
+            
         </div>
     );
 }

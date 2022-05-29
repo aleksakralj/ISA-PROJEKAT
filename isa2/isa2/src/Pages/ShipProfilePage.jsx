@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import '../Assets/Styles/ShipProfilePage.css'
 import EntitySubscriptionsAPI from '../services/EntitySubscriptionsAPI';
+import { useHistory } from "react-router-dom";
 
 const ShipProfilePage = () => {
 
@@ -8,6 +9,7 @@ const ShipProfilePage = () => {
     const [activeUser, setActiveUser] = useState({});
     const [subscribed, setSubscribed] = useState(false);
     const [buttonCaption, setButtonCaption] = useState('Subscribe');
+    const history = useHistory();
 
     const getShipInfo = () => {
         let s = JSON.parse(localStorage.getItem('activeShip'))
@@ -65,9 +67,20 @@ const ShipProfilePage = () => {
         buttonCaptionChange();
     },[subscribed])
 
+    const checkFreeTerms = () => {
+        history.push('/ship-free-terms/' + ship.id);
+    }
+
+    const checkQuickAppointments = () => {
+        history.push('/ship-quick-appointment/' + ship.id);
+    }
+
     return (
         <div className='ship-profile-container'>
             <div className='ship-caption-content'>               
+            <button className='appointments-button' onClick={() => checkFreeTerms()}>
+                    Check Free terms
+                </button>
                 <div className='ship-properties'>
                     <div className='basic-ship-info'>
                         <h2>{ship.name}</h2>
@@ -82,6 +95,9 @@ const ShipProfilePage = () => {
                     </div>
                 <img className='ship-image' src='https://slatefallsoutposts.com/wp-content/uploads/2019/11/slid1450.jpg'></img>
                 </div>
+                <button className='appointments-button' onClick={() => checkQuickAppointments()}>
+                    Check Quick appointments
+                </button>
             </div>
 
             <div className='ship-content-container'>

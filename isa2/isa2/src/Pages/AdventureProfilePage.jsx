@@ -80,7 +80,7 @@ const AdventureProfilePage = () => {
     }
 
     const checkQuickAppointments = () => {
-        history.push('adventure-quick-appointment/' + adventure.id);
+        history.push('/adventure-quick-appointment/' + adventure.id);
     }
 
     return (
