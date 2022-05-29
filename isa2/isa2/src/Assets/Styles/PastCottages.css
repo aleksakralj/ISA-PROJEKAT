@@ -38,4 +38,19 @@
 }
 .cottages-table{
     width: 90%;
+    height: 450px;
 }
+.cottages-table > tbody {
+    height: 100%;
+    overflow: auto;
+    display: block;
+}
+.cottages-table > thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+
+
+

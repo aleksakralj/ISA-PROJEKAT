@@ -39,4 +39,15 @@
 }
 .ships-table{
     width: 90%;
+    height: 450px;
+}
+.ships-table > tbody{
+    height: 100%;
+    overflow: auto;
+    display: block;
+}
+.ships-table > thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
 }

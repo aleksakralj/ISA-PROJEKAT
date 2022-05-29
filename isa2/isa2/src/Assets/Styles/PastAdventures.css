@@ -32,4 +32,15 @@
 }
 .adventures-table{
     width: 90%;
+    height: 450px;
+}
+.adventures-table > tbody {
+    height: 100%;
+    overflow: auto;
+    display: block;
+}
+.adventures-table > thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
 }
