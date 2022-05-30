@@ -8,9 +8,8 @@ const AdventureProfilePage = () => {
     const [adventure, setAdventure] = useState({});
     const [activeUser, setActiveUser] = useState({});
     const [subscribed, setSubscribed] = useState(false);
-    const [buttonCaption, setButtonCaption] = useState('Subscribe');
+    const [buttonCaption, setButtonCaption] = useState('');
     const history = useHistory();  
-   
     
     const getAdventureInfo = () => {
         
@@ -53,7 +52,6 @@ const AdventureProfilePage = () => {
         }
     }
 
-
     const buttonCaptionChange = () => {
         
         if(subscribed === true) {
@@ -76,7 +74,7 @@ const AdventureProfilePage = () => {
     }, [subscribed])
 
     const checkFreeTerms = () => {
-        history.push('/adventure-free-terms/' + adventure.id);
+        history.push('/schedule-adventure-appointment/' + adventure.id);
     }
 
     const checkQuickAppointments = () => {
@@ -87,7 +85,7 @@ const AdventureProfilePage = () => {
         <div className='adventure-profile-container'>
             <div className='adventure-caption-content'>               
                 <button className='appointments-button' onClick={() => checkFreeTerms()}>
-                    Check Free terms
+                    Schedule this adventure
                 </button>
                 <div className='adventure-properties'>
                     <div className='basic-adventure-info'>

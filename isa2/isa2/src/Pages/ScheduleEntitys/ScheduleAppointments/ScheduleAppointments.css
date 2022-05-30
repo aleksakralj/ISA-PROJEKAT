@@ -1,0 +1,44 @@
+.schedule-adventure-appointment-container{
+    width: 100%;
+    height: 100%;
+    background-color: whitesmoke;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.appointment-propery-selector-box{
+    height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    background-color: white;
+    border-radius: 5%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.appointment-data{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 40%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.input-field{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.inputs{
+    width: 180px;
+}
+.labels{
+    width: 180px;
+}
+.schedule-button{
+    width: 150px;
+    height: 50px;
+}

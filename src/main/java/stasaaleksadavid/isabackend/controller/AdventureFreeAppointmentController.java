@@ -8,6 +8,11 @@ import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.AdventureFreeAppointment;
 import stasaaleksadavid.isabackend.repository.AdventureFreeAppointmentRepository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +30,17 @@ public class AdventureFreeAppointmentController {
     @GetMapping("/adventurefreeappointments")
     public List<AdventureFreeAppointment> getAllAdventureFreeAppointments() {
         return adventureFreeAppointmentRepository.findAll();
+    }
+
+    @GetMapping("/adventurefreeappointments/{startingDate}/{endingDate}")
+    public List<AdventureFreeAppointment> getAllAdventureFreeAppointmentsByStartingDateAndEndingDate(@PathVariable String startingDate, @PathVariable String endingDate) throws ParseException {
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("mm-dd-yyyy");
+
+        LocalDate startingTime = LocalDate.parse(startingDate);
+        LocalDate endingTime = LocalDate.parse(endingDate);
+
+        return adventureFreeAppointmentRepository.findAdventureFreeAppointmentByStartingDateAndEndingDate(startingTime,endingTime);
     }
 
     //create
