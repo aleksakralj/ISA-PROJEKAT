@@ -152,7 +152,8 @@ import CottagesQuickAppointmentsPage from './Pages/CottagesQuickAppointmentsPage
 import ShipQuickAppointmentsPage from './Pages/ShipQuickAppointmentsPage';
 import AdventureSubscriptionsPage from './Pages/SubscriptionView/AdventureSubscriptionsPage';
 import SubscriptionNavigatorPage from './Pages/SubscriptionView/SubscriptionNavigatorPage';
-
+import ScheduleAppointmentsPage from './Pages/ScheduleEntitys/ScheduleAppointments/ScheduleAppointmentsPage'
+import PossibleAdventureAppointments from './Pages/ScheduleEntitys/ScheduleAppointments/PossibleAdventureAppointments';
 
 /*
 const backStyle = {
@@ -360,6 +361,8 @@ function App() {
               <Route path="/ship-quick-appointment" component={ShipQuickAppointmentsPage}></Route>
               <Route path="/adventure-subscriptions" component={AdventureSubscriptionsPage}></Route>
               <Route path="/subscription-navigator" component={SubscriptionNavigatorPage}></Route>
+              <Route path="/schedule-adventure-appointment" component={ScheduleAppointmentsPage}></Route>
+              <Route path="/possible-adventure-appointments" component={PossibleAdventureAppointments}></Route>
 
               <Route path="/loginproba" component={LoginComponent}></Route>
               </Switch>

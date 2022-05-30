@@ -33,7 +33,6 @@ const EntitySubscriptionLane = ({passData, flag, imageAddress}) => {
             EntitySubscriptionsAPI.deleteCottageSubscriptionByUserIdAndCottageId(activeUser.id, id)
             window.location.reload(false);
         }
-
     }
 
     return (

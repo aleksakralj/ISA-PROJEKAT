@@ -25,5 +25,9 @@ class AdventureFreeAppointmenrsService {
         return axios.delete(ADVENTURE_FREE_APPOINTMENTS_API_BASE_URL+'/'+adventureAppointmentId);
     }
 
+    findAllFreeAdventureAppointmentsForRequiredTime(startingTime, endingTime) {
+        return axios.get(ADVENTURE_FREE_APPOINTMENTS_API_BASE_URL+ '/' + startingTime + '/' + endingTime )
+    }
+
 }
 export default new AdventureFreeAppointmenrsService();
