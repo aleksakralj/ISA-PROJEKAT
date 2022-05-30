@@ -28,6 +28,13 @@
     width: 100px;
     height: 100px;
 }
+.subscription-list{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
 .subscription-card{
     width: 200px;
     height:100%;

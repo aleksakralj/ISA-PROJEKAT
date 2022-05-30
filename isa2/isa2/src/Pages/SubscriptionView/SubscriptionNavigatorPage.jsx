@@ -13,10 +13,10 @@ const SubscriptionNavigatorPage = () => {
     const [adventures, setAdventures] = useState([]);
     const [ships, setShips] = useState([]);
     const [cottages, setCottages] = useState([]);
-    const [subAdventures, setSubAdventures] = useState([]);
-    const [subCottages, setSubCottages] = useState([]);
-    const [subShips, setSubShips] = useState([]);
-    
+    const [adventureNames, setaAventureNames] = useState([{}]);
+    const [cottageNames, setCottageNames] = useState([{}]);
+    const [shipNames, setShipNames] = useState([{}]);
+
     const getInitialData = () => {
         let user = JSON.parse(localStorage.getItem('activeUser'));
         setActiveUser(user);
@@ -30,8 +30,8 @@ const SubscriptionNavigatorPage = () => {
             EntitySubscriptionsAPI.getAllCottagesSubscriptionsForSpecificUser(activeUser.id)
         ]) 
 
-        setAdventures(adventuresSubs.data);    
         setShips(shipSubs.data);
+        setAdventures(adventuresSubs.data);    
         setCottages(cottageSubs.data);
     }
 
@@ -44,34 +44,52 @@ const SubscriptionNavigatorPage = () => {
             responses.push(response.data);
         }
 
-        setSubAdventures(responses)
+        let names = []
+        for (let i = 0; i<responses.length; i++) {
+            names.push({name : responses[i].name, id: responses[i].id})
+        }
+
+        setaAventureNames(names);
     }
 
     const findSubbedCottages = async() => {
         let responses = []
+
         for (let i = 0; i<cottages.length; i++) {
 
             let response = await CottageService.getCottageById(cottages[i].cottageId);
             responses.push(response.data);
         }
 
-        setSubCottages(responses);
-    }
+        let names = []
+        for (let i = 0; i<responses.length; i++) {
+            names.push({name: responses[i].name, id: responses[i].id});
+        }
+
+        setCottageNames(names);
+
+     }
 
     
     const findSubbedShips = async() => {
         let responses = []
 
-        for (let i = 0; i<ships.length; i++) {
+        for (let i = 0; i< ships.length; i++) {
 
             let response = await ShipService.getShipById(ships[i].shipId);
             responses.push(response.data);
         }
-        
-        setSubShips(responses);
+      
+        let names = []
+
+        for (let i =0; i< responses.length; i++) {
+            names.push({name: responses[i].name, id: responses[i].id})
+        }
+
+        setShipNames(names);
     }
 
-    useState(() => {
+    useEffect(() => {
         findSubbedShips();
     }, [ships])
 
@@ -94,15 +112,15 @@ const SubscriptionNavigatorPage = () => {
     return (
         <div className='entity-subscription-view-container'>
             <EntitySubscriptionLane 
-                passData={subAdventures} 
+                passData={adventureNames} 
                 flag='Adventures' 
                 imageAddress='https://canary.contestimg.wish.com/api/webimage/5b15352ca309e469b826391d-large.jpg?cache_buster=36f19fa8a1cf6d50c7186334519ccc60' />
             <EntitySubscriptionLane 
-                passData={subShips} 
+                passData={shipNames} 
                 flag='Ships' 
                 imageAddress='https://d1bd5u3q1t3nu7.cloudfront.net/icons/50/cargo-ship-icon.png' />
             <EntitySubscriptionLane 
-                passData={subCottages} 
+                passData={cottageNames} 
                 flag='Cottages' 
                 imageAddress='https://cdn-icons-png.flaticon.com/512/20/20176.png'/>
         </div>
