@@ -111,6 +111,11 @@ public class ShipAppointmentController {
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
 
+    @GetMapping("/shipappointments/client/{clientId}")
+    public List<ShipAppointment> getAllAppointmentsForSpecificUser(@PathVariable Long clientId) {
+        return shipAppointmentRepository.findAllByClientId(clientId);
+    }
+
 
     @GetMapping("/shipappointments/ship/{type}/{shipid}")
     public List<ShipAppointment> getAppointmentByShipId(@PathVariable String type,@PathVariable Long shipid) {

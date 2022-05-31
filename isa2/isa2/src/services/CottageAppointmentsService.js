@@ -9,6 +9,10 @@ class CottageAppointmenrsService {
         return axios.get(COTTAGE_APPOINTMENTS_API_BASE_URL);
     }
 
+    getCottageAppointmentsForSpecificUser(clientId){
+        return axios.get(COTTAGE_APPOINTMENTS_API_BASE_URL + '/client/' + clientId);
+    }
+
     createCottageAppointment(cottageAppointment){
         return axios.post(COTTAGE_APPOINTMENTS_API_BASE_URL,cottageAppointment);
     }
