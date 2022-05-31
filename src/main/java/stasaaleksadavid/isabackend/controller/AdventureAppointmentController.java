@@ -119,16 +119,118 @@ public class AdventureAppointmentController {
 
     //delete
     @DeleteMapping("/adventureappointments/{id}")
-    public Map<String, Boolean> deleteAdventureAppointment(@PathVariable Long id) {
+    public void deleteAdventureAppointment(@PathVariable Long id) {
 
         AdventureAppointment adventureAppointment = adventureAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("AdventureAppointment does not exist with id:" + id));
+        List<AdventureFreeAppointment> adventureFreeAppointments = adventureFreeAppointmentRepository.findByAdventureId(adventureAppointment.getAdventureId());
+        FixTimesOfFreeAppointments(adventureAppointment, adventureFreeAppointments);
 
-        adventureAppointmentRepository.delete(adventureAppointment);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
 
+
+    public void FixTimesOfFreeAppointments(AdventureAppointment appointment, List<AdventureFreeAppointment> freeAppointments) {
+
+        AdventureFreeAppointment adjustedFreeAppointmentBefore = findFreeAppointmentsBeforeChoosenAppointment(appointment, freeAppointments);
+        AdventureFreeAppointment adjustedFreeAppointmentAfter = findFreeAppointmentsAfterChoosenAppointment(appointment, freeAppointments);
+        fuseAdventureFreeAppointments(adjustedFreeAppointmentAfter, adjustedFreeAppointmentBefore, appointment);
+    }
+
+    public AdventureFreeAppointment findFreeAppointmentsBeforeChoosenAppointment(AdventureAppointment appointment, List<AdventureFreeAppointment> freeAppointments) {
+
+        for (AdventureFreeAppointment freeAppointment : freeAppointments
+        ) {
+            if (freeAppointment.getEndingDate().isEqual(appointment.getStartingDate())) {
+                return freeAppointment;
+            }
+        }
+        return null;
+    }
+
+    public AdventureFreeAppointment findFreeAppointmentsAfterChoosenAppointment(AdventureAppointment appointment, List<AdventureFreeAppointment> freeAppointments) {
+
+        for (AdventureFreeAppointment freeAppointment: freeAppointments) {
+            if (freeAppointment.getStartingDate().isEqual(appointment.getEndingDate())){
+                return freeAppointment;
+            }
+        }
+        return null;
+    }
+
+    public void fuseAdventureFreeAppointments(AdventureFreeAppointment nextFreeAppointment, AdventureFreeAppointment previusFreeAppointment, AdventureAppointment appointment) {
+
+        if(nextFreeAppointment == null && previusFreeAppointment == null) {
+
+            adventureAppointmentRepository.delete(appointment);
+
+            AdventureFreeAppointment newFreeAppointment = new AdventureFreeAppointment(
+                    appointment.getInstructorId(),
+                    appointment.getAdventureId(),
+                    appointment.getLocation(),
+                    appointment.getStartingDate(),
+                    appointment.getEndingDate(),
+                    appointment.getNumberOfPeople(),
+                    appointment.getAdditionalServices(),
+                    appointment.getPrice()
+            );
+
+            adventureFreeAppointmentRepository.save(newFreeAppointment);
+
+        }
+        else if(nextFreeAppointment == null && previusFreeAppointment != null) {
+
+            adventureAppointmentRepository.delete(appointment);
+
+            AdventureFreeAppointment newFreeAppointment = new AdventureFreeAppointment(
+                appointment.getInstructorId(),
+                appointment.getAdventureId(),
+                appointment.getLocation(),
+                previusFreeAppointment.getStartingDate(),
+                appointment.getEndingDate(),
+                appointment.getNumberOfPeople(),
+                appointment.getAdditionalServices(),
+                appointment.getPrice()
+            );
+            adventureFreeAppointmentRepository.delete(previusFreeAppointment);
+            adventureFreeAppointmentRepository.save(newFreeAppointment);
+        }
+
+        else if(nextFreeAppointment != null && previusFreeAppointment == null) {
+
+            adventureAppointmentRepository.delete(appointment);
+
+            AdventureFreeAppointment newFreeAppointment = new AdventureFreeAppointment(
+                    appointment.getInstructorId(),
+                    appointment.getAdventureId(),
+                    appointment.getLocation(),
+                    appointment.getStartingDate(),
+                    nextFreeAppointment.getEndingDate(),
+                    appointment.getNumberOfPeople(),
+                    appointment.getAdditionalServices(),
+                    appointment.getPrice()
+            );
+            adventureFreeAppointmentRepository.delete(newFreeAppointment);
+            adventureFreeAppointmentRepository.save(newFreeAppointment);
+
+        }
+        else {
+
+            adventureAppointmentRepository.delete(appointment);
+
+            AdventureFreeAppointment newFreeAppointment = new AdventureFreeAppointment(
+                    appointment.getInstructorId(),
+                    appointment.getAdventureId(),
+                    appointment.getLocation(),
+                    previusFreeAppointment.getStartingDate(),
+                    nextFreeAppointment.getEndingDate(),
+                    appointment.getNumberOfPeople(),
+                    appointment.getAdditionalServices(),
+                    appointment.getPrice()
+            );
+            adventureFreeAppointmentRepository.delete(previusFreeAppointment);
+            adventureFreeAppointmentRepository.delete(nextFreeAppointment);
+            adventureFreeAppointmentRepository.save(newFreeAppointment);
+        }
+    }
 
     @GetMapping("/adventureappointments/instructor/{type}/{instructorid}")
     public List<AdventureAppointment> getAppointmentByInstructorId(@PathVariable String type,@PathVariable Long instructorid) {
