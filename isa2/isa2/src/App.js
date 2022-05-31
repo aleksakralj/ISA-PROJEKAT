@@ -158,6 +158,8 @@ import ScheduleShip from './Pages/ScheduleEntitys/ScheduleShips/ScheduleShip';
 import PossibleShipAppointments from './Pages/ScheduleEntitys/ScheduleShips/PossibleShipAppointments';
 import ScheduleCottagesPage from './Pages/ScheduleEntitys/ScheduleCottages/ScheduleCottagesPage';
 import PossibleCottageAppointments from './Pages/ScheduleEntitys/ScheduleCottages/PossibleCottageAppointments';
+import ClientShips from './Pages/ClientReviewOfScheduledEntities/ClientShips/ClientShips';
+import ClientCottages from './Pages/ClientReviewOfScheduledEntities/ClientCottages/ClientCottages';
 
 /*
 const backStyle = {
@@ -319,8 +321,8 @@ function App() {
               <Route path="/clientpastships" component={PastShips}></Route>
               <Route path="/clientadventure" component= {ClientAdventures}></Route>
               <Route path="/clientpastadventures" component={PastAdventures}></Route>
-              <Route path="/clientcottages" component={ClientCottagesComponent}></Route> 
-              <Route path="/clientships" component={ClientShipsComponent}></Route>
+              <Route path="/clientcottages" component={ClientCottages}></Route> 
+              <Route path="/clientships" component={ClientShips}></Route>
               <Route path="/homepageclient" component={ClientHomePageCommponent}></Route>
               <Route path="/schedule" component={FishingInstructorScheduleComponent}></Route>
               <Route path="/cottageprofile" component={CottageProfilePage}></Route>

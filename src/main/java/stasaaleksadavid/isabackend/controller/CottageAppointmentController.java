@@ -125,5 +125,11 @@ public class CottageAppointmentController {
         else return null;
     }
 
+    @GetMapping("/cottageappointments/client/{clientId}")
+    public List<CottageAppointment> getAllAppointmentsForSpecificUser(@PathVariable Long clientId){
+
+        return cottageAppointmentRepository.findAllByClientId(clientId);
+    }
+
 }
 

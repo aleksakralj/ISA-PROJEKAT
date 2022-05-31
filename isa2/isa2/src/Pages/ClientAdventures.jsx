@@ -7,75 +7,89 @@ import UserService from '../services/UserService';
 
 const ClientAdventures = () => {
     
-    const [adventures, setAdventures] = useState([]);
-    const [instructorName, setInstructorName] = useState('');
-    const [adventureName, setAdventureName] = useState('');
-    const [adventureAddress, setAdventureAddress] = useState('');
-
-    const getAddress = async(id) => {
-
-        let adventure = await AdventureService.getAdventureById(id)
-        setAdventureAddress(adventure.data.address);
-    }
-
-    const getName = async(id) => {
-
-        let adventure = await AdventureService.getAdventureById(id)
-        setAdventureName(adventure.data.name);
-    }
-
-    
-    
-    const getInstructorsName = async(id) => {
-        
-        let adventure =  await AdventureService.getAdventureById(id)
-        let instructor = await UserService.getUserById(adventure.data.instructorId);
-
-        setInstructorName(instructor.data.firstName);
-    }
-
-    const getAdventureAddress = (adventureId) =>{
-        
-        getAddress(adventureId);
-        return adventureAddress;
-    }
-
-    const getAdventureName = (adventureId) => {
-        
-        getName(adventureId);
-        return adventureName;
-    }
-
-
-    const getFisgingInstructorsName = (adventureId) => {
-        
-        getInstructorsName(adventureId);
-        return instructorName
-    }
-
+    const [scheduledAdventures, setScheduledAdventures] = useState([{}]);
+    const [adventureObjects, setAdventureObjects] = useState([{}]);
+    const [userObjects, setUserObjects] = useState([{}]);
+    const [showAdventureAppointments, setShowAdventureAppointments] = useState([{}]);
 
     const loadAdventures =  async() => {
 
         let loggedUser = JSON.parse(localStorage.getItem('activeUser'));
         let usersAdventures = await AdventureAppointmentsService.getAdventureAppointmentsForSpecificUser(loggedUser.id);
-        let nesto = usersAdventures.data;
-
-        console.log( 'nestoo ',nesto);
-        
-        setAdventures(nesto);
-        console.log('avantura ',adventures);
+     
+        setScheduledAdventures(usersAdventures.data);
+    
     }
 
     useEffect(() => {
-
         loadAdventures()
     },[])
+
+    useEffect(() => {
+        getAdventureObject();
+    },[scheduledAdventures])
+
+    const getAdventureObject = async() => {
+
+        let adventureDTO = []
+
+        for (const adventure of scheduledAdventures) {
+            let a = await AdventureService.getAdventureById(adventure.adventureId)
+            adventureDTO.push(a.data);
+        }
+        
+
+        setAdventureObjects(adventureDTO)
+
+    }
+
+    useEffect(() => {
+        getUserObjects();
+    }, [adventureObjects])
+
+    const getUserObjects = async() => {
+
+        let userDTO = []
+        for(const adventure of adventureObjects){
+            let u = await UserService.getUserById(adventure.instructorId)
+   
+            userDTO.push(u.data);
+        
+        }
+
+        setUserObjects(userDTO);
+    }   
+
+    useEffect(() => {
+        bindData();
+    }, [userObjects])
+
+    const bindData = () => {
+
+        let finalAdventures = []
+
+        for (let i = 0; i<scheduledAdventures.length; i++) {
+
+            let object = {
+                id: scheduledAdventures[i].id,
+                startingDate: scheduledAdventures[i].startingDate,
+                endingDate: scheduledAdventures[i].startingDate,
+                adventureName: adventureObjects[i].name,
+                address: scheduledAdventures[i].location,
+                instructorName: userObjects[i].firstName,
+                price : scheduledAdventures[i].price
+            }
+
+            finalAdventures.push(object);
+        }
+
+        setShowAdventureAppointments(finalAdventures);
+    }
+
 
     return ( 
     
     <div className='adventures-container'>
-            
-        
             <div className='head-search-container'>
                 <h2 className='header'>Adventures</h2>
                 <div className='search-container'>
@@ -100,15 +114,15 @@ const ClientAdventures = () => {
                     </thead>
                     <tbody>
                         {
-                        adventures.map(
+
+                        showAdventureAppointments.map(
                             adventure =>
-                            
                         <tr key={adventure.id}>
                             <td>{adventure.startingDate}</td>
                             <td>{adventure.endingDate}</td>
-                            <td>{}</td>
-                            <td>{}</td>
-                            <td>{}</td>
+                            <td>{adventure.adventureName}</td>
+                            <td>{adventure.address}</td>
+                            <td>{adventure.instructorName}</td>
                             <td>{adventure.price}</td>                            
                             <td><button> AA</button></td>
                         </tr>

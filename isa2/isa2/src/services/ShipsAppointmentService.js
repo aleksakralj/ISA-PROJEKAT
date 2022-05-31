@@ -9,6 +9,10 @@ class ShipsAppointmenrsService {
         return axios.get(SHIP_APPOINTMENTS_API_BASE_URL);
     }
 
+    getShipAppointmentsForSpecificUser(clientId) {
+        return axios.get(SHIP_APPOINTMENTS_API_BASE_URL + '/client/' + clientId);
+    }
+
     createShipAppointment(shipAppointment){
         return axios.post(SHIP_APPOINTMENTS_API_BASE_URL,shipAppointment);
     }
