@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import AdventureAppointmentsService from '../services/AdventureAppointmentsService';
 import AdventureService from '../services/AdventureService';
 import UserService from '../services/UserService';
+import {getCurrentDate} from '../Utils/CurrentDate'
 
 const ClientAdventures = () => {
     
@@ -73,7 +74,7 @@ const ClientAdventures = () => {
             let object = {
                 id: scheduledAdventures[i].id,
                 startingDate: scheduledAdventures[i].startingDate,
-                endingDate: scheduledAdventures[i].startingDate,
+                endingDate: scheduledAdventures[i].endingDate,
                 adventureName: adventureObjects[i].name,
                 address: scheduledAdventures[i].location,
                 instructorName: userObjects[i].firstName,
@@ -86,6 +87,21 @@ const ClientAdventures = () => {
         setShowAdventureAppointments(finalAdventures);
     }
 
+    const cancelAdventure = (adventureToCancel) => {
+        
+        const adventureDate = new Date(adventureToCancel.startingDate);
+        const currentDate = new Date(getCurrentDate());
+
+        if (adventureDate - currentDate > 3) {
+            AdventureAppointmentsService.deleteAdventureAppointment(adventureToCancel.id)
+            alert('You successfully deleted adventure appointment!');
+            window.location.reload(false);                 
+        }
+
+        else (
+            alert('You cant cancel this appointment, there is less then 3 days until it!')
+        )
+    }
 
     return ( 
     
@@ -124,7 +140,7 @@ const ClientAdventures = () => {
                             <td>{adventure.address}</td>
                             <td>{adventure.instructorName}</td>
                             <td>{adventure.price}</td>                            
-                            <td><button> AA</button></td>
+                            <td><button onClick={() => cancelAdventure(adventure)}> Cancel Adventure</button></td>
                         </tr>
                         )}
                     </tbody>
