@@ -1,6 +1,7 @@
 package stasaaleksadavid.isabackend.controller;
 
 
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import stasaaleksadavid.isabackend.model.CottageFreeAppointment;
 import stasaaleksadavid.isabackend.repository.CottageFreeAppointmentRepository;
 
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,13 +30,21 @@ public class CottageFreeAppointmentController {
         return cottageFreeAppointmentRepository.findAll();
     }
 
+    @GetMapping("/cottagefreeappointments/{startingDate}/{endingDate}")
+    public List<CottageFreeAppointment> getAllCottageFreeAppointmentsByStartingDateAndEndingDate(@PathVariable String startingDate, @PathVariable String endingDate){
+
+        LocalDate startingTime = LocalDate.parse(startingDate);
+        LocalDate endingTime = LocalDate.parse(endingDate);
+
+        return cottageFreeAppointmentRepository.findCottageFreeAppointmentByStartingDateAndEndingDate(startingTime,endingTime);
+    }
+
     //create
     @PostMapping("/cottagefreeappointments/{type}")
-    public CottageFreeAppointment createCottageFreeAppointment(@PathVariable String type,@RequestBody CottageFreeAppointment cottageFreeAppointment) {
+    public CottageFreeAppointment createCottageFreeAppointment(@PathVariable String type, @RequestBody CottageFreeAppointment cottageFreeAppointment) {
         if (type.equals("admin") || type.equals("cottage_owner") || type.equals("main_admin")) {
             return cottageFreeAppointmentRepository.save(cottageFreeAppointment);
-        }
-        else return null;
+        } else return null;
     }
 
     //get by id
@@ -73,12 +83,10 @@ public class CottageFreeAppointmentController {
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
+
     //get by cottage id
-    @GetMapping("/cottagefreeappointments/cottage/{type}/{cottageid}")
-    public List<CottageFreeAppointment> getFreeAppointmentByCottageId(@PathVariable String type,@PathVariable Long cottageid) {
-        if (type.equals("admin") || type.equals("cottage_owner") || type.equals("main_admin")) {
+    @GetMapping("/cottagefreeappointments/cottage/{cottageid}")
+    public List<CottageFreeAppointment> getFreeAppointmentByCottageId(@PathVariable Long cottageid) {
         return cottageFreeAppointmentRepository.findByCottageId(cottageid);
-    }
-        else return null;
     }
 }

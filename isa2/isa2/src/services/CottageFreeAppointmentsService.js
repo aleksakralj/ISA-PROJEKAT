@@ -24,6 +24,12 @@ class CottageFreeAppointmenrsService {
     deleteCottageFreeAppointment(cottageAppointmentId){
         return axios.delete(COTTAGE_FREE_APPOINTMENTS_API_BASE_URL+'/'+cottageAppointmentId);
     }
+    findAllFreeCottageAppointmentsForRequiredTime(startingTime, endingTime) {
+        return axios.get(COTTAGE_FREE_APPOINTMENTS_API_BASE_URL+ '/' + startingTime + '/' + endingTime )
+    }
+
+
+
 
 }
 export default new CottageFreeAppointmenrsService();

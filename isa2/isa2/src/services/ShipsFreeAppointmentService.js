@@ -13,7 +13,7 @@ class ShipFreeAppointmenrsService {
         return axios.post(SHIP_FREE_APPOINTMENTS_API_BASE_URL,shipAppointment);
     }
 
-    findShipFreeAppointmentsByCottageId(shipId){
+    findShipFreeAppointmentsByShipId(shipId){
         return axios.get(SHIP_FREE_APPOINTMENTS_API_BASE_URL + '/ship/' + shipId);
     }
 
@@ -23,6 +23,9 @@ class ShipFreeAppointmenrsService {
 
     deleteShipFreeAppointment(shipAppointmentId){
         return axios.delete(SHIP_FREE_APPOINTMENTS_API_BASE_URL+'/'+shipAppointmentId);
+    }
+    findAllFreeShipsAppointmentsForRequiredTime(startingTime, endingTime) {
+        return axios.get(SHIP_FREE_APPOINTMENTS_API_BASE_URL+ '/' + startingTime + '/' + endingTime )
     }
 
 }

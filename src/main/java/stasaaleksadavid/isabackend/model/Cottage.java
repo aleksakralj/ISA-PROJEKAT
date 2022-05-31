@@ -25,6 +25,9 @@ public class Cottage {
     @Column(name = "Number_Of_Rooms")
     private int numberOfRooms;
 
+    @Column(name = "Max_People")
+    private int maxPeople;
+
     @Column(name = "Rules")
     private String rules;
 
@@ -37,11 +40,12 @@ public class Cottage {
 
     public Cottage() {}
 
-    public Cottage(String name, String address, String description, double rating, int numberOfRooms, String rules, long ownerId, String photos) {
+    public Cottage(String name, String address, String description, int maxPeople, double rating, int numberOfRooms, String rules, long ownerId, String photos) {
         super();
         this.name = name;
         this.address = address;
         this.description = description;
+        this.maxPeople = maxPeople;
         this.rating = rating;
         this.numberOfRooms = numberOfRooms;
         this.rules = rules;
@@ -121,4 +125,11 @@ public class Cottage {
         this.ownerId = ownerId;
     }
 
+    public int getMaxPeople() {
+        return maxPeople;
+    }
+
+    public void setMaxPeople(int maxPeople) {
+        this.maxPeople = maxPeople;
+    }
 }
