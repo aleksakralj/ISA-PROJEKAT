@@ -1,0 +1,62 @@
+.possible-appointments-container{
+    width: 100%;
+    height: 100vh;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+}
+.required-ship-container{
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+}
+.table-of-appointments{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.required-ship-terms-list{
+    width: 90%;
+    height: 150px;
+}
+.required-ship-terms-list > tbody {
+    height: 100%;
+    overflow: auto;
+    display: block;
+}
+.required-ship-terms-list > thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+.required-terms-not-found-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.free-ships-list{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;   
+}
+.ship-terms-list{
+    width: 90%;
+    height: 300px
+}
+.ship-terms-list > tbody{
+    height: 100%;
+    overflow: auto;
+    display: block;
+}
+.ship-terms-list > thead, tbody tr{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}

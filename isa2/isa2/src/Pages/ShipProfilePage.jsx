@@ -68,7 +68,7 @@ const ShipProfilePage = () => {
     },[subscribed])
 
     const checkFreeTerms = () => {
-        history.push('/ship-free-terms/' + ship.id);
+        history.push('/schedule-ship/' + ship.id);
     }
 
     const checkQuickAppointments = () => {
@@ -79,7 +79,7 @@ const ShipProfilePage = () => {
         <div className='ship-profile-container'>
             <div className='ship-caption-content'>               
             <button className='appointments-button' onClick={() => checkFreeTerms()}>
-                    Check Free terms
+                    Schedule Ship
                 </button>
                 <div className='ship-properties'>
                     <div className='basic-ship-info'>

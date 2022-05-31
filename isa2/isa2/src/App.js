@@ -154,6 +154,10 @@ import AdventureSubscriptionsPage from './Pages/SubscriptionView/AdventureSubscr
 import SubscriptionNavigatorPage from './Pages/SubscriptionView/SubscriptionNavigatorPage';
 import ScheduleAppointmentsPage from './Pages/ScheduleEntitys/ScheduleAppointments/ScheduleAppointmentsPage'
 import PossibleAdventureAppointments from './Pages/ScheduleEntitys/ScheduleAppointments/PossibleAdventureAppointments';
+import ScheduleShip from './Pages/ScheduleEntitys/ScheduleShips/ScheduleShip';
+import PossibleShipAppointments from './Pages/ScheduleEntitys/ScheduleShips/PossibleShipAppointments';
+import ScheduleCottagesPage from './Pages/ScheduleEntitys/ScheduleCottages/ScheduleCottagesPage';
+import PossibleCottageAppointments from './Pages/ScheduleEntitys/ScheduleCottages/PossibleCottageAppointments';
 
 /*
 const backStyle = {
@@ -363,6 +367,10 @@ function App() {
               <Route path="/subscription-navigator" component={SubscriptionNavigatorPage}></Route>
               <Route path="/schedule-adventure-appointment" component={ScheduleAppointmentsPage}></Route>
               <Route path="/possible-adventure-appointments" component={PossibleAdventureAppointments}></Route>
+              <Route path="/schedule-ship" component={ScheduleShip}></Route>
+              <Route path="/possible-ship-appointments" component={PossibleShipAppointments}></Route>
+              <Route path="/schedule-cottage" component={ScheduleCottagesPage}></Route>
+              <Route path="/possible-cottage-appointments" component={PossibleCottageAppointments}></Route>
 
               <Route path="/loginproba" component={LoginComponent}></Route>
               </Switch>

@@ -64,6 +64,10 @@ const CottageProfilePage = () => {
         history.push('/cottage-quick-appointment/' + cottage.id)
     }
 
+    const scheduleCottage = () => {
+        history.push('/schedule-cottage/' + cottage.id)
+    }
+
     useEffect(() => {
         getCottageInfo();
         getUserInfo();
@@ -77,8 +81,10 @@ const CottageProfilePage = () => {
     return (
         <div className='cottage-profile-page-container'>
              <div className='cottage-caption-content'>               
-                <button className='appointments-button'>
-                    Check Free Terms
+                <button className='appointments-button'
+                    onClick={() => scheduleCottage()}
+                >
+                    Schedule Cottage
                 </button>
                 <div className='cottage-properties'>
                     <div className='basic-cottage-info'>

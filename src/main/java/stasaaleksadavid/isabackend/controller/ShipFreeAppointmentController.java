@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
+import stasaaleksadavid.isabackend.model.AdventureFreeAppointment;
 import stasaaleksadavid.isabackend.model.ShipFreeAppointment;
 import stasaaleksadavid.isabackend.repository.ShipFreeAppointmentRepository;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +27,16 @@ public class ShipFreeAppointmentController {
     public List<ShipFreeAppointment> getAllShipFreeAppointments() {
         return shipFreeAppointmentRepository.findAll();
     }
+
+    @GetMapping("/shipfreeappointments/{startingDate}/{endingDate}")
+    public List<ShipFreeAppointment> getAllShipsFreeAppointmentsByStartingDateAndEndingDate(@PathVariable String startingDate, @PathVariable String endingDate){
+
+        LocalDate startingTime = LocalDate.parse(startingDate);
+        LocalDate endingTime = LocalDate.parse(endingDate);
+
+        return shipFreeAppointmentRepository.findShipFreeAppointmentByStartingDateAndEndingDate(startingTime, endingTime);
+    }
+
 
     //create
     @PostMapping("/shipfreeappointments/{type}")
@@ -72,12 +84,9 @@ public class ShipFreeAppointmentController {
         return (Map<String, Boolean>) ResponseEntity.ok(response);
     }
 
-    @GetMapping("/shipfreeappointments/ship/{type}/{shipid}")
-    public List<ShipFreeAppointment> getFreeAppointmentByShipId(@PathVariable String type,@PathVariable Long shipid) {
-        if(type.equals("ship_owner") || type.equals("admin")|| type.equals("main_admin")){
-        return shipFreeAppointmentRepository.findByShipId(shipid);
-    }
-    else return null;
+    @GetMapping("/shipfreeappointments/ship/{shipid}")
+    public List<ShipFreeAppointment> getFreeAppointmentByShipId(@PathVariable Long shipid) {
+         return shipFreeAppointmentRepository.findByShipId(shipid);
     }
 
 }

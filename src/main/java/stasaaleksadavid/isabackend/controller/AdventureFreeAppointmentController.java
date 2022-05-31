@@ -35,7 +35,6 @@ public class AdventureFreeAppointmentController {
     @GetMapping("/adventurefreeappointments/{startingDate}/{endingDate}")
     public List<AdventureFreeAppointment> getAllAdventureFreeAppointmentsByStartingDateAndEndingDate(@PathVariable String startingDate, @PathVariable String endingDate) throws ParseException {
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("mm-dd-yyyy");
 
         LocalDate startingTime = LocalDate.parse(startingDate);
         LocalDate endingTime = LocalDate.parse(endingDate);
