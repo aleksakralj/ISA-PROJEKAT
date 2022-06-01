@@ -15,6 +15,8 @@ const PossibleShipAppointments = () => {
     const [allFreeTerms, setAllFreeTerms] = useState([{}]);
     const [activeUser, setActiveUser] = useState({});
     const [userPoints, setuserPoints] = useState({});
+    const [userPenalties, setuserPenalties] = useState([{}]);
+
 
 
     useEffect(() => {
@@ -90,6 +92,9 @@ const PossibleShipAppointments = () => {
             startingDate: requiredData.startingDate
         }
 
+        getUserPenalties();
+        if(userPenalties.length < 3) {
+
         ShipsAppointmentService.createShipAppointment(appointment)
         updatePoints();
         alert("You successfully scheduled appointment")
@@ -103,11 +108,24 @@ const PossibleShipAppointments = () => {
             }, (error) => {
                 console.log(error.text)
             });
+        }
+
+        else {
+            alert('You cant schedule this appointment, you have 3 penalties')
+        
+        }
     }
 
     const updatePoints = () => {
         let points = 100;
         ClientPointsService.updateClientPoints(points, activeUser.id);
+    }
+
+    const getUserPenalties = async() => {
+        let response = await ClientPointsService.getClientPenaltiesByUserId(activeUser.id);
+
+        setuserPenalties(response.data);
+        console.log(response.data)        
     }
 
     return (        
