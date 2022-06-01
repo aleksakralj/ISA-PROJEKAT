@@ -4,6 +4,7 @@ import ShipsFreeAppointmentService from '../../../services/ShipsFreeAppointmentS
 import '../../../Pages/ScheduleEntitys/ScheduleShips/PossibleShipAppointments.css';
 import ShipsAppointmentService from '../../../services/ShipsAppointmentService';
 import emailjs from 'emailjs-com';
+import ClientPointsService from '../../../services/ClientPointsService';
 
 const PossibleShipAppointments = () => {
     
@@ -13,6 +14,8 @@ const PossibleShipAppointments = () => {
     const [doesRequiredShipHaveFreeAppointments, setDoesRequiredHaveShipFreeAppointments] = useState('');
     const [allFreeTerms, setAllFreeTerms] = useState([{}]);
     const [activeUser, setActiveUser] = useState({});
+    const [userPoints, setuserPoints] = useState({});
+
 
     useEffect(() => {
         loadRequiredShip();
@@ -42,6 +45,8 @@ const PossibleShipAppointments = () => {
         ]);
 
         let freeAppointments = freeAppointmentsForRequiredShip.data;
+        console.log(freeAppointmentsForRequiredShip)
+        
         let goodAppointments =[]
 
         let allFreeAppointments = freeAppointmentsForAllShipsForRequiredTime.data;
@@ -86,7 +91,9 @@ const PossibleShipAppointments = () => {
         }
 
         ShipsAppointmentService.createShipAppointment(appointment)
-
+        updatePoints();
+        alert("You successfully scheduled appointment")
+        
         
         var params = {}
         emailjs.send('service_5rghav8', 'template_h5b17px', params , 'gXf9s006PxRAmmhgz')
@@ -96,10 +103,13 @@ const PossibleShipAppointments = () => {
             }, (error) => {
                 console.log(error.text)
             });
-
     }
 
-    
+    const updatePoints = () => {
+        let points = 100;
+        ClientPointsService.updateClientPoints(points, activeUser.id);
+    }
+
     return (        
     <div className='possible-appointments-container'>
     <div className='required-ship-container' id='1'>

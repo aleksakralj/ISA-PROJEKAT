@@ -4,6 +4,7 @@ import CottageFreeAppointmentsService from '../../../services/CottageFreeAppoint
 import CottageAppointmentsService from '../../../services/CottageAppointmentsService';
 import emailjs from 'emailjs-com';
 import '../../../Pages/ScheduleEntitys/ScheduleCottages/PossibleCottageAppointments.css';
+import ClientPointsService from '../../../services/ClientPointsService';
 
 const PossibleCottageAppointments = () => {
     const [requiredCottage, setRequiredCottage] = useState({});
@@ -12,6 +13,7 @@ const PossibleCottageAppointments = () => {
     const [doesRequiredCottageHaveFreeAppointments, setDoesRequiredCottageHaveFreeAppointments] = useState('');
     const [allFreeTerms, setAllFreeTerms] = useState([{}]);
     const [activeUser, setActiveUser] = useState({});
+    const [userPoints, setuserPoints] = useState({});
 
     useEffect(() => {
         loadRequiredCottage();
@@ -85,7 +87,8 @@ const PossibleCottageAppointments = () => {
         }
 
         CottageAppointmentsService.createCottageAppointment(appointment);
-
+        updatePoints();
+        alert("You successfully scheduled appointment")
         
         var params = {}
         emailjs.send('service_5rghav8', 'template_6avct9t', params , 'gXf9s006PxRAmmhgz')
@@ -96,9 +99,14 @@ const PossibleCottageAppointments = () => {
             }, (error) => {
                 console.log(error.text)
             });
-        
-
+  
     }
+
+    const updatePoints = () => {
+        let points = 100;
+        ClientPointsService.updateClientPoints(points, activeUser.id);
+     }
+
 
     return (
         <div className='possible-appointments-container'>

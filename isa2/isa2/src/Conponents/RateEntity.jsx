@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import AdventureRatingCalculatorAPI from '../services/AdventureRatingCalculatorAPI';
+import ClientPointsService from '../services/ClientPointsService';
 import CottageRatingCalculatorAPI from '../services/CottageRatingCalculatorAPI';
 import EntityRatingAPI from '../services/EntityRatingAPI';
 import ShipsRatingCalculatorAPI from '../services/ShipsRatingCalculatorAPI';
@@ -61,7 +62,8 @@ const RateEntity = ({activeEntityId, whichEntity}) => {
     
         EntityRatingAPI.createAdventureRatings(userRatesEntity);
         AdventureRatingCalculatorAPI.updateAdventureRating(userRatesEntity);
-    
+        updateUserPoints();
+
     }
 
     const rateShip = () => {
@@ -69,16 +71,22 @@ const RateEntity = ({activeEntityId, whichEntity}) => {
   
         EntityRatingAPI.createShipRatings(userRatesEntity);
         ShipsRatingCalculatorAPI.updateShipRating(userRatesEntity);
-    
+        updateUserPoints();
     }
 
     const rateCottage = () => {
         let userRatesEntity = {cottageId: activeEntityId, userId: activeUser.id, rating: grade}
   
-            EntityRatingAPI.createCottageRatings(userRatesEntity);
-            CottageRatingCalculatorAPI.updateCottageRating(userRatesEntity);
+        EntityRatingAPI.createCottageRatings(userRatesEntity);
+        CottageRatingCalculatorAPI.updateCottageRating(userRatesEntity);
+        updateUserPoints();
     }
     
+
+    const updateUserPoints = () => {
+        let points = 10
+        ClientPointsService.updateClientPoints(points, activeUser.id)
+    }
 
     const getActiveUser = () => {
         setActiveUser(JSON.parse(localStorage.getItem('activeUser')));   

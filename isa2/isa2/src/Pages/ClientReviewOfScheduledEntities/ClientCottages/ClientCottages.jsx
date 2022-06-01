@@ -4,15 +4,19 @@ import { useEffect, useState } from 'react';
 import CottageAppointmentsService from '../../../services/CottageAppointmentsService';
 import CottageService from '../../../services/CottageService';
 import UserService from '../../../services/UserService';
+import ClientPointsService from '../../../services/ClientPointsService';
 import { getCurrentDate } from '../../../Utils/CurrentDate';
 
 const ClientCottages = () => {
+    const [activeUser, setActiveUser] = useState({});
     const [scheduledCottages, setScheduledCottages] = useState([{}]);
     const [cottageObjects, setCottageObjects] = useState([{}]);
     const [userObjects, setUserObjects] = useState([{}]);
     const [showCottageAppointments, setShowCottageAppointments] = useState([{}]);
 
     const loadCottages =  async() => {
+        setActiveUser(JSON.parse(localStorage.getItem('activeUser')))
+
 
         let loggedUser = JSON.parse(localStorage.getItem('activeUser'));
         let usersCottages = await CottageAppointmentsService.getCottageAppointmentsForSpecificUser(loggedUser.id);
@@ -93,6 +97,8 @@ const ClientCottages = () => {
 
         if(cottageDate - currentDate > 3) {
             CottageAppointmentsService.deleteCottageAppointment(cottageToCancel.id);
+            updatePoints();
+         
             alert('You successfully deleted cottage appointment');
             window.location.reload(false);
         }
@@ -100,6 +106,11 @@ const ClientCottages = () => {
             alert('You cant cancel this appointment, there is less then 3 days until it!')
         }
 
+    }
+
+    const updatePoints = () => {
+        let points = -100;
+        ClientPointsService.updateClientPoints(points, activeUser.id)
     }
 
 

@@ -5,15 +5,19 @@ import AdventureAppointmentsService from '../services/AdventureAppointmentsServi
 import AdventureService from '../services/AdventureService';
 import UserService from '../services/UserService';
 import {getCurrentDate} from '../Utils/CurrentDate'
+import ClientPointsService from '../services/ClientPointsService';
 
 const ClientAdventures = () => {
     
+    const [activeUser, setActiveUser] = useState({});
     const [scheduledAdventures, setScheduledAdventures] = useState([{}]);
     const [adventureObjects, setAdventureObjects] = useState([{}]);
     const [userObjects, setUserObjects] = useState([{}]);
     const [showAdventureAppointments, setShowAdventureAppointments] = useState([{}]);
 
     const loadAdventures =  async() => {
+
+        setActiveUser(JSON.parse(localStorage.getItem('activeUser')))
 
         let loggedUser = JSON.parse(localStorage.getItem('activeUser'));
         let usersAdventures = await AdventureAppointmentsService.getAdventureAppointmentsForSpecificUser(loggedUser.id);
@@ -94,13 +98,21 @@ const ClientAdventures = () => {
 
         if (adventureDate - currentDate > 3) {
             AdventureAppointmentsService.deleteAdventureAppointment(adventureToCancel.id)
+            updatePoints();
             alert('You successfully deleted adventure appointment!');
+
+
             window.location.reload(false);                 
         }
 
         else {
             alert('You cant cancel this appointment, there is less then 3 days until it!')
         }
+    }
+
+    const updatePoints = () => {
+        let points = -100;
+        ClientPointsService.updateClientPoints(points, activeUser.id)
     }
 
     return ( 
