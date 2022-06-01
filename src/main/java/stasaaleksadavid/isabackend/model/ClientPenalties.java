@@ -19,7 +19,7 @@ public class ClientPenalties {
 
     public ClientPenalties(){}
 
-    public ClientPenalties(long id, long userId, LocalDateTime penaltyDate) {
+    public ClientPenalties(long userId, LocalDateTime penaltyDate) {
         super();
         this.userId = userId;
         this.penaltyDate = penaltyDate;

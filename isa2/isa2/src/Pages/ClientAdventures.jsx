@@ -98,9 +98,9 @@ const ClientAdventures = () => {
             window.location.reload(false);                 
         }
 
-        else (
+        else {
             alert('You cant cancel this appointment, there is less then 3 days until it!')
-        )
+        }
     }
 
     return ( 

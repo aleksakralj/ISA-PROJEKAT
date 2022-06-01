@@ -5,8 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.*;
+import stasaaleksadavid.isabackend.repository.ClientPenaltiesRepository;
 import stasaaleksadavid.isabackend.repository.ClientPointsRepository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +21,9 @@ public class ClientPointsController {
 
     @Autowired
     private ClientPointsRepository clientPointsRepository;
+
+    @Autowired
+    private ClientPenaltiesRepository clientPenaltiesRepository;
 
     @GetMapping("/clientPoints")
     public List<ClientPoints> getAllClientPoints(){return clientPointsRepository.findAll();}
@@ -42,5 +48,50 @@ public class ClientPointsController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return (Map<String, Boolean>) ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/clientPoints/{points}/{userId}")
+    public ResponseEntity<ClientPoints> updateClientPoints(@PathVariable int points, @PathVariable Long userId) {
+
+        ClientPoints clientPoints = clientPointsRepository.getById(userId);
+
+        if(clientPoints.getPoints() + points < 0) {
+
+            ClientPenalties penalty = new ClientPenalties(
+                    userId,
+                    LocalDateTime.now()
+            );
+
+            clientPenaltiesRepository.save(penalty);
+            clientPoints.setPoints(clientPoints.getPoints()+points);
+            clientPoints.setUserCategory(LoyaltyCategory.BRONZE);
+            ClientPoints updatedPoints = clientPointsRepository.save(clientPoints);
+            return ResponseEntity.ok(updatedPoints);
+        }
+        else if(clientPoints.getPoints() + points >= 0 && clientPoints.getPoints() + points <500) {
+            clientPoints.setPoints(clientPoints.getPoints()+points);
+            clientPoints.setUserCategory(LoyaltyCategory.BRONZE);
+            ClientPoints updatedPoints = clientPointsRepository.save(clientPoints);
+            return ResponseEntity.ok(updatedPoints);
+        }
+        else if(clientPoints.getPoints() + points >= 500 && clientPoints.getPoints() + points < 1500) {
+
+            clientPoints.setPoints(clientPoints.getPoints()+points);
+            clientPoints.setUserCategory(LoyaltyCategory.SILVER);
+            ClientPoints updatedPoints = clientPointsRepository.save(clientPoints);
+            return ResponseEntity.ok(updatedPoints);
+        }
+        else if(clientPoints.getPoints() + points >= 1500 && clientPoints.getPoints() + points < 3000) {
+            clientPoints.setPoints(clientPoints.getPoints()+points);
+            clientPoints.setUserCategory(LoyaltyCategory.GOLD);
+            ClientPoints updatedPoints = clientPointsRepository.save(clientPoints);
+            return ResponseEntity.ok(updatedPoints);
+        }
+        else {
+            clientPoints.setPoints(clientPoints.getPoints()+points);
+            clientPoints.setUserCategory(LoyaltyCategory.PLATINUM);
+            ClientPoints updatedPoints = clientPointsRepository.save(clientPoints);
+            return ResponseEntity.ok(updatedPoints);
+        }
     }
 }

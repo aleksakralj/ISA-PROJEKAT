@@ -20,6 +20,10 @@ class ClientPointsService {
     deleteClientPoints(clientPointsId){
         return axios.delete(CLIENTPOINTS_API_BASE_URL, + "/" + clientPointsId);
     }
+    
+    updateClientPoints(points, userId) {
+        return axios.put(CLIENTPOINTS_API_BASE_URL + '/' + points + '/' + userId);
+    }
 
     getClientPenalties() {
         return axios.get(CLIENT_PENALTIES_API_BASE_URL);

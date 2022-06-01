@@ -5,6 +5,5 @@ public enum LoyaltyCategory {
     BRONZE,
     SILVER,
     GOLD,
-    PLATINUM,
-    DIAMOND
+    PLATINUM
 }
