@@ -85,7 +85,7 @@ const RateEntity = ({activeEntityId, whichEntity}) => {
 
     const updateUserPoints = () => {
         let points = 10
-        ClientPointsService.updateClientPoints(points, activeUser.id)
+        ClientPointsService.updateClientPoints(points, activeUser.id);
     }
 
     const getActiveUser = () => {
