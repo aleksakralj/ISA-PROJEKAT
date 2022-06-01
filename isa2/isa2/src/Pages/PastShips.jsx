@@ -3,20 +3,92 @@ import { useState, useEffect } from 'react';
 import '../Assets/Styles/PastShipsAppointment.css'
 import PastShipsAppointmentAPI from '../services/PastShipsAppointmentAPI';
 import {useHistory} from 'react-router-dom';
+import ShipService from '../services/ShipService';
+import UserService from '../services/UserService';
 
 const PastShips = () => {
 
     const [ships, setShips] = useState([]);
     const [shipChoosenForFeedback, setShipChoosenForFeedback] = useState({});
     const history = useHistory();
+    const [shipObjects, setshipObjects] = useState([{}]);
+    const [userObjects, setuserObjects] = useState([{}]);
+    const [activeUser, setactiveUser] = useState({});
+    const [shownHistoryShips, setshownHistoryShips] = useState([{}]);
+
     
+    useEffect(() =>{
+        loadActiveUser();
+    },[])
+
+    const loadActiveUser = () => {
+        setactiveUser( JSON.parse(localStorage.getItem('activeUser')));
+    }
+
+    useEffect (() => {
+        loadShips();
+    }, [activeUser])
+
 
     const loadShips = async() => {
-
-        let loggedUser = JSON.parse(localStorage.getItem('activeUser'));
-        let thisUserShipsAppointmentsHistory = await PastShipsAppointmentAPI.getShipHistoryAppointmentByUserId(loggedUser.id);
+        let thisUserShipsAppointmentsHistory = await PastShipsAppointmentAPI.getShipHistoryAppointmentByUserId(activeUser.id);
         setShips(thisUserShipsAppointmentsHistory.data);
     }
+
+    useEffect (() => {
+        getShipObjects();
+    }, [ships])
+
+    const getShipObjects = async() => {
+
+        let shipDTO = []
+        for (const s of ships) {
+            let responese = await ShipService.getShipById(s.shipId)
+            shipDTO.push(responese.data);
+        }
+
+        setshipObjects(shipDTO);
+    }
+
+    useEffect(() => {
+        getUserObjects()
+    }, [shipObjects])
+
+    const getUserObjects = async() => {
+
+        let userDto = []
+        for (const ship of shipObjects) {
+            let s = await UserService.getUserById(ship.ownerId);
+            userDto.push(s.data)
+        }
+
+        setuserObjects(userDto)
+        console.log(userObjects)
+    }
+
+    useEffect(() => {
+        bindData();
+    }, [userObjects])
+
+    const bindData = () => {
+        
+        let finalShips = []
+        for (let i = 0 ; i<ships.length ; i++) {
+            let object = {
+                id: ships[i].id,
+                startingDate: ships[i].startingDate,
+                endingDate: ships[i].endingDate,
+                name : shipObjects[i].name,
+                ownerName : userObjects[i].firstName,
+                location: shipObjects[i].address,
+                price : ships[i].price
+            }
+            finalShips.push(object)
+        }
+
+        setshownHistoryShips(finalShips);
+    }
+    
 
     const openFeedbackPage = (ship) => {
         
@@ -27,9 +99,6 @@ const PastShips = () => {
     }
 
 
-    useEffect(() => {
-        loadShips();
-    },[])
 
     return (
         <div className='past-ships-container'>
@@ -59,14 +128,14 @@ const PastShips = () => {
                 </thead>
                 <tbody>
                   {
-                      ships.map(
+                      shownHistoryShips.map(
                         ship =>
                     <tr key={ship.id}>
                         <td>{ship.startingDate}</td>
                         <td>{ship.endingDate}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{ship.name}</td>
+                        <td>{ship.location}</td>
+                        <td>{ship.ownerName}</td>
                         <td>{ship.price}</td>                            
                         <td><button onClick={() => openFeedbackPage(ship)}> Send your feedback</button></td>
                     </tr>

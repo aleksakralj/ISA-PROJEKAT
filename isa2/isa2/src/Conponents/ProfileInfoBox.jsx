@@ -5,7 +5,7 @@ import LoyaltyComponent from './LoyaltyComponent';
 
 const ProfileInfoBox = ({updateProfile , activeUser, deleteProfile, userPoints, userPenalties}) => {
     
-    console.log(userPenalties)
+    
  
     return (
         <div className='profile-container'>
