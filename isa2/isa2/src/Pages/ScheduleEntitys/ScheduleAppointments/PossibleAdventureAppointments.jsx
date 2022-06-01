@@ -15,6 +15,7 @@ const PossibleAdventureAppointments = () => {
     const [allFreeTerms, setAllFreeTerms] = useState([{}]);
     const [activeUser, setActiveUser] = useState({});
     const [userPoints, setuserPoints] = useState({});
+    const [userPenalties, setuserPenalties] = useState([{}]);
     
     useEffect(() => {
         loadRequiredAdventure();
@@ -87,10 +88,16 @@ const PossibleAdventureAppointments = () => {
             startingDate: requiredData.startingDate
         }
 
-        AdventureAppointmentsService.createAdventureAppointment(appointment);
-        updatePoints();
-        alert("You successfully scheduled appointment")
-        
+        getUserPenalties();
+
+    //   
+            if(userPenalties.length < 3)
+                    {
+                AdventureAppointmentsService.createAdventureAppointment(appointment);
+            
+                updatePoints();
+                alert("You successfully scheduled appointment")
+    
         var params = {}
         emailjs.send('service_5rghav8', 'template_6avct9t', params , 'gXf9s006PxRAmmhgz')
         .then((resoult) => {
@@ -99,6 +106,18 @@ const PossibleAdventureAppointments = () => {
             }, (error) => {
                 console.log(error.text)
             });
+        }
+
+        else (
+            alert('You cant schedule this appointment, you have 3 penalties')
+        )
+    }
+
+    const getUserPenalties = async() => {
+        let response = await ClientPointsService.getClientPenaltiesByUserId(activeUser.id);
+
+        setuserPenalties(response.data);
+        console.log(response.data)        
 
     }
 
