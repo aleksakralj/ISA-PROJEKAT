@@ -3,8 +3,14 @@ import '../Assets/Styles/ClientProfilePage.css'
 import { useState, useEffect } from 'react';
 import ClientPointsService from '../services/ClientPointsService';
 
-const LoyaltyComponent = ({ userPoints}) => {
+const LoyaltyComponent = ({ userPoints , userPenalties}) => {
     
+    const [penalities, setpenalities] = useState([{}]);
+
+    useEffect(() => {
+        setpenalities(userPenalties);
+    },[])
+
     return (
         <div className='loyalty-container'>         
             <div className='loyalty-labels'>
@@ -21,7 +27,8 @@ const LoyaltyComponent = ({ userPoints}) => {
                 </input>
                 <input 
                     contentEditable='false' 
-                    disabled='true'>
+                    disabled='true'
+                    value={penalities.length}>
                 </input>
             </div>
         </div>

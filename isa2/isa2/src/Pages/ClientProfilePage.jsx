@@ -12,6 +12,8 @@ const ClientProfilePage = () => {
     const [activeUser, setActiveUser] = useState({});
     const [userPoints, setUserPoints] = useState({});
     const history = useHistory();
+    const [userPenalties, setUserPenalties] = useState([{}]);
+    const [numberOfPenalties, setnumberOfPenalties] = useState('');
 
     useEffect(() => {
         getUserData();
@@ -23,8 +25,22 @@ const ClientProfilePage = () => {
     }
 
     useEffect(() => {
-        getUserPoints();
+        getUserPenalities();
     }, [activeUser])
+
+
+    const getUserPenalities = async() => {
+
+        let penalities = await ClientPointsService.getClientPenaltiesByUserId(activeUser.id);
+
+        setUserPenalties(penalities.data)
+        localStorage.setItem('usersPenalties', JSON.stringify(penalities.data))
+        
+    }
+
+    useEffect(() => {
+        getUserPoints();
+    }, [userPenalties])
     
     const getUserPoints = async() => {
 
@@ -60,7 +76,13 @@ const ClientProfilePage = () => {
         <div className='container-box'>
             {
                 !wantToUpdate ? 
-                    <ProfileInfoBox updateProfile={updateProfile} activeUser={activeUser} deleteProfile={deleteProfile} userPoints={userPoints} /> 
+                    <ProfileInfoBox 
+                        updateProfile={updateProfile} 
+                        activeUser={activeUser} 
+                        deleteProfile={deleteProfile} 
+                        userPoints={userPoints}
+                        userPenalties={userPenalties}
+                    /> 
                     : <UpdateUserForm confirmUpdate={confirmUpdate} activeUser={activeUser} cancelUpdate={cancelUpdate} />
             }
         </div>
