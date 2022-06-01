@@ -3,15 +3,17 @@ import '../Assets/Styles/ClientProfilePage.css'
 import UserRank from './UserRank';
 import LoyaltyComponent from './LoyaltyComponent';
 
-const ProfileInfoBox = ({updateProfile , activeUser, deleteProfile}) => {
+const ProfileInfoBox = ({updateProfile , activeUser, deleteProfile, userPoints}) => {
     
+    console.log(activeUser)
+
     return (
         <div className='profile-container'>
 
             <div className='user-name-and-points-container'>
-                <UserRank />
+                <UserRank userPoints={userPoints} />
                 <h1 className='user-credentials'>{activeUser.firstName} {activeUser.lastName}</h1>
-                <LoyaltyComponent/>
+                <LoyaltyComponent userPoints={userPoints}/>
             </div>
 
             <div className='user-info'>

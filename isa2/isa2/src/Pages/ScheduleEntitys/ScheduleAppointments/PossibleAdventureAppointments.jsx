@@ -88,8 +88,8 @@ const PossibleAdventureAppointments = () => {
         }
 
         AdventureAppointmentsService.createAdventureAppointment(appointment);
-        alert("You successfully scheduled appointment")
         updatePoints();
+        alert("You successfully scheduled appointment")
         
         var params = {}
         emailjs.send('service_5rghav8', 'template_6avct9t', params , 'gXf9s006PxRAmmhgz')
@@ -105,18 +105,6 @@ const PossibleAdventureAppointments = () => {
     const updatePoints = () => {
         let points = 100;
         ClientPointsService.updateClientPoints(points, activeUser.id);
-        let newUserPoints = JSON.parse(localStorage.getItem('usersPoints'));
-     
-        getNewUserPoints();         
-        
-        newUserPoints = userPoints;
-        localStorage.setItem('usersPoints', JSON.stringify(newUserPoints));
-     
-    }
-
-    const getNewUserPoints = async() => {
-        let points = await ClientPointsService.getClientPointsById(activeUser.id);
-        setuserPoints(points.data)
     }
 
     return (

@@ -9,6 +9,7 @@ const AdventureWriteFeedbackPage = () => {
 
     const [activeEntity, setActiveEntity] = useState({});
     const [whichEntity, setWhichEntity] = useState('');
+    
 
 
     const checkEntityType = () => {

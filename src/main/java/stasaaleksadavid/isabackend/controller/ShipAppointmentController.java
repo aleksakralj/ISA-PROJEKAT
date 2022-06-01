@@ -218,11 +218,9 @@ public class ShipAppointmentController {
     }
 
 
-    @GetMapping("/shipappointments/ship/{type}/{shipid}")
-    public List<ShipAppointment> getAppointmentByShipId(@PathVariable String type,@PathVariable Long shipid) {
-        if (type.equals("ship_owner") || type.equals("admin") || type.equals("main_admin")) {
+    @GetMapping("/shipappointments/ship/{shipid}")
+    public List<ShipAppointment> getAppointmentByShipId(@PathVariable Long shipid) {
             return shipAppointmentRepository.findByShipId(shipid);
-        }
-        else return null;
     }
 }
+

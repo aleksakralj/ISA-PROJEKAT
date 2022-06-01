@@ -1,24 +1,9 @@
 import React from 'react';
 import '../Assets/Styles/ClientProfilePage.css'
 import { useState, useEffect } from 'react';
+import ClientPointsService from '../services/ClientPointsService';
 
-const UserRank = () => {
-
-    const [points, setPoints] = useState({});
-    const [userCategory, setUserCategory] = useState('');
-
-
-    const loadPoints = () => {
-
-        let userPoints = JSON.parse(localStorage.getItem('usersPoints'));
-        setPoints(userPoints);
-        setUserCategory(points.userCategory);
-
-    }
-
-    useEffect(() => {
-        loadPoints();
-    }, [])
+const UserRank = ({userPoints}) => {
 
     return (
         <div className='user-rank-container'>
@@ -26,7 +11,7 @@ const UserRank = () => {
             <label>RANK: </label>
             <div className='rank-complex'>
                 <div className='triangle'/>
-                <label>{points.userCategory}</label>
+                <label>{userPoints.userCategory}</label>
             </div>
         </div>
     );

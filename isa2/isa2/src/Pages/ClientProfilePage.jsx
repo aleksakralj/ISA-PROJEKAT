@@ -4,6 +4,7 @@ import ProfileInfoBox from '../Conponents/ProfileInfoBox';
 import UpdateUserForm from '../Conponents/UpdateUserForm';
 import UserService from '../services/UserService';
 import {useHistory} from 'react-router-dom'
+import ClientPointsService from '../services/ClientPointsService';
 
 const ClientProfilePage = () => {
     
@@ -12,12 +13,26 @@ const ClientProfilePage = () => {
     const [userPoints, setUserPoints] = useState({});
     const history = useHistory();
 
-    const getUserData = () => {
-        
+    useEffect(() => {
+        getUserData();
+    }, []);
+
+    const getUserData = async() => {
         let user = JSON.parse(localStorage.getItem('activeUser'));
-        
-        setActiveUser(user);
+        setActiveUser(user);        
+    }
+
+    useEffect(() => {
+        getUserPoints();
+    }, [activeUser])
     
+    const getUserPoints = async() => {
+
+        let points = await ClientPointsService.getClientPointsById(activeUser.id);
+        setUserPoints(points.data); 
+        console.log(userPoints)   
+
+        localStorage.setItem('usersPoints', JSON.stringify(points.data))
     }
 
     const updateProfile = () => {
@@ -40,16 +55,13 @@ const ClientProfilePage = () => {
         setWantToUpdate(false);        
     }
 
-    useEffect(() => {
-        getUserData();
-    }, []);
     
     return (
         <div className='container-box'>
             {
                 !wantToUpdate ? 
                     <ProfileInfoBox updateProfile={updateProfile} activeUser={activeUser} deleteProfile={deleteProfile} userPoints={userPoints} /> 
-                    : <UpdateUserForm confirmUpdate={confirmUpdate} activeUser={activeUser} cancelUpdate={cancelUpdate}/>
+                    : <UpdateUserForm confirmUpdate={confirmUpdate} activeUser={activeUser} cancelUpdate={cancelUpdate} />
             }
         </div>
     );

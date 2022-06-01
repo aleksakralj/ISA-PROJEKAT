@@ -1,21 +1,9 @@
 import React from 'react';
 import '../Assets/Styles/ClientProfilePage.css' 
 import { useState, useEffect } from 'react';
+import ClientPointsService from '../services/ClientPointsService';
 
-const LoyaltyComponent = () => {
-
-    const [points, setPoints] = useState({});
-
-    const loadPoints = () => {
-
-        let userPoints = JSON.parse(localStorage.getItem('usersPoints'));
-        setPoints(userPoints);
-        
-    }
-
-    useEffect(() => {
-        loadPoints();
-    }, [])
+const LoyaltyComponent = ({ userPoints}) => {
     
     return (
         <div className='loyalty-container'>         
@@ -28,7 +16,7 @@ const LoyaltyComponent = () => {
                 <input 
                     contentEditable='false' 
                     disabled='true'
-                    value={points.points}
+                    value={userPoints.points}
                     >
                 </input>
                 <input 
