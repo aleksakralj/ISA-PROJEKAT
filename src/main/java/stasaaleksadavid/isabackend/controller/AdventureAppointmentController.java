@@ -208,7 +208,7 @@ public class AdventureAppointmentController {
                     appointment.getAdditionalServices(),
                     appointment.getPrice()
             );
-            adventureFreeAppointmentRepository.delete(newFreeAppointment);
+            adventureFreeAppointmentRepository.delete(nextFreeAppointment);
             adventureFreeAppointmentRepository.save(newFreeAppointment);
 
         }

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import ShipsAppointmentService from '../../../services/ShipsAppointmentService';
 import ShipService from '../../../services/ShipService';
 import UserService from '../../../services/UserService';
+import { getCurrentDate } from '../../../Utils/CurrentDate';
 
 const ClientShips = () => {
     const [scheduledShips, setScheduledShips] = useState([{}]);
@@ -85,6 +86,20 @@ const ClientShips = () => {
         setShowShipAppointments(finalShips);
     }
 
+    const cancelShip = (shipToCancel) => {
+        const shipDate = new Date(shipToCancel.startingDate);
+        const currentDate = new Date(getCurrentDate());
+
+        if(shipDate - currentDate > 3) {
+            ShipsAppointmentService.deleteShipAppointment(shipToCancel.id);
+            alert('You successfully deleted ship appointment');
+            window.location.reload(false);
+        }
+        else {
+            alert('You cant cancel this appointment, there is less then 3 days until it!')
+        }
+    }
+
 
     return ( 
     
@@ -123,7 +138,7 @@ const ClientShips = () => {
                             <td>{ship.address}</td>
                             <td>{ship.instructorName}</td>
                             <td>{ship.price}</td>                            
-                            <td><button> AA</button></td>
+                            <td><button onClick={() => cancelShip(ship)}> Cancel Appointment</button></td>
                         </tr>
                         )}
                     </tbody>

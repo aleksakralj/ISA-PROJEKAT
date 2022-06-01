@@ -101,14 +101,115 @@ public class ShipAppointmentController {
 
     //delete
     @DeleteMapping("/shipappointments/{id}")
-    public Map<String, Boolean> deleteShipAppointment(@PathVariable Long id) {
+    public void deleteShipAppointment(@PathVariable Long id) {
 
         ShipAppointment shipAppointment = shipAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ShipAppointment does not exist with id:" + id));
+        List<ShipFreeAppointment> shipFreeAppointments = shipFreeAppointmentRepository.findByShipId(shipAppointment.getShipId());
 
-        shipAppointmentRepository.delete(shipAppointment);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return (Map<String, Boolean>) ResponseEntity.ok(response);
+        fixTimesOfFreeAppointments(shipAppointment, shipFreeAppointments);
+    }
+
+
+    public void fixTimesOfFreeAppointments(ShipAppointment appointment, List<ShipFreeAppointment> freeAppointments) {
+
+        ShipFreeAppointment adjustedFreeAppointmentBefore = findFreeAppointmentsBeforeChoosenAppointment(appointment, freeAppointments);
+        ShipFreeAppointment adjustedFreeAppointmentAfter = findFreeAppointmentsAfterChoosenAppointment(appointment, freeAppointments);
+        fuseShipFreeAppointments(adjustedFreeAppointmentAfter, adjustedFreeAppointmentBefore, appointment);
+
+    }
+
+    public ShipFreeAppointment findFreeAppointmentsBeforeChoosenAppointment(ShipAppointment appointment, List<ShipFreeAppointment> freeAppointments) {
+
+        for (ShipFreeAppointment freeAppointment : freeAppointments
+        ) {
+            if ((freeAppointment.getEndingDate().isEqual(appointment.getStartingDate())) &&
+                    freeAppointment.getPrice() == appointment.getPrice()
+            ) {
+                return freeAppointment;
+            }
+        }
+        return null;
+    }
+
+    public ShipFreeAppointment findFreeAppointmentsAfterChoosenAppointment(ShipAppointment appointment, List<ShipFreeAppointment> freeAppointments) {
+
+        for (ShipFreeAppointment freeAppointment: freeAppointments) {
+            if (freeAppointment.getStartingDate().isEqual(appointment.getEndingDate())){
+                return freeAppointment;
+            }
+        }
+        return null;
+    }
+
+    public void fuseShipFreeAppointments(ShipFreeAppointment nextFreeAppointment, ShipFreeAppointment previousFreeAppointment, ShipAppointment appointment) {
+
+        if(nextFreeAppointment == null && previousFreeAppointment == null) {
+            shipAppointmentRepository.delete(appointment);
+
+            ShipFreeAppointment newFreeAppointment = new ShipFreeAppointment(
+                    appointment.getShipId(),
+                    appointment.getShipOwner(),
+                    appointment.getLocation(),
+                    appointment.getStartingDate(),
+                    appointment.getEndingDate(),
+                    appointment.getNumberOfPeople(),
+                    appointment.getAdditionalServices(),
+                    appointment.getPrice()
+            );
+
+            shipFreeAppointmentRepository.save(newFreeAppointment);
+        }
+        else if (nextFreeAppointment == null && previousFreeAppointment !=null) {
+            shipAppointmentRepository.delete(appointment);
+
+            ShipFreeAppointment newFreeAppointment = new ShipFreeAppointment(
+                    appointment.getShipId(),
+                    appointment.getShipOwner(),
+                    appointment.getLocation(),
+                    previousFreeAppointment.getStartingDate(),
+                    appointment.getEndingDate(),
+                    previousFreeAppointment.getNumberOfPeople(),
+                    appointment.getAdditionalServices(),
+                    appointment.getPrice()
+            );
+            shipFreeAppointmentRepository.delete(previousFreeAppointment);
+            shipFreeAppointmentRepository.save(newFreeAppointment);
+        }
+
+        else if (nextFreeAppointment != null && previousFreeAppointment == null) {
+            shipAppointmentRepository.delete(appointment);
+
+            ShipFreeAppointment newFreeAppointment = new ShipFreeAppointment(
+                    appointment.getShipId(),
+                    appointment.getShipOwner(),
+                    appointment.getLocation(),
+                    appointment.getStartingDate(),
+                    nextFreeAppointment.getEndingDate(),
+                    nextFreeAppointment.getNumberOfPeople(),
+                    appointment.getAdditionalServices(),
+                    appointment.getPrice()
+            );
+            shipFreeAppointmentRepository.delete(nextFreeAppointment);
+            shipFreeAppointmentRepository.save(newFreeAppointment);
+        }
+
+        else {
+            shipAppointmentRepository.delete(appointment);
+
+            ShipFreeAppointment newFreeAppointment = new ShipFreeAppointment(
+                    appointment.getShipId(),
+                    appointment.getShipOwner(),
+                    appointment.getLocation(),
+                    previousFreeAppointment.getStartingDate(),
+                    nextFreeAppointment.getEndingDate(),
+                    nextFreeAppointment.getNumberOfPeople(),
+                    appointment.getAdditionalServices(),
+                    appointment.getPrice()
+            );
+            shipFreeAppointmentRepository.delete(previousFreeAppointment);
+            shipFreeAppointmentRepository.delete(nextFreeAppointment);
+            shipFreeAppointmentRepository.save(newFreeAppointment);
+        }
     }
 
     @GetMapping("/shipappointments/client/{clientId}")
