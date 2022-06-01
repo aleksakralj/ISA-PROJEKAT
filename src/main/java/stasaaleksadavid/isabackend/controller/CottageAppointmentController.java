@@ -226,7 +226,7 @@ public class CottageAppointmentController {
 
 
 
-    //get by cottage id
+    //get by cottage id\
     @GetMapping("/cottageappointments/cottage/{type}/{cottageid}")
     public List<CottageAppointment> getAppointmentByCottageId(@PathVariable String type,@PathVariable Long cottageid) {
         if (type.equals("admin") || type.equals("cottage_owner") || type.equals("main_admin")) {

@@ -93,7 +93,7 @@ const ClientCottages = () => {
 
         if(cottageDate - currentDate > 3) {
             CottageAppointmentsService.deleteCottageAppointment(cottageToCancel.id);
-            alert('You successfully deleted adventure appointment');
+            alert('You successfully deleted cottage appointment');
             window.location.reload(false);
         }
         else {

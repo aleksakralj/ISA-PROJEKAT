@@ -4,6 +4,7 @@ import AdventureFreeAppointmentsService from '../../../services/AdventureFreeApp
 import '../../../Pages/ScheduleEntitys/ScheduleAppointments/PossibleAdventureAppointments.css'
 import AdventureAppointmentsService from '../../../services/AdventureAppointmentsService';
 import emailjs from 'emailjs-com'
+import ClientPointsService from '../../../services/ClientPointsService';
 
 const PossibleAdventureAppointments = () => {
     
@@ -13,7 +14,8 @@ const PossibleAdventureAppointments = () => {
     const [doesRequiredAdventureFreeAppointmentsExist, setDoesRequiredAdventureFreeAppointmentsExist] = useState('');
     const [allFreeTerms, setAllFreeTerms] = useState([{}]);
     const [activeUser, setActiveUser] = useState({});
-
+    const [userPoints, setuserPoints] = useState({});
+    
     useEffect(() => {
         loadRequiredAdventure();
     }, [])
@@ -86,7 +88,9 @@ const PossibleAdventureAppointments = () => {
         }
 
         AdventureAppointmentsService.createAdventureAppointment(appointment);
-
+        alert("You successfully scheduled appointment")
+        updatePoints();
+        
         var params = {}
         emailjs.send('service_5rghav8', 'template_6avct9t', params , 'gXf9s006PxRAmmhgz')
         .then((resoult) => {
@@ -96,6 +100,23 @@ const PossibleAdventureAppointments = () => {
                 console.log(error.text)
             });
 
+    }
+
+    const updatePoints = () => {
+        let points = 100;
+        ClientPointsService.updateClientPoints(points, activeUser.id);
+        let newUserPoints = JSON.parse(localStorage.getItem('usersPoints'));
+     
+        getNewUserPoints();         
+        
+        newUserPoints = userPoints;
+        localStorage.setItem('usersPoints', JSON.stringify(newUserPoints));
+     
+    }
+
+    const getNewUserPoints = async() => {
+        let points = await ClientPointsService.getClientPointsById(activeUser.id);
+        setuserPoints(points.data)
     }
 
     return (
