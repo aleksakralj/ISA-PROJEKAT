@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
+import stasaaleksadavid.isabackend.model.AdventureAppointment;
 import stasaaleksadavid.isabackend.model.AdventureFreeAppointment;
 import stasaaleksadavid.isabackend.model.CottageAppointment;
 import stasaaleksadavid.isabackend.model.CottageFreeAppointment;
@@ -106,15 +107,124 @@ public class CottageAppointmentController {
 
     //delete
     @DeleteMapping("/cottageappointments/{id}")
-    public Map<String, Boolean> deleteCottageAppointment(@PathVariable Long id) {
+    public void deleteCottageAppointment(@PathVariable Long id) {
 
         CottageAppointment cottageAppointment = cottageAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageAppointment does not exist with id:" + id));
+        List<CottageFreeAppointment> cottageFreeAppointments = cottageFreeAppointmentRepository.findByCottageId(cottageAppointment.getCottageId());
 
-        cottageAppointmentRepository.delete(cottageAppointment);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return (Map<String, Boolean>) ResponseEntity.ok(response);
+        fixTimesOfFreeAppointments(cottageAppointment, cottageFreeAppointments);
     }
+
+    public void fixTimesOfFreeAppointments(CottageAppointment appointment, List<CottageFreeAppointment> freeAppointments) {
+
+        CottageFreeAppointment adjustedFreeAppointmentBefore = findFreeAppointmentsBeforeChoosenAppointment(appointment, freeAppointments);
+        CottageFreeAppointment adjustedFreeAppointmentAfter = findFreeAppointmentsAfterChoosenAppointment(appointment, freeAppointments);
+        fuseCottageFreeAppointments(adjustedFreeAppointmentAfter, adjustedFreeAppointmentBefore, appointment);
+    }
+
+    public CottageFreeAppointment findFreeAppointmentsBeforeChoosenAppointment(CottageAppointment appointment, List<CottageFreeAppointment> freeAppointments) {
+
+        for (CottageFreeAppointment freeAppointment : freeAppointments
+        ) {
+            if ((freeAppointment.getEndingDate().isEqual(appointment.getStartingDate())) &&
+                freeAppointment.getPrice() == appointment.getPrice()
+            ) {
+                return freeAppointment;
+            }
+        }
+        return null;
+    }
+
+    public CottageFreeAppointment findFreeAppointmentsAfterChoosenAppointment(CottageAppointment appointment, List<CottageFreeAppointment> freeAppointments) {
+
+        for (CottageFreeAppointment freeAppointment: freeAppointments) {
+            if (freeAppointment.getStartingDate().isEqual(appointment.getEndingDate())){
+                return freeAppointment;
+            }
+        }
+        return null;
+    }
+
+    public void fuseCottageFreeAppointments(CottageFreeAppointment nextFreeAppointment, CottageFreeAppointment previousFreeAppointment, CottageAppointment appointment){
+
+        if(nextFreeAppointment == null && previousFreeAppointment == null) {
+
+            cottageAppointmentRepository.delete(appointment);
+
+            CottageFreeAppointment newFreeAppointment = new CottageFreeAppointment(
+                    appointment.getCottageId(),
+                    appointment.getOwnerId(),
+                    appointment.getLocation(),
+                    appointment.getStartingDate(),
+                    appointment.getEndingDate(),
+                    appointment.getNumberOfPeople(),
+                    appointment.getAdditionalServices(),
+                    appointment.getPrice()
+            );
+
+            cottageFreeAppointmentRepository.save(newFreeAppointment);
+        }
+
+        else if (nextFreeAppointment == null && previousFreeAppointment != null) {
+
+            cottageAppointmentRepository.delete(appointment);
+
+            CottageFreeAppointment newFreeAppointment = new CottageFreeAppointment(
+                    appointment.getCottageId(),
+                    appointment.getOwnerId(),
+                    appointment.getLocation(),
+                    previousFreeAppointment.getStartingDate(),
+                    appointment.getEndingDate(),
+                    previousFreeAppointment.getNumberOfPeople(),
+                    appointment.getAdditionalServices(),
+                    appointment.getPrice()
+            );
+
+            cottageFreeAppointmentRepository.delete(previousFreeAppointment);
+            cottageFreeAppointmentRepository.save(newFreeAppointment);
+        }
+
+        else if (nextFreeAppointment != null && previousFreeAppointment == null) {
+
+            cottageAppointmentRepository.delete(appointment);
+
+            CottageFreeAppointment newFreeAppointment = new CottageFreeAppointment(
+                    appointment.getCottageId(),
+                    appointment.getOwnerId(),
+                    appointment.getLocation(),
+                    appointment.getStartingDate(),
+                    nextFreeAppointment.getEndingDate(),
+                    nextFreeAppointment.getNumberOfPeople(),
+                    appointment.getAdditionalServices(),
+                    appointment.getPrice()
+            );
+
+            cottageFreeAppointmentRepository.delete(nextFreeAppointment);
+            cottageFreeAppointmentRepository.save(newFreeAppointment);
+        }
+
+        else {
+
+            cottageAppointmentRepository.delete(appointment);
+
+            CottageFreeAppointment newFreeAppointment = new CottageFreeAppointment(
+                    appointment.getCottageId(),
+                    appointment.getOwnerId(),
+                    appointment.getLocation(),
+                    previousFreeAppointment.getStartingDate(),
+                    nextFreeAppointment.getEndingDate(),
+                    previousFreeAppointment.getNumberOfPeople(),
+                    appointment.getAdditionalServices(),
+                    appointment.getPrice()
+            );
+
+            cottageFreeAppointmentRepository.delete(previousFreeAppointment);
+            cottageFreeAppointmentRepository.delete(nextFreeAppointment);
+            cottageFreeAppointmentRepository.save(newFreeAppointment);
+        }
+    }
+
+
 
     //get by cottage id
     @GetMapping("/cottageappointments/cottage/{type}/{cottageid}")

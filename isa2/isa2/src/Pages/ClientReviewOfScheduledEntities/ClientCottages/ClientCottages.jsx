@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import CottageAppointmentsService from '../../../services/CottageAppointmentsService';
 import CottageService from '../../../services/CottageService';
 import UserService from '../../../services/UserService';
+import { getCurrentDate } from '../../../Utils/CurrentDate';
 
 const ClientCottages = () => {
     const [scheduledCottages, setScheduledCottages] = useState([{}]);
@@ -85,6 +86,22 @@ const ClientCottages = () => {
         setShowCottageAppointments(finalCottages);
     }
 
+    const cancelCottage = (cottageToCancel) => {
+
+        const cottageDate = new Date(cottageToCancel.startingDate);
+        const currentDate = new Date(getCurrentDate());
+
+        if(cottageDate - currentDate > 3) {
+            CottageAppointmentsService.deleteCottageAppointment(cottageToCancel.id);
+            alert('You successfully deleted adventure appointment');
+            window.location.reload(false);
+        }
+        else {
+            alert('You cant cancel this appointment, there is less then 3 days until it!')
+        }
+
+    }
+
 
     return ( 
     
@@ -123,7 +140,7 @@ const ClientCottages = () => {
                             <td>{cottage.address}</td>
                             <td>{cottage.instructorName}</td>
                             <td>{cottage.price}</td>                            
-                            <td><button> AA</button></td>
+                            <td><button onClick={() => cancelCottage(cottage)}> Cancel Appointment</button></td>
                         </tr>
                         )}
                     </tbody>
