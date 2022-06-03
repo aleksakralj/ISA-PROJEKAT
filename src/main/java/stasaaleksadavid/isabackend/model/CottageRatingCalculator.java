@@ -8,6 +8,9 @@ public class CottageRatingCalculator {
 
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "Cottage_Id")
     private Long cottageId;
 
     @Column(name = "Final_Rating")
@@ -21,10 +24,19 @@ public class CottageRatingCalculator {
 
     public CottageRatingCalculator() {}
 
-    public CottageRatingCalculator(double finalRating, int ratingSum, int ratingCount) {
+    public CottageRatingCalculator(Long cottageId,double finalRating, int ratingSum, int ratingCount) {
+        this.cottageId = cottageId;
         this.finalRating = finalRating;
         this.ratingSum = ratingSum;
         this.ratingCount = ratingCount;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getCottageId() {

@@ -8,6 +8,9 @@ public class ShipRatingCalculator {
 
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "Ship_Id")
     private Long shipId;
 
     @Column(name = "Final_Rating")
@@ -21,10 +24,23 @@ public class ShipRatingCalculator {
 
     public ShipRatingCalculator() {}
 
-    public ShipRatingCalculator(double finalRating, int ratingSum, int ratingCount) {
+    public ShipRatingCalculator(Long shipId, double finalRating, int ratingSum, int ratingCount) {
+        this.shipId = shipId;
         this.finalRating = finalRating;
         this.ratingSum = ratingSum;
         this.ratingCount = ratingCount;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getShipId() {
+        return shipId;
     }
 
     public Long getShipIdId() {

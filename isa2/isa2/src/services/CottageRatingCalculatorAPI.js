@@ -12,8 +12,8 @@ class CottageRatingCalculatorAPI {
         return axios.post(COTTAGE_RATING_CALCULATOR_API_BASE_URL , cottageRating);
     }
 
-    getById(cottageRatingId) {
-        return axios.get(COTTAGE_RATING_CALCULATOR_API_BASE_URL + cottageRatingId);
+    getByCottageId(cottageRatingId) {
+        return axios.get(COTTAGE_RATING_CALCULATOR_API_BASE_URL + '/' +  cottageRatingId);
     }
 
     updateCottageRating(userRateCottage) {

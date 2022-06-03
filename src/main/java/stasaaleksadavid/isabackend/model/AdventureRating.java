@@ -6,8 +6,11 @@ import javax.persistence.*;
 @Table(name = "adventure_rating")
 public class AdventureRating {
 
-    @javax.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "Adventure_Id")
     private Long adventureId;
 
     @Column(name = "Final_Rating")
@@ -21,10 +24,19 @@ public class AdventureRating {
 
     public AdventureRating() {}
 
-    public AdventureRating(double finalRating, int ratingSum, int ratingCount) {
+    public AdventureRating(Long adventureId, double finalRating, int ratingSum, int ratingCount) {
+        this.adventureId = adventureId;
         this.finalRating = finalRating;
         this.ratingSum = ratingSum;
         this.ratingCount = ratingCount;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getAdventureId() {

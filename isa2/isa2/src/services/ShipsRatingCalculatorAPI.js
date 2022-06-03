@@ -12,8 +12,8 @@ class ShipsRatingCalculatorAPI {
         return axios.post(SHIP_RATING_CALCULATOR_API_BASE_URL , shipRating);
     }
 
-    getById(shipRatingId) {
-        return axios.get(SHIP_RATING_CALCULATOR_API_BASE_URL + shipRatingId);
+    getByShipId(shipRatingId) {
+        return axios.get(SHIP_RATING_CALCULATOR_API_BASE_URL + '/'+ shipRatingId);
     }
 
     updateShipRating(userRateShip) {

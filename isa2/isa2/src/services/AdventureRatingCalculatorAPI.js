@@ -12,8 +12,8 @@ class AdventureRatingCalculatorAPI {
         return axios.post(ADVENTURE_RATING_CALCULATOR_API_BASE_URL , adventureRating);
     }
 
-    getById(adventureRatingId) {
-        return axios.get(ADVENTURE_RATING_CALCULATOR_API_BASE_URL + adventureRatingId);
+    getByIdAdventure(adventureRatingId) {
+        return axios.get(ADVENTURE_RATING_CALCULATOR_API_BASE_URL + '/' + adventureRatingId);
     }
 
     updateAdventureRating(userRateAdventure) {
@@ -21,7 +21,7 @@ class AdventureRatingCalculatorAPI {
     }
 
     deleteAdventureRating(adventureRaingId) {
-        return axios.delete(ADVENTURE_RATING_CALCULATOR_API_BASE_URL + adventureRaingId);
+        return axios.delete(ADVENTURE_RATING_CALCULATOR_API_BASE_URL +  '/' + adventureRaingId);
     }
 
 } export default new AdventureRatingCalculatorAPI();
