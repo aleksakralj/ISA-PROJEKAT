@@ -28,9 +28,9 @@ public class ShipRatingCalculatorController {
         return shipRatingCalculatorRepository.save(shipRatingCalculator);
     }
 
-    @GetMapping("/ship-rating/{id}")
-    public ShipRatingCalculator getById(@PathVariable Long id){
-        return shipRatingCalculatorRepository.getById(id);
+    @GetMapping("/ship-rating/{shipId}")
+    public ShipRatingCalculator getByShipId(@PathVariable Long shipId){
+        return shipRatingCalculatorRepository.getShipRatingCalculatorByShipId(shipId);
     }
 
     @PutMapping("/ship-rating")

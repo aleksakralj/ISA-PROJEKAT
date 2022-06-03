@@ -29,9 +29,9 @@ public class AdventureRatingController {
         return adventureRatingRepository.save(adventureRating);
     }
 
-    @GetMapping("/adventure-rating/{id}")
-    public AdventureRating getById(@PathVariable Long id){
-        return adventureRatingRepository.getById(id);
+    @GetMapping("/adventure-rating/{adventureId}")
+    public AdventureRating getById(@PathVariable Long adventureId){
+        return adventureRatingRepository.getAdventureRatingByAdventureId(adventureId);
     }
 
     @PutMapping("/adventure-rating")

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import '../Assets/Styles/ShipProfilePage.css'
 import EntitySubscriptionsAPI from '../services/EntitySubscriptionsAPI';
 import { useHistory } from "react-router-dom";
+import ShipsRatingCalculatorAPI from '../services/ShipsRatingCalculatorAPI';
 
 const ShipProfilePage = () => {
 
@@ -10,6 +11,7 @@ const ShipProfilePage = () => {
     const [subscribed, setSubscribed] = useState(false);
     const [buttonCaption, setButtonCaption] = useState('Subscribe');
     const history = useHistory();
+    const [shipRating, setshipRating] = useState('');
 
     const getShipInfo = () => {
         let s = JSON.parse(localStorage.getItem('activeShip'))
@@ -67,6 +69,16 @@ const ShipProfilePage = () => {
         buttonCaptionChange();
     },[subscribed])
 
+    useEffect(() => {
+        getShipRating();
+    }, [ship]);
+
+    const getShipRating = async() => {
+        let response = await ShipsRatingCalculatorAPI.getByShipId(ship.id);
+        console.log(response)
+        setshipRating(response.data)
+    }
+
     const checkFreeTerms = () => {
         history.push('/schedule-ship/' + ship.id);
     }
@@ -85,6 +97,7 @@ const ShipProfilePage = () => {
                     <div className='basic-ship-info'>
                         <h2>{ship.name}</h2>
                         <p>{ship.address}</p>
+                        <p>Rating: {shipRating.finalRating}</p>
                         <div className='owner-data'>
                             <h5>Aca faca</h5>
                             <button

@@ -32,9 +32,9 @@ public class CottageRatingCalculatorController {
         return cottageRatingCalculatorRepository.save(cottageRatingCalculator);
     }
 
-    @GetMapping("/cottage-rating/{id}")
-    public CottageRatingCalculator getById(@PathVariable Long id){
-        return cottageRatingCalculatorRepository.getById(id);
+    @GetMapping("/cottage-rating/{cottageId}")
+    public CottageRatingCalculator getByCottageId(@PathVariable Long cottageId){
+        return cottageRatingCalculatorRepository.getCottageRatingCalculatorByCottageId(cottageId);
     }
 
     @PutMapping("/cottage-rating")

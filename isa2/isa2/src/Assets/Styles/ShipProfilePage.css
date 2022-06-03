@@ -18,7 +18,7 @@
        align-items: center;
    }
    .ship-properties{
-       background-color: rgba(0, 0, 0, 0.592);
+       background-color:  rgb(140, 140, 160);
        width: 45%;
        height: 100%;
        display: flex;
@@ -27,7 +27,6 @@
        color: white;
        align-items: center;    
        position: relative;
-   
    }
    .basic-ship-info{
        display: flex;
@@ -50,12 +49,14 @@
        display: flex;
        flex-direction: row;
        background-color: whitesmoke;
-   }
+        border: solid;
+    }
    .ship-description-prices-container{
-    margin-top: 10px;
+    border: solid;
+        margin-top: 10px;
     width: 33%;
     height: 93%;
-    background-color: rgb(160, 160, 160);
+    background-color: rgb(140, 140, 160);
     border-radius: 5%;
     display: flex;
     flex-direction: column;
@@ -80,11 +81,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+
 }
 .ship-additional-info-box{
     width: 80%;
     height: 40%;
-    background-color: gray;
+    background-color:  rgb(140, 140, 160);
     border-radius: 5%;
     display: flex;
     align-items: center;
@@ -99,8 +101,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+
 }
 .appointments-button{
     width: 200px;
     height: 70px;
+    background-color: rgb(20, 190, 140);
 }

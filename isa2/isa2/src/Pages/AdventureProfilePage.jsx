@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import '../Assets/Styles/AdventureProfilePage.css'
 import EntitySubscriptionsAPI from '../services/EntitySubscriptionsAPI';
 import {useHistory} from 'react-router-dom'
+import AdventureRatingCalculatorAPI from '../services/AdventureRatingCalculatorAPI';
 
 const AdventureProfilePage = () => {
 
@@ -10,7 +11,8 @@ const AdventureProfilePage = () => {
     const [subscribed, setSubscribed] = useState(false);
     const [buttonCaption, setButtonCaption] = useState('');
     const history = useHistory();  
-    
+    const [adventureRating, setAdventureRating] = useState('');
+
     const getAdventureInfo = () => {
         
         let adv = JSON.parse(localStorage.getItem('activeAdventure'))
@@ -73,6 +75,17 @@ const AdventureProfilePage = () => {
         buttonCaptionChange();
     }, [subscribed])
 
+    useEffect(() => {
+        getAdventuresRating();
+    }, [adventure])
+
+
+    const getAdventuresRating = async() => {
+
+        let response = await AdventureRatingCalculatorAPI.getByIdAdventure(adventure.id);
+        setAdventureRating(response.data);
+    }
+
     const checkFreeTerms = () => {
         history.push('/schedule-adventure-appointment/' + adventure.id);
     }
@@ -91,7 +104,7 @@ const AdventureProfilePage = () => {
                     <div className='basic-adventure-info'>
                         <h2>{adventure.name}</h2>
                         <p>Address: {adventure.address}</p>
-                        <p>Rating: </p>
+                        <p>Rating: {adventureRating.finalRating}</p>
                         <div className='instructor-data'>
                             <h5>Aca faca</h5>
                             <button 

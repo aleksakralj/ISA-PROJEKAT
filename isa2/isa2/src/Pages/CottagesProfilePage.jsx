@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import '../Assets/Styles/CottageProfilePage.css'
 import EntitySubscriptionsAPI from '../services/EntitySubscriptionsAPI';
 import {useHistory} from 'react-router-dom';
+import CottageRatingCalculatorAPI from '../services/CottageRatingCalculatorAPI';
 
 const CottageProfilePage = () => {
 
@@ -10,6 +11,7 @@ const CottageProfilePage = () => {
     const [subscribed, setSubscribed] = useState(false);
     const [buttonCaption, setButtonCaption] = useState('Subscribe');
     const history = useHistory();
+    const [cottageRating, setCottageRating] = useState('');
 
     const getCottageInfo = () => {
         let cott = JSON.parse(localStorage.getItem('activeCottage'))
@@ -78,6 +80,16 @@ const CottageProfilePage = () => {
         buttonCaptionChange();
     },[subscribed])
 
+    useEffect(() => {
+        getCottageRating();
+    }, [cottage])
+
+    const getCottageRating = async() => {
+
+        let response =  await CottageRatingCalculatorAPI.getByCottageId(cottage.id)
+        setCottageRating(response.data);        
+    }
+
     return (
         <div className='cottage-profile-page-container'>
              <div className='cottage-caption-content'>               
@@ -90,6 +102,7 @@ const CottageProfilePage = () => {
                     <div className='basic-cottage-info'>
                         <h2>{cottage.name}</h2>
                         <p>{cottage.address}</p>
+                        <p>Rating: {cottageRating.finalRating}</p>
                         <div className='owner-data'>
                             <h5>Aca faca</h5>
                             <button
