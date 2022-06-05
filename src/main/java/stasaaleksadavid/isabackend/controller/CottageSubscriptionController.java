@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.AdventureSubscription;
@@ -17,6 +19,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class CottageSubscriptionController {
 
     @Autowired
@@ -33,6 +36,7 @@ public class CottageSubscriptionController {
 
     //create
     @PostMapping("/cottagesubscriptions")
+    @Transactional
     public CottageSubscription createCottageSubscription(@RequestBody CottageSubscription cottageSubscription){
         return cottageSubscriptionRepository.save(cottageSubscription);
     }
@@ -47,6 +51,7 @@ public class CottageSubscriptionController {
 
     //update
     @PutMapping("/cottagesubscriptions/{id}")
+    @Transactional
     public ResponseEntity<CottageSubscription> updateCottageSubscription(@PathVariable Long id,@RequestBody CottageSubscription cottageSubscriptionDetails){
         CottageSubscription cottageSubscription = cottageSubscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageSubscription does not exist with id:"+ id));
 
@@ -61,6 +66,7 @@ public class CottageSubscriptionController {
 
     //delete
     @DeleteMapping("/cottagesubscriptions/{id}")
+    @Transactional
     public Map<String, Boolean> deleteCottageSubscription(@PathVariable Long id){
 
         CottageSubscription cottageSubscription = cottageSubscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageSubscription does not exist with id:"+ id));
@@ -72,6 +78,7 @@ public class CottageSubscriptionController {
     }
 
     @DeleteMapping("/cottagesubscriptions/{userId}/{cottageId}")
+    @Transactional
     public Map<String, Boolean> deleteCottageSubscriptionByUserIdAndCottageId(@PathVariable Long userId, @PathVariable Long cottageId){
 
         CottageSubscription cottageSubscription = cottageSubscriptionRepository.findByUserIdAndCottageId(userId, cottageId);

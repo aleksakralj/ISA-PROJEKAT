@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.*;
@@ -17,6 +19,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1")
+@EnableTransactionManagement
 public class ClientPointsController {
 
     @Autowired
@@ -28,6 +31,7 @@ public class ClientPointsController {
     @GetMapping("/clientPoints")
     public List<ClientPoints> getAllClientPoints(){return clientPointsRepository.findAll();}
 
+    @Transactional
     @PostMapping("/clientPoints")
     public  ClientPoints createClientPoints(@RequestBody ClientPoints userPoints){
         return clientPointsRepository.save(userPoints);
@@ -40,6 +44,7 @@ public class ClientPointsController {
     }
 
     @DeleteMapping("/clientPoints/{id}")
+    @Transactional
     public Map<String, Boolean> deleteClientPoints(@PathVariable Long id){
 
         ClientPoints clientPoints = clientPointsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Client points does not exist with id:"+ id));
@@ -51,6 +56,7 @@ public class ClientPointsController {
     }
 
     @PutMapping("/clientPoints/{points}/{userId}")
+    @Transactional
     public ResponseEntity<ClientPoints> updateClientPoints(@PathVariable int points, @PathVariable Long userId) {
 
         ClientPoints clientPoints = clientPointsRepository.getById(userId);

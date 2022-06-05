@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.AdventureAppointment;
@@ -18,6 +20,7 @@ import stasaaleksadavid.isabackend.model.*;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class AdventureAppointmentController {
 
     @Autowired
@@ -41,6 +44,7 @@ public class AdventureAppointmentController {
 
     //create
     @PostMapping("/adventureappointments")
+    @Transactional
     public AdventureAppointment createAdventureAppointment(@RequestBody AdventureAppointment adventureAppointment) {
 
         List<AdventureFreeAppointment> adventureFreeAppointments = adventureFreeAppointmentRepository.findByAdventureId(adventureAppointment.getAdventureId());
@@ -86,8 +90,6 @@ public class AdventureAppointmentController {
 
 
     }
-
-
   /*
     //get by id
     @GetMapping("/adventureappointments/{id}")
@@ -98,6 +100,7 @@ public class AdventureAppointmentController {
 */
     //update
     @PutMapping("/adventureappointments/{id}")
+    @Transactional
     public ResponseEntity<AdventureAppointment> updateAdventureAppointment(@PathVariable Long id, @RequestBody AdventureAppointment adventureAppointmentDetails) {
         AdventureAppointment adventureAppointment = adventureAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("AdventureAppointment does not exist with id:" + id));
 
@@ -119,6 +122,7 @@ public class AdventureAppointmentController {
 
     //delete
     @DeleteMapping("/adventureappointments/{id}")
+    @Transactional
     public void deleteAdventureAppointment(@PathVariable Long id) {
 
         AdventureAppointment adventureAppointment = adventureAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("AdventureAppointment does not exist with id:" + id));

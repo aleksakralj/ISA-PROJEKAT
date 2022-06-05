@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.ClientCottageComplaints;
@@ -15,6 +17,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1")
+@EnableTransactionManagement
 public class ClientCottageComplaintController {
 
     @Autowired
@@ -24,6 +27,7 @@ public class ClientCottageComplaintController {
     public List<ClientCottageComplaints> getAllCottageComplaints() {return clientCottageComplaintRepository.findAll();}
 
     @PostMapping("/cottageComplaints")
+    @Transactional
     public ClientCottageComplaints createCottageComplaint(@RequestBody ClientCottageComplaints clientCottageComplaints) {return clientCottageComplaintRepository.save(clientCottageComplaints);}
 
     @GetMapping("/cottageComplaints/{id}")
@@ -33,6 +37,7 @@ public class ClientCottageComplaintController {
     }
 
     @DeleteMapping("/cottageComplaints/{id}")
+    @Transactional
     public Map<String, Boolean> deleteCottageComplaint(@PathVariable Long id){
 
         ClientCottageComplaints clientCottageComplaints = clientCottageComplaintRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cottage complaint does not exist with id:"+ id));

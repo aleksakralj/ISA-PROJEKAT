@@ -4,6 +4,8 @@ package stasaaleksadavid.isabackend.controller;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.CottageFreeAppointment;
@@ -18,6 +20,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class CottageFreeAppointmentController {
 
     @Autowired
@@ -41,6 +44,7 @@ public class CottageFreeAppointmentController {
 
     //create
     @PostMapping("/cottagefreeappointments/{type}")
+    @Transactional
     public CottageFreeAppointment createCottageFreeAppointment(@PathVariable String type, @RequestBody CottageFreeAppointment cottageFreeAppointment) {
         if (type.equals("admin") || type.equals("cottage_owner") || type.equals("main_admin")) {
             return cottageFreeAppointmentRepository.save(cottageFreeAppointment);
@@ -56,6 +60,7 @@ public class CottageFreeAppointmentController {
 
     //update
     @PutMapping("/cottagefreeappointments/{id}")
+    @Transactional
     public ResponseEntity<CottageFreeAppointment> updateCottageFreeAppointment(@PathVariable Long id, @RequestBody CottageFreeAppointment cottageFreeAppointmentDetails) {
         CottageFreeAppointment cottageFreeAppointment = cottageFreeAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageFreeAppointment does not exist with id:" + id));
 
@@ -74,6 +79,7 @@ public class CottageFreeAppointmentController {
 
     //delete
     @DeleteMapping("/cottagefreeappointments/{id}")
+    @Transactional
     public Map<String, Boolean> deleteCottageFreeAppointment(@PathVariable Long id) {
 
         CottageFreeAppointment cottageFreeAppointment = cottageFreeAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageFreeAppointment does not exist with id:" + id));

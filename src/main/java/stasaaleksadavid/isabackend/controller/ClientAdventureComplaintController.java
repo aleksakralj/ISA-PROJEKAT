@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.ClientAdventuresComplaint;
@@ -15,6 +17,7 @@ import java.util.Map;
 @CrossOrigin(origins= "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1")
+@EnableTransactionManagement
 public class ClientAdventureComplaintController {
     
     @Autowired
@@ -24,6 +27,7 @@ public class ClientAdventureComplaintController {
     public List<ClientAdventuresComplaint> getAllAdventureComplaints() {return clientAdventureComplaintRepository.findAll();}
 
     @PostMapping("/adventureComplaints")
+    @Transactional
     public ClientAdventuresComplaint createAdventureComplaint(@RequestBody ClientAdventuresComplaint clientAdventuresComplaint) {return clientAdventureComplaintRepository.save(clientAdventuresComplaint);}
 
     @GetMapping("/adventureComplaints/{id}")
@@ -33,6 +37,7 @@ public class ClientAdventureComplaintController {
     }
 
     @DeleteMapping("/adventureComplaints/{id}")
+    @Transactional
     public Map<String, Boolean> deleteAdventureComplaint(@PathVariable Long id){
 
         ClientAdventuresComplaint clientAdventuresComplaint = clientAdventureComplaintRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Adventure complaint does not exist with id:"+ id));

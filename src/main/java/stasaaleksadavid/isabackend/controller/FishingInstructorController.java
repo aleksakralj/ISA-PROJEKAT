@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
@@ -15,6 +17,7 @@ import stasaaleksadavid.isabackend.repository.FishingInstructorRepository;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class FishingInstructorController {
 
     @Autowired
@@ -27,6 +30,7 @@ public class FishingInstructorController {
 
     //create
     @PostMapping("/fishinginstructors")
+    @Transactional
     public  FishingInstructor createFishingInstructor(@RequestBody FishingInstructor fishinginstructor){
         return fishingInstructorRepository.save(fishinginstructor);
     }
@@ -40,6 +44,7 @@ public class FishingInstructorController {
 
     //update
     @PutMapping("/fishinginstructors/{id}")
+    @Transactional
     public ResponseEntity<FishingInstructor> updateFishingInstructor(@PathVariable Long id,@RequestBody FishingInstructor  fishinginstructorDetails){
         FishingInstructor  fishinginstructor = fishingInstructorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Fishing instructor does not exist with id:"+ id));
 
@@ -60,6 +65,7 @@ public class FishingInstructorController {
 
     //delete
     @DeleteMapping("/fishinginstructors/{id}")
+    @Transactional
     public Map<String, Boolean> deleteFishingInstructor(@PathVariable Long id){
 
         FishingInstructor  fishinginstructor = fishingInstructorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Fishing instructor does not exist with id:"+ id));

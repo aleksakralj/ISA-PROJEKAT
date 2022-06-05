@@ -3,6 +3,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.CottageHistoryAppointment;
@@ -15,6 +17,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class CottageHistoryAppointmentController {
 
     @Autowired
@@ -29,6 +32,7 @@ public class CottageHistoryAppointmentController {
 
     //create
     @PostMapping("/cottagehistoryappointments")
+    @Transactional
     public CottageHistoryAppointment createCottageHistoryAppointment(@RequestBody CottageHistoryAppointment cottageHistoryAppointment) {
         return cottageHistoryAppointmentRepository.save(cottageHistoryAppointment);
     }
@@ -48,6 +52,7 @@ public class CottageHistoryAppointmentController {
 
     //update
     @PutMapping("/cottagehistoryappointments/{id}")
+    @Transactional
     public ResponseEntity<CottageHistoryAppointment> updateCottageHistoryAppointment(@PathVariable Long id, @RequestBody CottageHistoryAppointment cottageHistoryAppointmentDetails) {
         CottageHistoryAppointment cottageHistoryAppointment = cottageHistoryAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageHistoryAppointment does not exist with id:" + id));
 
@@ -67,6 +72,7 @@ public class CottageHistoryAppointmentController {
 
     //delete
     @DeleteMapping("/cottagehistoryappointments/{id}")
+    @Transactional
     public Map<String, Boolean> deleteCottageHistoryAppointment(@PathVariable Long id) {
 
         CottageHistoryAppointment cottageHistoryAppointment = cottageHistoryAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageHistoryAppointment does not exist with id:" + id));

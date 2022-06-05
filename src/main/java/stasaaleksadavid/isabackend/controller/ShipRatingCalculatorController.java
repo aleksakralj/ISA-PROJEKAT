@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.model.*;
 import stasaaleksadavid.isabackend.repository.ShipRatingCalculatorRepository;
@@ -13,6 +15,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class ShipRatingCalculatorController {
 
     @Autowired
@@ -24,6 +27,7 @@ public class ShipRatingCalculatorController {
     }
 
     @PostMapping("/ship-rating")
+    @Transactional
     public ShipRatingCalculator createShipRatingCalculator(@RequestBody ShipRatingCalculator shipRatingCalculator){
         return shipRatingCalculatorRepository.save(shipRatingCalculator);
     }
@@ -34,6 +38,7 @@ public class ShipRatingCalculatorController {
     }
 
     @PutMapping("/ship-rating")
+    @Transactional
     public ResponseEntity<ShipRatingCalculator> updateRating(@RequestBody UserRateShip userRateShip){
 
         ShipRatingCalculator shipRatingCalculator = shipRatingCalculatorRepository.getById(userRateShip.getShipId());
@@ -48,6 +53,7 @@ public class ShipRatingCalculatorController {
     }
 
     @DeleteMapping("/ship-rating/{id}")
+    @Transactional
     public Map<String,Boolean> deleteShipGrade(@PathVariable Long id){
         ShipRatingCalculator shipRatingCalculator = shipRatingCalculatorRepository.getById((id));
 

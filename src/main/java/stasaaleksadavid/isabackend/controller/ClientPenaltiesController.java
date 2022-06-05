@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.Admin;
@@ -15,6 +17,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1")
+@EnableTransactionManagement
 public class ClientPenaltiesController {
 
     @Autowired
@@ -24,6 +27,7 @@ public class ClientPenaltiesController {
     public List<ClientPenalties> getAllClientPenalties(){return clientPenaltiesRepository.findAll();}
 
     @PostMapping("/clientPenalties")
+    @Transactional
     public  ClientPenalties createClientPenalty(@RequestBody ClientPenalties clientPenalties){
         return clientPenaltiesRepository.save(clientPenalties);
     }
@@ -34,6 +38,7 @@ public class ClientPenaltiesController {
     }
 
     @DeleteMapping("/clientPenalties/{id}")
+    @Transactional
     public Map<String, Boolean> deleteClientPenalty(@PathVariable Long id){
 
         ClientPenalties clientPenalties = clientPenaltiesRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Client penalty does not exist with id:"+ id));

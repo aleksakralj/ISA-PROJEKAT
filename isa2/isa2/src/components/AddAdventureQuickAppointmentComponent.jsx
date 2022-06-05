@@ -147,7 +147,6 @@ class AddAdventureQuickAppointmentComponent extends Component {
             adventureId:activeAdventure.id
         }
         
-
         if (this.DateTimeIsEmpty(appointment) == true){
         this.SendEmail();
         console.log('appointment => ' + JSON.stringify(appointment));

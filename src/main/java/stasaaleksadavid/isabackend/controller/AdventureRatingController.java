@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.model.AdventureRating;
 import stasaaleksadavid.isabackend.model.UserRateAdventure;
@@ -14,6 +16,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class AdventureRatingController {
 
     @Autowired
@@ -25,6 +28,7 @@ public class AdventureRatingController {
     }
 
     @PostMapping("/adventure-rating")
+    @Transactional
     public AdventureRating createAdventureRating(@RequestBody AdventureRating adventureRating){
         return adventureRatingRepository.save(adventureRating);
     }
@@ -35,6 +39,7 @@ public class AdventureRatingController {
     }
 
     @PutMapping("/adventure-rating")
+    @Transactional
     public ResponseEntity<AdventureRating> updateRating(@RequestBody UserRateAdventure userRateAdventure){
 
             AdventureRating adventureRating = adventureRatingRepository.getById(userRateAdventure.getAdventureId());
@@ -49,6 +54,7 @@ public class AdventureRatingController {
     }
 
     @DeleteMapping("/adventure-rating/{id}")
+    @Transactional
     public Map<String,Boolean> deleteAdventureGrade(@PathVariable Long id){
             AdventureRating adventureRating = adventureRatingRepository.getById((id));
 

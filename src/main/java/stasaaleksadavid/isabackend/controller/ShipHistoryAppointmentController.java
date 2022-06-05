@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.ShipHistoryAppointment;
@@ -14,6 +16,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class ShipHistoryAppointmentController {
     @Autowired
     private ShipHistoryAppointmentRepository shipHistoryAppointmentRepository;
@@ -28,6 +31,7 @@ public class ShipHistoryAppointmentController {
 
     //create
     @PostMapping("/shiphistoryappointments")
+    @Transactional
     public ShipHistoryAppointment createShipHistoryAppointment(@RequestBody ShipHistoryAppointment shipHistoryAppointment) {
         return shipHistoryAppointmentRepository.save(shipHistoryAppointment);
     }
@@ -52,6 +56,7 @@ public class ShipHistoryAppointmentController {
 
 
     @PutMapping("/shiphistoryappointments/{id}")
+    @Transactional
     public ResponseEntity<ShipHistoryAppointment> updateShipHistoryAppointment(@PathVariable Long id, @RequestBody ShipHistoryAppointment shipHistoryAppointmentDetails) {
         ShipHistoryAppointment shipHistoryAppointment = shipHistoryAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ShipHistoryAppointment does not exist with id:" + id));
 
@@ -71,6 +76,7 @@ public class ShipHistoryAppointmentController {
 
     //delete
     @DeleteMapping("/shiphistoryappointments/{id}")
+    @Transactional
     public Map<String, Boolean> deleteShipHistoryAppointment(@PathVariable Long id) {
 
         ShipHistoryAppointment shipHistoryAppointment = shipHistoryAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ShipHistoryAppointment does not exist with id:" + id));
