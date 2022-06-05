@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
@@ -18,6 +20,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class UserController {
     @Autowired
     private UserRepository userRepository;
@@ -68,6 +71,7 @@ public class UserController {
        }
     //delete
     @DeleteMapping("/users/{type}/{id}")
+    @Transactional
     public Map<String, Boolean> deleteUser(@PathVariable Long id,@PathVariable String type) {
         if ( type.equals("admin") ||  type.equals("main_admin")) {
             User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User does not exist with id:" + id));

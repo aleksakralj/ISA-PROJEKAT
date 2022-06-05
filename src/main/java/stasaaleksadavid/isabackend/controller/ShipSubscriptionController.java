@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.AdventureSubscription;
@@ -16,6 +18,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class ShipSubscriptionController {
 
     @Autowired
@@ -32,6 +35,7 @@ public class ShipSubscriptionController {
 
     //create
     @PostMapping("/shipsubscriptions")
+    @Transactional
     public ShipSubscription createShipSubscription(@RequestBody ShipSubscription shipSubscription){
         return shipSubscriptionRepository.save(shipSubscription);
     }
@@ -46,6 +50,7 @@ public class ShipSubscriptionController {
 
     //update
     @PutMapping("/shipsubscriptions/{id}")
+    @Transactional
     public ResponseEntity<ShipSubscription> updateShipSubscription(@PathVariable Long id,@RequestBody ShipSubscription shipSubscriptionDetails){
         ShipSubscription shipSubscription = shipSubscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ShipSubscription does not exist with id:"+ id));
 
@@ -60,6 +65,7 @@ public class ShipSubscriptionController {
 
     //delete
     @DeleteMapping("/shipsubscriptions/{id}")
+    @Transactional
     public Map<String, Boolean> deleteShipSubscription(@PathVariable Long id){
 
         ShipSubscription shipSubscription = shipSubscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ShipSubscription does not exist with id:"+ id));
@@ -71,6 +77,7 @@ public class ShipSubscriptionController {
     }
 
     @DeleteMapping("/shipsubscriptions/{userId}/{shipId}")
+    @Transactional
     public Map<String, Boolean> deleteShipSubscriptionByUserIdAndShipId(@PathVariable Long userId, @PathVariable Long shipId){
 
         ShipSubscription subscription = shipSubscriptionRepository.findByUserIdAndShipId(userId, shipId);

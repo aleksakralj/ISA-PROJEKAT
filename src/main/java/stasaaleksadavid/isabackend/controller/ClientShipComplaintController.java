@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.Admin;
@@ -15,6 +17,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1")
+@EnableTransactionManagement
 public class ClientShipComplaintController {
 
     @Autowired
@@ -24,6 +27,7 @@ public class ClientShipComplaintController {
     public List<ClientShipComplaint> getAllShipComplaints() {return clientShipComplaintRepository.findAll();}
 
     @PostMapping("/shipComplaints")
+    @Transactional
     public ClientShipComplaint createShipComplaint(@RequestBody ClientShipComplaint clientShipComplaint) {return clientShipComplaintRepository.save(clientShipComplaint);}
 
     @GetMapping("/shipComplaints/{id}")
@@ -33,6 +37,7 @@ public class ClientShipComplaintController {
     }
 
     @DeleteMapping("/shipComplaints/{id}")
+    @Transactional
     public Map<String, Boolean> deleteShipComplaint(@PathVariable Long id){
 
         ClientShipComplaint ClientShipComplaint = clientShipComplaintRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ship complaint does not exist with id:"+ id));

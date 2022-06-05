@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.AdventureAppointment;
@@ -18,6 +20,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class CottageAppointmentController {
 
     @Autowired
@@ -35,6 +38,7 @@ public class CottageAppointmentController {
 
     //create
     @PostMapping("/cottageappointments")
+    @Transactional
     public CottageAppointment createCottageAppointment(@RequestBody CottageAppointment cottageAppointment) {
 
             List<CottageFreeAppointment> cottageFreeAppointments = cottageFreeAppointmentRepository.findByCottageId(cottageAppointment.getCottageId());
@@ -87,6 +91,7 @@ public class CottageAppointmentController {
 
     //update
     @PutMapping("/cottageappointments/{id}")
+    @Transactional
     public ResponseEntity<CottageAppointment> updateCottageAppointment(@PathVariable Long id, @RequestBody CottageAppointment cottageAppointmentDetails) {
         CottageAppointment cottageAppointment = cottageAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageAppointment does not exist with id:" + id));
 
@@ -106,6 +111,7 @@ public class CottageAppointmentController {
 
     //delete
     @DeleteMapping("/cottageappointments/{id}")
+    @Transactional
     public void deleteCottageAppointment(@PathVariable Long id) {
 
         CottageAppointment cottageAppointment = cottageAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("CottageAppointment does not exist with id:" + id));

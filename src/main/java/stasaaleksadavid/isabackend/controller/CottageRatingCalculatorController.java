@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.model.AdventureRating;
 import stasaaleksadavid.isabackend.model.CottageRatingCalculator;
@@ -17,6 +19,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class CottageRatingCalculatorController {
 
     @Autowired
@@ -28,6 +31,7 @@ public class CottageRatingCalculatorController {
     }
 
     @PostMapping("/cottage-rating")
+    @Transactional
     public CottageRatingCalculator createCottageRatingCalculator(@RequestBody CottageRatingCalculator cottageRatingCalculator){
         return cottageRatingCalculatorRepository.save(cottageRatingCalculator);
     }
@@ -38,6 +42,7 @@ public class CottageRatingCalculatorController {
     }
 
     @PutMapping("/cottage-rating")
+    @Transactional
     public ResponseEntity<CottageRatingCalculator> updateRating(@RequestBody UserRatesCottage userRatesCottage){
 
         CottageRatingCalculator cottageRatingCalculator = cottageRatingCalculatorRepository.getById(userRatesCottage.getCottageId());
@@ -52,6 +57,7 @@ public class CottageRatingCalculatorController {
     }
 
     @DeleteMapping("/cottage-rating/{id}")
+    @Transactional
     public Map<String,Boolean> deleteCottageGrade(@PathVariable Long id){
         CottageRatingCalculator cottageRatingCalculator = cottageRatingCalculatorRepository.getById((id));
 

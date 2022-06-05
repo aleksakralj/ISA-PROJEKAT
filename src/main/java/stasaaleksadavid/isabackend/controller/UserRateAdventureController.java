@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.UserRateAdventure;
@@ -12,6 +14,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class UserRateAdventureController {
 
     @Autowired
@@ -21,6 +24,7 @@ public class UserRateAdventureController {
     public List<UserRateAdventure> getAllRatings() {return userRateAdventureRepository.findAll();}
 
     @PostMapping("/user-rate-adventure")
+    @Transactional
     public UserRateAdventure createRate(@RequestBody UserRateAdventure userRateAdventure ){
         return userRateAdventureRepository.save(userRateAdventure);
     }

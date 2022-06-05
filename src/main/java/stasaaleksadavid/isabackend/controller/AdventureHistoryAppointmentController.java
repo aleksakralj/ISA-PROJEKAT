@@ -3,6 +3,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.DTO.AdventureAppointmentsDTO;
 import stasaaleksadavid.isabackend.DTO.Mapper;
@@ -20,6 +22,7 @@ import static java.util.stream.Collectors.toList;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class AdventureHistoryAppointmentController {
 
     @Autowired
@@ -41,9 +44,8 @@ public class AdventureHistoryAppointmentController {
 
     //create
     @PostMapping("/adventurehistoryappointments")
+    @Transactional
     public AdventureHistoryAppointment createAdventureHistoryAppointment(@RequestBody AdventureHistoryAppointment adventureHistoryAppointment) {
-
-
 
         return adventureHistoryAppointmentRepository.save(adventureHistoryAppointment);
     }
@@ -67,6 +69,7 @@ public class AdventureHistoryAppointmentController {
 
     //update
     @PutMapping("/adventurehistoryappointments/{id}")
+    @Transactional
     public ResponseEntity<AdventureHistoryAppointment> updateAdventureHistoryAppointment(@PathVariable Long id, @RequestBody AdventureHistoryAppointment adventureHistoryAppointmentDetails) {
         AdventureHistoryAppointment adventureHistoryAppointment = adventureHistoryAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("AdventureHistoryAppointment does not exist with id:" + id));
 
@@ -88,6 +91,7 @@ public class AdventureHistoryAppointmentController {
 
     //delete
     @DeleteMapping("/adventurehistoryappointments/{id}")
+    @Transactional
     public Map<String, Boolean> deleteAdventureHistoryAppointment(@PathVariable Long id) {
 
         AdventureHistoryAppointment adventureHistoryAppointment = adventureHistoryAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("AdventureHistoryAppointment does not exist with id:" + id));

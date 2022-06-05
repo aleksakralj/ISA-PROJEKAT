@@ -2,6 +2,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.AdventureSubscription;
@@ -14,6 +16,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class AdventureSubscriptionController {
 
     @Autowired
@@ -30,6 +33,7 @@ public class AdventureSubscriptionController {
 
     //create
     @PostMapping("/adventuresubscriptions")
+    @Transactional
     public AdventureSubscription createAdventureSubscription(@RequestBody AdventureSubscription adventureSubscription){
         return adventureSubscriptionRepository.save(adventureSubscription);
     }
@@ -51,6 +55,7 @@ public class AdventureSubscriptionController {
 
     //update
     @PutMapping("/adventuresubscriptions/{id}")
+    @Transactional
     public ResponseEntity<AdventureSubscription> updateAdventureSubscription(@PathVariable Long id,@RequestBody AdventureSubscription adventureSubscriptionDetails){
         AdventureSubscription adventureSubscription = adventureSubscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("AdventureSubscription does not exist with id:"+ id));
 
@@ -65,6 +70,7 @@ public class AdventureSubscriptionController {
 
     //delete
     @DeleteMapping("/adventuresubscriptions/{id}")
+    @Transactional
     public Map<String, Boolean> deleteAdventureSubscription(@PathVariable Long id){
 
         AdventureSubscription adventureSubscription = adventureSubscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("AdventureSubscription does not exist with id:"+ id));
@@ -76,6 +82,7 @@ public class AdventureSubscriptionController {
     }
 
     @DeleteMapping("/adventuresubscriptions/{userId}/{adventureId}")
+    @Transactional
     public Map<String, Boolean> deleteAdventureSubscriptionByUserIdAndAdventureId(@PathVariable Long userId, @PathVariable Long adventureId){
 
         AdventureSubscription adventureSubscription = adventureSubscriptionRepository.findByUserIdAndAdventureId(userId, adventureId);

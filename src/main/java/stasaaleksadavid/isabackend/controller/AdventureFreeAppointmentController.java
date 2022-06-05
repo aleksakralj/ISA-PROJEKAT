@@ -3,6 +3,8 @@ package stasaaleksadavid.isabackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.AdventureFreeAppointment;
@@ -20,6 +22,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class AdventureFreeAppointmentController {
 
     @Autowired
@@ -44,6 +47,7 @@ public class AdventureFreeAppointmentController {
 
     //create
     @PostMapping("/adventurefreeappointments/{type}")
+    @Transactional
     public AdventureFreeAppointment createAdventureFreeAppointment(@PathVariable String type,@RequestBody AdventureFreeAppointment adventureFreeAppointment) {
         if(type.equals("fishing_instructor") || type.equals("admin") || type.equals("main_admin")) {
         return adventureFreeAppointmentRepository.save(adventureFreeAppointment);
@@ -60,6 +64,7 @@ public class AdventureFreeAppointmentController {
 
     //update
     @PutMapping("/adventurefreeappointments/{id}")
+    @Transactional
     public ResponseEntity<AdventureFreeAppointment> updateAdventureFreeAppointment(@PathVariable Long id, @RequestBody AdventureFreeAppointment adventureFreeAppointmentDetails) {
         AdventureFreeAppointment adventureFreeAppointment = adventureFreeAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("AdventureFreeAppointment does not exist with id:" + id));
 
@@ -80,6 +85,7 @@ public class AdventureFreeAppointmentController {
 
     //delete
     @DeleteMapping("/adventurefreeappointments/{id}")
+    @Transactional
     public Map<String, Boolean> deleteAdventureFreeAppointment(@PathVariable Long id) {
 
         AdventureFreeAppointment adventureFreeAppointment = adventureFreeAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("AdventureFreeAppointment does not exist with id:" + id));

@@ -1,4 +1,6 @@
 package stasaaleksadavid.isabackend.controller;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import stasaaleksadavid.isabackend.repository.ShipFreeAppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
+@EnableTransactionManagement
 public class ShipAppointmentController {
     @Autowired
     private ShipAppointmentRepository shipAppointmentRepository;
@@ -30,6 +33,7 @@ public class ShipAppointmentController {
 
     //create
     @PostMapping("/shipappointments")
+    @Transactional
     public ShipAppointment createShipAppointment(@RequestBody ShipAppointment shipAppointment) {
 
         List<ShipFreeAppointment> shipFreeAppointments = shipFreeAppointmentRepository.findByShipId(shipAppointment.getShipId());
@@ -82,6 +86,7 @@ public class ShipAppointmentController {
 
     //update
     @PutMapping("/shipappointments/{id}")
+    @Transactional
     public ResponseEntity<ShipAppointment> updateShipAppointment(@PathVariable Long id, @RequestBody ShipAppointment shipAppointmentDetails) {
         ShipAppointment shipAppointment = shipAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ShipAppointment does not exist with id:" + id));
 
@@ -101,6 +106,7 @@ public class ShipAppointmentController {
 
     //delete
     @DeleteMapping("/shipappointments/{id}")
+    @Transactional
     public void deleteShipAppointment(@PathVariable Long id) {
 
         ShipAppointment shipAppointment = shipAppointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ShipAppointment does not exist with id:" + id));
