@@ -12,6 +12,7 @@ const AdventureProfilePage = () => {
     const [buttonCaption, setButtonCaption] = useState('');
     const history = useHistory();  
     const [adventureRating, setAdventureRating] = useState('');
+    const [hideComponents, setHideComponents] = useState(false);
 
     const getAdventureInfo = () => {
         
@@ -23,7 +24,13 @@ const AdventureProfilePage = () => {
     const getUserInfo = () => {
 
         let usr = JSON.parse(localStorage.getItem('activeUser'))
+        if(usr === null) {
+            setHideComponents(false);
+        }
+        else {
         setActiveUser(usr);
+        setHideComponents(true)
+        }
     }
 
     const subscribeToAdventure = () => {
@@ -97,9 +104,14 @@ const AdventureProfilePage = () => {
     return (
         <div className='adventure-profile-container'>
             <div className='adventure-caption-content'>               
+                
+                { hideComponents ?       
                 <button className='appointments-button' onClick={() => checkFreeTerms()}>
                     Schedule this adventure
                 </button>
+                : null    
+                }
+
                 <div className='adventure-properties'>
                     <div className='basic-adventure-info'>
                         <h2>{adventure.name}</h2>
@@ -107,17 +119,26 @@ const AdventureProfilePage = () => {
                         <p>Rating: {adventureRating.finalRating}</p>
                         <div className='instructor-data'>
                             <h5>Aca faca</h5>
+                       
+                        { hideComponents?
                             <button 
                                 onClick={() => subscribeToAdventure()}
                             >{buttonCaption}</button>
+                            :null
+                        }
                         </div>
                         <p>Max people: {adventure.maxPeople}</p>
                     </div>
                 <img className='adventure-image' src='https://slatefallsoutposts.com/wp-content/uploads/2019/11/slid1450.jpg'></img>
                 </div>
+                
+                {hideComponents ?
                 <button className='appointments-button' onClick={() => checkQuickAppointments()}>
                     Check Quick appointments
                 </button>
+                : null
+                }
+            
             </div>
 
             <div className='adventure-content-container'>

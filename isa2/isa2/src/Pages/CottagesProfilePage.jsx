@@ -12,6 +12,8 @@ const CottageProfilePage = () => {
     const [buttonCaption, setButtonCaption] = useState('Subscribe');
     const history = useHistory();
     const [cottageRating, setCottageRating] = useState('');
+    const [hideComponents, setHideComponents] = useState(false);
+
 
     const getCottageInfo = () => {
         let cott = JSON.parse(localStorage.getItem('activeCottage'))
@@ -20,7 +22,15 @@ const CottageProfilePage = () => {
 
     const getUserInfo = () => {
         let user = JSON.parse(localStorage.getItem('activeUser'));
-        setActiveUser(user);
+        
+        if(user === null) {
+            setHideComponents(false)
+        }
+        else {
+            setActiveUser(user);
+            setHideComponents(true)
+        }
+
     }
 
     const subscribeToCottage = () => {
@@ -93,11 +103,17 @@ const CottageProfilePage = () => {
     return (
         <div className='cottage-profile-page-container'>
              <div className='cottage-caption-content'>               
+                
+                {
+                hideComponents ?
                 <button className='appointments-button'
                     onClick={() => scheduleCottage()}
                 >
                     Schedule Cottage
                 </button>
+                : null
+                }
+                
                 <div className='cottage-properties'>
                     <div className='basic-cottage-info'>
                         <h2>{cottage.name}</h2>
@@ -105,19 +121,29 @@ const CottageProfilePage = () => {
                         <p>Rating: {cottageRating.finalRating}</p>
                         <div className='owner-data'>
                             <h5>Aca faca</h5>
+
+                        { hideComponents? 
                             <button
                                 onClick={()=> subscribeToCottage()}
                             >{buttonCaption}</button>
+                            : null
+                        }
+                        
                         </div>
                         <p>{cottage.numberOfRooms}</p>
                     </div>
                 <img className='cottage-image' src='https://slatefallsoutposts.com/wp-content/uploads/2019/11/slid1450.jpg'></img>
                 </div>
+
+                {
+                    hideComponents?
                 <button 
                     className='appointments-button'
                     onClick={() => checkQuickAppointments()}>
                         Check Quick Appointments
                 </button>
+                    :null
+                }
             </div>
             
             <div className='cottage-content-container'>

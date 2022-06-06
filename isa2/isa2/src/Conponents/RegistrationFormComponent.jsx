@@ -3,7 +3,6 @@ import RegistrationRequestService from '../services/RegistrationRequestService';
 import { useHistory } from 'react-router-dom';
 import validator from 'validator';
 
-
 const RegistrationFormComponent = () => {
    
     const history = useHistory();
@@ -28,8 +27,12 @@ const RegistrationFormComponent = () => {
         if (newUserData.password != passwordConfirmation) {
             alert('Passwrods must match');
         } else {
+           /*
             await RegistrationRequestService.createRegistrationRequest(newUserData);
             history.push('/registrationwait');
+            */
+
+            
         }
     }
 

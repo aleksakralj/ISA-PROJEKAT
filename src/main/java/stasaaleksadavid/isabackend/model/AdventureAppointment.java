@@ -39,6 +39,9 @@ public class AdventureAppointment {
     @Column(name = "Price")
     private double price;
 
+    @org.springframework.data.annotation.Version
+    private Long version;
+
     public AdventureAppointment() {
     }
 
