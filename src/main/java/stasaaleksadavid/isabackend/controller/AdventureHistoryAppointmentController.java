@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.DTO.AdventureAppointmentsDTO;
 import stasaaleksadavid.isabackend.DTO.Mapper;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
+import stasaaleksadavid.isabackend.model.AdventureAppointment;
 import stasaaleksadavid.isabackend.model.AdventureHistoryAppointment;
+import stasaaleksadavid.isabackend.repository.AdventureAppointmentRepository;
 import stasaaleksadavid.isabackend.repository.AdventureHistoryAppointmentRepository;
 import stasaaleksadavid.isabackend.repository.AdventureRepository;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +33,9 @@ public class AdventureHistoryAppointmentController {
 
     @Autowired
     private AdventureRepository adventureRepository;
+
+    @Autowired
+    private AdventureAppointmentRepository adventureAppointmentRepository;
 
     private Mapper mapper;
     //get all
@@ -62,9 +68,40 @@ public class AdventureHistoryAppointmentController {
     @GetMapping("/adventurehistoryappointments/{clientId}")
     public List<AdventureHistoryAppointment> getAdventureHistoryAppointmentByUserId(@PathVariable Long clientId) {
 
-        return adventureHistoryAppointmentRepository.findByClientId(clientId);
+        List<AdventureAppointment> clientAdventures = adventureAppointmentRepository.findByClientId(clientId);
+        List<AdventureHistoryAppointment> fixedAppointments = CheckDidTheyPass(clientAdventures, clientId);
 
+        return fixedAppointments;
     }
+
+    public List<AdventureHistoryAppointment> CheckDidTheyPass(List<AdventureAppointment> appointments, Long id) {
+
+        for (AdventureAppointment a: appointments
+        ) {
+            if(a.getEndingDate().isEqual(LocalDate.now())){
+
+                AdventureHistoryAppointment past = new AdventureHistoryAppointment(
+                        a.getAdventureId(),
+                        a.getInstructorId(),
+                        a.getClientId(),
+                        a.getLocation(),
+                        a.getStartingDate(),
+                        a.getEndingDate(),
+                        a.getNumberOfPeople(),
+                        a.getAdditionalServices(),
+                        a.getPrice()
+                );
+
+                adventureHistoryAppointmentRepository.save(past);
+                adventureAppointmentRepository.delete(a);
+            }
+        }
+
+
+        List<AdventureHistoryAppointment> fixedAppointments = adventureHistoryAppointmentRepository.findByClientId(id);
+        return fixedAppointments;
+    }
+
 
 
     //update

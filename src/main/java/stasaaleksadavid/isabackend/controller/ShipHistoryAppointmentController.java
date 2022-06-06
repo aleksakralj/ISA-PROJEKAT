@@ -6,9 +6,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
+import stasaaleksadavid.isabackend.model.ShipAppointment;
 import stasaaleksadavid.isabackend.model.ShipHistoryAppointment;
+import stasaaleksadavid.isabackend.repository.ShipAppointmentRepository;
 import stasaaleksadavid.isabackend.repository.ShipHistoryAppointmentRepository;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +23,9 @@ import java.util.Map;
 public class ShipHistoryAppointmentController {
     @Autowired
     private ShipHistoryAppointmentRepository shipHistoryAppointmentRepository;
+
+    @Autowired
+    private ShipAppointmentRepository shipAppointmentRepository;
 
 
     //get all
@@ -46,7 +52,34 @@ public class ShipHistoryAppointmentController {
 */
     @GetMapping("/shiphistoryappointments/{clientId}")
     public List<ShipHistoryAppointment> getShipsHistoryAppointmentsForSpecificUser(@PathVariable Long clientId){
-        return shipHistoryAppointmentRepository.findByClientId(clientId);
+        List<ShipAppointment> clientShips = shipAppointmentRepository.findAllByClientId(clientId);
+        List<ShipHistoryAppointment> fixedAppointments = CheckDidTheyPass(clientShips, clientId);
+
+        return fixedAppointments;
+    }
+
+    List<ShipHistoryAppointment> CheckDidTheyPass(List<ShipAppointment> appointments, Long id) {
+        for (ShipAppointment a : appointments
+        ) {
+            if (a.getEndingDate().isEqual(LocalDate.now())) {
+                ShipHistoryAppointment past = new ShipHistoryAppointment(
+                        a.getShipId(),
+                        a.getClientId(),
+                        a.getStartingDate(),
+                        a.getEndingDate(),
+                        a.getNumberOfPeople(),
+                        a.getAdditionalServices(),
+                        a.getPrice(),
+                        a.getId()
+                );
+
+                shipHistoryAppointmentRepository.save(past);
+                shipAppointmentRepository.delete(a);
+            }
+        }
+
+        List<ShipHistoryAppointment> fixedAppointments = shipHistoryAppointmentRepository.findByClientId(id);
+        return fixedAppointments;
     }
 
 
