@@ -39,6 +39,8 @@ const ShipQuickAppointmentsPage = () => {
         }
         
         ShipsAppointmentService.createShipAppointment(clientsNewAppointment);
+        axios.delete("http://localhost:8080/api/v1/shipquickappointments/" + appointment.id)
+        
         console.log('Do ovde sam dosao')
     }   
 
@@ -53,7 +55,7 @@ const ShipQuickAppointmentsPage = () => {
     return (
         <div className='ship-quick-appointment-container'>
             <div className='app-header'>
-                <h2>Ship_name quick appointments</h2>
+                <h2>{ship.name} quick appointments</h2>
             </div>
             <table className='ship-appointments-table'>
                 <thead>

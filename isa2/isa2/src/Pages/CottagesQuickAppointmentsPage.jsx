@@ -41,6 +41,7 @@ const CottagesQuickAppointmentsPage = () => {
         
         CottageAppointmentsService.createCottageAppointment(clientsNewAppointment);
         console.log('Do ovde sam dosao')
+        axios.delete("http://localhost:8080/api/v1/cottagequickappointments/" + appointment.id)
     }   
 
     useEffect(() => {
@@ -54,7 +55,7 @@ const CottagesQuickAppointmentsPage = () => {
     return (
         <div className='cottage-quick-appointment-container'>
             <div className='app-header'>
-                <h2>Cottage_Name quick appointments</h2>
+                <h2>{cottage.name} quick appointments</h2>
             </div>
             <table className='cottage-appointments-table'>
                 <thead>
