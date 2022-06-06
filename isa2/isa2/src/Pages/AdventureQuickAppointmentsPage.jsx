@@ -41,6 +41,8 @@ const AdventureQuickAppointmentsPage = () => {
         
         AdventureAppointmentsService.createAdventureAppointment(clientsNewAppointment);
         console.log('Do ovde sam dosao')
+
+        axios.delete("http://localhost:8080/api/v1/adventurequickappointments/" + appointment.id)
     }   
 
     useEffect(() => {
@@ -54,7 +56,7 @@ const AdventureQuickAppointmentsPage = () => {
     return (
         <div className='adventure-quick-appointment-container'>
             <div className='app-header'>
-                <h2>Adventue_name quick appointments</h2>
+                <h2>{adventure.name} quick appointments</h2>
             </div>
             <table className='adventure-appointments-table'>
                 <thead>
