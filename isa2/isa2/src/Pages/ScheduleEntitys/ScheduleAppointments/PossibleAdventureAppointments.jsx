@@ -5,6 +5,7 @@ import '../../../Pages/ScheduleEntitys/ScheduleAppointments/PossibleAdventureApp
 import AdventureAppointmentsService from '../../../services/AdventureAppointmentsService';
 import emailjs from 'emailjs-com'
 import ClientPointsService from '../../../services/ClientPointsService';
+import AdventureService from '../../../services/AdventureService';
 
 const PossibleAdventureAppointments = () => {
     
@@ -16,7 +17,8 @@ const PossibleAdventureAppointments = () => {
     const [activeUser, setActiveUser] = useState({});
     const [userPoints, setuserPoints] = useState({});
     const [userPenalties, setuserPenalties] = useState([{}]);
-    
+    const [adventures, setadventures] = useState([{}]);
+
     useEffect(() => {
         loadRequiredAdventure();
     }, [])
@@ -101,15 +103,15 @@ const PossibleAdventureAppointments = () => {
             emailjs.send('service_5rghav8', 'template_6avct9t', params , 'gXf9s006PxRAmmhgz')
             .then((resoult) => {
                     console.log(resoult.text)
-                    window.location.reload(false);            
                 }, (error) => {
                     console.log(error.text)
                 });
-        }
-
-        else (
-            alert('You cant schedule this appointment, you have 3 penalties')
-        )
+            }
+            
+            else (
+                alert('You cant schedule this appointment, you have 3 penalties')
+            )
+            window.location.reload(false);            
     }
 
     const getUserPenalties = async() => {
@@ -123,6 +125,25 @@ const PossibleAdventureAppointments = () => {
     const updatePoints = () => {
         let points = 100;
         ClientPointsService.updateClientPoints(points, activeUser.id);
+    }
+
+    useEffect(() => {
+        findAdventureNames();
+    }, [allFreeTerms])
+
+
+    const findAdventureNames = async() => {
+
+        let adventureNames = []
+
+        for (const ad of allFreeTerms){
+            let a = await AdventureService.getAdventureById(ad.adventureId);
+            adventureNames.push(a.data);
+        }
+
+        setadventures(adventureNames)
+        console.log(adventureNames)
+
     }
 
     return (
@@ -148,8 +169,8 @@ const PossibleAdventureAppointments = () => {
                                 { freeTermsForRequiredAdventure.map(
                                     freeTerm =>
                                 <tr key={freeTerm.id}>
-                                    <th></th>
-                                    <th></th>
+                                    <th>{requiredAdventure.name}</th>
+                                    <th>Aca</th>
                                     <th>{freeTerm.location}</th>
                                     <th>{freeTerm.startingDate}</th>
                                     <th>{freeTerm.endingDate}</th>
@@ -187,8 +208,8 @@ const PossibleAdventureAppointments = () => {
                         { allFreeTerms.map(
                             freeTerm =>
                         <tr key={freeTerm.id}>
-                            <th></th>
-                            <th></th>
+                            <th>{adventures.name}</th>
+                            <th>Aca</th>
                             <th>{freeTerm.location}</th>
                             <th>{freeTerm.startingDate}</th>
                             <th>{freeTerm.endingDate}</th>

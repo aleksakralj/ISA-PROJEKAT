@@ -5,6 +5,7 @@ import '../../../Pages/ScheduleEntitys/ScheduleShips/PossibleShipAppointments.cs
 import ShipsAppointmentService from '../../../services/ShipsAppointmentService';
 import emailjs from 'emailjs-com';
 import ClientPointsService from '../../../services/ClientPointsService';
+import ShipService from '../../../services/ShipService';
 
 const PossibleShipAppointments = () => {
     
@@ -16,7 +17,7 @@ const PossibleShipAppointments = () => {
     const [activeUser, setActiveUser] = useState({});
     const [userPoints, setuserPoints] = useState({});
     const [userPenalties, setuserPenalties] = useState([{}]);
-
+    const [ships, setships] = useState([{}]);
 
 
     useEffect(() => {
@@ -128,6 +129,24 @@ const PossibleShipAppointments = () => {
         console.log(response.data)        
     }
 
+    useEffect(() => {
+        findShipNames();
+    }, [allFreeTerms])
+
+
+    const findShipNames = async() => {
+
+        let shipNames = []
+
+        for (const sh of allFreeTerms){
+            let s = await ShipService.getShipById(sh.shipId);
+            shipNames.push(s.data);
+        }
+
+        setships(shipNames)
+
+    }
+
     return (        
     <div className='possible-appointments-container'>
     <div className='required-ship-container' id='1'>
@@ -151,8 +170,8 @@ const PossibleShipAppointments = () => {
                         { freeTermsForRequiredShip.map(
                             freeTerm =>
                         <tr key={freeTerm.id}>
-                            <th></th>
-                            <th></th>
+                            <th>{requiredShip.name}</th>
+                            <th>Ljuba</th>
                             <th>{freeTerm.location}</th>
                             <th>{freeTerm.startingDate}</th>
                             <th>{freeTerm.endingDate}</th>
@@ -190,8 +209,8 @@ const PossibleShipAppointments = () => {
                 { allFreeTerms.map(
                     freeTerm =>
                 <tr key={freeTerm.id}>
-                    <th></th>
-                    <th></th>
+                    <th>{ships.name}</th>
+                    <th>Ljuba</th>
                     <th>{freeTerm.location}</th>
                     <th>{freeTerm.startingDate}</th>
                     <th>{freeTerm.endingDate}</th>

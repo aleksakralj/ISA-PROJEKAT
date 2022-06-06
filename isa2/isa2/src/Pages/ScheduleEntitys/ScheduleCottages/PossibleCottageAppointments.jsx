@@ -5,6 +5,7 @@ import CottageAppointmentsService from '../../../services/CottageAppointmentsSer
 import emailjs from 'emailjs-com';
 import '../../../Pages/ScheduleEntitys/ScheduleCottages/PossibleCottageAppointments.css';
 import ClientPointsService from '../../../services/ClientPointsService';
+import CottageService from '../../../services/CottageService';
 
 const PossibleCottageAppointments = () => {
     const [requiredCottage, setRequiredCottage] = useState({});
@@ -15,7 +16,7 @@ const PossibleCottageAppointments = () => {
     const [activeUser, setActiveUser] = useState({});
     const [userPoints, setuserPoints] = useState({});
     const [userPenalties, setuserPenalties] = useState([{}]);
-
+    const [cottages, setcottages] = useState([{}]);
 
     useEffect(() => {
         loadRequiredCottage();
@@ -126,6 +127,23 @@ const PossibleCottageAppointments = () => {
         console.log(response.data)        
     }
 
+    useEffect(() => {
+        findCottageNames();
+    }, [allFreeTerms])
+
+
+    const findCottageNames = async() => {
+
+        let cottageNames = []
+
+        for (const co of allFreeTerms){
+            let c = await CottageService.getCottageById(co.cottageId);
+            cottageNames.push(c.data);
+        }
+
+        setcottages(cottageNames)
+
+    }
 
 
     return (
@@ -151,8 +169,8 @@ const PossibleCottageAppointments = () => {
                                 { freeTermsForRequiredCottage.map(
                                     freeTerm =>
                                 <tr key={freeTerm.id}>
-                                    <th></th>
-                                    <th></th>
+                                    <th>{requiredCottage.name}</th>
+                                    <th>Suki</th>
                                     <th>{freeTerm.location}</th>
                                     <th>{freeTerm.startingDate}</th>
                                     <th>{freeTerm.endingDate}</th>
@@ -190,8 +208,8 @@ const PossibleCottageAppointments = () => {
                         { allFreeTerms.map(
                             freeTerm =>
                         <tr key={freeTerm.id}>
-                            <th></th>
-                            <th></th>
+                            <th>{cottages.name}</th>
+                            <th>Suki</th>
                             <th>{freeTerm.location}</th>
                             <th>{freeTerm.startingDate}</th>
                             <th>{freeTerm.endingDate}</th>
