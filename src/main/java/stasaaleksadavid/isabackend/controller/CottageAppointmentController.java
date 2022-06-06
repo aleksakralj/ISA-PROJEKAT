@@ -63,8 +63,8 @@ public class CottageAppointmentController {
                         appointment.getPrice()
                 );
                 CottageFreeAppointment secondAppointment = new CottageFreeAppointment(
-                        appointment.getOwnerId(),
                         appointment.getCottageId(),
+                        appointment.getOwnerId(),
                         appointment.getLocation(),
                         newAppointment.getEndingDate(),
                         appointment.getEndingDate(),
