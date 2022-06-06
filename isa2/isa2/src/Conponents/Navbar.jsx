@@ -59,7 +59,7 @@ const Navbar = () => {
             return (
                 <div className="navbar">
                     <div className="primary-navbar">
-                        <img onClick={() => homeIconClick()} src="isa2\isa2\src\Assets\Images\fish.png"></img>
+                        <img onClick={() => homeIconClick()} src='https://cdn-icons.flaticon.com/png/512/2970/premium/2970068.png?token=exp=1654535814~hmac=3070d3fa7f13da8fe2a1fb5ec140e451' style={{width: '50px'}}></img>
                         <a
                             style={{ color: "black", textDecoration: "none" }}
                             href="/homepage"
@@ -153,7 +153,7 @@ const Navbar = () => {
         return (
             <div className="navbar-unlogged">
                 <div className="primary-navbar-unlogged">
-                    <img onClick={() => homeIconClick()} src="isa2\isa2\src\Assets\Images\fish.png"></img>
+                    <img onClick={() => homeIconClick()} src="https://cdn-icons.flaticon.com/png/512/2970/premium/2970068.png?token=exp=1654535814~hmac=3070d3fa7f13da8fe2a1fb5ec140e451"  style={{width: '50px'}}></img>
                     <a
                         style={{ color: "black", textDecoration: "none" }}
                         href="/homepage"
