@@ -5,7 +5,7 @@ const EntityCardList = () => {
     const [cards, setCards] = useState([
         {
             title: 'Adventures',
-            imageAddress : 'https://canary.contestimg.wish.com/api/webimage/5b15352ca309e469b826391d-large.jpg?cache_buster=36f19fa8a1cf6d50c7186334519ccc60',            
+            imageAddress : 'https://cdn-icons-png.flaticon.com/512/71/71543.png',            
             buttonText: 'See Adventures',
             buttonClickLink: '/adventures'
         },
