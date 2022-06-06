@@ -7,8 +7,8 @@ class User{
 getUsers(){
     return axios.get(USER_API_BASE_URL);
 }
-createUser(user,type){
-    return axios.post(USER_API_BASE_URL + '/'+ type, user);
+createUser(user){
+    return axios.post(USER_API_BASE_URL, user);
 }
 getUserById(userId){
     return axios.get(USER_API_BASE_URL + '/' + userId);

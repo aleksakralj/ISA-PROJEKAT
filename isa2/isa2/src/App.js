@@ -160,6 +160,7 @@ import ScheduleCottagesPage from './Pages/ScheduleEntitys/ScheduleCottages/Sched
 import PossibleCottageAppointments from './Pages/ScheduleEntitys/ScheduleCottages/PossibleCottageAppointments';
 import ClientShips from './Pages/ClientReviewOfScheduledEntities/ClientShips/ClientShips';
 import ClientCottages from './Pages/ClientReviewOfScheduledEntities/ClientCottages/ClientCottages';
+import ConfirmationProfile from './Conponents/ConfirmationProfile';
 
 /*
 const backStyle = {
@@ -375,6 +376,7 @@ function App() {
               <Route path="/possible-cottage-appointments" component={PossibleCottageAppointments}></Route>
 
               <Route path="/loginproba" component={LoginComponent}></Route>
+              <Route path="/confirmation" component={ConfirmationProfile}></Route>
               </Switch>
           
                                 

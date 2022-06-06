@@ -6,11 +6,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import stasaaleksadavid.isabackend.auth.VerificationToken;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
-import stasaaleksadavid.isabackend.model.Admin;
 import stasaaleksadavid.isabackend.model.User;
 import stasaaleksadavid.isabackend.repository.UserRepository;
 
+import javax.management.relation.Role;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,12 +35,30 @@ public class UserController {
        }
 
     //create
-    @PostMapping("/users/{type}")
-    public  User createUser(@PathVariable String type,@RequestBody User user){
-        if(type.equals("admin") || type.equals("main_admin")) {
-        return userRepository.save(user);
+    @PostMapping("/users")
+    public ResponseEntity<User> createUser(@RequestBody User user){
+
+      //  LocalDate date = LocalDate.parse(user.getDateOfBirth());
+
+        User newUser = new User(
+                user.getPassword(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getDateOfBirth(),
+                user.getEmail(),
+                user.getPhoneNumber(),
+                user.getAddress(),
+                user.getCity(),
+                user.getCountry(),
+                "Client"
+        );
+
+        User testUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
+        if(testUser == null) {
+            userRepository.save(newUser);
+            return ResponseEntity.ok(newUser);
         }
-        else{return null;}
+        return null;
     }
 
     //get by id
@@ -53,6 +73,8 @@ public class UserController {
     public ResponseEntity<User> updateUser(@PathVariable Long id,@RequestBody User userDetails){
 
             User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User does not exist with id:" + id));
+
+
 
                 user.setPassword(userDetails.getPassword());
                 user.setFirstName(userDetails.getFirstName());

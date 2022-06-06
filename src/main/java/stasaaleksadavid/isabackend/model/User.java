@@ -27,7 +27,7 @@ public class User {
     private String email;
 
     @Column(name = "Phone_Number")
-    private String phoneNumber;
+    private Long phoneNumber;
 
     @Column(name = "Address")
     private String address;
@@ -41,9 +41,12 @@ public class User {
     @Column(name = "Type")
     private String type;
 
+    private boolean isEnabled;
+
+
     public User() {    }
 
-    public User(String password, String firstName, String lastName, LocalDate dateOfBirth, String email, String phoneNumber, String address, String city, String country, String type) {
+    public User(String password, String firstName, String lastName, LocalDate dateOfBirth, String email, Long phoneNumber, String address, String city, String country, String type) {
         super();
         this.password = password;
         this.firstName = firstName;
@@ -117,11 +120,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
+    public Long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -149,5 +152,11 @@ public class User {
         this.country = country;
     }
 
+    public boolean isEnabled() {
+        return isEnabled;
+    }
 
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
 }
