@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import stasaaleksadavid.isabackend.exception.ResourceNotFoundException;
 import stasaaleksadavid.isabackend.model.*;
 import stasaaleksadavid.isabackend.repository.ShipAppointmentRepository;
+import stasaaleksadavid.isabackend.repository.ShipHistoryAppointmentRepository;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +25,8 @@ public class ShipAppointmentController {
 
     @Autowired
     private ShipFreeAppointmentRepository shipFreeAppointmentRepository;
+
+    private ShipHistoryAppointmentRepository shipHistoryRepository;
 
 //get all
 
@@ -220,9 +224,36 @@ public class ShipAppointmentController {
 
     @GetMapping("/shipappointments/client/{clientId}")
     public List<ShipAppointment> getAllAppointmentsForSpecificUser(@PathVariable Long clientId) {
-        return shipAppointmentRepository.findAllByClientId(clientId);
+
+        List<ShipAppointment> clientShips = shipAppointmentRepository.findAllByClientId(clientId);
+        List<ShipAppointment> fixedAppointments = CheckDidTheyPass(clientShips, clientId);
+
+        return fixedAppointments;
     }
 
+    List<ShipAppointment> CheckDidTheyPass(List<ShipAppointment> appointments, Long id) {
+        for (ShipAppointment a : appointments
+        ) {
+            if (a.getEndingDate().isEqual(LocalDate.now())) {
+                ShipHistoryAppointment past = new ShipHistoryAppointment(
+                        a.getShipId(),
+                        a.getClientId(),
+                        a.getStartingDate(),
+                        a.getEndingDate(),
+                        a.getNumberOfPeople(),
+                        a.getAdditionalServices(),
+                        a.getPrice(),
+                        a.getId()
+                );
+
+                shipHistoryRepository.save(past);
+                shipAppointmentRepository.delete(a);
+            }
+        }
+
+        List<ShipAppointment> fixedAppointments = shipAppointmentRepository.findAllByClientId(id);
+        return fixedAppointments;
+    }
 
     @GetMapping("/shipappointments/ship/{shipid}")
     public List<ShipAppointment> getAppointmentByShipId(@PathVariable Long shipid) {

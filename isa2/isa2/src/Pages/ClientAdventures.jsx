@@ -21,9 +21,7 @@ const ClientAdventures = () => {
 
         let loggedUser = JSON.parse(localStorage.getItem('activeUser'));
         let usersAdventures = await AdventureAppointmentsService.getAdventureAppointmentsForSpecificUser(loggedUser.id);
-     
         setScheduledAdventures(usersAdventures.data);
-    
     }
 
     useEffect(() => {

@@ -12,10 +12,12 @@ import stasaaleksadavid.isabackend.model.CottageFreeAppointment;
 import stasaaleksadavid.isabackend.repository.AdventureAppointmentRepository;
 import stasaaleksadavid.isabackend.repository.AdventureFreeAppointmentRepository;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import stasaaleksadavid.isabackend.model.*;
+import stasaaleksadavid.isabackend.repository.AdventureHistoryAppointmentRepository;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -29,6 +31,9 @@ public class AdventureAppointmentController {
     @Autowired
     private AdventureFreeAppointmentRepository adventureFreeAppointmentRepository;
     //get all
+
+    @Autowired
+    private AdventureHistoryAppointmentRepository adventureHistoryAppointmentRepository;
 
 
     /*
@@ -257,8 +262,40 @@ public class AdventureAppointmentController {
     @GetMapping("/adventureappointments/{clientId}")
     public List<AdventureAppointment> getAdventureAppointmentsForSpecificUser(@PathVariable Long clientId ){
 
-            return adventureAppointmentRepository.findByClientId(clientId);
-       }
+        List<AdventureAppointment> clientAdventures = adventureAppointmentRepository.findByClientId(clientId);
+        List<AdventureAppointment> fixedAppointments = CheckDidTheyPass(clientAdventures, clientId);
+
+        return fixedAppointments;
+    }
+
+    public List<AdventureAppointment> CheckDidTheyPass(List<AdventureAppointment> appointments, Long id) {
+
+        for (AdventureAppointment a: appointments
+             ) {
+            if(a.getEndingDate().isEqual(LocalDate.now())){
+
+                AdventureHistoryAppointment past = new AdventureHistoryAppointment(
+                        a.getAdventureId(),
+                        a.getInstructorId(),
+                        a.getClientId(),
+                        a.getLocation(),
+                        a.getStartingDate(),
+                        a.getEndingDate(),
+                        a.getNumberOfPeople(),
+                        a.getAdditionalServices(),
+                        a.getPrice()
+                );
+
+                adventureHistoryAppointmentRepository.save(past);
+                adventureAppointmentRepository.delete(a);
+            }
+        }
+
+
+        List<AdventureAppointment> fixedAppointments = adventureAppointmentRepository.findByClientId(id);
+        return fixedAppointments;
+    }
+
 
 
 }
