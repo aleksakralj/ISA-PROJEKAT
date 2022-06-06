@@ -2,6 +2,9 @@ import React, { useState, useCallback } from 'react';
 import RegistrationRequestService from '../services/RegistrationRequestService';
 import { useHistory } from 'react-router-dom';
 import validator from 'validator';
+import emailjs from 'emailjs-com';
+import axios from 'axios';
+import UserService from '../services/UserService';
 
 const RegistrationFormComponent = () => {
    
@@ -17,23 +20,55 @@ const RegistrationFormComponent = () => {
         country: '',
         phoneNumber: '',
         dateOfBirth: '',
-        type: 'Client'
+        type: 1
     });
-
+    
     const register = async(e) => {
 
         e.preventDefault();
 
-        if (newUserData.password != passwordConfirmation) {
-            alert('Passwrods must match');
-        } else {
-           /*
-            await RegistrationRequestService.createRegistrationRequest(newUserData);
-            history.push('/registrationwait');
-            */
+        let checkInput = validateInput();
 
-            
+        if(checkInput === false) {
+            alert('Your inputs are not written as required');
         }
+        else {
+            if (newUserData.password != passwordConfirmation) {
+                alert('Passwrods must match');
+            } else {
+            
+            localStorage.setItem('wantedUserInfo' , JSON.stringify(newUserData));
+
+            var params = {nesto : "http://localhost:3000/confirmation"}
+            emailjs.send('service_5rghav8', 'template_h5b17px', params , 'gXf9s006PxRAmmhgz')
+            .then((resoult) => {
+                    console.log(resoult.text)            
+                    history.push('/homepage')
+                }, (error) => {
+                    console.log(error.text)
+                });
+            }
+        }
+    }
+
+    const validateInput = () => {
+
+        if(!validator.isEmail(newUserData.email) ||
+            validator.isEmpty(newUserData.email) ||
+            validator.isEmpty(newUserData.password) ||
+            validator.isEmpty(passwordConfirmation) || 
+            validator.isEmpty(newUserData.firstName) ||
+            validator.isEmpty(newUserData.lastName) ||
+            validator.isEmpty(newUserData.address) ||
+            validator.isEmpty(newUserData.country) ||
+            validator.isEmpty(newUserData.city) ||
+            validator.isEmpty(newUserData.phoneNumber) ||
+            validator.isEmpty(newUserData.dateOfBirth) ||
+            !validator.isNumeric(newUserData.phoneNumber) 
+        ) {
+            return false;
+        }
+        return true;
     }
 
     return (
@@ -58,6 +93,7 @@ const RegistrationFormComponent = () => {
                         </input>
                         <input className='registration-input' 
                             placeholder='password' 
+                            type='password'
                             value={newUserData.password} 
                             onChange={(e) => setNewUserData({ 
                                 ...newUserData, 
@@ -66,6 +102,7 @@ const RegistrationFormComponent = () => {
                         </input>
                         <input className='registration-input' 
                             placeholder='confirme password' 
+                            type='password'
                             value={passwordConfirmation} 
                             onChange={(e) => setPasswordConfirmation(e.target.value)}>
                         </input>
@@ -141,7 +178,6 @@ const RegistrationFormComponent = () => {
 
             <div className='registration-buttons'>
                 <button className='registration-button' onClick={register} >Register</button>
-                <button className='registration-button' >Register with privilages</button>
             </div>
         </div>
     );

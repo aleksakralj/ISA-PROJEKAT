@@ -89,23 +89,22 @@ const PossibleAdventureAppointments = () => {
         }
 
         getUserPenalties();
-
-    //   
-            if(userPenalties.length < 3)
-                    {
-                AdventureAppointmentsService.createAdventureAppointment(appointment);
-            
-                updatePoints();
-                alert("You successfully scheduled appointment")
+  
+        if(userPenalties.length < 3)
+        {
+            AdventureAppointmentsService.createAdventureAppointment(appointment);
+        
+            updatePoints();
+            alert("You successfully scheduled appointment")
     
-        var params = {}
-        emailjs.send('service_5rghav8', 'template_6avct9t', params , 'gXf9s006PxRAmmhgz')
-        .then((resoult) => {
-                console.log(resoult.text)
-                window.location.reload(false);            
-            }, (error) => {
-                console.log(error.text)
-            });
+            var params = {}
+            emailjs.send('service_5rghav8', 'template_6avct9t', params , 'gXf9s006PxRAmmhgz')
+            .then((resoult) => {
+                    console.log(resoult.text)
+                    window.location.reload(false);            
+                }, (error) => {
+                    console.log(error.text)
+                });
         }
 
         else (
